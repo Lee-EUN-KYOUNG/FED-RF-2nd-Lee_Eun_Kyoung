@@ -42,7 +42,7 @@ text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
         - 색상 : 테두리색상
     */
     border: 2px solid darkorchid;
-
+    
     /* 둥근모서리 - border-radius (brad) */
     border-radius: 20px;
 
