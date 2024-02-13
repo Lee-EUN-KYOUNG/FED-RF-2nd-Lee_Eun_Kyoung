@@ -35,10 +35,44 @@
     </header>
     <!-- 2. 메인영역: 컨텐츠 -->
     <main id="main-area" class="part">
-      <!-- 2-1. 서브 타이틀 -->
-      <h2 class="sub-title">경제 뉴스</h2>
-    </main>
+          <!-- 2-1.서브 타이틀 -->
+          <h2 class="sub-title">경제 뉴스</h2>
+          <!-- 2-2.언론사로고-->
+          <div class="press-logo"></div>
+          <!-- 2-3.기사제목 -->
+          <h3 class="article-tile"></h3>
+          <!-- 2-4.기사사진 -->
+          <figure class="article-picture">
+            <!-- 이미지 -->
+            <!-- 이미지설명 -->
+            <figcaption></figcaption>
+          </figure>
+          <!--
+            [ figure 요소]
+            - 이미지나 표를 포함하는 박스요소
+            - 이미지설명은 하위요소인 figcation을 사용함
+            (설명이 필요없으면 생략한다!)
+          -->
+    
+    
+          <!-- 2-5.기사내용 -->
+          <section class="content"></section>
+          <!--
+           [p 요소 : 문단(Paragraph)]
+           - 문단을 구분하기 위한 요소
+           - 주의 : 내부에 div와 같은 block요소를 넣을 수 없다! (p 태그 한정으로 p 안에 다른 태그 못 넣음) 
+          -->
+    
+          <!-- 2-6. 기자정보-->
+          <div class="repoter"></div>
+    
+          <!-- 2-7. 기사원문-->
+          <h5 class="article-link">
+            <a href="" target="_blank">기사원문</a>
+          </h5>
 
+
+        </main> 
     <!-- 3. 하단영역 : 회사정보 -->
     <footer id="info-area" class="part">
       <!-- address : 주소, 전화번호, 대표자 등을 포함하는 시멘틱 태그 -->
