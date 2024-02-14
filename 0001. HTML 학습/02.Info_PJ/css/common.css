@@ -114,7 +114,6 @@ footer.part {
 .tit {
   font-family: "Noto Sans KR", serif;
   font-size: 45px;
-  font-family: "Noto Sans KR", serif;
   color: rgb(33, 33, 33);
   text-shadow: 2px 2px 3px #888;
   margin: -5px;
@@ -122,7 +121,7 @@ footer.part {
 }
 /* 메뉴 */
 .menu {
-  font-family: "Noto Sans KR", serif;
+  font-family: "Orbit", sans-serif;
 }
 /* 메뉴링크 */
 .menu a {
