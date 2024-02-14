@@ -112,22 +112,22 @@ footer.part {
 
 /* 타이틀 */
 .tit {
-  font-family: "Diphylleia", serif;
-  font-size: 40px;
-  font-family: "Diphylleia", serif;
-  color: darkblue;
+  font-family: "Noto Sans KR", serif;
+  font-size: 45px;
+  font-family: "Noto Sans KR", serif;
+  color: rgb(33, 33, 33);
   text-shadow: 2px 2px 3px #888;
   margin: -5px;
   margin-bottom: 31px;
 }
 /* 메뉴 */
 .menu {
-  font-family: "Orbit", sans-serif;
+  font-family: "Noto Sans KR", serif;
 }
 /* 메뉴링크 */
 .menu a {
   /* 글자색 */
-  color: #222;
+  color: #023e19;
   /* 글자밑줄없앰 */
   text-decoration: none;
   /* 글자크기 */
