@@ -81,7 +81,7 @@ text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
     .sub-title.economics{
     background-image: url(../images/titbg2.jpg);
         /* 글자색 : color (c) */
-        color: #efe35f;
+        color: #f8db04;
     }
     /* 사회 */
     .sub-title.socail{
@@ -99,5 +99,5 @@ text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
     .sub-title.tv{
     background-image: url(../images/titbg5.jpg);
                 /* 글자색 : color (c) */
-                color: #86adf2fe;
+                color: #ffcda3;
     }
