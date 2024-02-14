@@ -15,7 +15,9 @@
 */
 
 /* 서브 페이지 글씨체 지정하기 */
-
+#main-area{
+    font-family: "Noto Sans KR", sans-serif;
+}
 
 
 /* 서브페이지 타이틀 */
@@ -111,3 +113,21 @@ text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
                 color: #ffcda3;
     }
 
+/* 언론사 로고 */
+.press-logo img{
+    height: 32px;
+    /* 이미지는 가로/세로중 하나만 주면 비율을 유지하여 변경된다! */
+}
+/* 기사 타이틀 */
+.article-tile{
+    font-size: 32px;
+}
+
+/* 기사 이미지 박스 */
+.article-picture{
+margin: 0;
+}
+/* 기사 이미지 */
+.article-picture img{
+    width: 100%;
+}
