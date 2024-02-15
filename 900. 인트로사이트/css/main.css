@@ -1,4 +1,4 @@
-@charset "utf-8"
+@charset "utf-8";
 /* 인트로 사이트 메인 CSS - main.css */
 html,body{
     margin: 0;
@@ -6,8 +6,9 @@ html,body{
     height: 100%;
 }
 body{
-background-image:
- linear-gradient(to bottom, rgb(255, 183, 183), rgb(143, 219, 255));
+    background: url(../images/dinner-setting.jpg) no-repeat center/cover;
+/* background-image:
+ linear-gradient(to bottom, rgb(255, 183, 183), rgb(143, 219, 255)); */
  
  /* 
  [선형 그라데이션]
