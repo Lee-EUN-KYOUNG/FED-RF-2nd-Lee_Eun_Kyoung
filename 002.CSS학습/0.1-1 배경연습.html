@@ -11,7 +11,7 @@
             padding: 0;
         }
         html,body{
-            height: 100px;
+            height: 100%;
             /*
                 보이는 화면만큼 높이값을 줄때 100% 의미는? - body는 htm1을 기준함
                 html은 무엇을 기준하는가? - 보이는 화면을 기준한다!(window)
@@ -75,7 +75,41 @@
             위에서 개별 세팅한 배경속성이 초기화 된다!
          */
     }
-    /*  */
+    /* body 아래 .wrap박스 */
+    .wrap{
+        height: 100%;
+        /* 높이값을 body에 채움 */
+
+        /* 배경 한번에 쓰기를 사용하면 여러개의 배경 이미지를 넣을 수 있다
+            background : 색이반고윙/크, 색이반고윙/크,
+            [특징]
+            위쪽에 세팅된 배경 이미지가 위에 위치함
+            위치값의 가로는 left, 세로는 center가 기본값
+            위치나 크기의 특정값을 쓰지 않으면 기본값이 적용됨
+            위치값을 0으로 쓰면 기본값인 left가 center가 적용됨
+            위치값을 %로 쓰면 설정박스의 %위치를 이미지 중심을 기준으로 위치하게 됨 */
+         background:
+         /* 도깨비 이름 */
+         url(./imgs/d01.png) no-repeat 55% 64%/150px,
+         /* 도깨비 */
+         url(./imgs/dc1.png) no-repeat center/400px,
+         /* 지은탁 이름 */
+         url(./imgs/d02.png) no-repeat 99% 14%/150px,
+        /* 지은탁 */
+        url(./imgs/dc2.png) no-repeat right top/250px,
+        /* 저승사자 이름 */
+        url(./imgs/d033.png) no-repeat 11% 101%/100px,
+        /* 저승사자 */
+        url(./imgs/dc3.png) no-repeat left bottom/300px,
+        /* 써니 이름 */
+        url(./imgs/d044.png) no-repeat 5% 57%/83px,
+        /* 써니 */
+        url(./imgs/dc4.png) no-repeat left center/200px,
+        /* 도깨비 등장인물 */
+        url(./imgs/bg_mainvisual.jpg) no-repeat -17% -1%/1000px,
+        /* 도깨비 배경 */
+        url(./imgs/eachBG.jpg) no-repeat 26% 64%/1000px;
+    }
     </style>
 </head>
 <body>
