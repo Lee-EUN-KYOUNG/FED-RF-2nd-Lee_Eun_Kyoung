@@ -148,13 +148,96 @@ margin: 20px 0;
 /* 기사내용 */
 .content p{
     /* 글자크기: fz */
-    font-size: 17px;
+    font-size: 18px;
     /* 줄간격 : lh
         line-height 줄간격은 글자의 중앙에서 위아래 높이값을 말하며 글자는 중앙에 흐른다
         단위는 없을 경우 글자 크기의 배수로 셋팅됨
         Ctrl키와 Alt키로 비율 조절 가능
     */
-    line-height: 1.56;
+    line-height: 1.7;
     /* 글자색 */
     color: #333;
+}
+
+/* 인라인 인용구 */
+.content q{
+    font-weight: bold;
+}
+/* mark 요소 디자인 변경 */
+.content mark{
+    display: block;
+    /* 크기요소는 인라인일때 적용안됨! */
+    width: 65%;
+    /* 크기를 가진 블록요소 중앙정렬
+        -마영오! margin : 0 auto */
+    margin: 15px auto;
+    /* 글자 중앙 정렬 : tac */
+    text-align: center;
+
+    /* 박스 디자인 변경 */
+    padding: 20px 50px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+
+    /* 배경색 */
+    background-color: #f5ebeb;
+    /* 글자색 */
+    color: rgb(255, 8, 74);
+    /* 글자체 : 웹폰트 */
+    font-family: 'diphylleia', serif;
+    font-weight: bold;
+}
+
+/* 인용구박스 */
+.quote-box{
+border-top: 2px dashed #ccc;
+border-bottom: 2px dashed #ccc;
+margin: 20px 0;
+}
+/* 인용구 제목 */
+.quote-box h4{
+    /* 기본 display가 block 이어서 글씨만큼 크기를 가지려면 inline-block으로 바꿔야한다 */
+    display: inline-block;
+    font-size: 20px;
+    border: 1px solid #f9f7e2;
+    border-radius: 30px;
+    width: 250px;
+    text-align: center;
+    padding: 15px;
+    /* 박스 그림자
+        box-shadow : x축, y축, blur, spread
+        x축 : 가로축 이동
+        y축 : 세로축 이동
+        blur : 경계선 흐림
+        spread : 그림자 기존보다 더한 크기
+        box-shadow : x축, y축, blur spread(그림자,빛)색 -> spread는 그림자 기존 크기보다 더한 크기임
+        색 : 그림자 색 -> 내부 그림자일 경우 inset 키워드를 앞에 씀*/
+    /* box-shadow: 4px 4px 5px #888; */
+    box-shadow: inset 0 0 20px #beb053;
+}
+/* 블록인용박스 */
+.quote-box blockquote{
+    /* 기본 마진 없애기 */
+    margin: 0;
+    font-size: 15px;
+    line-height: 2.1;
+    /* 양쪽정렬 : taj */
+    text-align: justify;
+    /* 자식요소인 float 속성을 사용할 경우 부모박스에서 자식요소를 인식하지 못하는 경우가 발생함
+    이것을 해결하기 위한 한 가지 방법으로 넘치는 요소 숨기기 속성을 세팅하면 된다! */
+    overflow: hidden;
+}
+/* 블록인용 이미지 */
+.quote-box img{
+    /* 기본적으로 이미지는 인라인요소이며 글자가 왼쪽으로 한줄 하단에 나열된다!
+    글자가 옆에 올라와서 흘러가게 하려면 float 속성을 사용해야한다!
+    float : left -> 이미지는 왼쪽에 글자는 오른쪽
+    float : right -> 이미지는 오른쪽에 글자는 왼쪽 */
+    float: right;
+    /* 이미지 옆에 공간주기 */
+    margin-left: 10px;
+    /* 둥근모서리 */
+    /* 박스그림자 */
+    border-radius: 10px;
+    box-shadow: 0 0 2px #555;
 }
