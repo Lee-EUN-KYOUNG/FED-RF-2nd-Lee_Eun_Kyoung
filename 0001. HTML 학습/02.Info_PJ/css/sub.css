@@ -325,12 +325,28 @@ padding: 20px;
     -> 패딩을 주는 순간 자식의 마진은 패딩의 내부 공간을 밀게 된다! */
 
 border: 3px dotted #7d7979;
+box-shadow: 0 0 10px #333;
 background-origin: border-box;
 
-/* 배경색 관련 영역 지정 (기본값)
+/* 배경 그림자 효과
 background-origin: border-box; */
-/* 배경 이미지 관련 영역지정 (기본값)
-background-clip: padding-box; */
+background-repeat: no-repeat;
+
+/* 배경 반복 제거
+background-repeat: no-repeat; */
+
+
+/* 배경색 관련 표시 영역 지정 (기본값) background-clip
+background-clip: border-box; 보더 영역까지 표시
+background-clip: padding-box; 패딩 영역까지 표시
+background-clip: content-box; 내용 영역까지 표시 */
+
+
+/* 배경관련 시작 영역지정 (기본값) background-origin
+background-origin: boreder-box; 보더 영역부터 시작
+background-origin: padding-box; 패딩 영역부터 시작
+background-origin: content-box; 내용 영역부터 시작
+*/
 
 }
 
@@ -345,4 +361,23 @@ background-clip: padding-box; */
     margin: 0;
     /* 부모에 패딩 없는 상태에서 첫번째 자식 마진은 부모 바깥으로 나감!
         참고) 마지막 자식 블록 요소도 부모 박스 하단 마진은 바깥으로 나감! */
+}
+
+/* 작품틀 */
+.work img{
+    border: 12px ridge goldenrod;
+}
+
+/* 작품명 */
+.work figcaption{
+    font-family: "Gugi", sans-serif;
+    font-size: 20px;
+    margin-top: 20px;
+}
+/* 작품명 인용구 */
+.work cite{
+    /* 이탤릭체 해제 */
+    font-size: normal;
+    /* 글자색 */
+    color: darkmagenta
 }
