@@ -39,7 +39,7 @@ h2.sub-title{
     - 콤마로 구분된 글자체는 대체체임
     앞의 글자체가 없으면 뒤의 글자체가 적용됨. 만약 모두 없으면 브라우저 기본체가 적용됨! */
     /* font-family: '맑은 고딕','궁서','글림','돋음'; */
-font-family: 'Bagel Fat One'; system-ui;
+font-family: 'Bagel Fat One', system-ui;
 
 /* 텍스트 정렬 - text-align:center (tac : 중앙정렬) */
 text-align: center;
@@ -297,4 +297,52 @@ aspect-ratio: 16/9;
     background-color: rgb(251, 219, 132);
     box-shadow: 0 0 10px rgb(253, 224, 105);
     /* box-shadow : x y blur (sprea) color; */
+}
+
+/* 오늘의 작품&느낌 */
+.work{
+/* 글자크기, 글자정렬은 자식요소로 상속됨 */
+text-align: center;
+/* 그라데이션
+    [선형 그라이데이션 : linear-gradient]
+    linear-gradient(방향,색1,색2...);
+    linear-gradient(방향,색1,몇%,색2,몇%...);
+    linear-gradient(각도,방향,색1,몇%,색2,몇%...);
+    옵션 : to top, to bottom, to left, to rgiht
+    각도 : 각도 deg
+    콤마로 나열된 색상 뒤에 % 수치를 쓰면 비율 조정 가능
+*/
+/* background-image: linear-gradient(to right,red 5%, blue 20%, blue 80%, yellow); */
+background-image:
+linear-gradient(45deg, pink 5%, skyblue 55%, lavender 80%);
+
+/* padding */
+padding: 20px;
+
+/* 부모박스에 패딩이 없는 상태에서 첫번째 자식 블록박스의 마진은 부모 바깥쪽으로 나가서 셋팅된다
+    이유는 마진은 바깥쪽으로 세팅하는 개념이고 부모가 이를 세팅하지 않았다면
+    첫번째 블록박스에서 마진을 세팅할 수 있도록 기본 설계 되어있다
+    -> 패딩을 주는 순간 자식의 마진은 패딩의 내부 공간을 밀게 된다! */
+
+border: 3px dotted #7d7979;
+background-origin: border-box;
+
+/* 배경색 관련 영역 지정 (기본값)
+background-origin: border-box; */
+/* 배경 이미지 관련 영역지정 (기본값)
+background-clip: padding-box; */
+
+}
+
+
+/* 작품 타이틀 */
+.work h4{
+    font-family: "Black And White Picture", system-ui;
+    font-weight: normal;
+    font-size: 35px;
+    color: #333;
+
+    margin: 0;
+    /* 부모에 패딩 없는 상태에서 첫번째 자식 마진은 부모 바깥으로 나감!
+        참고) 마지막 자식 블록 요소도 부모 박스 하단 마진은 바깥으로 나감! */
 }
