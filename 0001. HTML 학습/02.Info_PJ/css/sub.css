@@ -324,29 +324,29 @@ padding: 20px;
     첫번째 블록박스에서 마진을 세팅할 수 있도록 기본 설계 되어있다
     -> 패딩을 주는 순간 자식의 마진은 패딩의 내부 공간을 밀게 된다! */
 
-border: 3px dotted #7d7979;
-box-shadow: 0 0 10px #333;
-background-origin: border-box;
+border: 5px dotted #666464;
 
 /* 배경 그림자 효과
 background-origin: border-box; */
-background-repeat: no-repeat;
+box-shadow: 0 0 10px #333;
 
 /* 배경 반복 제거
 background-repeat: no-repeat; */
+background-repeat: no-repeat;
 
 
-/* 배경색 관련 표시 영역 지정 (기본값) background-clip
+/* 배경색 관련 표시 영역 지정 : background-clip
 background-clip: border-box; 보더 영역까지 표시
 background-clip: padding-box; 패딩 영역까지 표시
 background-clip: content-box; 내용 영역까지 표시 */
-
+background-clip: border-box;
 
 /* 배경관련 시작 영역지정 (기본값) background-origin
 background-origin: boreder-box; 보더 영역부터 시작
 background-origin: padding-box; 패딩 영역부터 시작
 background-origin: content-box; 내용 영역부터 시작
 */
+background-origin: padding-box;
 
 }
 
@@ -363,7 +363,7 @@ background-origin: content-box; 내용 영역부터 시작
         참고) 마지막 자식 블록 요소도 부모 박스 하단 마진은 바깥으로 나감! */
 }
 
-/* 작품틀 */
+/* 작품 이미지 */
 .work img{
     border: 12px ridge goldenrod;
 }
