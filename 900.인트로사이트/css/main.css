@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* 인트로 사이트 메인 CSS - main.css */
+
 html,body{
     margin: 0;
     padding: 0;
@@ -18,10 +18,11 @@ body{
  */
 }
 .wrap{
-    border: 2px dashed darkblue;
-    border-radius: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 50px;
     width: 600px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
 }
+ 
