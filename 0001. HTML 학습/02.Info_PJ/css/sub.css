@@ -589,9 +589,9 @@ text-align: center;
 /* 두번째 td - 기사제목링크 */
 .photo-news td:nth-child(2){
 /* 배경색 : bgc */
-background-color: #e4e4e4;
+    background-color: #e4e4e4;
 /* 패딩 양쪽 */
-padding: 0 20px;
+    padding: 0 20px;
 }
 
 /* 세번째 td */
@@ -600,10 +600,30 @@ padding: 0 20px;
     background-color: #e4e4e4;
 }
 
-
 /* 사진뉴스 이미지 */
 .photo-news img{
     height: 70px;
     /* 이미지 높이값만 주면 가로 크기는 자동으로 비율 조정됨! */
     vertical-align: middle;
+}
+/* 사진 뉴스 두번째 tr부터 마진탑 넣기 */
+.photo-news tr+tr td{
+    border-top: 2px solid #ccc;
+}
+
+/* 사진 뉴스 기사 링크 2줄 말줄임 표시 셋팅하기 */
+.photo-news td:nth-child(2) a{
+    /* 말줄임 처리 (2줄) */
+    /* 1.넘치는 컨텐츠 숨기기 */
+    overflow: hidden;
+    /* 2.넘치는 글 말줄임 표시 */
+    text-overflow: ellipsis;
+    /* 3.디스플레이 display: -webkit-box;로 변경 */
+    display: -webkit-box;
+    /* 4. 말줄임 표시 라인 설정 : 숫자가 줄수임 */
+    -webkit-line-clamp: 2;
+    /* 5. 기준축 진행 방향 설정 */
+    -webkit-box-orient: vertical;
+    /* 줄간격 변경 */
+    line-height: 1.5;
 }
