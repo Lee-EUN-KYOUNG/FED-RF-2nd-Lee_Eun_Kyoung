@@ -406,8 +406,8 @@ background-origin: padding-box;
     text-shadow: 1px 1px 1px #000;
 }
 
-/* 뉴스 공통 말줄임표시 넣기 */
-.news-box li{
+/* 뉴스 공통 말줄임표시 넣기 + 분야별 뉴스도 추가 */
+.news-box li, .sec-news dd {
     /* 기본적으로 블록 박스는 내용이 넘치면 줄바꿈이 되는 랩핑 박스가 기본이다!
      줄바꿈 방지하는 속성은 white-space:no-wrap; (기본값은 normal)
      */
@@ -491,10 +491,45 @@ border-radius: 50%;
 content: '🏳‍🌈';
 }
 
+/* 분야별뉴스 dt의 가상 클래스를 사용한 선택법
+    [2가지 이상의 종류의 자식 요소가 있을 경우 선택법]
+    :first-of-type -> 첫번째 타입(요소)중 첫번째
+    :last-of-type -> 마지막 타입(요소)중 마지막째
+    :nth-of-type(n) -> n번째 타입(요소)중 n번째(n은 1부터)
+*/
 
+/* 분야별 뉴스 dt별 글자색,배경색 변경하기 */
+/* 정치 */
+.sec-news dt:first-of-type{
+    color: rgb(232, 74, 74);
+    background-color: lightgreen;
+    border-color: yellowgreen;
+}
+.sec-news dt:nth-of-type(2){
+    color: rgb(169, 20, 33);
+    background-color: lightpink;
+    border-color: darkmagenta;
+}
+.sec-news dt:nth-of-type(3){
+    color: rgb(9, 148, 118);
+    background-color: lightcyan;
+    border-color: darkblue;
+}
+.sec-news dt:nth-of-type(4){
+    color: rgb(103, 112, 1);
+    background-color: lightsalmon;
+    border-color: rgb(37, 86, 210);
+}
+.sec-news dt:nth-of-type(5){
+    color: blue;
+    background-color: lightgoldenrodyellow;
+    border-color: rgb(68, 90, 9);
+}
 
-
-
+/* 첫번째 dt를 제외한 나머지 dt 마진탑 주기 */
+.sec-news dd+dt{
+    margin-top: 21px;
+}
 
 
 
