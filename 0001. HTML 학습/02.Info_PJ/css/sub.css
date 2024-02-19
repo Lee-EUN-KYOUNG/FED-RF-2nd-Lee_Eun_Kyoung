@@ -583,6 +583,8 @@ text-align: center;
     height: 84px;
     /* 글자중앙 */
     text-align: center;
+    /* 배경색 : bgc */
+    background-color: #ccc;
 }
 /* 두번째 td - 기사제목링크 */
 .photo-news td:nth-child(2){
