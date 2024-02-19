@@ -269,7 +269,42 @@
         </dd>
       </d1>
     </article>
-    </main>
+    <!-- 
+      [테이블 요소 : table]
+      table > tbody > tr > td
+      -> tbody는 안 쓰고 tr 부터 구현해도 브라우저가 자동으로 그려준다!
+      주의) table > tr 로 직계 선택하게 되면 위와 같은 구조적인 이유로 선택되지 않는다!
+
+      ____________________________________________
+
+      [간단한 테이블 작성시 필수 요소 3가지]
+      table : 테이블 박스 부모 요소
+      tr : 테이블 행 요소 (table row)
+      td : 테이블 데이터 요소 (talbe data)
+     -->
+  <!-- 사진 뉴스 : table -->
+  <article class="photo-news news-box">
+    <h3>사진뉴스</h3>
+    <!-- 3행3열 테이블 구성하기 -->
+    <table>
+      <tr>
+        <td>1</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </article>
+</main>
 
     <!-- 3. 하단영역 : 회사정보 -->
     <footer id="info-area" class="part">
