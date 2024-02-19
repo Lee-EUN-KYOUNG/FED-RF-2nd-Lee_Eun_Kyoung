@@ -432,9 +432,12 @@ background-origin: padding-box;
 }
 
 /* 주요 뉴스 ul 변경하기 */
-.main-news ul{
+.news-box ul, .news-box ol{
     /* 기본리스트 숨기기 */
     list-style: none;
+    /* 기본 마진,패딩없애기 */
+    margin: 0;
+    padding: 0;
 }
 
 /* 주요 뉴스에 가상 요소로 아이콘 넣기 */
@@ -453,6 +456,20 @@ content: '★';}
     - 이미지는 content 속성값으로 url() 사용!
 */
 
+/* 뷴야별 뉴스 d1 */
+.sec-news dl{
+margin: 0;
+}
+/* 분야별 뉴스 dt */
+.sec-news dt{
+font-family: "Gugi", sans-serif;
+font-size: 20px;
+border: 4px dashed darkcyan;
+padding: 10px;
+display: inline-block;
+border-radius: 50%;
+
+}
 
 
 
