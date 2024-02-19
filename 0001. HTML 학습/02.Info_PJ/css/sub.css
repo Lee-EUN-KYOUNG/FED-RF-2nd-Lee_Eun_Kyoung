@@ -405,6 +405,21 @@ background-origin: padding-box;
     color: rgb(12, 30, 236);
     text-shadow: 1px 1px 1px #000;
 }
+
+/* 뉴스 공통 말줄임표시 넣기 */
+.news-box li{
+    /* 기본적으로 블록 박스는 내용이 넘치면 줄바꿈이 되는 랩핑 박스가 기본이다!
+     줄바꿈 방지하는 속성은 white-space:no-wrap; (기본값은 normal)
+     */
+    /* 1. 줄바꿈방지 */ /* whs */
+    white-space: nowrap;
+    /* 2. 넘치는 내용 숨기기 */ /* oh */
+    overflow: hidden;
+    /* 3. 넘치는 텍스트 말줄임표(입,립스..) */  /* tov */
+    text-overflow: ellipsis;
+}
+
+
 /* 뉴스 타이틀 공통 */
 .news-box h3{
     font-family: "Black And White Picture", system-ui;
@@ -428,7 +443,7 @@ background-origin: padding-box;
 content: '★';}
 
 .main-news ul li::after{
-content: '☆';}
+content: '★';}
 
 /* [CSS 가상 요소 : before, after]
     - 모든 요소는 맨앞과 맨뒤에 가상요소를 사용할 수 있다!
@@ -437,6 +452,7 @@ content: '☆';}
     - 필수속성 : content
     - 이미지는 content 속성값으로 url() 사용!
 */
+
 
 
 
