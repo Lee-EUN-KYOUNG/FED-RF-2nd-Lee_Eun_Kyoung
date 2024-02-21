@@ -175,7 +175,25 @@
         .absimg img{
             position: absolute;
         }
+    /* 두번째 이미지 투명하게 만들기 */
+    .absimg img:last-child{
+        opacity: 0;
+        /* filter: opacity(); 이전에 쓴 투명도 방식*/
+        /* [opacity 속성 : 투명도]
+            - 실제로 요소가 위치하고 있지만 화면에 투명하게 보이는 속성
+            - 값 : 0 완전투명 / 1 불투명 / 0.n 중간 투명도 */
 
+        transition: 1.2s;
+        /* 트랜지션(transition) : 두 상태간 애니메이션 효과 속성
+            transition : 속성 시간 이징 지연시간 (속시이지로 외우면 편함)
+            -> 간단하게는 애니메이션 시간만 쓰면 모든 변화가 애니메이션 된다! (시간은 초단위 s)
+        */
+    }
+
+    /* 박스에 마우스 오버시 두번째 이미지 나타나기 */
+    .absimg:hover img:last-child{
+        opacity: 1;
+    }
     </style>
 </head>
 <body>
@@ -185,7 +203,7 @@
 <div class="bx" id="a1" title="나는 젠틀앱솔루트다!">a1</div>
 <div class="bx" id="r2">r2</div>
 <div class="bx" id="s2">s2</div>
-<div class="bx" id="a2">a2</div>
+<div class="bx" id="a2" title="나는 보이는 화면이 기준이다! 부모가 없어서ㅠㅠ">a2</div>
 
 
 <!-- 앱솔루트 : 판타롱스타킹! -->
