@@ -85,7 +85,7 @@ html,body,.page{
 }
 /* 오버시 */
 .menu a:hover{
-    color: rgb(255, 255, 86);
+    color: rgb(65, 64, 64);
     text-decoration: overline;
     text-decoration-style: solid;
 }
