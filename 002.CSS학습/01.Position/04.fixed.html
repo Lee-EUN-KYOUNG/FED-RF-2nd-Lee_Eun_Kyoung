@@ -62,9 +62,6 @@
             z-index: 1;
         }
 
-
-
-
         /* 첫번째 앱솔루트 박스 */
         #a1{
             position: absolute; /* poa */
@@ -227,6 +224,48 @@
     .absimg:hover img:last-child{
         opacity: 1;
     }
+
+    /* 포스터보기 fixed 적용 박스 */
+    .fixed-poster{
+        position: fixed;
+        top: 250px;
+        right: -190px;
+        z-index: 999;
+        /* 트랜지션 : trs */
+        transition: 0.3s;
+    }
+    /* 오버시 보이기 */
+    .fixed-poster:hover{
+        right: 0;
+    }
+    /* 글자 span */
+    .fixed-poster span{
+        position: absolute;
+        top: 0;
+        left: -50px;
+        /* 부모는? .fixed-poster */
+        width: 50px;
+        height: 300px;
+        background-color: lightskyblue;
+
+        /* 글자 세로 모드 */
+        writing-mode: vertical-lr;
+        /* writing-mode: vertical-lr; 세로방향 왼쪽에서 오른쪽으로 */
+        font-size: 25px;
+        text-align: center;
+        padding-left: 20px;
+        /* 자간 ls */
+        letter-spacing: 10px;
+        /* 둥근 모서리 보더 방향별 주기 border-radius: 왼위 오른위 오른아래 왼아래; 왼쪽위부터 시계방향 */
+        border-radius: 15px 0 0 15px;
+    }
+        
+        /* 포스터 이미지 */
+    .fixed-poster img{
+        height: 300px;
+        /* 하단 간극 없앰vam */
+        vertical-align: middle;
+    }
     </style>
 </head>
 <body>
@@ -239,6 +278,12 @@
 <div class="bx" id="s2">s2</div>
 <div class="bx" id="a2" title="나는 보이는 화면이 기준이다! 부모가 없어서ㅠㅠ">a2</div>
 
+
+<!-- 포스터 보기 fixed 적용 -->
+<div class="fixed-poster">
+    <img src="./images/ab0.jpg" alt="포스터">
+    <span>포스터보기</span>
+</div>
 
 <!-- 앱솔루트 : 판타롱스타킹! -->
 <div class="a5" title="앱솔루트 판타롱스타킹~!">
