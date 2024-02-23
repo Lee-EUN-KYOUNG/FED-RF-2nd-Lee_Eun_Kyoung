@@ -95,10 +95,10 @@ body * {
 /* 입 */
 .mouth{
     position: absolute;
-    top: 185px;
-    left: 72px;
-    width: 105px;
-    height: 44px;
+    top: 186px;
+    left: 80px;
+    width: 88px;
+    height: 36px;
     background: url(../images/mouth.png) no-repeat 0/100% 100%;
 }
 
@@ -171,6 +171,44 @@ body * {
     height: 180px;
 }
 
+/* 팔 원형관절 가상요소 공통 */
+/* 큰원 */
+.arm::before{
+    content: '';
+    position: absolute;
+    /* 부모는? .arm */
+    top: calc(100% - 50px/2);
+    left: 0;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    border-radius: 50%;
+    border: 2px solid #000;
+    background-color: #ccc;
+    /* 보더 때문에 박스가 커지므로 패딩, 보더 포함 박스 설정하기 */
+    box-sizing: border-box;
+}
+
+/* 작은원 */
+.arm::after{
+    content: '';
+    position: absolute;
+    /* 부모는? .arm */
+    top: calc(100% - 40px/2);
+    /* 부모 박스 바깥으로 모두 밀고 원 크기 절반 빼기 */
+    left: calc(50% - 40px/2);
+    /* 부모 박스 절반만큼 밀고 원크기 절반 빼기(가로 중앙) */
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    border-radius: 50%;
+    /* 그라데이션 배경 */
+    background-image: linear-gradient(to bottom, #ccc, #222);
+    /* 박스 내부 그림자 : bsh -> inset */
+    box-shadow: inset 0 0 5px #222;
+    
+}
+
 /* 팔 하단 공통 */
 .arm span{
     position: absolute;
@@ -180,6 +218,31 @@ body * {
     width: 80%;
     height: 80%;
 }
+
+/* 팔 하단 가상요소 손만들기 공통 */
+.arm span::after{
+    content: '';
+    position: absolute;
+    /* 부모는? span */
+    top: 100%;
+    width: 70px;
+    height: 100px;
+    /* outline: 2px dotted lime; */
+    /* 배경공통 */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+/* 왼손 */
+.arm1 span::after{
+    background-image: url(../images/hand_left.png);
+    left: -10px;
+}
+/* 오른손 */
+.arm2 span::after{
+    background-image: url(../images/hand_right.png);
+    right: -10px;
+}
+
 
 /* 위치 잡기 */
 /* 왼팔 */
@@ -210,6 +273,38 @@ body * {
     height: 80%;
 }
 
+/* 다리 하단 가상요소 부츠만들기 공통 */
+.leg span::before{
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: -15%;
+    width: 130%;
+    height: 120%;
+    background-image: linear-gradient(to right, #ccc, #222);
+    border: 5px solid #000;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 5px #222;
+}
+
+/* 부츠 하단 */
+.leg span::after{
+    content: '';
+    position: absolute;
+    top: 120%;
+    left: -30%;
+    width: 160%;
+    height: 40%;
+    background-image: linear-gradient(75deg, #ccc, #222);
+    border: 5px solid #000;
+    border-radius: 40px 40px 0 0;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 5px #222;
+}
+
+
+
+
 /* 위치 잡기 */
 /* 왼다리 */
 .leg1{
@@ -219,6 +314,65 @@ body * {
 .leg2{
     right: -0px;
 }
+
+/* 어깨 공통 */
+.shdr{
+    position: absolute;
+    width: 70px;
+    height: 70px;
+}
+/* 왼어깨 */
+.shdr1{
+    left: -70px;
+    /* 둥근모서리 */
+    border-radius: 30px 0 0 30px;
+}
+/* 오른어깨 */
+.shdr2{
+    right: -70px;
+    border-radius: 0 30px 30px 0;
+}
+/* TV */
+.tv{
+    position: absolute;
+    top: 61px;
+    left: 31px;
+    width: 160px;
+    height: 111px;
+    background: url(../images/tv.jpg) no-repeat 0/100% 100%;
+
+}
+
+/* 스크린 */
+.screen{
+    position: absolute;
+    /* 부모는? .tv */
+    top: 14px;
+    left: 10px;
+    width: 106px;
+    height: 71px;
+    border: 2px dashed blue;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 유툽 iframe */
+.screen iframe{
+    position: absolute;
+    /* 부모는? .screen */
+    top: -3px;
+    left: -2px;
+    width: 107px;
+    height: 74px;
+    opacity: .5;
+}
+
+
+
+
+
+
+
 
 
 
