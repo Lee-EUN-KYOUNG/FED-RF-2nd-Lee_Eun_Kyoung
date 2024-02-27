@@ -219,12 +219,78 @@
             틸드(~)는 다중형제선택자
             선택요소~요소명
             -> 선택요소 뒤에 있는
-            모든 형제 요소를 선택함! 
+            모든 형제 요소를 선택함!
+            [시작부터 특정 순번까지만 선택하려면?]
+            - 틸드 뒤에 선택 가상 클래스를 nth-child()를 사용하여 마지막 대입순번을 만들어준다!
+            nth-child(-n + 원하는 순번). n은 0부터 대입되므로 주의
+            예) nth-child (-n+20) -> 20,19,18...
+                주의! -n을 반드시 먼저 써야함!
         */
-        .part1 li:nth-child(4)~li{
+
+        /* 순번이후 끝까지 선택되는 수식 */
+        .part1 li:nth-child(4)~li:nth-child(-n+9){
+            /* 5번째부터 9번째까지 선택됨! */
             font-size: 24px;
             color: darkgoldenrod;
         }
+        
+        /* 짝수번째 li 그라이데이션 넣기 :nth-child(even) */
+        /* 홀수번째 li 그라이데이션 넣기 :nth-child(odd) */
+        .part1 li:nth-child(even){
+            background-image: linear-gradient(to right, rgb(163, 251, 246), rgba(242, 189, 255, 0.977));
+        }
+        .part1 li:nth-child(odd){
+            background-image: linear-gradient(to left, rgb(248, 175, 203), rgba(240, 255, 191, 0.977));
+        }
+        /* nth-child(3n+1) 가상요소 아이콘 넣기 -> 
+           n이 들어간 수식. n에 0부터 대입된 순번이 계산되어 선택된다
+           예) 3n+1 -> 1,4,7,10,......... */
+        .part1 li:nth-child(3n+1)::before{
+            content: '😺';
+        }
+        /* 마지막 li 선택 */
+        .part1 li:last-child{
+            font: 40px '고딕';
+            font-weight: bold;
+            /* 특정 글자에 배경 그라데이션 반영하기 */
+            /*   1. 배경 그라데이션 넣기 */
+            background-image: linear-gradient(to right, #ff49dd, #20fd6e);
+            /*   2. 배경 부분 보이기 'text'로 설정 */
+            background-clip: text;
+            /*   3. 글자 채우기 색 'transparent' 투명 설정 */
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 여러 종류의 요소가 섞여 있을 경우 of-type 가상 클래스 사용한다! */
+        .part2 i{
+            /* pointer 손가락모양 */
+            cursor: pointer;
+        }
+        .part2 div{
+            /* pointer 손가락모양 */
+            cursor: pointer;
+        }
+        .part2 div:nth-of-type(2){
+            font :30px '궁서';
+            color: rgb(144, 0, 255);
+        }
+        .part2 i:first-of-type{
+            font :25px '굴림';
+            color: red;
+        }
+        /* i 중 첫번째 이후 모든 요소 선택 */
+        .part2 i:first-of-type ~ span {
+            font-family: '궁서';
+            color: darkred;
+        }
+        /* 틸드(~)뒤에 별(*)있는 자리에 특정요소를 쓰면 이후에 있는 특정요소만 적용된다
+            예) .part2 i:first-of-type~div / i / span
+        */
+
+
+
+
+
     </style>
 </head>
 <body>
