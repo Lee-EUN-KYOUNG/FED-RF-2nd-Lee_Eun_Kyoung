@@ -49,7 +49,7 @@
             무조건 첫번째 줄에 온 글자만 적용된다!
             - 단, 블록요소에만 적용(인라인요소를 블록화하여도 됨)
 
-
+            참고) https://www.w3schools.com/css/css_pseudo_elements.asp
              */
         /* h2요소 맨앞에 이미지 넣기 */
        h2::before{
@@ -151,29 +151,58 @@
             margin-right: 20px; 
         }
             
-
-    
+        dt:nth-of-type(1)::before{
+            content: '🎈';
+        }
+        dt:nth-of-type(2)::before{
+            content: '📀';
+        }
+        dt:nth-of-type(3)::before{
+            content: '🎤';
+        }
+        
+        dt:nth-of-type(4)::before{
+            content: '💿';
+        }
+        
+        
         /* .story의 첫번째 p태그의 첫번째 글자 디자인 변경하기 */
-        
-        
+        .story p:nth-of-type(1)::first-letter{
+            font-size: 50px;
+            font-weight: bold;
+            color: hotpink;
+        }
         
         /* .story의 첫번째 p태그의 첫번째줄 디자인 변경하기 */
-        
-        
-
-
+        .story p:nth-of-type(1)::first-line{
+            font-size: 30px;
+            color: blue;
+            font-family: '굴림';
+        }
 
         /* 두번째 p태그는 태그로 
         첫번째 글자(b태그), 첫번째 줄(span)변경 */
         
-        
-
+        .story p:nth-of-type(2) b{
+            font-size: 50px;
+            color: hotpink;
+        }
+        .story p:nth-of-type(2) span{
+            font-size: 30px;
+            color: blue;
+            font-family: '굴림';
+        }
         
 
         /* 기타 가상요소 ::selection */
         /* 드래그 선택시 글자색 배경색 설정변경! */
-        
-        
+        /* p::selection { */
+        ::selection {
+            color: rgb(31, 14, 158);
+            background-color: powderblue;
+        }
+
+    
         /* ::selection만쓰면 전체가 다 적용됨! 
         특정선택자::selection 으로 쓰면 자식태그로 싸지 않은 글자만 적용됨!*/
     </style>
