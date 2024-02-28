@@ -73,10 +73,15 @@
             width: 40px;
             height: 60px;
             border: 2px solid gray;
+            /* 간격 조정 */
+            margin-left: 20px;
+            vertical-align: -10px;
+
             border-radius: 5px;
             background: url(./imgs/bg_logo_a_01.png) no-repeat center/80%;
 
             /* 박스 그림자 여러개 두기 */
+            /* x y blur spread 색 등 콤마로 연결하면 여러개 사용 가능 */
             box-shadow: 0 0 10px purple, 10px 10px 5px 2px rgba(0, 0, 255, 0.164);
         }
         
@@ -98,26 +103,56 @@
         }
 
         /* 반복되는 요소의 앞에 아이콘 가상요소로 넣기 */
-        
+        dt::before{
+            content: '🕍♥';
+            font-size: 30px;
+            vertical-align: 2px;
+            color: pink;
+        }
 
         /* dd전체 before적용하기 */
-               
-
-
+        dd::before{
+            content: '🧑';
+            font-size: 30px;
+            vertical-align: 2px;
+            color: pink;
+        }     
+        /* 여자인경우 이모지 변경 */
+        dd:nth-of-type(3)::before,
+        dd:nth-of-type(4)::before,
+        dd:nth-of-type(8)::before,
+        dd:nth-of-type(9)::before,
+        dd:nth-of-type(11)::before,
+        dd:nth-of-type(12)::before{
+            content: '👩‍🦰';
+            font-size: 30px;
+            vertical-align: 2px;
+            color: pink;
+        } 
         /* 출연배우의 dd부터 아이콘변경 */
-       
-        
         /* 아티스트의 dd부터 아이콘변경 */
+        dd:nth-of-type(13)::before{
+            content: '👦👩‍🦰';
+            font-size: 30px;
+            vertical-align: 2px;
+            color: pink;
+        } 
         
-
         /* 스토리의 dd는 가상요소 없애기 */
         
+        dd:nth-of-type(14)::before{
+            content: ''; /* display: none; 해도 사라짐 */
+        }
         
         /* 스토리의 dd 아래 h3 이모지넣기 */
         
-        
-        
+        dd.story h3::before{
+            content: '🎬';
+            margin-right: 20px; 
+        }
+            
 
+    
         /* .story의 첫번째 p태그의 첫번째 글자 디자인 변경하기 */
         
         
