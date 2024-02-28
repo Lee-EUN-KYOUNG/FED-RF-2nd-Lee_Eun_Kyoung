@@ -118,6 +118,10 @@
             // 전체문서.가져와 아이디 요소 (아이디명).html넣기
             document.getElementById('name').innerHTML = '<img src="./images/kim.png" alt="김비서가 왜이럴까">';
 
+          /* 콘솔에 아이디 요소 찍기 */
+          console.log(document.getElementById('name'));
+            // 아이디 요소는 한번에 요소를 선택함
+
             // 3. CSS 변경하기 ////
             // 변경대상 : .pbox
             // CSS 변경 객체 : style.속성명
@@ -128,13 +132,16 @@
             console.log(
               document.getElementsByClassName('pbox')
             );
-
+            
+            // 여러개를 만들 수 이는 클래스, 태그 선택은 HTML Collection에 담는다!
+            // 그래서 구체적인 요소를 선택할 때는 item(순번)/[순번]을 사용하여 선택함!
             // 구체적인 클래스 요소 선택하기 :item(n)
-            // 반복적으로 사용되는 요소는 특정 공간에 저장하여 사용하면 메모리 사요 ㅇ관리가 효율적으로 운영된다
+            // 반복적으로 사용되는 요소는 특정 공간에 저장하여 사용하면 메모리 사용관리가 효율적으로 운영된다
             // 특정 메모리공간은 바로 '변수'라고 하며 선언과 동시에 할당 행위를 통해 값을 저장한다
             // 변수는 여기를 '봐' var 로 선언
             // var qustnaud = 값
             var 피박스 = document.getElementsByClassName('pbox').item(0);
+            /* document.getElementsByClassName('pbox').item(0); -> .item[0]으로도 사용 가능 */
 
             /* 변수를 사용하는 이유?
               - 변수는 재사용
