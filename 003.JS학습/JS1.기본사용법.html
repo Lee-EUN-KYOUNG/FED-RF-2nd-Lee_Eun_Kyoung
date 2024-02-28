@@ -304,7 +304,7 @@
           // 대상: .원이야(해당순번)
 
           멍청이.classList.remove('on');
-          
+
           /* 멍청이.classList.add('on'); -> 넣기
           멍청이.classList.toggle('on'); -> 넣기/빼기
           
@@ -313,12 +313,46 @@
           2. 클래스 삭제 remove(클래스명)
           3. 클래스 넣기/빼기 : toggle(클래스명)
           */
-
-
-
-
-
         } ////////////////맘대로 해라 함수
+
+        /**************************************************************************************************************** 
+          함수명 : 사각사각
+          기능 : 전체가 사격형으로 화면을 채우며 애니메이션됨
+        
+        ****************************************************************************************************************/
+        function 사각사각(){
+          // 1. 함수 호출 확인
+          console.log("사각사각하세요~!");
+
+          // 2. 대상 선정 : .넌뭐냐
+          var 나야나 = document.querySelector('.넌뭐냐');
+
+          // 선택 요소
+          console.log(나야나);
+
+          // 3. 변경내용 : top 트랜지션 width height
+          나야나.style.top = '0';
+          나야나.style.borderRadius = '0';
+          나야나.style.width = '100%';
+          나야나.style.height = '100%';
+          나야나.style.transition = '3s 1s, top 1s 0s';
+          나야나.style.zIndex = 100;
+          /* top값부터 1초간 작동함 */
+          /* 추가 변경 글자넣기 */
+          // innerText = 글자내용 -> 태그없는 글자 데이터 넣기
+          나야나.innerText = 'JS입문을 환영합니다!';
+
+          //5. 글자 CSS 넣기
+          나야나.style.fontSize = '70px';
+          나야나.style.color = 'aqua';
+          나야나.style.fontWeight = 'bold';
+          나야나.style.textShadow = '5px 5px 3px #000';
+          나야나.style.lineHeight = window.innerHeight +'px';
+          /* window.innerHeight - 현재 화면의 높이값을 리턴 */
+          // 화면 높이값
+          console.log('화면높이값:',window.innerHeight);
+
+        } ////////사각사각 함수
 
     </script>
     <style>
@@ -410,7 +444,22 @@
 
         }
       }
+      /* 전체 사각형으로 변할 원 */
+      .넌뭐냐{
+            position: absolute;
+            top: 40%;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            white-space: nowrap;
+            border-radius: 50%;
+            background: #bbd3b3 url(./images/prog.jpg) no-repeat center/auto 100%;
+        }
 
+
+        
   </style>
 </head>
 <body>
@@ -432,7 +481,8 @@
   <div class="원이야 on" 
   onmouseover="맘대로해라(2,'밤의 카페 테라스')"></div>
 </div>
-
+  <!-- 사각형으로 변할 전체 마무리 원박스 -->
+  <div class="넌뭐냐" title="더블클릭해주세요!" ondblclick="사각사각()"></div>
 
 
   <!-- <div class="pbox"></div>
