@@ -248,12 +248,57 @@
           멍청이 = 멍청이.item(헐);
 
           // 3-1. 트랜지션
-          멍청이.style.transition = '1s ease-out';
+          멍청이.style.transition = 
+          `1s ease-out,
+          boder-radius .5s ease-in-out 1s
+          `;
 
           /* 3-2. 위치 이동 top right */
           멍청이.style.top = 'calc(100% - 200px)';
           멍청이.style.right = 'calc(100% - 200px - '+헐+'*200px)';
 
+         /* console.log(calc(100% - 200px - '+헐+'*200px));
+          console.log(calc(100% - 200px - 헐*200px)); */
+          /* 
+          
+          [문자 데이터와 변수 합치기]
+          따옴표를 내부에 2개 넣고 +를 2개 넣고 사이에 변수를 넣으면 중간 변수 삽입됨
+          예) 
+          var na = '한국';
+          "나는 사람이다" -> "나는"+na+"사람이다"
+          '나는 사람이다' -> '나는'+na+'사람이다'
+          만약 앞뒤에 변수를 합칠때에는 더하(+) 기호만 사용하면 된다
+          
+          
+          */
+
+          /* 3-3 원형을 사각형으로 변경 */
+          멍청이.style.borderRadius = '0';
+
+          /* 3-4. 액자보더 넣기 */
+          멍청이.style.border = '10px ridge goldenrod';
+
+          /* 4-1. HTML 넣기 : 그림 제목 */
+          멍청이.innerHTML = '<h4>고흐<br>'+헉스+'</h4>';
+
+          /* 만들어진 h4 태그 확인하기 */
+          console.log('<h4>고흐<br>'+헉스+'</h4>');
+
+          // 4-2. 넣은 h4 요소에 CSS 한번에 넣기
+          // 한번에 CSS를 세팅하는 방법 : style.cssText 속성
+          // 주의 : 상단에서 세팅된 style.속성명이 있다면 한번에 세팅된 CSS로 모두 덮어써짐
+          // 백틱(`)을 사용하여 엔터를 허용한 문자표시법을 사용하여 세팅한다
+          멍청이.querySelector('h4').style.cssText =
+          `
+          position: absolute;
+          bottom: 10px;
+          width: 100%;
+          color: #fff;
+          font-size: 14px;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+          `;
 
         } ////////////////맘대로 해라 함수
 
