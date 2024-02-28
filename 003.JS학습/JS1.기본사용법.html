@@ -224,9 +224,25 @@
 
         function 맘대로해라(헐,헉스){
           // 헐 - .원이야 순번 / 헉스 - 그림제목
+
           // 1. 함수 호출 확인
           console.log("니맘대로하세요~!",헐,헉스);
+          
+          // 2. 대상 선정 : .박스야 .원이야
+          var 멍청이 = document.querySelectorAll('.박스야 .원이야');
+          // 주의 : 따옴표 안은 CSS 선택자 문법을 써야함
 
+          // 기존 기본 선택방시기 너무 길다! -> 따라서 간단한 CSS 선택자 선택법이 있다
+          // 1. querySelector(css선택자) - 하나만 바로 선택
+          // 2. querySelectorAll(css선택자) - 컬렉션에 담는다
+          // -> 2번방식은 .item(순번)/[순번]으로 세부 선택
+          // -> length로 컬렉션 길이도 알 수 있음
+
+          /* document.getElementsByClassName('박스야').item(0).getElementsByClassName('원이야'); */
+
+          console.log(멍청이);
+
+    
         } ////////////////맘대로 해라 함수
 
     </script>
