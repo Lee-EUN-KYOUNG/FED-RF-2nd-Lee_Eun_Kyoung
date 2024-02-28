@@ -211,6 +211,24 @@
 
 
         } /////김비서 함수///////
+
+        /******************************************************************************************************************** 
+        
+          함수명 : 맘대로해라
+          기능 : 선택요소의 style과 html을 변경함
+
+        
+        
+        
+        ********************************************************************************************************************/
+
+        function 맘대로해라(헐,헉스){
+          // 헐 - .원이야 순번 / 헉스 - 그림제목
+          // 1. 함수 호출 확인
+          console.log("니맘대로하세요~!",헐,헉스);
+
+        } ////////////////맘대로 해라 함수
+
     </script>
     <style>
       html,body{
@@ -256,6 +274,34 @@
       p.pbox{
           z-index: 1;
       }
+
+      /* 원이야 */
+      .원이야{
+        position: absolute;
+        top: 0;
+        right: 0;
+        /* 부모는? window */
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        /* 배경 공통 */
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* 보더박스: 보더 패딩 포함 */
+        box-sizing: border-box;
+      }
+      /* 원모양 개별 세팅 */
+      .원이야:nth-child(1){
+        right: 400px;
+        background-image: url(./images/01.png);
+      }
+      .원이야:nth-child(2){
+        right: 200px;
+        background-image: url(./images/02.png);
+      }
+      .원이야:nth-child(3){
+        background-image: url(./images/03.png);
+      }
   </style>
 </head>
 <body>
@@ -267,6 +313,18 @@
           
       </span>
   </p>
+<!-- 원 모양 박스 -->
+<div class="박스야">
+  <!-- 원모양 -->
+  <div class="원이야" 
+  onmouseover="맘대로해라(0,'별이 빛나는 밤')"></div>
+  <div class="원이야" 
+  onmouseover="맘대로해라(1,'론강의 별이 빛나는 밤')"></div>
+  <div class="원이야" 
+  onmouseover="맘대로해라(2,'밤의 카페 테라스')"></div>
+</div>
+
+
 
   <!-- <div class="pbox"></div>
   <a href="" class="pbox"></a>
