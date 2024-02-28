@@ -300,6 +300,24 @@
           padding: 0;
           `;
 
+          /* 5. .원이야 클래스 on 제거하여 회전 애니 없애기 */
+          // 대상: .원이야(해당순번)
+
+          멍청이.classList.remove('on');
+          
+          /* 멍청이.classList.add('on'); -> 넣기
+          멍청이.classList.toggle('on'); -> 넣기/빼기
+          
+          [JS의 클래서 제어 객체 : ClassList]
+          1. 클래스 넣기 add(클래스명)
+          2. 클래스 삭제 remove(클래스명)
+          3. 클래스 넣기/빼기 : toggle(클래스명)
+          */
+
+
+
+
+
         } ////////////////맘대로 해라 함수
 
     </script>
@@ -375,6 +393,24 @@
       .원이야:nth-child(3){
         background-image: url(./images/03.png);
       }
+
+      /* .원이야 .on일 경우 애니 적용하기 */
+      .원이야.on{
+        /* 애니메이션 케프레임 호출은 animation 속성으로 */
+        /* animation: 키프레임이름 시간 가속도 반복횟수 */
+        animation: rotate-ani 5s linear infinite;
+      }
+
+      /* .원이야 회전 키프레임
+        -> 애니메이션을 위한 정면 연출 구역을 키프레임이라고 함 
+      */
+      @keyframes rotate-ani{
+        to{/* CSS 나중 상태 */
+          transform: rotate(360deg);
+
+        }
+      }
+
   </style>
 </head>
 <body>
@@ -389,11 +425,11 @@
 <!-- 원 모양 박스 -->
 <div class="박스야">
   <!-- 원모양 -->
-  <div class="원이야" 
+  <div class="원이야 on" 
   onmouseover="맘대로해라(0,'별이 빛나는 밤')"></div>
-  <div class="원이야" 
+  <div class="원이야 on" 
   onmouseover="맘대로해라(1,'론강의 별이 빛나는 밤')"></div>
-  <div class="원이야" 
+  <div class="원이야 on" 
   onmouseover="맘대로해라(2,'밤의 카페 테라스')"></div>
 </div>
 
