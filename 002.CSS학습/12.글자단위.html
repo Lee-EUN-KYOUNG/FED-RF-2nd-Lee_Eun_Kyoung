@@ -84,7 +84,7 @@
 
          /* 32px */
          .f1{
-            
+            font-size: 2em;
             /* 
                 상속된px * 배수 = 몇px
                 16px * x = 32px
@@ -99,13 +99,13 @@
 
          /* 24px */
          .f2{
-            
+            font-size: 0.75em;
             /* 0.75em = 24px / 32px */
          }
 
          /* 14px */
          .f3{
-            
+            font-size: 0.58em;
             /* 0.58em = 14px / 24px */
          }
 
@@ -113,20 +113,21 @@
 
          /* 32px */
          .rf1{
-            
+            font-size: 2rem;
             /* rem = 원하는px / html의px
                   = 32px / 16px = 2rem */
          }
 
          /* 24px */
          .rf2{
-            
+            font-size: 1.5rem;
             /* rem = 원하는px / html의px
                   = 24px / 16px = 1.5rem */
          }
 
          /* 14px */
          .rf3{
+            font-size: 0.87rem;
             /* rem = 원하는px / html의px
                   = 14px / 16px = 0.87rem */
          }
@@ -135,30 +136,76 @@
          /* % 단위 -> em단위 * 100 */
          /* 32px */
          .pf1{
+            font-size: 200%;
             /* 2em * 100 = 200% */
          }
          /* 24px */
          .pf2{
+            font-size: 75%;
             /* 0.75em * 100 = 75% */
          }
          /* 16px */
          .pf3{
+            font-size: 58%;
             /* 0.58em * 100 = 58% */
          }
 
+         /* 
+            [CSS 미디어쿼리]
+            - 화면의 가로 크기에 대한 CSS 설정값을 변경할 수 있도록
+              코드 구역을 설정하여 변경해주는 CSS 미디어체크 코드 구역
 
+              형식 : @media (only) screen and (min-width: npx) / (max-width: npx) {CSS 설정}
+              1. 미디어쿼리 체크파티
+                - screen / only screen => 미디어쿼리를 사용할 수 있는 브라우저만 통과함
+              2. 최대 크기 : (max-width:몇px)
+              3. 최소 크기 : (min-width:몇px)
+              => 최대만 쓰면 그 사이즈 이하 모두 포함 / 최소만 쓰만 그 사이즈 이상 모두 포함
+              4. and 연결자 : 구문 사이를 연결함
+         */
+         /* 미디어쿼리 - 1000px 이하 */
+         @media screen and (max-width:1000px){
+            /* em단위와 %단위만 변경됨! => 이유는 부모요소로부터 상속된 크기를 기준한 상대 단위이기 때문
+               rem 단위가 그대로인 이유는 html를 기준하므로 변경사항이 없기 때문! */
+            body{font-size: 40px;}
+         } /* 1000px 이하 */
          
+         /* 미디어쿼리 : 800px 이하 */
+         @media screen and (max-width:800px){
+            /* root인 html 글자크기를 변경함 - rem단위만 변경됨!
+                왜? body 크기는 변경되어 있으므로 영향을 주지 못해 em/% 단위는 변경없음
+            */
+            html{font-size: 30px;}
+         } /* 800px 이하 */
+
+         /* 미디어쿼리 : 700px 이하 */
+         @media screen and (max-width:700px){
+            /* 상대단위를 개별적으로 부분 상대 변경을 할 경우 */
+            .fl{font-size: 20px;}
+         } /* 700px 이하 */
+
+            /* 미디어쿼리 : 700px 이하 */
+            @media screen and (max-width: 700px) {
+            /* 상대단위를 개별적으로
+            부분상대변경을 할 경우! */
+            .wrap{
+                font-size: 20px;
+            }
+         } /* 700px 이하 */
+
+
 
     </style>
 </head>
 <body>
     <h1>em단위</h1>
-    <div class="f1">1.큰 제목입니다. 
-        <div class="f2">2.작은 제목입니다. 
-            <div class="f3">3.내용입니다.</div>
+    <div class="wrap">
+        <div class="f1">1.큰 제목입니다.
+            <div class="f2">2.작은 제목입니다.
+                <div class="f3">3.내용입니다.</div>
+            </div>
         </div>
     </div>
-
     <hr>
 
     <h1>rem단위</h1>
