@@ -544,11 +544,8 @@ margin-bottom: 560px;
     text-align: justify;
     /* 양쪽 정렬시 영문자는 단어를 깨줘야함! wbb */
     word-break: break-all;
-
-    color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 1px #000000b3;
-    padding: 10px;
-    border-radius: 20px;
+        /* 첫줄 들여쓰기 : text-indent(ti) */
+        text-indent: 40px;
 }
 
 /* 가상요소 첫글자 변경하기 */
@@ -556,9 +553,7 @@ margin-bottom: 560px;
     font-size: 2.8em;
     color: hotpink;
     font-weight: bold;
-    /* 첫줄 들여쓰기 : text-indent(ti) */
-    text-indent: 40px;
-    }
+}
 
 
 
