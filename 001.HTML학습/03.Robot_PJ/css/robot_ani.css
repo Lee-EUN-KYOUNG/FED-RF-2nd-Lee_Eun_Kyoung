@@ -147,3 +147,19 @@
         transform: scale(1) rotate(-30deg);
     }
 }
+/* 로봇 이동 애니 */
+.robot-box {
+    /* 애니메이션 : 이시이지반방마 - 4초간 한번만 끝상태 유지 */
+    animation: moving-robot 4s ease-in-out 4s forwards;
+}
+@keyframes moving-robot{
+    to{
+        transform: translate(-50%, 0%) scale(0.7);
+    }
+}
+
+/* 로봇다리 작동 애니 */
+@keyframes leg-ani{
+    from{}
+    to{}
+}
