@@ -158,8 +158,19 @@
     }
 }
 
+
+
+/* 실습 - 확인후 삭제 또는 삭제할 영역 */
+.leg1 {
+    animation: leg-ani 4s ease-in-out 4s forwards;
+
+}
+.leg2 {
+    animation: leg-ani 4s ease-in-out 4s forwards;
+
+}
 /* 로봇다리 작동 애니 */
 @keyframes leg-ani{
-    from{}
-    to{}
+    from{transform: scaleY(1) translate(-16px)}
+    to{transform: scaleY(1) translate(16px);}
 }
