@@ -70,6 +70,7 @@ h1.logo{
 .robot-box{
 padding-top: 200px;
 margin-bottom: 560px;
+transform: scale(0.3);
 }
 /* 2-1-1.로봇머리 */
 .head{
