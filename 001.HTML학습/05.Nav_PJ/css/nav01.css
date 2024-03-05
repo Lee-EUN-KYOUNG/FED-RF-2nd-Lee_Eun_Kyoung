@@ -69,7 +69,8 @@ ul::after,ol::after,.clb::after{
     left: 50%;
     /* x축 중앙이동 */
     transform: translateX(-50%);
-
+    /* 상속된 두꺼운체 노멀체로 변경 */
+    font-weight: normal;
     width: 200px;
     background-color: #00000060;
     border-radius: 10px;
@@ -115,23 +116,31 @@ ul::after,ol::after,.clb::after{
 }
 
 
-/* 오버시 */
+/* 상위 메뉴 오버시 */
 .gnb ul>li:hover .smenu li{
-    opacity: 1;
+    opacity: .7;
 }
+
+/* 하위 메뉴 오버시 */
+.gnb ul>li .smenu li:hover{
+    opacity: 1;
+    font-weight: bold;
+    transition-delay: 0;
+}
+
 
 /* 오버시 li 순서별 트랜지션 delay 주기 */
 .gnb ul>li:hover .smenu li:nth-child(2){
-    transition-delay: .2s;
+    transition-delay: .1s;
 }
 .gnb ul>li:hover .smenu li:nth-child(3){
-    transition-delay: .4s;
+    transition-delay: .3s;
 }
 .gnb ul>li:hover .smenu li:nth-child(4){
-    transition-delay: .5s;
+    transition-delay: .4s;
 }
 .gnb ul>li:hover .smenu li:nth-child(5){
-    transition-delay: .6s;
+    transition-delay: .5s;
 }
 
 
