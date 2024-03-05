@@ -51,6 +51,14 @@ ul::after,ol::after,.clb::after{
     margin-left: 63px;
 }
 
+/* GNB 메뉴 하위 a 요소 */
+.gnb a {
+    display: block;
+    /* 블록요소로 확장설정함! */
+}
+
+
+
 /* 상위 메뉴만 적용하기 -> 직계자식(>) 선택으로 상위메뉴만 선택함 */
 .gnb ul > li{
     position: relative;
@@ -112,26 +120,31 @@ ul::after,ol::after,.clb::after{
     /* 투명하게 */
     opacity: 0;
     /* 트랜지션 */
-    transition: opacity .4s;
+    transition: all .4s;
 }
 
 
 /* 상위 메뉴 오버시 */
 .gnb ul>li:hover .smenu li{
-    opacity: .7;
+    opacity: 1;
 }
 
-/* 하위 메뉴 오버시 */
-.gnb ul>li .smenu li:hover{
+/* 하위 메뉴 a 요소 투명도 opacity 조정 */
+.gnb ul>li .smenu li a{
+    opacity: 7;
+    transition: .3s;
+}
+
+/* 하위 메뉴 a요소에 오버시 */
+.gnb ul>li .smenu li a:hover{
     opacity: 1;
     font-weight: bold;
-    transition-delay: 0;
 }
 
 
 /* 오버시 li 순서별 트랜지션 delay 주기 */
 .gnb ul>li:hover .smenu li:nth-child(2){
-    transition-delay: .1s;
+    transition-delay: .2s;
 }
 .gnb ul>li:hover .smenu li:nth-child(3){
     transition-delay: .3s;
