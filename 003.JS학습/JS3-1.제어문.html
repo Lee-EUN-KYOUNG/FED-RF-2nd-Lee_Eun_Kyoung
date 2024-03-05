@@ -45,6 +45,41 @@
                 // -> 점수가 담긴 score 변수 검사함
                 //if(true){console.log('조건통과!!!');}
 
+                // 메시지 변수
+                var msg;
+                //90점 이상일때
+                if(score >= 90){
+                    msg = '매우잘함';
+                }
+
+                //if(score >= 80 && score < 90){}
+                // else if 를 안쓰고 if를 쓰면 구간설정을 해야됨
+
+                // 80점 이상일때
+                else if(score >= 80){
+                    msg = '잘함';
+                }
+
+                // 70점 이상일때
+                else if(score >= 70){
+                    msg = '보통';
+                }
+
+                // 60점 이상일때
+                else if(score >= 60){
+                    msg = '노력요함';
+                }
+                // 60점 미만일때 (그밖 모든 경우 else)
+                else{
+                    msg = '재시험';
+                }
+
+
+
+
+                // 6. 화면 출력하기 -> innerText는 텍스트 출력
+                jexp.innerText = msg;
+
 
 
 
@@ -85,7 +120,7 @@
             // 테스트 1 : undefined
             // 선언 후 할당되지 않은 변수값은 undefined임!
             showResult();
-            
+
             // 테스트 2 : 숫자 -> 0은 false, 이외의 모든 수는 true
             // true는 1, false는 0과 1:1 매칭됨
             condition = 1;
