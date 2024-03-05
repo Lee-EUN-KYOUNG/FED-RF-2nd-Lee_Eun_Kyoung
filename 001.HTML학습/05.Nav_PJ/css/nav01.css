@@ -42,12 +42,56 @@ ul::after,ol::after,.clb::after{
     margin: 0 auto;
     outline: 2px dashed lime;
 }
-/* GNB 메뉴 */
-.gnb li{
-    float: left;
-    line-height: 78px;
-    padding: 0 32px 0;
+/* 로고박스 */
+.logo{
+    padding: 13px 0;
 }
+/* GNB 메뉴 */
+.gnb{
+    margin-left: 63px;
+}
+
+/* 상위 메뉴만 적용하기 -> 직계자식(>) 선택으로 상위메뉴만 선택함 */
+.gnb ul > li{
+    position: relative;
+    /* 부모자격 - smenu의 left 값 */
+    float: left;
+    padding: 0 32px 0;
+    line-height: 78px;
+    font-weight: bold;
+    /* 글자 관련 셋팅은 하위 요소로 모두 상속됨! */
+}
+
+/* 서브 메뉴 */
+.smenu{
+    position: absolute;
+    /* 가운데 셋팅 */
+    left: 50%;
+    /* x축 중앙이동 */
+    transform: translateX(-50%);
+
+    width: 200px;
+    background-color: #00000060;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 38px;
+    /* 패딩이 있으면 높이값 0 숨기기가 안됨! 그래서 하위 요소인 ol 태그에 패딩 줌 */
+    /* padding: 10px; */
+    /* 숨기기 장치 */
+    height: 0;
+    overflow: hidden;
+    /* 트랜지션 */
+    transition: height .4s;
+}
+/* 상위 li 마우스 오버시 서브 메뉴 보이기 */
+.gnb ul >li:hover .smenu{
+    height: 210px;
+}
+
+.smenu ol{
+    padding: 10px;
+}
+
 
 /* 메인영역 */
 .main-area {
