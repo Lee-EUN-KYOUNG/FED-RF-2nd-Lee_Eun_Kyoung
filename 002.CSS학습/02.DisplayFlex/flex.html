@@ -5,11 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>플렉스 디스플레이</title>
     <style>
+    /* 
+        [ 플렉스 디스플레이 박스 ]
+        flex 란? - flexible(유연한-에서 나온말)
+        - 가변적인 자식요소를 컨트롤하기 위해
+        CSS3에서 새롭게 선보인 display 기술
 
-        
+        [ 플렉스 셋팅법 ]
+        1. 대상: 컨트롤할 요소들의 직계부모요소
+        2. 등분할셋팅:
+         - 자식요소를 같은 비율로 채울 때
+         자식요소에 flex속성값을 1로 쓰면 된다!
+        3. 일반적인 셋팅:
+         - 특정크기나 내용이 있는 블록요소인 자식을
+         옆으로 흐르게 한다(flex셋팅 일단 불필요!)
+    
+    */
+    /* 초기화 */
+    html,body,h1,h2,ol,ul{
+        margin: 0;
+        padding: 0;
+    }
+    ol,ul{
+        list-style: none;
+    }
+    /* 전체 박스 */
+    .wrap{
+        height: 100vh;
+        /* 보이는 화면 채우기 */
+    }
+    /* 등분할 flex 적용 박스 */
+    .flex-box{
+        height: 100%;
+    }
+    /* 기존방식 */
+    .flex-box li{
+        float: left;
+        /* 가로크기가 내용만큼만 생기므로 등분할은 계산하여 %준다. 그리고 세로 크기도 채우기를 하려면 100% 셋팅해야한다 */
+        width: calc(100%/5);
+        height: 100%;
+    }
+    /* 등분할 박스 li 개별셋팅 */
+    .flex-box li:nth-child(1){
+                background: url(./images/m01_bg.jpg) no-repeat center/cover;
+            }
+            .flex-box li:nth-child(2){
+                background: url(./images/m02_bg.jpg) no-repeat center/cover;
+            }
+            .flex-box li:nth-child(3){
+                background: url(./images/m03_bg.jpg) no-repeat center/cover;
+            }
+            .flex-box li:nth-child(4){
+                background: url(./images/m04_bg.jpg) no-repeat center/cover;
+            }
+            .flex-box li:nth-child(5){
+                background: url(./images/m05_bg.jpg) no-repeat center/cover;
+            }
     </style>
 </head>
 <body>
-    
+    <!-- 전체 랩핑박스 -->
+    <div class="wrap">
+        <!-- 등분할 파티션박스 -->
+        <ul class="flex-box">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+
+
+
 </body>
 </html>
