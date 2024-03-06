@@ -69,13 +69,34 @@
             transition: top .3s,transform .3s .3s;
             /* top 바로 0.3초 애니, transform은 0.3초 대기후 0.3초 애니 중앙이동후 회전함!  */
         }
+
+        /* 2번째 햄버거 버튼 두번째 이동 */
+        .hambtn2 {
+        transform: scale(0.1);
+        transform-origin: right top;
+        position: absolute;
+        top: 2vw;
+        right: 3vw;
+}
     </style>
 </head>
 <body>
-    <div class="hambtn on">
+    <div class="hambtn" onclick="this.classList.toggle('on')">
         <span></span>
         <span></span>
         <span></span>
     </div>
+    <div class="hambtn hambtn2" onclick="this.classList.toggle('on')">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- 
+        this.classList.toggle('on')
+        ____________________________________________________________________
+        1. this -> 햄버거버튼 자신 (.hambtn)
+        2. classlist -> 클래스를 제어하는 객체
+        3. toggle(클래스명) -> 설정한 클래스가 없으면 넣고 있으면 넣는 메서드
+     -->
 </body>
 </html>
