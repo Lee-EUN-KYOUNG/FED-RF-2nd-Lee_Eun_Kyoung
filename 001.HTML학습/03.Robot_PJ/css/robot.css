@@ -86,7 +86,7 @@ h1.logo{
     /* 글자 셋팅 */
     color: blue;
     text-decoration: none;
-    font: 2vw/5vw 'Black Ops One';
+    font: 1.8vw/5vw 'Black Ops One';
 }
 /* 오버시 설정 */
 .btn-top:hover {
@@ -141,7 +141,7 @@ h1.logo{
     position: absolute;
     top: 55%;
     left: -17%;
-    transform: rotate(53deg);
+    transform: rotate(49deg);
     width: 0;
     height: 44px;
     /* 보더탑 크기+색 설정 */
