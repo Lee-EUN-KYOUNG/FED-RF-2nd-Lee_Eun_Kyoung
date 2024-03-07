@@ -250,58 +250,111 @@
                 기능 : 지역명을 입력하면 지역 국번을 안내한다
       *****************************************************************************************/
 
+      function showLocal() {
+        // 1. 함수호출확인
+        // console.log('지역국번이 뭐야?');
 
-        function showLocal() {
-            // 1. 함수호출확인
-            // console.log('지역국번이 뭐야?');
+        // 2. 대상선정
+        // 2-1. 입력 요소 : input#local
+        var local = document.querySelector("#local");
+        // 2-2. 출력 요소 : h3#info
+        var info = document.querySelector("#info");
+        //console.log('대상선정:',local,info);
 
-            // 2. 대상선정
-            // 2-1. 입력 요소 : input#local
-            var local = document.querySelector('#local');
-            // 2-2. 출력 요소 : h3#info
-            var info = document.querySelector('#info');
-            //console.log('대상선정:',local,info);
+        // 3. 입력된 값 읽어오기
+        var txt = local.value;
+        // input 요소의 값은 value 속성으로 읽어온다
+        // 일반적으로 선택요소의 속성을 이퀄 오른쪽에 쓰면 값을 읽어오고
+        // 이퀄 왼쪽에 쓰고  오른쪽에 값을 쓰면 값이 셋팅됨
+        // 예) document.querySelector('aa').src = 값 -> 속성값 세팅
+        // 예) var bb= document.querySelector('aa').src -> 속성값 읽어오기
+        //console.log('입력값:',txt);
 
-            // 3. 입력된 값 읽어오기
-            var txt = local.value;
-            // input 요소의 값은 value 속성으로 읽어온다
-            // 일반적으로 선택요소의 속성을 이퀄 오른쪽에 쓰면 값을 읽어오고
-            // 이퀄 왼쪽에 쓰고  오른쪽에 값을 쓰면 값이 셋팅됨
-            // 예) document.querySelector('aa').src = 값 -> 속성값 세팅
-            // 예) var bb= document.querySelector('aa').src -> 속성값 읽어오기
-            //console.log('입력값:',txt);
+        // 4. 빈값 걸러내기
+        // trim() 문자열 앞뒤공백 제거 메서드
+        if (txt.trim() == "") {
+          // 경고창 띄우기
+          alert("값을 입력후 조회하세요~!");
+          // 입력창 데이터 초기화
+          local.value = "";
+          // 입력창 포커스
+          local.focus();
+          // 함수 나감! 리턴안하면 함수 하단이 실행됨
+          return;
+        } // if //
+        // 5. 지역명을 switch case 문으로 분류하여 메시지 넣기
+        // 메시지 변수
+        var message;
+        switch (txt) {
+          case "서울":
+            message = "02";
+            break;
+          case "경기":
+            message = "031";
+            break;
+          case "인천":
+            message = "032";
+            break;
+          case "부산":
+            message = "051";
+            break;
+          case "대구":
+            message = "053";
+            break;
+          case "광주":
+            message = "062";
+            break;
+          case "전북":
+            message = "063";
+            break;
+          case "전남":
+            message = "061";
+            break;
+          case "경북":
+            message = "054";
+            break;
+          case "경남":
+            message = "055";
+            break;
+          case "세종":
+            message = "044";
+            break;
+          case "울산":
+            message = "052";
+            break;
+          case "대전":
+            message = "042";
+            break;
+          case "충북":
+            message = "043";
+            break;
+          case "충남":
+            message = "041";
+            break;
+          case "제주":
+            message = "064";
+            break;
+          default:
+            message = "etc";
+        } /// switch case ////
+        console.log("스위치결과:", message);
 
-            // 4. 빈값 걸러내기
-            // trim() 문자열 앞뒤공백 제거 메서드
-            if(txt.trim()==""){
-                // 경고창 띄우기
-                alert("값을 입력후 조회하세요~!");
-                // 입력창 데이터 초기화
-                local.value = "";
-                // 입력창 포커스
-                local.focus();
-                // 함수 나감! 리턴안하면 함수 하단이 실행됨
-                return;
+        // 6.
+        if (message == "etc") {
+          message = "등록되지 않은 지역입니다!";
+        }
+        /// if ///
+        else {
+          message = `${txt}의 지역번호는 ${message}입니다!`;
+        } // else //
+        
+        // 7. 화면 출력하기//
+        // 출력대상 : #info -> info 변수
+        info.innerText = message;
+        // 선택 요소 .innerText -> 요소의 문자 데이터 넣기. html 태그를 넣을 때는 innerHTML 사용
+      } //////// showLocal 함수 ///////////////
 
-            // 5. 지역명을 switch case 문으로 분류하여 메시지 넣기
-            // 메시지 변수
-            var message;
-            switch (txt){
-                case '서울' : message = '02'; break;
-                case '경기' : message = '031'; break;
-                case '인천' : message = '032'; break;
-                case '부산' : message = '051'; break;
-                default: message = 'esc';
-            } // switch case ///
-            console.log('스위치결과:',message);
-
-
-             /// if ///
-
-
-        } //////// showLocal 함수 ///////////////
-
-        /**********************************************
+      /**********************************************
         [ switch case문 ]
         - 단일조건을 분류하여 실행문을 만들어 줄때 사용하는 제어문
 
@@ -442,6 +495,7 @@
       <!-- 칭찬 스티커 박스 -->
       <div class="jshow"></div>
     </div>
+
     <br /><br />
     <hr />
 
