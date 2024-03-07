@@ -67,6 +67,7 @@ h1.logo{
 
 
 /**************** 2.메인영역 ****************/
+
 /* 2-1.로봇박스 */
 .robot-box{
     position: fixed;
@@ -75,8 +76,47 @@ h1.logo{
     transform: translate(147%, 18%) scale(0.3);
     /* padding-top: 200px; */
     margin-bottom: 560px;
+    
+}
+/* 로봇 말풍선 */
+.link-title{
+    position: absolute;
+    top: 0vw;
+    left: 57%;
+    /* 로봇머리로부터 위치 일정하게 */
+    transform: translateX(200px) scale(0);
+    /* 로봇쪽에서 커지게 하기 위해 트랜스폼 기준 변경(왼쪽아래) */
+    transform-origin: left bottom;
+    width: 29vw;
+    height: 15vw;
+    border-radius: 50%;
+    background-color: #fff;
+    text-align: center;
+    line-height: 15vw;
+    text-decoration: none;
+    color: deeppink;
+    font-size: 3vw;
+    border: 3px dashed deeppink;
+    box-sizing: border-box;
+  }
+
+/* 가상요소로 삼각형 만들기 */
+.link-title::after{
+    content: "";
+    position: absolute;
+    top: 55%;
+    left: -17%;
+    transform: rotate(53deg);
+    width: 0;
+    height: 44px;
+    /* 보더탑 크기+색 설정 */
+    border-top: 11vw solid deeppink;
+    /* 양쪽보더 크기+투명색 설정 */
+    border-left: 1vw solid transparent;
+    border-right: 1vw solid transparent;
 
 }
+
 /* 2-1-1.로봇머리 */
 .head{
     position: relative;

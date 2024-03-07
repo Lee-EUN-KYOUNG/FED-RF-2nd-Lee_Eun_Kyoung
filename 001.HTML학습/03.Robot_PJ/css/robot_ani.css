@@ -179,7 +179,7 @@ animation-delay: 4.3s;
 }
 
 /* 팔 공통 트랜스폼 세로축 기준 top으로 변경 */
-.arm1, .arm span, .arm span::after {
+.arm, .arm span, .arm span::after {
     transform-origin: top;
 }
 /* 로봇 왼쪽팔 허리에 올리기 */
@@ -207,5 +207,55 @@ animation-delay: 4.3s;
 @keyframes left-arm-ani3 {
     to{
         transform: rotate(65deg);
+    }
+}
+/* 로봇 오른쪽팔 올리기 */
+.arm2 {
+    animation: right-arm-ani1 0.4s 9s forwards,
+    right-arm-ani2 0.4s ease-in-out 9.4s infinite alternate;
+}
+@keyframes right-arm-ani1 {
+    to{
+        transform: rotate(-150deg);
+    }
+}
+/* 로봇 오른쪽팔 손흔들기 */
+@keyframes right-arm-ani2 {
+    to{
+        transform: rotate(-135deg);
+    }
+}
+/* 오른손 팔꿈치 살짝 움직이기 */
+.arm2 span{
+    animation: right-arm-ani3 0.4s ease-in-out 9.8s infinite alternate;
+}
+
+/* 오른손 팔꿈치 키프레임 */
+@keyframes right-arm-ani3 {
+    to {
+      transform: rotate(-15deg);
+    }
+  }
+/* 오른손 Y축회전 */
+.arm2 span::after{
+    animation: right-arm-ani4 0.2s 9s forwards;
+}
+
+/* 오른손 Y축회전 키프레임 */
+@keyframes right-arm-ani4 {
+    to {
+      transform: rotateY(180deg);
+      left: -13px;
+    }
+  }
+
+/* 말풍선 나타나기 애니 */
+.link-title{
+    animation: show-tooltip .6s ease-in 10s forwards;
+}
+@keyframes show-tooltip {
+    to{
+        transform: 
+        translateX(200px) scale(1);
     }
 }
