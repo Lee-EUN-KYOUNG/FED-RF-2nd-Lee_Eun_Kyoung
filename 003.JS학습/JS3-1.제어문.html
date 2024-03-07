@@ -284,7 +284,6 @@
         } // if //
         // 5. 지역명을 switch case 문으로 분류하여 메시지 넣기
         // 메시지 변수
-        var message;
         switch (txt) {
           case "서울":
             message = "02";
@@ -334,23 +333,36 @@
           case "제주":
             message = "064";
             break;
+          case "나성":
+            message = "나성에 가면 편지를 전해줘요~!";
+            break;
           default:
             message = "etc";
-        } /// switch case ////
+        } /// switch case /////
+
         console.log("스위치결과:", message);
 
-        // 6.
+        // 6. 메시지 만들기
+        //  message 변수에 최종 출력내용을 다시 담아서 저장한 후 출력한다!
         if (message == "etc") {
           message = "등록되지 않은 지역입니다!";
-        }
+        } // 미등록메시지
         /// if ///
+
+        // 등록 지역 메시지
         else {
-          message = `${txt}의 지역번호는 ${message}입니다!`;
-        } // else //
-        
+          // 등록지역 메시지
+          message = `${txt}의 지역번호는
+          <span
+          style="
+          color:hotpink;
+          font-size:50px">
+          ${message}</span>입니다!`;
+        } /// else ///
+
         // 7. 화면 출력하기//
         // 출력대상 : #info -> info 변수
-        info.innerText = message;
+        info.innerHTML = message;
         // 선택 요소 .innerText -> 요소의 문자 데이터 넣기. html 태그를 넣을 때는 innerHTML 사용
       } //////// showLocal 함수 ///////////////
 
