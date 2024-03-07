@@ -237,7 +237,7 @@ h1.logo{
 /* 팔 공통 */
 .arm{
     position: absolute;
-    top: 5px;
+    top: 23px;
     width: 50px;
     height: 180px;
 }
@@ -329,7 +329,8 @@ h1.logo{
 /* 다리 공통 */
 .leg{
     position: absolute;
-    top: 100%;
+    top: 97%;
+    border-radius: 20px 20px 0 0;
     width: 70px;
     height: 180px;
 
@@ -379,11 +380,11 @@ h1.logo{
 /* 위치 잡기 */
 /* 왼다리 */
 .leg1{
-    left: -0px;
+    left: -6px;
 }
 /* 오른다리 */
 .leg2{
-    right: -0px;
+    right: 6px;
 }
 
 /* 다리 사각형관절 가상요소 공통 */
