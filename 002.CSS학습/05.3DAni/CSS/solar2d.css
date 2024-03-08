@@ -409,24 +409,25 @@ body{
     border: 2px solid #ccc;
     border-radius: 50%;
     opacity: 0.5;
+    /* 행성들보다 아래 위치하고 배경이미지보다는 아래로 가진 않음 */
     z-index: -1;
 }
-/* 지구 경로크기 */
+/* 지구 경로크기 : -2를 곱한것은 양수값으로 2배수 만들기 함 */
 .path-way div.earth{
     width: calc(var(--earth-trans-size)*-2);
     height: calc(var(--earth-trans-size)*-2);
 }
-/* 목성 경로크기 */
+/* 목성 경로크기 : 2를 곱한것은 양수값으로 2배수 만들기 함 */
 .path-way div.jupiter{
     width: calc(var(--jupiter-trans-size)*2);
     height: calc(var(--jupiter-trans-size)*2);
 }
-/* 토성 경로크기 */
+/* 토성 경로크기: -2를 곱한것은 양수값으로 2배수 만들기 함 */
 .path-way div.saturn{
     width: calc(var(--saturn-trans-size)*-2);
     height: calc(var(--saturn-trans-size)*-2);
 }
-/* 명왕성 경로크기 */
+/* 명왕성 경로크기 : 2를 곱한것은 양수값으로 2배수 만들기 함 */
 .path-way div.pluto{
     width: calc(var(--pluto-trans-size)*2);
     height: calc(var(--pluto-trans-size)*2);
