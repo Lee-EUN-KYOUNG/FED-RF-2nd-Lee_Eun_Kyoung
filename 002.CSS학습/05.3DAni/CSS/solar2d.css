@@ -26,15 +26,33 @@
 /*********************** 변수 설정 구역 ***********************/
 
 :root{
-    /* 태양 크기 */
+    /* 1. 태양 크기 */
     --sun-size: 250px;
-    /* 지구 크기 */
+
+    /* 2. 지구 크기 */
     --earth-size: 80px;
     /* 지구 거리 */
     --earth-trans-size: -250px;
 
+    /* 3. 목성 크기 */
+    --jupiter-size: 150px;
+    /* 목성 거리 */
+    --jupiter-trans-size: 400px;
+    
+    /* 4. 토성 크기 */
+    --saturn-size: 160px;
+    /* 토성 거리 */
+    --saturn-trans-size: -460px;
+    
+    /* 5. 명왕성 크기 */
+    --pluto-size: 50px;
+    /* 명왕성 거리 */
+    --pluto-trans-size: 650px;
 
-
+    /* 6. 달 크기 */
+    --moon-size: 40px;
+    /* 달 거리 */
+    --moon-trans-size: 80px;
 
 
 }
@@ -79,9 +97,9 @@ body{
 }
 
 /* 공사중 표시 */
-body *{
+/* body *{
     outline: 2px dashed #CCC;
-}
+} */
 
 
 /* 태양계 박스 */
@@ -107,6 +125,8 @@ body *{
     overflow: hidden;
     /* 둥근 박스 만들기 */
     border-radius: 50%;
+    /* 박스 글로우 효과 */
+    box-shadow: 0 0 50px 5px yellow;
 }
 /* 태양이미지 */
 #sun img{
@@ -126,6 +146,62 @@ body *{
     transform: scale(1.5);
 } */
 
+/* 행성 공통 - 애니메이션 멈춤 설정
+    animation-play-state: running; -> 실행 상태 (기본값)
+    animation-play-state:paused; -> 멈춘 상태
+    기존 애니메이션이 id로 셋팅되어서 기본값 running이 더 우선됨!
+    -> !important로 우선권 지정
+*/
+.planet:hover{
+    animation-play-state:paused !important;
+    /* 손가락 모양 */
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* 행성 설명 박스 공통 */
+.info{
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 0;
+    max-height: 2px;
+    /* 내부 패딩이 없어야 완벽하게 숨겨짐! */
+    overflow: hidden;
+    /* 트랜지션 아웃시 : max height 먼저 width 나중에 */
+    transition: width .4s .4s, max-height .4s;
+
+    border-top: 2px solid lawngreen;
+    border-bottom: 2px solid lawngreen;
+    color: aquamarine;
+    font-size: 10px;
+    border: 2px dashed lawngreen;
+    line-height: 1.8;
+    font-weight: bold;
+
+    /* 백드롭필터 */
+    backdrop-filter: blur(2px);
+    z-index: 10;
+}
+/* 정보 제목,내용 */
+.info h2, .info p{
+    margin: 0;
+    padding: 10px;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+/* 행성에 마우스 오버시 정보 보이기 애니 */
+.planet:hover .info{
+    width: 200px;
+    /* 최대 높이값은 컨텐츠중 가장 큰 사이즈를 준다 */
+    max-height: 300px;
+    /* 트랜지션 : width 먼저 보이고 height는 나중에 */
+    transition: width .4s, max-height .4s .4s;
+}
+
+
+
 /* 지구 */
 #earth{
     /* 부모는 solar */
@@ -135,6 +211,7 @@ body *{
     left: calc(50% - var(--earth-size)/2);
     width: var(--earth-size);
     height: var(--earth-size);
+    border-radius: 50%;
     /* 배경이미지 */
     background: url(../images/earth.png) no-repeat 0/100% 100%;
     /* 지구 애니메이션 호출 */
@@ -144,7 +221,162 @@ body *{
 
 /* 지구 회전 키프레임 */
 @keyframes earth-ani{
+    from{
+        transform: 
+        rotate(0deg) 
+        translateX(var(--earth-trans-size))
+        rotate(0deg) ;
+    }
     to{
-        transform: rotate(360deg);
+        transform:
+        rotate(360deg)
+        translateX(var(--earth-trans-size))
+        rotate(-360deg);
+    }
+    /* 키프레임 회전시 2번째 회전의 의미는
+        rotate(360deg) - 중앙 회전
+        translateX(300px) - 위치 이동
+        rotate(-360deg) - 이동된 요소의 회전
+    */
+}
+
+/* 달 */
+#moon{
+    /* 부모는 solar */
+    position: absolute;
+    /* 달 중앙 이동 : calc */
+    top: calc(50% - var(--moon-size)/2);
+    left: calc(50% - var(--moon-size)/2);
+    width: var(--moon-size);
+    height: var(--moon-size);
+    border-radius: 50%;
+    /* 배경이미지 */
+    background: url(../images/moon.png) no-repeat 0/100% 100%;
+    /* 달 애니메이션 호출 */
+    animation: moon-ani 4s linear infinite;
+}
+
+
+/* 달 회전 키프레임 */
+@keyframes moon-ani{
+    from{
+        transform: 
+        rotate(0deg) 
+        translateX(var(--moon-trans-size))
+        rotate(0deg) ;
+    }
+    to{
+        transform:
+        rotate(360deg)
+        translateX(var(--moon-trans-size))
+        rotate(-360deg);
+    }
+}
+
+
+
+/* 목성 */
+#jupiter{
+    /* 부모는 solar */
+    position: absolute;
+    /* 목성 중앙 이동 : calc */
+    top: calc(50% - var(--jupiter-size)/2);
+    left: calc(50% - var(--jupiter-size)/2);
+    width: var(--jupiter-size);
+    height: var(--jupiter-size);
+    border-radius: 50%;
+    /* 배경이미지 */
+    background: url(../images/jupiter.png) no-repeat 0/100% 100%;
+    /* 목성 애니메이션 호출 */
+    animation: jupiter-ani 30s linear infinite;
+}
+
+
+/* 목성 회전 키프레임 */
+@keyframes jupiter-ani{
+    from{
+        transform: 
+        rotate(0deg) 
+        translateY(var(--jupiter-trans-size))
+        rotate(0deg) ;
+    }
+    to{
+        transform:
+        rotate(360deg)
+        translateY(var(--jupiter-trans-size))
+        rotate(-360deg);
+    }
+}
+
+/* 토성 */
+#saturn{
+    /* 부모는 solar */
+    position: absolute;
+    /* 토성 중앙 이동 : calc */
+    top: calc(50% - var(--saturn-size)/2);
+    left: calc(50% - var(--saturn-size)/2);
+    width: var(--saturn-size);
+    height: var(--saturn-size);
+    border-radius: 50%;
+    /* 토성 애니메이션 호출 */
+    animation: saturn-ani 20s linear infinite;
+}
+/* 가상요소로 토성이미지 배경으로 넣기 */
+#saturn::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 160%;
+    height: 100%;
+    background: url(../images/saturn.png) no-repeat 0/100% 100%;
+}
+
+/* 토성 회전 키프레임 */
+@keyframes saturn-ani{
+    from{
+        transform: 
+        rotate(0deg) 
+        translateY(var(--saturn-trans-size))
+        rotate(0deg) ;
+    }
+    to{
+        transform:
+        rotate(360deg)
+        translateY(var(--saturn-trans-size))
+        rotate(-360deg);
+    }
+}
+
+/* 명왕성 */
+#pluto{
+    /* 부모는 solar */
+    position: absolute;
+    /* 명왕성 중앙 이동 : calc */
+    top: calc(50% - var(--pluto-size)/2);
+    left: calc(50% - var(--pluto-size)/2);
+    width: var(--pluto-size);
+    height: var(--pluto-size);
+    border-radius: 50%;
+    /* 배경이미지 */
+    background: url(../images/pluto.png) no-repeat 0/100% 100%;
+    /* 명왕성 애니메이션 호출 */
+    animation: pluto-ani 13s linear infinite;
+}
+
+
+/* 명왕성 회전 키프레임 */
+@keyframes pluto-ani{
+    from{
+        transform: 
+        rotate(0deg) 
+        translateX(var(--pluto-trans-size))
+        rotate(0deg) ;
+    }
+    to{
+        transform:
+        rotate(360deg)
+        translateX(var(--pluto-trans-size))
+        rotate(-360deg);
     }
 }
