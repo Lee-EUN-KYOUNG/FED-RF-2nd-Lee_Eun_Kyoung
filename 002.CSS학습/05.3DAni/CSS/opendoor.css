@@ -152,3 +152,33 @@ body{
     }
     
 }
+
+/* 올라프 박스 */
+#olaf{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+/* 올라프 이미지 */
+#olaf img{
+    margin-top: 110px;
+    margin-left: 370px;
+    transform-origin: bottom;
+    transform: rotate(0deg);
+    animation: olaf-ani 1s ease-in-out infinite alternate;
+    animation-play-state: paused;
+    }
+
+/* 오버시 애니 작동 */
+.cont:hover #olaf img{
+ animation-play-state: running;
+}
+/* 올라프 움직이기 키프레임*/
+@keyframes olaf-ani {
+    to{
+        transform: rotate(-90deg);
+    }
+    
+}
