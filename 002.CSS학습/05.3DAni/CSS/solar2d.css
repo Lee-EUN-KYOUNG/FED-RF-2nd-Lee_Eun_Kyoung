@@ -192,7 +192,8 @@ body{
 }
 
 /* 행성에 마우스 오버시 정보 보이기 애니 */
-.planet:hover .info{
+.planet:hover > .info,
+#earth:hover .info{
     width: 200px;
     /* 최대 높이값은 컨텐츠중 가장 큰 사이즈를 준다 */
     max-height: 300px;
@@ -201,21 +202,39 @@ body{
 }
 
 
+/* 지구+달 랩박스 - 실제로 도는 박스 */
+.earth-wrap{
+    position: absolute;
+    /* 지구 중앙이동 : calc(50% - 크기절반) */
+    top: calc(50% - var(--earth-size)/2);
+    left: calc(50% - var(--earth-size)/2);
+    /* 부모는? #solar */
+
+    width: var(--earth-size);
+    height: var(--earth-size);
+
+    border-radius: 50%;
+
+    /* 애니메이션 호출 */
+    animation: earth-ani 20s linear infinite;
+}
 
 /* 지구 */
 #earth{
-    /* 부모는 solar */
     position: absolute;
-    /* 지구 중앙 이동 : calc */
-    top: calc(50% - var(--earth-size)/2);
-    left: calc(50% - var(--earth-size)/2);
+    /* 지구 중앙이동 : calc(50% - 크기절반) */
+    top: 0;
+    left: 0;
+    /* 부모는? #solar */
+
     width: var(--earth-size);
     height: var(--earth-size);
+
     border-radius: 50%;
+
     /* 배경이미지 */
-    background: url(../images/earth.png) no-repeat 0/100% 100%;
-    /* 지구 애니메이션 호출 */
-    animation: earth-ani 10s linear infinite;
+    background: 
+    url(../images/earth.png) no-repeat 0/100% 100%;
 }
 
 
@@ -242,7 +261,7 @@ body{
 
 /* 달 */
 #moon{
-    /* 부모는 solar */
+    /* 부모는 .earth-wrap */
     position: absolute;
     /* 달 중앙 이동 : calc */
     top: calc(50% - var(--moon-size)/2);
@@ -379,4 +398,36 @@ body{
         translateX(var(--pluto-trans-size))
         rotate(-360deg);
     }
+}
+
+/* 행성 경로 원그리기 공통 */
+.path-way div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: -1;
+}
+/* 지구 경로크기 */
+.path-way div.earth{
+    width: calc(var(--earth-trans-size)*-2);
+    height: calc(var(--earth-trans-size)*-2);
+}
+/* 목성 경로크기 */
+.path-way div.jupiter{
+    width: calc(var(--jupiter-trans-size)*2);
+    height: calc(var(--jupiter-trans-size)*2);
+}
+/* 토성 경로크기 */
+.path-way div.saturn{
+    width: calc(var(--saturn-trans-size)*-2);
+    height: calc(var(--saturn-trans-size)*-2);
+}
+/* 명왕성 경로크기 */
+.path-way div.pluto{
+    width: calc(var(--pluto-trans-size)*2);
+    height: calc(var(--pluto-trans-size)*2);
 }
