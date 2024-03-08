@@ -137,4 +137,14 @@ body *{
     height: var(--earth-size);
     /* 배경이미지 */
     background: url(../images/earth.png) no-repeat 0/100% 100%;
+    /* 지구 애니메이션 호출 */
+    animation: earth-ani 10s linear infinite;
+}
+
+
+/* 지구 회전 키프레임 */
+@keyframes earth-ani{
+    to{
+        transform: rotate(360deg);
+    }
 }
