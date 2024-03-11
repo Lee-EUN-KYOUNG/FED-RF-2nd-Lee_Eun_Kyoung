@@ -17,6 +17,18 @@
     font-family: 'Nanum Gothic', sans-serif;
 */
 /*************************************** 공통 클래스 ***************************************/
+
+/* 전체 글자크기 */
+html{
+    font-size: 10px;
+    /* rem 단위 계산 편의를 위함 */
+}
+
+/* 글자체 */
+body{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
 /* 임시표시타이틀 */
 .temp-tit{
     position: absolute;
@@ -29,8 +41,4 @@
     max-width: 1360px;
     /* 블록박스 중앙정렬 -> 마.영.오. */
     margin: 0 auto;
-}
-/* 컨텐츠 박스 */
-.cont-box{
-    height: 100%;
 }
