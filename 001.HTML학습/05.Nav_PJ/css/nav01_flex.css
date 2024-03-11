@@ -218,8 +218,24 @@ ul::after,ol::after,.clb::after{
     transition: width .3s;
 }
 
+/* 다국어 메뉴파트 */
+.multi-lang ul{
+    display: flex;
+}
 
+.multi-lang ul li{
+    padding: 27px 10px;
+}
 
+/* 두번째 li 이후 가상 요소 after 없애기 */
+.multi-lang ul li:nth-child(2)~li a::after{
+    display: none;
+}
+
+/* 두번째 li 이후 오버시 색상변경 */
+.multi-lang ul li:nth-child(2)~li a:hover{
+    color: aqua;
+}
 
 
 /* 메인영역 */
