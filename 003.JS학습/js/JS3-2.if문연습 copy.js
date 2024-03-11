@@ -25,9 +25,19 @@ function changeImg() {
   if(btnTxt == "포스터"){
    isrc = "./images/ala1.jpg";
   } //// if문
+  else if(btnTxt == "장면1"){
+   isrc = "./images/ala4.jpg";
+  } //// if문
+  else if(btnTxt == "장면2"){
+   isrc = "./images/ala2.jpg";
+  } //// else if문
+  else if(btnTxt == "장면3"){
+   isrc = "./images/ala3.jpg";
+  } //// else if문
 
-  // 3. 변경 대상 : #scene
-  // 4. 변경 내용 : src 속성값 바꾸기  
+  // 3. 변경 대상 : #scene -> scene 변수
+  // 4. 변경 내용 : src 속성값 바꾸기
+  scene.src = isrc;
 
 } //////// changeImg 함수
 
