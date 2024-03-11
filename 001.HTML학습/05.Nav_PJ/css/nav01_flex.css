@@ -77,8 +77,9 @@ ul::after,ol::after,.clb::after{
     position: relative;
     /* 부모자격 - .smenu의 left값 */
     /* float: left; ->flex로 전환! */
-    padding: 0 32px;
-    line-height: 78px;
+    padding: 27px 32px;
+    /* line-height: 78px;
+        -> 블록 가상요소 밑줄이 아래로 밀려서 주석 */
     font-weight: bold;
     /* 글자관련셋팅은
     하위요소로 모두 상속됨! */
@@ -86,6 +87,8 @@ ul::after,ol::after,.clb::after{
 /* 서브메뉴 */
 .smenu{
     position: absolute;
+    /* top을 쓰지 않고 마진 탑으로 이동한 이유는? 젠틀 앱솔루트의 위치에서부터 이동하려고! */
+    margin-top: 26px;
     left: 50%;
     /* x축 중앙이동 */
     transform: translateX(-50%);
@@ -181,17 +184,20 @@ ul::after,ol::after,.clb::after{
 }
 
 /* 가상요소 밑줄을 위한 부모자격 */
-.gnb ul>li>a{
+/* .gnb ul>li>a{
     position: relative;
-}
+} */
 /* GNB 상위메뉴 오버시 밑줄애니 */
 .gnb ul>li>a::after{
     content: '';
-    position: absolute;
-    /* 앱솔루트는 자동블록됨! */
-    top: 53px;
-    /* 마우스 나갈때 left값 밀기 */
-    left: 100%;
+    /* 디자인 적용 위해 block */
+    display: block;
+    /* position: absolute; */
+    /* 앱솔루트는 자동블록됨! -> 안씀 */
+    /* top: 53px; */
+    /* 마우스 나갈때 margin-left값 밀기 */
+    /* left: 100%; */
+    margin-left: 100%;
     width: 0;
     height: 2px;
     background-color: #fff;
@@ -200,10 +206,10 @@ ul::after,ol::after,.clb::after{
 }
 /* 오버시 밑줄박스 애니 */
 .gnb ul>li:hover>a::after{
-    left: 0;
+    margin-left: 0;
     width: 100%;
     /* 오버시 트랜지션 
-    ->>> left 는 트랜지션 적용말것!!! */
+    ->>> margin-left 는 트랜지션 적용말것!!! */
     transition: width .3s;
 }
 
