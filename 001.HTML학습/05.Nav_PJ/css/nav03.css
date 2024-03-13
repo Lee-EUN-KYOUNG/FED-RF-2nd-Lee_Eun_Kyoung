@@ -23,9 +23,9 @@ body{
 
 
 /* 공사중 */
-body *{
+/* body *{
     outline: 2px dashed #ccc;
-}
+} */
 
 
 /* 중앙 속박스 */
@@ -120,6 +120,37 @@ body *{
 .gnb dt{
     line-height: 110px;
 }
+/* 상위 메뉴 dt의 이미지 */
+.gnb dt img{
+    margin-top: 10px;
+    /* 스토리 이미지 모두 숨기기 */
+    display: none;
+}
+
+/* 처음 이미지 보이기 */
+.gnb dt img:nth-child(1){
+    display: inline;
+}
+
+/* 전체박스에 오버시 첫째이미지 숨기기 */
+#top-area:hover .gnb dt img:nth-child(1){
+    display: none;
+}
+
+/* 전체박스에 오버시 둘째이미지 보이기 */
+#top-area:hover .gnb dt img:nth-child(2){
+    display: inline;
+}
+/* 전체박스에 오버시, dl에 오버시 둘째이미지 숨기기 */
+#top-area:hover .gnb dl:hover dt img:nth-child(2){
+    display: none;
+}
+/* 전체박스에 오버시, dl에 오버시 셋째이미지 보이기 */
+#top-area:hover .gnb dl:hover dt img:nth-child(3){
+    display: inline;
+}
+
+
 /* 상위 메뉴 dd */
 .gnb dd{
     line-height: 45px;
@@ -133,5 +164,94 @@ body *{
     color: red;
 }
 
-
 /******************************************************* 1-3.기타파트 *******************************************************/
+
+/* 랭 박스 */
+.lang{
+    display: flex;
+    padding-top: 40px;
+}
+
+/* 박스 리스트 */
+.lang li{
+    padding: 0 10px;
+}
+
+.lang a{
+ color: #fff;
+}
+
+/* 두번째 li의 KOR 글자 가상 요소로 a에 넣기 */
+
+.lang li:nth-child(2) a::after{
+    content: 'KOR';
+    font-size: 12px;
+    display: block;
+    margin-top: -15px;
+    margin-left: 14px;
+}
+
+/* 세번째 li의 STORE 글자 가상요소로 a에 넣기 */
+.lang li:nth-child(3) a::after{
+    content: 'STORE';
+    font-size: 12px;
+    display: block;
+    margin-top: -15px;
+    margin-left: 14px;
+}
+
+/* 박스 이미지 */
+.lang img{
+    height: 30px;
+}
+
+/* 대상요소는 li중 첫번째 다음(~틸드) 
+li 형제요소들을 선택함
+.lang li:nth-child(1)~li
+2,3번째 li 하위 이미지 모두 안보이게함! */
+
+.lang li:nth-child(1)~li img{
+    display: none;
+}
+
+/* 대상 이미지중 첫번째 보이게함 */
+.lang li:nth-child(1)~li img:nth-child(1){
+    display: inline;
+}
+
+/* 최상위 박스 오버시 첫번째 이미지 숨기기 */
+#top-area:hover .lang li:nth-child(1)~li img:nth-child(1){
+    display: none;
+}
+/* 최상위 박스 오버시 두번째 이미지 보이기 */
+#top-area:hover .lang li:nth-child(1)~li img:nth-child(2){
+    display: inline;
+}
+/* 최상위 박스 오버시, 동시에 a요소 오버시 
+두번째 이미지 숨기기 */
+#top-area:hover .lang li:nth-child(1)~li a:hover img:nth-child(2){
+    display: none;
+}
+/* 최상위 박스 오버시, 동시에 a요소 오버시 
+세번째 이미지 보이기 */
+#top-area:hover .lang li:nth-child(1)~li a:hover img:nth-child(3){
+    display: inline;
+}
+
+/* 최상위 오버시 글자색 회색 */
+#top-area:hover .lang a{
+    color: #222;
+}
+/* 최상위 오버시 동시에 a오버시 글자색 빨강 */
+#top-area:hover .lang a:hover{
+    color: red;
+}
+
+/* 타이틀 글자  */
+.tit{
+    position: fixed;
+    left: 5vw;
+    top: 20vw;
+    font-size: 4vw;
+    color: #fff;
+}
