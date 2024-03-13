@@ -47,12 +47,34 @@ body *{
 }
 
 
-
 /******************************************************* 1-1.로고파트 *******************************************************/
+/* 로고박스 */
+.logo{
+    padding-top: 33px;
+}
+
 /* 로고 이미지 */
 .logo img{
     width: 100%;
+    max-width: 145px;
+    min-width: 120px;
 }
+
+/* 두번째 이미지 숨기기 */
+.logo img:nth-child(2){
+    display: none;
+}
+
+/* 오버시 첫번째 이미지 숨기기 */
+#top-area:hover .logo img:nth-child(1){
+   display: none;
+}
+
+/* 오버시 두번째 이미지 보이기 */
+#top-area:hover .logo img:nth-child(2){
+   display:inline;
+}
+
 /******************************************************* 1-2.네비파트 *******************************************************/
 /* gnb 박스 */
 .gnb{
@@ -75,14 +97,12 @@ body *{
 
 /* 상단영역 오버시 하위메뉴 보이기 */
 #top-area:hover .gnb{
-    height: 360px;
+    height: 410px;
 }
 /* 상단영역 오버시 상위메뉴 dt>a 글자색변경 */
 #top-area:hover .gnb dt a{
     color: #222;
 }
-
-
 
 
 /* 네이게이션 a 요소 공통 */
@@ -103,6 +123,14 @@ body *{
 /* 상위 메뉴 dd */
 .gnb dd{
     line-height: 45px;
+}
+
+/* 
+    마우스 오버시 빨간색 글자
+    -> 상위 메뉴는 dl에 오버시로 설정 / 하위 메뉴는 a에 바로 오버시로 설정
+*/
+#top-area .gnb dl:hover dt a, .gnb dd a:hover{
+    color: red;
 }
 
 
