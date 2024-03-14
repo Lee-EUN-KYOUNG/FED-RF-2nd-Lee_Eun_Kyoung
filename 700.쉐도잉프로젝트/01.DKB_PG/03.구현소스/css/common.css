@@ -49,6 +49,23 @@
     color: red;
 }
 
+/* 서브가 있는 리스트 선택하기 4~6번 */
+/* 특정 a요소 오버시 커서 변경 */
+.gnb ul li:nth-child(3) ~ li:nth-child(-n+6) a{
+    /* 손가락 표시 변경하기 */
+    cursor: default;
+    /* 커서는 오버시 커서 모양을 변경하는 속성 */
+}
+/* 가상 요소로 아래쪽 화살표 넣기 */
+.gnb ul li:nth-child(3) ~ li:nth-child(-n+6) a::after{
+    content: '∨';
+    display: inline-block;
+    /* 트랜스폼은 인라인에서는 적용안됨 */
+    font-size: 7px;
+    margin-left: 5px;
+    vertical-align: center;
+    transform: scaleX(2);
+}
 
 /************ 2. 메인영역 ************/
 /************* 3. 하단영역 *************/
