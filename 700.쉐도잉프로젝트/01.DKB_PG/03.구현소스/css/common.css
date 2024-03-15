@@ -177,17 +177,74 @@
     background-image: url(../images/bg_main_03.jpg);
 }
 
-/* 캐릭터 박스 */
+/* 캐릭터 박스 - 캐릭터 속박스가 있는 공간을 확보함 */
 .cat-box{
     position: absolute;
     /* 부모는? .ban-are */
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    width: 1360px;
-    height: 300px;
+    left: 0; 
+    bottom: 5%;
+    width: 100%;
     outline-color: red;
 }
+
+/* 캐릭터 속박스 - Static한 박스임! (공간차지) */
+.cat-inbox{
+    /* 플렉스 박스 */
+    display: flex;
+    /* 플렉스 자식 사이간격 - 위아래 양쪽 간격 조절 */
+    gap: 0 1vw;
+    /* 가로 최대 크기 설정 */
+    max-width: 1360px;
+    /* 가로 중앙 정렬 */
+    margin: 0 auto;
+}
+
+/* 캐릭터 개별 박스 등분할 */
+.cat-inbox article {
+    flex: 1;
+}
+
+/* 캐릭터 이미지 박스 */
+.imbx img{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /************* 3. 하단영역 *************/
