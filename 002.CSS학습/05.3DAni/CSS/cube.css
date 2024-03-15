@@ -10,3 +10,113 @@ body {
     background-image: linear-gradient(to bottom, lightblue, pink);
     height: 100vh;
 }
+
+/* CSS 변수 세팅 */
+:root{
+    /* 큐브 공통 크기 */
+    --cube-size:300px;
+}
+
+/* 큐브 */
+.cube{
+    position: absolute;
+    /* 정가운데 정렬 */
+    /* 50%밀고 박스의 절반 크기 빼기 */
+    top:calc(50% - var(--cube-size)/2);
+    left:calc(50% - var(--cube-size)/2);
+    /* 부모는? 보이는 화면 */
+    width: var(--cube-size);
+    height: var(--cube-size);
+    outline: 2px solid red;
+
+    /****************************************************** 
+    
+        [입체로 설정하기]
+        - 입체로 설정할 부모박스
+        - 아래와 같이 설정해준다
+        -> (부모는 싸고 있는 박스요소)
+        transform-style: (속성)
+        1. flat - 2D (기본값) 
+        2. preserve-3d - 3D (지금 작업할 속성값)
+
+    ******************************************************/
+    transform-style: preserve-3d;
+    /* 입체를 잘보이게 약간 회전하기 */
+    transform: rotateX(10deg) rotateY(30deg);
+}
+
+/* 큐브 각면 공통 */
+.cube span{
+    position: absolute;
+    /* 앱솔루트는 자동 블럭 */
+    width: 100%;
+    height: 100%;
+    outline: 2px dotted rgb(0, 64, 255);
+    /* 투명도 */
+    opacity: .8;
+}
+
+/* 1.앞면 */
+.cube span:nth-child(1){
+    /* 배경이미지 넣기 */
+    background: url(../images/seoulCity.jpg) no-repeat center/cover;
+    /* 화면방향 z축 이동
+    transform: translateZ(값); -> 양의 값은 앞쪽, 음의 값은 뒷쪽
+    */
+    transform: translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 앞쪽 이동은 큐브 크기의 절반임! */
+}
+
+/* 2.오른쪽면 */
+.cube span:nth-child(2){
+    /* 배경이미지 넣기 */
+    background: url(../images/newyorkCity.jpg) no-repeat right/auto 105%;
+
+    /* Y축 회전 + Z축 회전 - 순서 중요! */
+    transform: 
+    rotateY(90deg)
+    translateZ(calc(var(--cube-size)/2));
+}
+
+/* 3.뒷면 */
+.cube span:nth-child(3){
+    /* 배경이미지 넣기 */
+    background: url(../images/parisCity.jpg) no-repeat center/cover;
+
+    /* Y축 회전 + Z축 회전 - 순서 중요! */
+    transform: 
+    rotateY(180deg)
+    translateZ(calc(var(--cube-size)/2));
+}
+
+/* 4.왼쪽면 */
+.cube span:nth-child(4){
+    /* 배경이미지 넣기 */
+    background: url(../images/cityMain.jpg) no-repeat center/cover;
+
+    /* Y축 회전 + Z축 회전 - 순서 중요! */
+    transform: 
+    rotateY(-90deg)
+    translateZ(calc(var(--cube-size)/2));
+}
+
+/* 5.윗면 */
+.cube span:nth-child(5){
+    /* 배경이미지 넣기 */
+    background: url(../images/citys.jpg) no-repeat center/cover;
+
+    /* X축 회전 + Z축 회전 - 순서 중요! */
+    transform: 
+    rotateX(90deg)
+    translateZ(calc(var(--cube-size)/2));
+}
+/* 6.아랫면 */
+.cube span:nth-child(6){
+    /* 배경이미지 넣기 */
+    background: url(../images/London_city.jpg) no-repeat center/cover;
+
+    /* X축 회전 + Z축 회전 - 순서 중요! */
+    transform: 
+    rotateX(-90deg)
+    translateZ(calc(var(--cube-size)/2));
+}
