@@ -13,3 +13,5 @@
 const btngo = document.querySelector('.btngo');
 // 1-2. 변경 대상 : .cube
 const cube = document.querySelector('.cube');
+
+console.log('대상:',btngo,cube);
