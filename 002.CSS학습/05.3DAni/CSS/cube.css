@@ -11,15 +11,26 @@ body {
     height: 100vh;
 }
 
-/* CSS 변수 세팅 */
+/* 
+        [CSS 변수 세팅]
+        => :root 의미는? html:root
+        => html 요소가 생략되어 표현된 것
+        => 변수값 변경 애니가 필요한 경우 이 점을 활용한다
+           html.클래스명:root{변수값셋팅} -> 변수값이 특정 클래스로 변경 가능
+*/
 :root{
     /* 큐브 공통 크기 */
     --cube-size:300px;
     /* z축 거리 나눔수 */
     --divide-num:2;
-
-
 }
+
+/* root인 html 요소에 클래스를 부여하여 변수값을 변경한다 */
+html.on:root{
+    --divide-num:1.5;
+}
+
+
 
 /* 작동버튼 */
 .btngo{
@@ -80,6 +91,10 @@ body {
 
     /* 보더 패딩 포함 박스 */
     box-sizing: border-box;
+
+    /* z축 거리 변경에 대한 트랜지션 애니 설정 */
+    transition: .5s;
+
 }
 
 /* 1.앞면 */

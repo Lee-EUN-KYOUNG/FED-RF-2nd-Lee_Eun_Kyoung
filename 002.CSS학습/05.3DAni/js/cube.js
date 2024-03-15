@@ -43,7 +43,8 @@ btngo.onclick = function(){
     /* if(this.innerText == '돌아') {this.innerText = '멈춰!';}
     else {this.innerText = '돌아!';} */
 
+    // 큐브 거리 변경 변수 셋팅은 html 요소에 클래스 on을 넣기/빼기하면 적용된다!
 
-
+    document.querySelector('html').classList.toggle("on");
 
 }; //// click 이벤트 함수 ////
