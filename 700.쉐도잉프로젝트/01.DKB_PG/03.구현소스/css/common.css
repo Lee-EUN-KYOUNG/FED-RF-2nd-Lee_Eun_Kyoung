@@ -197,6 +197,8 @@
     max-width: 1360px;
     /* 가로 중앙 정렬 */
     margin: 0 auto;
+    /* 양쪽 패딩 */
+    padding: 0 1vw;
 }
 
 /* 캐릭터 개별 박스 등분할 */
@@ -209,40 +211,38 @@
     width: 100%;
 }
 
+/* 캐릭터 이름 이미지 박스 */
+.iname{
+    display: block;
+    text-align: center;
+    /* 
+     앱솔루트없이 마진으로 상단이미지와 겹치게 하기
+     => %로 값지정해야 상단이미지와 함께 줄어들고 늘어나기 가능 (여기서는 px값으로 지정하면 안됨)
+     => %의 기준은 마진 주기전 박스 세로 크기를 기준한다!
+     */
+    margin-top: -20%;
+}
+/* 캐릭터 이름 이미지 */
+.iname img{
+    width: 40%;
+}
 
+/* 두번째 이미지 숨기기 */
+.iname img:last-child{
+    display: none;
+}
 
+/* 오버시 두번째 이미지 보이기 */
+.cat-inbox article:hover .iname img:last-child{
+    display: inline;
 
+}
 
+/* 오버시 첫번째 이미지 숨기기 */
+.cat-inbox article:hover .iname img:first-child{
+    display: none;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
