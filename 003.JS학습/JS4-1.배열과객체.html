@@ -434,11 +434,95 @@
 
         };
         
+        /*******************************************************************************
         
+        [미션 : 내가 만든 객체 활용하기]
+        1. 주제 : 영화정보
+        2. 조건 : 객체의 변수명을 자신만의 이름으로 작성함
+                  (단, 속성명은 동일하게 작성할 것. 속성명은 샘플에서 정해줄 예정)
+        3. 객체를 쌤과 모두에게 공유하기! (톡업)
+
+        *******************************************************************************/
+
+      //자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
+      let lekObj = {};
+      // 오브젝트 형만 만들고 객체 내용은 아래에서
+
+      // 영화 선정
+      // 1. 영화제목
+      lekObj.title = "럭키";
+      // 2. 영화감독
+      lekObj.director = "이계백";
+      // 3. 영화배우
+      lekObj.actor = "유해진,조윤희";
+      // 4. 영화장르
+      lekObj.genre = "코미디";
+      // 5. 관람가
+      lekObj.ratings = "15세";
+      // 6. 예고편
+      lekObj.trailer = function(){
+        console.log('예고편:영화아이디');
+        // 예고편 플레이 함수 호출!
+        playMovie('G2zyFe4Z5w0');
+
+      }; /// trailer 메서드
+      // 객체 확인
+      console.log('나의객체:',lekObj);
 
 
+     // 화면에 정보를 보여주는 함수
+     const showMovieInfo = function(){
+      // 함수 호출 확인
+      console.log('영화정보!!!');
+      // 출력 대상 : target[5]
+      // 내용 넣기
+      target[5].innerHTML = `
+        ♣ 영화명 : ${lekObj.title}
+        ♣ 감독 : ${lekObj.director} <br>
+        ♣ 배우 : ${lekObj.actor}
+        ♣ 장르 : ${lekObj.genre}
+        ♣ 등급 : ${lekObj.ratings}
+      `;
+      /* 툴팁 보이기 */
+      target[5].title = `클릭하시면 ${lekObj.title} 예고편 보실수 있습니다!`;
 
+      // 예고편 매서드 호출
+      target[5].onclick = lekObj.trailer
+      ;
+     };  //// showMovieInfo 함수
+
+     // 출력박스 CSS 조정하기
+     target[5].style.lineHeight = "34px";
+     target[5].style.cursor = "pointer";
+     target[5].style.fontSize = "14px";
+
+     // 할당형 함수는 바로 호출수 바로 하단에서 해야됨
+     showMovieInfo();
       } //////////// load 함수 /////////////////
+
+      /********************************************************************* 
+        함수명 : playMovie
+        기능 : 영화예고편 화면 띄우기
+      *********************************************************************/
+      function playMovie(mcode){
+        // mcode는 영화아이디
+        // 함수 호출 및 전달값 확인
+        console.log('예고편상영이요~!',mcode);
+
+        // 1. 대상선정 : #mvbox
+        let mvbox = document.querySelector('#mvbox');
+        // 2. 영화박스에 아이프레임 넣기
+        mvbox.innerHTML = `
+          <div id="mv">
+            /* 유튜브 아이프레임 */
+            <iframe width="1280" height="720" src="https://www.youtube.com/embed/G2zyFe4Z5w0" title="[럭키] 1차 예고편" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            /* 유튜브 닫기 버튼 */
+            <button class="cbtn">×</button>
+          </div>
+        `;
+
+      } /////////// playMovie 함수 ////
+
     </script>
   </head>
 
@@ -451,5 +535,10 @@
     <div class="cont"></div>
     <div class="cont"></div>
     <div class="cont"></div>
+
+    <!-- 영화 예고편 예고편용 박스 -->
+    <aside id="mvbox">
+
+    </aside>
   </body>
 </html>
