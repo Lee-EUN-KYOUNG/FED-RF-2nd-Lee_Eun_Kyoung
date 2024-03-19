@@ -450,20 +450,20 @@
 
       // 영화 선정
       // 1. 영화제목
-      lekObj.title = "럭키";
+      lekObj.title = "러브레터";
       // 2. 영화감독
-      lekObj.director = "이계백";
+      lekObj.director = "이와이 슌지";
       // 3. 영화배우
-      lekObj.actor = "유해진,조윤희";
+      lekObj.actor = "나카야마 미호,토요카와 에츠시";
       // 4. 영화장르
-      lekObj.genre = "코미디";
+      lekObj.genre = "로맨스";
       // 5. 관람가
-      lekObj.ratings = "15세";
+      lekObj.ratings = "전체관람가";
       // 6. 예고편
       lekObj.trailer = function(){
         console.log('예고편:영화아이디');
         // 예고편 플레이 함수 호출!
-        playMovie('G2zyFe4Z5w0');
+        playMovie('L9y9aJ13oCI');
 
       }; /// trailer 메서드
       // 객체 확인
@@ -514,12 +514,28 @@
         // 2. 영화박스에 아이프레임 넣기
         mvbox.innerHTML = `
           <div id="mv">
-            /* 유튜브 아이프레임 */
-            <iframe width="1280" height="720" src="https://www.youtube.com/embed/G2zyFe4Z5w0" title="[럭키] 1차 예고편" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            /* 유튜브 닫기 버튼 */
+            <!-- 유튜브 아이프레임 -->
+            <iframe src="https://www.youtube.com/embed/${mcode}?autoplay=1" allow="autoplay"</iframe>
+            <!-- 유튜브 닫기 버튼 -->
             <button class="cbtn">×</button>
           </div>
         `;
+        // 3. 삽입된 동영상 박스 CSS 설정하기
+        let mv = document.querySelector('#mv');
+        let css = mv.style;
+        css.position = "fixed";
+        css.top = "50%";
+        css.left = "50%";
+        css.transform = "translate(-50%, -50%)";
+        css.width = "700px";
+        css.height = "450px";
+        css.backgroundColor = "#000";
+        // 아이프레임 CSS 설정
+        let ifr = mv.querySelector('iframe');
+        let ifrcss = ifr.style;
+        ifrcss.border = "none";
+        ifrcss.width = "100%";
+        ifrcss.height = "100%";
 
       } /////////// playMovie 함수 ////
 
