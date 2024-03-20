@@ -49,9 +49,6 @@
     <script src="./js/js4-1.object.js"></script>
     <!-- JS 코딩 구역 -->
     <script>
-
-
-
       // 로딩구역 ////
       // DOMContentLoaded는 HTML 태그 로딩 후 발생하는 이벤트임 (load 이벤트와 비교)
       window.addEventListener("DOMContentLoaded", loadFn);
@@ -520,7 +517,7 @@
           "수진",
           "윤철",
           "정윤",
-          "현우"
+          "현우",
         ];
 
         // 배열 확인
@@ -581,9 +578,14 @@
             // 영화정보 변경 전 찍어보기 - 각자 자기의 변수를 찍는다
             console.log("변경전영화객체", lekObj);
 
-            switch(btnTxt){
+            switch (btnTxt) {
+
+              // 자기자신 오브젝트로 돌아오기
+              case "은경초이스":
+              lekObj = myObj;
+              break;
+
               case "탐쌤초이스":
-                // 객체 내용을 덮어쓰기 변경함
                 lekObj = tomObj;
                 break;
 
@@ -596,54 +598,65 @@
                 break;
 
               case "도연초이스":
-              lekObj = dyObj;
-              break;
+                lekObj = dyObj;
+                break;
 
               case "재윤초이스":
-              lekObj = jaeObj;
-              break;
+                lekObj = jaeObj;
+                break;
 
               case "유지영초이스":
-              lekObj = JYObj;
-              break;
+                lekObj = JYObj;
+                break;
 
               case "노영초이스":
-              lekObj = nyObj;
-              break;
+                lekObj = nyObj;
+                break;
 
               case "우진초이스":
-              lekObj = wjObj;
-              break;
+                lekObj = wjObj;
+                break;
 
               case "영진초이스":
-              lekObj = yjObj;
-              break;
+                lekObj = yjObj;
+                break;
 
               case "지현초이스":
-              lekObj = jjob;
-              break;
+                lekObj = jjob;
+                break;
 
               case "수진초이스":
-              lekObj = suObj;
-              break;
+                lekObj = suObj;
+                break;
 
               case "윤철초이스":
-              lekObj = ironObj;
-              break;
+                lekObj = ironObj;
+                break;
 
               case "정윤초이스":
-              lekObj = jjyObj;
-              break;
+                lekObj = jjyObj;
+                break;
 
               case "현우초이스":
-              lekObj = koObj;
-              break;
+                lekObj = koObj;
+                break;
             }
 
             console.log("변경후영화객체", lekObj);
 
             // 변경 데이터 확인 후 바로 위 박스 영화정보 업데이트 함수를 호출한다
             showMovieInfo();
+
+            // JS 클래스 내장 객체 : classList
+            // add() / remove() 메서드 사용
+            // 버튼에 클래스 on 모두 빼기
+            for(let i=0;i<cntBtn;i++){
+              choiceBtn[i].classList.remove('on');
+            } /// for문
+            // 클릭된 버튼에 클래스 on 넣기
+            // 클릭된 버튼 자신은 this!
+            this.classList.add('on');
+
           }; /// 클릭 이벤트 함수
         } /////// for문/////////////
       } /////////////////////// load 함수 /////////////////
