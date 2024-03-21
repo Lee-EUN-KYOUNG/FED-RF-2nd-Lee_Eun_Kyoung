@@ -1,41 +1,95 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Event Flow</title>     
-        <style>
-            body{
-                font-size: 5vh;
-                text-align: center;
-                padding-top: 5vh;
-            }
-            body>*{
-                box-sizing: border-box;
-            }
-            div {
-                width: 60vh;
-                background-color: #6e6e6e;
-                padding: 5vh;
-                margin: 5vh auto;
-            }
-            p {
-                width: 40vh;
-                background-color: #adadad;
-                padding: 5vh;
-            }
-            a {
-                display: block;
-                width: 30vh;
-                background-color: #ccc;
-                padding: 5vh;
-                border: #000 thin solid;
-            }
-        </style>
-        <!-- JS 코딩구역 -->
-        <script>
-            
+  <head>
+    <meta charset="utf-8" />
+    <title>JS8-1.DOM_이벤트객체</title>
+    <style>
+      body {
+        font-size: 5vh;
+        text-align: center;
+        padding-top: 5vh;
+      }
+      body > * {
+        box-sizing: border-box;
+      }
+      div {
+        width: 60vh;
+        background-color: #6e6e6e;
+        padding: 5vh;
+        margin: 5vh auto;
+      }
+      p {
+        width: 40vh;
+        background-color: #adadad;
+        padding: 5vh;
+      }
+      a {
+        display: block;
+        width: 30vh;
+        background-color: #ccc;
+        padding: 5vh;
+        border: #000 thin solid;
+      }
+    </style>
+    <!-- JS 코딩구역 -->
+    <script>
 
-            /**************************************************
+    //**************************************************************************************
+
+      // querySelector 함수 짧게 만들기! ////
+      const qs = (x) => document.querySelector(x);
+      const qsa = (x) => document.querySelectorAll(x);
+
+      // addEventListener 함수 짧게 만들기! ////
+      const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
+
+    // 이벤트 설정하기
+    // 로드 구역 이벤트 설정
+    addEvt(window,'load',loadFn);
+
+      /*********************************************************************** 
+            함수명 : loadFn
+            기능 : 로딩후 실행함수
+      ***********************************************************************/  
+    function loadFn(){
+        // 함수 호출
+        console.log('로드완료!');
+        
+        // 공통 요구 사항
+        // 각 포함 요소들의 클릭 이벤트 발생시 배경색 변경하기 기능 구현
+        // 대상들 : body, div, p, a
+
+        // 1. 아들 방
+        qs('a').onclick = ( ) => {
+         event.currentTarget.style.backgroundColor = 'red';
+        };
+        
+        // 2. 엄마 집
+        qs('p').onclick = ( ) => {
+         event.currentTarget.style.backgroundColor = 'yellow';
+        };
+        
+        // 3. 친척네 집
+        qs('div').onclick = ( ) => {
+         event.currentTarget.style.backgroundColor = 'green';
+        };
+        
+        // 4. 대한민국 전체
+        qs('body').onclick = ( ) => {
+         event.currentTarget.style.backgroundColor = 'blue';
+        };
+
+
+
+    }  ///////////////////// loadFn 함수 /////////////
+
+
+
+
+     ////////////////// load 구역
+
+
+      /**************************************************
             
             ★★★★★★★[ DOM event객체 ]★★★★★★★
 
@@ -126,28 +180,20 @@
             -> 주의: 함수를 외부함수로 만들어야 해제가 가능하다!
             (2) 이벤트속성 = ""; -> 빈 문자열값을 할당하여 지움
             **************************************************/
-           
+    </script>
+  </head>
 
+  <body>
+    대한민국전체
+    <div>
+      친척네집
+      <p>
+        엄마집
+        <a href="#">내방</a>
+      </p>
+    </div>
 
-            
-        </script>
-    </head>
-
-    <body>
-        대한민국전체
-        <div>
-            친척네집
-            <p>
-                엄마집
-                <a href="#">내방</a>
-            </p>
-        </div>
-
-        <!-- 아들방 클릭이벤트 지우기 버튼 -->
-        <button class="clear" style="font-size:5vh;">
-            아들방 이벤트 지워!
-        </button>
-
-
-    </body>
+    <!-- 아들방 클릭이벤트 지우기 버튼 -->
+    <button class="clear" style="font-size: 5vh">아들방 이벤트 지워!</button>
+  </body>
 </html>
