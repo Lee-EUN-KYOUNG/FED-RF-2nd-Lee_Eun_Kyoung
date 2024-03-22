@@ -22,17 +22,11 @@ addEvt(window,"DOMContentLoaded", loadFn);
         (1) 오른쪽 버튼 클릭시 다음 슬라이드가
             나타나도록 슬라이드 박스의 left값을
             -100%로 변경시킨다.
-            -> 슬라이드 이동후!!! 
-            바깥에 나가있는 첫번째 슬라이드
-            li를 잘라서 맨뒤로 보낸다!
-            동시에 left값을 0으로 변경한다!
+            -계속 클릭시 해당 순번만큼 곱하여 -400%까지 이동하게 한다!
 
         (2) 왼쪽버튼 클릭시 이전 슬라이드가
-            나타나도록 하기위해 우선 맨뒤 li를
-            맨앞으로 이동하고 동시에 left값을
-            -100%로 변경한다.
-            그 후 left값을 0으로 애니메이션하여
-            슬라이드가 왼쪽에서 들어온다.
+            나타나도록 하기위해 -100%를 기준하여 앞쪽 위치로 이동하게 한다!
+
 
         (3) 공통기능: 슬라이드 위치표시 블릿
             - 블릿 대상: .indic li
@@ -41,13 +35,41 @@ addEvt(window,"DOMContentLoaded", loadFn);
 
 *****************************************************/
 
+
 /****************************************** 
     함수명: loadFn
     기능: 로딩 후 버튼 이벤트 및 기능구현
 ******************************************/
 function loadFn() {
     console.log("로딩완료!");
+    // 이동 버튼 대상 : .abtn
+    const abtn = qsa('.abtn');
+    // 변경 대상 : #slide
+    const slide = qs('#slide');
+    //console.log(abtn,slide);
 
+    // slide 순번 전역 변수
+    let snum = 0;
+    // 2. 오른쪽 버튼 클릭시 기능 구현
+    abtn[1].onclick = ()=>{
+        // 슬라이드 순번 증가
+        snum++;
+        console.log('이동%:',(-100*snum)+'%');
+
+        slide.style.left = (-100*snum)+'%';
+        slide.style.transition = '.6s ease-in-out';
+    };
+
+    // 2. 왼쪽 버튼 클릭시 기능 구현
+    abtn[0].onclick = ()=>{
+        // 슬라이드 순번 증가
+        snum--;
+        console.log('이동%:',(-100*snum)+'%');
+
+        slide.style.left = (-100*snum)+'%';
+        slide.style.transition = '.6s ease-in-out';
+
+    };
     
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
