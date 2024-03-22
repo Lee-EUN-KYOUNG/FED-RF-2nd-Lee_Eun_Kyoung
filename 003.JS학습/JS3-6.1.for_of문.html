@@ -68,16 +68,16 @@
         조제: "https://t1.daumcdn.net/movie/f954c555d152096c5a3c77dab117fbe34ba65aa8",
         "원더 우먼 1984":
           "https://t1.daumcdn.net/movie/b1720df6b54fb7632590d5d05edd986a28433c9b",
-        도굴: "https://t1.daumcdn.net/movie/99a4d42206a028764e86c5bff8cf0021db985223",
+        "도굴": "https://t1.daumcdn.net/movie/99a4d42206a028764e86c5bff8cf0021db985223",
         "공조2: 인터내셔날":
           "https://t1.daumcdn.net/movie/36f22dea0e0a9e0e626c549ce689558160c46ed4",
         "육사오(6/45)":
           "https://t1.daumcdn.net/movie/f5c62530ef4f57a469bdb51cc065f2c47503f9d8",
         "더 퍼스트 슬램덩크":
           "https://upload.wikimedia.org/wikipedia/ko/c/ce/%EB%8D%94_%ED%8D%BC%EC%8A%A4%ED%8A%B8_%EC%8A%AC%EB%9E%A8%EB%8D%A9%ED%81%AC_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
-        바빌론:
+        "바빌론":
           "https://i.namu.wiki/i/B9FJyCEBX0NBWgO9-RyUBBhA35vTZvs5zlupdaGwbT8akX8hiXHkNreqqQGxQjUvYuoWkzzMtONJdsSxtM-EHg.webp",
-        무빙: "https://i.namu.wiki/i/8CJyDKz0ziEmjqCaCmxWtdwadwQs5CTXvyOkII3VuUdsJMhqV6FzL19MJdrD2B7zDlEjDCIBJ5QKns0Yu81XAjbwo24tO9mFfCRUC23-4A5i81oOBcpSPcuKdohhElPp0a4gy_qcVUJ96axqSCYCHw.webp",
+        "무빙": "https://i.namu.wiki/i/8CJyDKz0ziEmjqCaCmxWtdwadwQs5CTXvyOkII3VuUdsJMhqV6FzL19MJdrD2B7zDlEjDCIBJ5QKns0Yu81XAjbwo24tO9mFfCRUC23-4A5i81oOBcpSPcuKdohhElPp0a4gy_qcVUJ96axqSCYCHw.webp",
       };
 
       /***************************************************************************************************************
@@ -165,16 +165,46 @@
         *****************************************************************************************************/
         // 대상선정
         // 1. 이벤트 대상 : .wrap
-        const wrap = document.querySelector('.wrap');
+        const wrap = document.querySelector(".wrap");
         // 2. 변경 대상 : .flying-poster
-        const moving = document.querySelector('.flying-poster');
-        console.log(wrap, moving);
+        const moving = document.querySelector(".flying-poster");
+        //console.log(wrap, moving);
+        // 3. 이벤트 설정 + 기능 구현
+        // mousemove 이벤트 :  요소 위에 마우스 움직일때 계속 발생함
+        wrap.onmousemove = (e) => {
+          // e 는 이벤트 전달변수
+          // 이벤트 객체로부터 x,y 포인터 위치값
+          // event.pageX -> x축 좌표
+          // event.pageY -> y축 좌표
+          // 위치값 기준은 document 문서 전체이며 x축은 왼쪽끝,y축은 상단끝이 기준임
+          // 숫자는 단위 표시 없는 px값
+          // console.log("x:", e.pageX, "\ny:", e.pageY);
+
+          // 변경대상의 top,left 값 변경한다
+          moving.style.top = e.pageY + "px";
+          moving.style.left = e.pageX + "px";
+        }; ///////// mousemove 이벤트 함수
+
+        //.wrap 마우스 엔터시 포스터 보이기
+        wrap.onmouseenter = () => {
+            // console.log('삼항연산결과:');
+            // 포스터 박스 배경 이미지 초기 셋팅하기
+            // 영화제목 박스 비어있으면 "기본" 포스터
+            // 아니면 영화제목과 같은 포스터 출력하기
+            // 비? 집:놀이동산
+            // 첫번째입력 박스 비었냐? ? "기본" : 포스터명
+            moving.style.backgroundImage =
+            `url(${img_src[
+                minfo[0].innerText==''? "기본":minfo[0].innerText]})`;
+            moving.style.display = 'block';
+        };
 
 
-
-
-
-
+        //.wrap 마우스 리브시 포스터 숨기기
+        wrap.onmouseleave = () => {
+            moving.style.display = 'none';
+        };
+        // 포스터
 
       } ////// loadFn 함수 /////////
 
@@ -267,6 +297,21 @@
         background: url(./images/ala1.jpg) no-repeat center/cover;
         border: 4px dashed hotpink;
         border-radius: 20px;
+        /* 포인터 위치에서 중앙이동 */
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        /************************************** 
+           [ 포인터 이벤트 속성 ]  
+           pointer-events : auto;
+           -> 기본값 : 대상 요소에 이벤트 발생함
+           pointer-events : none;
+           -> none : 대상 요소에 이벤트 무시함
+           -> 아래쪽 요소의 이벤트가 발생함!
+        **************************************/
+        /* 처음에 안 보이게 하기 */
+        display: none;
+        /* 트랜지션 설정 - 처음이동시 빨리 움직이고 나중에 천천히 ease-out이 가장 자연스럽다! */
+        transition: .3s ease-out;
       }
     </style>
   </head>
