@@ -60,9 +60,6 @@ function loadFn() {
   const slide = qs("#slide");
   //console.log(abtn,slide);
 
-  // 왼쪽 버튼 처음에 숨기기
-  abtn[0].style.display = "none";
-
   // slide 순번 전역 변수
   let snum = 0;
 
@@ -81,12 +78,24 @@ function loadFn() {
   
     }; */
 
+
+   // 광클 금지 변수
+   let prot = false;   
   /***************************************************************************************************************
           함수명 : goSlide
           기능 : 슬라이드 이동
        ***************************************************************************************************************/
 
   function goSlide() {
+
+    /////////// 광클 금지 설정하기 -> 무한 클릭 신호를 막아서 못들어오게 하고 일정시간 후 다시 열어준다
+    if(prot)  return;  // 돌아가! (함수나감)
+    prot = true; // 잠금 (뒤의 호출이 모두 막힘)
+    setTimeout(() => {
+        prot=false; // 0.6초후 해제!
+    }, 600);
+    /////////////////////////////////////////////
+
     // 두번째 버튼인 .ab2인가?
     let isRbtn = this.classList.contains("ab2");
     // [classList 객체의 contains() 메서드]
@@ -94,16 +103,17 @@ function loadFn() {
     // 해당 클래스가 있으면 true, 없으면 false
 
     // 함수 호출 확인
-    console.log("나 슬라이드", this, isRbtn);
+    //console.log("나 슬라이드", this, isRbtn);
     //this는 호출한 버튼 자신
 
+    ///// 2. 버튼별 분기하기 (나누기)
     // 오른쪽 버튼일 경우 //
     if (isRbtn) {
-      // 먼저 왼쪽으로 이동하기
+      // (1) 먼저 왼쪽으로 이동하기
       slide.style.left = "-100%";
       slide.style.transition = ".6s ease-in-out";
 
-      // 이동하는 시간 0.6초간 기다림
+      // (2) 이동하는 시간 0.6초간 기다림
       setTimeout(() => {
         // 맨앞 li 맨뒤로 이동
         slide.appendChild(slide.querySelectorAll("li")[0]);
@@ -119,6 +129,41 @@ function loadFn() {
       // -> 기존 있는 요소를 선택시 맨뒤로 이동함
       // 맨앞요소를 선택하여 맨뒤로 보냄
     } // if문 ///
+
+    /// 왼쪽 버튼일 경우
+    else{
+        // 하위 li 수집하기
+        let list = slide.querySelectorAll('li');
+
+        // (1) 맨뒤 li 맨앞으로 이동하기
+        // 놈놈놈 시리즈!!
+        // insertBefore(넣을놈,넣을놈전놈)
+        // insertBeofre(맨뒤li,맨앞li)
+        slide.insertBefore(list[list.length-1],list[0]);
+
+        // (2) left 값을 -100%로 변경하여 맨뒤 li가 맨앞으로 온것을 숨긴다
+        // 왼쪽에서 슬라이드 들어올 준비!!
+        slide.style.left = "-100%";
+        // 트랜지션이 한번 버튼 클릭후 생기므로
+        slide.style.transition = "none";
+
+        // 같은 left 값을 변경하기 때문에 코드처리 구역을 분리하여준다
+        // 이때 사용되는 메서드는 setTimeout()
+        // 시간차는? -> 0을 줘도 코드 분리하여 처리하므로 동시처리가 아니고 비동기처리하기때문에 코드가 잘 작동함
+        setTimeout(() => {
+            /// (3) left 값을 0으로 트랜지션하여 들어옴
+            slide.style.left = "0";
+            slide.style.transition = ".6s ease-in-out";
+        }, 0);
+        
+
+    }  ////// else문
+
+
+
+
+
+
   } /////////////////// goSlide 함수
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
