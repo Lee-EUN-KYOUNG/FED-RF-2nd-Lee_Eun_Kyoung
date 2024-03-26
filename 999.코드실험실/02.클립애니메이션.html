@@ -13,6 +13,14 @@
       }
       /* 배경색은 겉박스에서! */
       .w1 {
+        position: relative;
+        /* 만약 클립패스된 박스에 그림자 효과를 주려면 부모박스에 filter:drop-shadow를 사용하면 된다!
+          단 배경색을 넣으면 외곽선을 찾아서 주는 효과이므로 그림자 효과가 상쇄된다
+        */
+        filter: drop-shadow(5px 5px 5px #000);
+      }
+      /* 그림자는 아래쪽 다른 박스에 주면 된다! */
+      body{
         background-color: lightseagreen;
       }
       .w2 {
