@@ -44,7 +44,11 @@ function loadFn() {
   const abtn = qsa(".abtn");
   // 변경 대상 : #slide
   const slide = qs("#slide");
-  //console.log(abtn,slide);
+  
+  // 불릿 대상
+  const indic = document.querySelectorAll('.indic li');
+  // console.log(abtn,slide,indic);
+
 
   // 오른쪽 버튼 처음에 숨기기
   abtn[0].style.display = "none";
@@ -115,13 +119,28 @@ function loadFn() {
     } ////// else ////
 
 
-
-
-
     console.log("이동%:", -100 * snum + "%");
 
     slide.style.left = -100 * snum + "%";
     slide.style.transition = ".6s ease-in-out";
+
+    // 5. 불릿표시 구현하기
+    // 모든 클래스 on 지우기 + 현재 순번 클래스 넣기
+    indic.forEach((ele,idx)=>{
+       // ele - 각각의 li , idx - 각각의 순번
+
+      if(idx ==snum){
+        // 현재 순번 on 넣기
+        ele.classList.add('on');
+      } /// if ////
+
+      else {
+        // 나머지는 on 빼기
+        ele.classList.remove('on');
+      } //// else ////
+
+    }); /// forEach ///
+
 
   } /////////////////// goSlide 함수
 } //////////////// loadFn 함수 ///////////////
