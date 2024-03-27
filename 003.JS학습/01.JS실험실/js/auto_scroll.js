@@ -109,14 +109,8 @@ function wheelFn(e) {
   // scrollTo(0, y축 이동값)
   window.scrollTo(0, pos);
 
-  // 6. 전체 메뉴에 on 빼기
-  for (let x of gnb) {
-    x.parentElement.classList.remove("on");
-  } /// for of ////////
-
-  // 7. 해당 순번에 on 넣기
-  gnb[pgNum].parentElement.classList.add("on");
-  // gnb[pgNum]은 해당 순번의 메뉴 a요소다
+  // 해당 메뉴 순번 on 넣기/ 나머지 on 빼기
+  chgMenu(pgNum);
 } /////////// wheelFn 함수 ////////////////
 ///////////////////////////////////////////
 
@@ -126,7 +120,7 @@ function wheelFn(e) {
 const gnb = document.querySelectorAll(".gnb a");
 // 이벤트 대상 : .indic a
 const indic = document.querySelectorAll(".indic a");
-// console.log("gnb:, gnb,"/ "indic:, indic");
+// console.log("gnb:", gnb,"/indic:",indic);
 // 이벤트 설정하기 + 기능 구현 하기
 
 /// 이벤트 설정하기
@@ -159,7 +153,7 @@ function chgMenu(idx){
   ///////////////////// 전체 메뉴에 on 빼기
   gnb.forEach((ele,seq)=>{
     // ele- a 요소 / seq - 순번
-    if(idx== seq){
+    if(idx === seq){
       // 선택순번과 같으면 on 넣기
       ele.parentElement.classList.add("on");
       indic[seq].parentElement.classList.add("on");
