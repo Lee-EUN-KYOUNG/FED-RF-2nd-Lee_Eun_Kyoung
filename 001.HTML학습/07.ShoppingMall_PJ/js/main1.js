@@ -88,11 +88,6 @@ function loadFn() {
   indic = document.querySelectorAll('.indic li');
 
 
-
-
-  // slide 순번 전역 변수
-  let snum = 0;
-
   // 2. 버튼을 모두 이벤트 설정하기
   for (let x of abtn) {
     x.onclick = goSlide;
