@@ -184,7 +184,7 @@
     left: 0; 
     bottom: 5%;
     width: 100%;
-    outline-color: red;
+    /* outline-color: red; */
 }
 
 /* 캐릭터 속박스 - Static한 박스임! (공간차지) */
@@ -246,7 +246,8 @@
 
 /* 캐릭터 설명박스 */
 .descbx{
-    
+    margin-top: 5%;
+    border-radius: 10px 5px 5px 10px;
     height: 0;
     overflow: auto;
     /* 넘치는 자식요소 auto일 경우 - 정해진 크기보다 넘치는 세로 스크롤만 생김! */
@@ -256,7 +257,8 @@
 
 /* 상위 캐릭터 개별박스에 오버시 설명박스 보이기 */
 .cat-inbox article:hover .descbx{
-    height: 200px;
+    /* height: 200px; */
+    padding-top: 55%;
 }
 
 /* 상위 캐릭터 개별박스에 오버시 이미지박스 트랜지션, 설명박스와 동일하게 설정하기 */
@@ -264,27 +266,33 @@
     transition: .4s ease-in-out;
   }
 
-/* 상위 캐릭터 개별박스에 오버시 이미지박스 마이너스 마진으로 위로 올리기 */
-.cat-inbox article:hover .imbx {
-    margin-top: -200px;
+/* 상위 캐릭터 개별박스에 오버시 이미지박스 마이너스 마진으로 위로 올리기
++ 캐릭터 타이틀 마진탑도 위로 올리기
+*/
+.cat-inbox article:hover .imbx,
+.cat-inbox article:hover .descbx h3{
+    margin-top: -55%;
   }
-
-
-
 
 
 /* 캐릭터 타이틀 */
 .descbx h3{
+    margin-top: 0%;
     font-family: 'GUgi';
-    font-size: 2.4rem;
+    /* 글자 크기 최대 2.4rem, 기타는 2vw 지정하여 유동적인 크기 */
+    font-size: min(2.4rem, 2vw);
     font-weight: normal;
     padding: 15px 10px 5px;
     letter-spacing: -1px;
+    /* 트랜지션 */
+    transition: margin-top .4s ease-in-out;
 }
+
 
 .descbx p{
     font-family: 'Single Day', 'ZCOOL KuaiLe';
-    font-size: 1.8rem;
+    /* 글자 크기 최대 1.8rem, 기타는 1.3vw 지정하여 유동적인 크기 */
+    font-size: min(1.8rem, 1.3vw);
     line-height: 1.6;
     padding: 1.5rem;
     /* 양쪽정렬 */
