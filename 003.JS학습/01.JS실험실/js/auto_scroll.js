@@ -28,7 +28,7 @@ const elePage = document.querySelectorAll(".page");
 
 // 1-4. 전체 페이지수
 const totalCnt = elePage.length;
-console.log("대상:", elePage, totalCnt, "개");
+//console.log("대상:", elePage, totalCnt, "개");
 
 // 2. 이벤트 등록하기 ////////
 // 대상 : window
@@ -60,7 +60,7 @@ setTimeout(() => {
 function wheelFn(e) {
   // 이벤트전달변수(자동)
   // 함수호출확인!
-  console.log("휠~~~!");
+  //console.log("휠~~~!");
 
   /// 1. 휠 기본 기능 막고 자동 스크롤을 하나씩 되도록 지정
   e.preventDefault();
@@ -97,14 +97,14 @@ function wheelFn(e) {
     } /// if
   } ////// else
 
-  console.log("pgNum:", pgNum);
+  //console.log("pgNum:", pgNum);
 
   // 5. 페이지 이동하기
   // 5-1. 이동할 위치 알아내기
   // -> .page 요소 중 해당 순번 페이지 위치
   let pos = elePage[pgNum].offsetTop;
   // offsetTop은 최상단에서부터 거리
-  console.log("이동할위치:", pos);
+  //console.log("이동할위치:", pos);
   // 5-2. 페이지 스크롤 위치 이동하기
   // scrollTo(0, y축 이동값)
   window.scrollTo(0, pos);
@@ -124,24 +124,63 @@ function wheelFn(e) {
 
 // 이벤트 대상 : .gnb a
 const gnb = document.querySelectorAll(".gnb a");
-console.log("gnb:", gnb);
+// 이벤트 대상 : .indic a
+const indic = document.querySelectorAll(".indic a");
+// console.log("gnb:, gnb,"/ "indic:, indic");
 // 이벤트 설정하기 + 기능 구현 하기
 
 /// 이벤트 설정하기
 gnb.forEach((ele, idx) => {
   ele.onclick = () => {
-    // 클릭시 자신의 순번 찍기
-    console.log("순번:", idx);
-    // 전역 페이지 변수에 순번 업데이트
-    pgNum = idx;
-
-    // 전체 메뉴에 on 빼기
-    for (let x of gnb) {
-      x.parentElement.classList.remove("on");
-    } /// for of ////////
-
-    // 해당 순번에 on 넣기
-    ele.parentElement.classList.add("on");
-    // parentElement는 선택 요소의 부모 요소다
+    // 메뉴 변경 함수 호출
+    chgMenu(idx);
   }; //// click 함수
 }); ///////// forEach
+
+
+indic.forEach((ele, idx) => {
+  ele.onclick = () => {
+    // 메뉴 변경 함수 호출
+    chgMenu(idx);
+  }; //// click 함수
+}); ///////// forEach
+
+
+///// [메뉴 변경 함수 : .gnb + .indic]
+function chgMenu(idx){
+  // 호출 확인!
+  console.log("순번!");
+  // idx 는 순번
+  // 클릭시 자신의 순번 찍기
+  console.log("순번:", idx);
+  // 전역 페이지 변수에 순번 업데이트
+  pgNum = idx;
+
+  ///////////////////// 전체 메뉴에 on 빼기
+  gnb.forEach((ele,seq)=>{
+    // ele- a 요소 / seq - 순번
+    if(idx== seq){
+      // 선택순번과 같으면 on 넣기
+      ele.parentElement.classList.add("on");
+      indic[seq].parentElement.classList.add("on");
+    } /////// if //////////
+
+    //// 기타의 경우 on 지우기
+    else{
+      ele.parentElement.classList.remove("on");
+      indic[seq].parentElement.classList.remove("on");
+    } /////////else ////////////////
+
+  }); ///////////// forEach /////////////////////////////
+  
+
+ /*  for (let x of gnb) {
+    x.parentElement.classList.remove("on");
+  } /// for of //////// */
+
+  /* 해당 순번에 on 넣기
+  ele.parentElement.classList.add("on");
+  parentElement는 선택 요소의 부모 요소다 */
+  
+
+} ///////// chgMenu 함수 ////////////////////
