@@ -116,7 +116,18 @@ function loadFn() {
           기능 : 슬라이드 이동
        ***************************************************************************************************************/
 
-  function goSlide() {
+  function goSlide(evt,sts=true){
+    // evt - 이벤트 객체 전달 : PointerEvent{}
+    // sts - 버튼 클릭인지 자동 호출인지 구분하는 전달 변수
+    // sts=true면 버튼 클릭, false면 자동 호출로 구분
+    // -> 만약 전달값이 없으면 기본값으로 셋탕함 (ES6문법에서 전달변수 초기값주기 새로 추가됨)
+    // 함수를 호출시 아무값도 보내지 않으면
+    // 함수의 전달 변수 하나를 쓸 경우나
+    // 또는 여러 전달 변수 중에 첫번째 이벤트 객체가 전달된다
+    // 그대신 변수를 하나 쓰면 그것이 이벤트 변수를 전달하는 역할을 함
+    
+    console.log('전달변수:',evt,sts);
+    
     /////////// 광클 금지 설정하기 -> 무한 클릭 신호를 막아서 못들어오게 하고 일정시간 후 다시 열어준다
     if (prot) return; // 돌아가! (함수나감)
     prot = true; // 잠금 (뒤의 호출이 모두 막힘)
@@ -126,13 +137,17 @@ function loadFn() {
     /////////////////////////////////////////////
 
     // 두번째 버튼인 .ab2인가?
-    let isRbtn = this.classList.contains("ab2");
+    let isRbtn =
+    sts?this.classList.contains("ab2"):true;
+    // stst 값이 true가 맞으면 버튼을 클릭한 것이므로 this 키워드에 의한 클래스 .ab2 존재여부를 물어본다
+    // false가 맞으면 무조건 true 값을 할당해라 ->  오른쪽 클릭한 방향으로 가야되기 때문
+
     // [classList 객체의 contains() 메서드]
     // -> 해당 요소의 특정 클래스인지 여부를 리턴함
     // 해당 클래스가 있으면 true, 없으면 false
 
     // 함수 호출 확인
-    //console.log("나 슬라이드", this, isRbtn);
+    console.log("나 슬라이드", this, isRbtn);
     //this는 호출한 버튼 자신
 
     ///// 2. 버튼별 분기하기 (나누기)
@@ -194,8 +209,8 @@ function loadFn() {
     // 왼쪽 버튼은 먼저 앞에 붙이고 이동하므로 첫번째 순번[0]   
     let seq = slide.querySelectorAll('li')[isRbtn?1:0]
     .getAttribute('data-seq');
-    console.log('블릿이 읽어올 슬라이드 순번:',seq,
-    '/데이터형:',typeof seq);
+    /* console.log('블릿이 읽어올 슬라이드 순번:',seq,
+    '/데이터형:',typeof seq); */
     // string : 문자형, number : 숫자형
 
 
@@ -216,8 +231,36 @@ function loadFn() {
 
    }); /// forEach ///
 
-
-
   } /////////////////// goSlide 함수
+
+//////////////// 인터발용 변수 (지울목적)
+let autoI;
+// 자동넘김 호출함수 최초 호출하기
+autoSlide();
+
+//////////////// 자동 넘김 호출 함수 /////////////////////////////////
+function autoSlide(){
+  // setInterval(함수,시간) - 일정 시간 간격으로 함수를 호출
+  // clearInterval(인터발변수) - 변수에 담긴 인터발을 지움(멈춰!)
+  autoI = setInterval(() => {
+    /* abtn[1].onclick(); */
+    // 값을 2개 보내야함
+    // -> 첫번째 전달값은 이벤트 객체가 들어가는 변수이므로 false값을 쓰고
+    // 두번째 전달값은 자동 호출임을 알리는 호출이므로 false값을 전달한다
+    goSlide(false, false);
+  }, 3000);
+
+} ///////// autoSlide 함수
+
+//////////// 인터발 지우기 함수 /////////////////
+function clearAuto(){
+   // 지우기 확인
+   console.log('인터발 지워');
+   clearInterval(autoI);
+
+} ///////// clearAuto함수
+
+
+
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
