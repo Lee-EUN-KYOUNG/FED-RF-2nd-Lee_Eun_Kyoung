@@ -43,7 +43,10 @@ myBody.onmousemove = (e) => {
   // e.pageX : x축 위치 , e.pageY : y축 위치
 
   // 2. 무버에 위치값 적용하기
-  mover.style.top = e.pageY + 'px';
+  /* mover.style.top = e.pageY + 'px'; */
+  // 무버가 fixed면 Y축은 보이는 화면 기준해야함! -> 그래서 client 사용함
+
+  mover.style.top = e.clientY + 'px';
   mover.style.left = e.pageX + 'px';
 
 
@@ -51,15 +54,31 @@ myBody.onmousemove = (e) => {
 
 // 3. 이벤트 대상 구역에 들어올때만 보이기 / 나가면 숨기기
 myBody.onmouseenter = () => {
-    mover.style.opacity = '1';
+    mover.style.opacity = 1;
 
 }; /// mouseenter ////
 
 myBody.onmousleave = () => {
-    mover.style.opacity = '0';
+    mover.style.opacity = 0;
 
 }; /// mouseleave ////
 
+// 4. a요소에 오버시 원 커지게 하기
+// 대상 : .link
+const link = document.querySelectorAll('.link');
+// console.log(link);
+
+link.forEach((ele)=>{
+    // a 요소에 마우스 들어올 때
+    ele.onmouseenter = () => {
+        mover.style.transform = "translate(-50%,-50%) scale(2)";
+    }; //////
+    /// a 요소에 마우스 나갈 때
+    ele.onmouseleave = () => {
+        mover.style.transform = "translate(-50%,-50%) scale(1)";
+    }; //////
+
+}); ///////////// forEach //////////
 
 
 
