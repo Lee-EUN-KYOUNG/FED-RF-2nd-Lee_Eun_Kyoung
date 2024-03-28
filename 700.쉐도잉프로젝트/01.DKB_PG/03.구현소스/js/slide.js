@@ -285,6 +285,11 @@ export default function slideFn() {
         abtn[idx].style.left = e.pageX + 'px'; 
       }; ////////////// 마우스무브 ///////////
       
+
+      // 이벤트 셋팅하기4 : click (이동함수 호출)
+      ele.onclick = goSlide;
+
+
     }); ////////////////////// forEach
 
 
