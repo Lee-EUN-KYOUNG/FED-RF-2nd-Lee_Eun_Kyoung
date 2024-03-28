@@ -250,7 +250,7 @@ export default function slideFn() {
     //////////// 인터발 지우기 함수 /////////////////
     function clearAuto() {
       // 지우기 확인
-      console.log("인터발 지워");
+      // console.log("인터발 지워");
       // 1. 인터발 지우기
       clearInterval(autoI);
       // 2. 타임아웃 지우기 : 실행 쓰나미 방지!!
