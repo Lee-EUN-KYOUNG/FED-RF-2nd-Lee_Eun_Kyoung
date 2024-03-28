@@ -159,6 +159,7 @@
 /* 양분박스 aside */
 .evt-cover aside{
     flex: 1;
+    cursor: pointer;
 }
 
 /* 버튼요소  */
