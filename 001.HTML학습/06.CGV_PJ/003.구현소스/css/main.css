@@ -24,7 +24,8 @@ body{
 /* 공통 클래스 */
 /* 파트공통 */
 .part{
-    width: 1200px;
+    /* 최대크기 이하면 auto 전환! */
+    max-width: 1200px;
     /* 중앙정렬 마.영.오*/
     margin: 0 auto;
 }
@@ -238,18 +239,20 @@ body{
 .main-area{
     position: relative;
     /* 부모자격- .screen */
-    height: 788px;
+    /* 높이값 주지말 고 비율 박스 만들기 */
+    aspect-ratio: 1200 / 788;
+    /* height: 788px; */
     /* 극장이미지 배경 */
-    background: url(../images/bg.jpg) no-repeat;
+    background: url(../images/bg.jpg) no-repeat center/cover;
 }
 /* 2-1.스크린 */
 .screen{
     position: absolute;
     /* 부모는? .main-area */
-    top: 136px;
-    left: 257px;
-    width: 701px;
-    height: 397px;
+    top: 17.2%;
+    left: 21.1%;
+    width: 58.8%;
+    height: 50.7%;
     background-color: #000;
 }
 /* 유튜브 아이프레임 */
@@ -331,15 +334,24 @@ body{
     justify-content: center;
     /* 부모박스 채우기 */
     height: 100%;
+    /* 글자체 */
+    font-family: 'Cute Font', cursive;
     /* 줄바꿈 방지 */
     white-space: nowrap;
     /* 글자크기 */
-    font-size: 12px;
+    font-size: min(14px,1.3vw);
     /* 줄간격 */
     line-height: 2.5;
     /* 반투명 배경 */
     background-color: #00000096;
 
+}
+
+/* 영화정보 제목만 글자 변경 */
+.mv-info ol li:first-child{
+    color: aqua;
+    font-size: min(17px,1.5vw);
+    font-family: 'Cute Font', cursive;
 }
 
 /* 3. 하단영역 */
@@ -359,7 +371,7 @@ body{
     color: #fff;
     /* 이탤릭 해제 */
     font-style: normal;
-    font-family: 'cute font';
+    font-family: 'Cute Font', cursive;
     font-size: 1.5rem;
 }
 .sns-box{
