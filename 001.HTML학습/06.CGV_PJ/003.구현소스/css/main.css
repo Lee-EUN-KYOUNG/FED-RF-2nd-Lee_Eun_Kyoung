@@ -234,15 +234,6 @@ body{
 
 
 
-
-
-
-
-
-
-
-
-
 /* 2. 메인영역 */
 .main-area{
     position: relative;
@@ -353,5 +344,34 @@ body{
 
 /* 3. 하단영역 */
 .footer-area{
-    height: 100px;
+    display: flex;
+    padding: 30px;
+    gap: 0 20px;
+    /* 진행방향 수직정렬(한줄) */
+    align-items: center;
+
+}
+
+/* 3-1. 하단로고 */
+
+/* 3-2. 회사정보 */
+.co-info address{
+    color: #fff;
+    /* 이탤릭 해제 */
+    font-style: normal;
+    font-family: 'cute font';
+    font-size: 1.5rem;
+}
+.sns-box{
+    /* 플렉스 자식에서 왼짝 마진을 auto로 주면 오른쪽끝으로 이동함 */
+    margin-left: auto;
+}
+/* 3-3. SNS */
+.sns-box ol{
+    display: flex;
+    gap : 0 10px;
+}
+.sns-box a{
+    color: #fff;
+    font-size: 4rem;
 }
