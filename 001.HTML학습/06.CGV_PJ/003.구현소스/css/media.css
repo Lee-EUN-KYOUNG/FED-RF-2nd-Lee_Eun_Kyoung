@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CGV PJ 미디어 쿼리 CSS - media.css */
+
+/* max-width를 사용한 미디어쿼리를 큰 사이즈부터 작은 사이즈 순으로 셋팅함! */
+
+/* 1350px 이하 미디어쿼리 시작 */
+@media screen and (max-width: 1350px) {
+  /* GNB 위치 이동 */
+  .gnb {
+    right: 70px;
+  }
+}
+
+/* 1350px 이하 미디어쿼리 종료 */
+
+/* 1024px 이하 미디어쿼리 시작 */
+@media screen and (max-width: 1024px) {
+  /* GNB메뉴 위치 및 배치 변경하기 */
+  .gnb {
+    bottom: auto;
+    /* 기존 위치 기준을 auto로 초기화 */
+    right: 17px;
+    /* 새로운 기준인 top을 사용함 */
+    top: 81px;
+  }
+  .gnb ul {
+    flex-direction: column;
+    align-items: flex-end;
+    /* 높이값을 이용한 메뉴 숨기기 */
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-in-out;
+  }
+
+  /* GNB 오버시 ul 보이기 */
+  .gnb:hover ul {
+    height: 127px;
+  }
+
+  /* 서브메뉴 오버시 숨기기 */
+  .gnb ul > li:hover .smenu {
+    display: none;
+  }
+  /* 영사기 위치변경 */
+  .cam {
+    top: -62px;
+    right: -12px;
+    padding-bottom: 10px;
+    /* 하단 gnb와 오버시 연결필요! */
+  }
+}
+/* 1024px 이하 미디어쿼리 종료 */
+
+/* 810x 이하 미디어쿼리 시작 */
+@media screen and (max-width: 810px) {
+  /* 메인영역 - 비율 변경, 배경 조정*/
+  .main-area {
+    aspect-ratio: 1 / 1.25;
+    background: url(../images/bg.jpg) no-repeat center -37%/148%;
+  }
+  /* 스크린 크기 위치 조정 */
+  .screen {
+    top: 4.2%;
+    left: 7.1%;
+    width: 87.8%;
+    height: 40.7%;
+  }
+
+  /* 하단 영역 */
+  .footer-area {
+    gap: 20px;
+    flex-direction: column;
+  }
+  .sns-box {
+    margin-left: 0;
+  }
+
+  /* 포스터 리스트 */
+  .poster-menu ul {
+    flex-wrap: wrap;
+    /* 가로 방향 사이 갭이 가로폭의 2%로 변경 */
+    gap: 0 2%;
+  }
+  /* 상위 ul>li 리스트 */
+  .poster-menu > ul > li {
+    flex-basis: calc(100% / 3 - 1.4%);
+    /* 100%를 3등분에 갭값 2%에서 오른쪽에 남는 갭을 등분할한 적당한 수치인 1.4%를 빼줌 */
+  }
+
+  /* 포스터 영화정보 글자 크기 */
+  .mv-info ol {
+    font-size: 3vw;
+  }
+  .mv-info ol li:first-child {
+    font-size: 3.3vw;
+  }
+}
+/* 810x 이하 미디어쿼리 종료 */
+
+/* 810x 이하 미디어쿼리 시작 */
+
+/* 810x 이하 미디어쿼리 종료 */

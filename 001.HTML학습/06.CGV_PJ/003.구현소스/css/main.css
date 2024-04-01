@@ -3,12 +3,12 @@
 
 
 @import url(./core.css);
-
 @import url(./reset.css);
 
 body{
     background-color: #000;
 }
+
 
 /* 공사중 표시 */
 /* body * {
@@ -212,7 +212,7 @@ body{
 .cam::after{
     position: absolute;
     content: '';
-    width: 150px;
+    width: 0; /* 오버시 width: 150px;*/
     height: 70px;
     top: -17px;
     right: 70px;
@@ -224,6 +224,7 @@ body{
 
 /* 오버시 스크린 보이기 */
 .gnb:hover .cam::after{
+    width: 150px;
     opacity: 1;
     transition: opacity .3s .6s;
 }
