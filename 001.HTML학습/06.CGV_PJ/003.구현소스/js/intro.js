@@ -16,5 +16,11 @@ myvid.addEventListener('timeupdate',() => {
     // 호출 확인
     console.log('재생중!',isStop);
 
+    // 2. 멈춤 상태 (true) 면 페이지 이동
+    // -> JS에서 페이지 이동은 location.hredf="이동할 주소or페이지"
+
+    if(isStop){
+        location.href = 'main.html';
+    } ////// if
 
 }); /////////////////////// timeuotate 이벤트 함수 //////////////////////////
