@@ -40,7 +40,7 @@ function loadFn() {
   // 이동버튼 대상:  .abtn
   const abtn = qsa(".abtn");
   // 변경대상 : #slide
-  const slide = qs("#slide");
+  let slide = qs("#slide");
   // 블릿버튼 : .indic
   let indic = qs(".indic");
   // console.log(abtn,slide);
@@ -49,6 +49,17 @@ function loadFn() {
   // 상수는 대문자로 쓰고 단어 구분은 언더바로 함!
 
   const SLIDE_CNT = 5;
+
+  // 슬라이드 트랜지션 시간 상수
+  const SLIDE_TRANS_TIME = 600;
+
+  // 광클 금지 변수
+  let stop = false;
+
+  // 슬라이드 순번 전역변수
+  let snum = 0;
+
+
 
   //////////// 초기셋팅하기 ////////
   // 5개의 슬라이드와 블릿을 만들어준다!
@@ -70,19 +81,25 @@ function loadFn() {
     `;
   } ////// for ////////
 
+
+
   // li를 생성한 후 그 li다시 수집한다!
-  // 블릿의 li까지 수집! indic 변수
+  // (1) 슬라이드의 li까지 수집! slide 변수
+  slide = qsa("#slide li");
+
+  // (2) 블릿의 li까지 수집! indic 변수
   indic = qsa(".indic li");
 
-  // 슬라이드 순번 전역변수
-  let snum = 0;
 
   // 1. 이벤트 연결 설정하기
   // 대상 : .abtn
+  // addEvt(대상,이벤트,함수);
   abtn.forEach((ele) => {
     addEvt(ele, "click", goSlide);
   });
-  // addEvt(대상,이벤트,함수);
+  
+
+
 
   // 2. 이벤트 처리 함수 만들기
   //  [처리 순서]
@@ -94,6 +111,15 @@ function loadFn() {
   // (6) 자동 넘김 구성 함수를 호출하여 인터발 호출 작동 -> 버튼 클릭시 인터발 지우기/일정시간 뒤 다시 인터발 작동
 
   function goSlide() {
+
+    // 광클 금지 설정
+    if(stop) return;  // 막기
+    stop = true;  // 잠금
+    setTimeout(() => {
+      stop = false; // 해제
+    }, SLIDE_TRANS_TIME);
+    ////////////////////////
+
     // 1. 오른쪽 버튼 여부
     let isRbtn = this.classList.contains("ab2");
     /// 호출확인
@@ -103,16 +129,54 @@ function loadFn() {
     // (1) 오른쪽 버튼일 경우 증가
     // 한계 설정: snum이 개수-1과 같으면 첫번호 0
 
-    if (isRbtn) snum === SLIDE_CNT -1 ? (snum = 0) : snum++;
+    if (isRbtn) snum === SLIDE_CNT - 1 ? (snum = 0) : snum++;
     // (2) 왼쪽 버튼일 경우 감소
     // 한계 설정 : snum이 0이면 마지막 순번
     else snum === 0 ? (snum = SLIDE_CNT - 1) : snum--;
 
     console.log("snum:" + snum);
 
+    // 3. 슬라이드 순번 클래스 제어 함수 호출하기
+    setClass(slide,'on',snum)
 
-
+    // 4. 블릿 순번 클래스 제어 함수 호출하기
+    setClass(indic,'on',snum);
 
 
   } ///////////////// goSlide 함수 /////////////
+
+
+
+
+
+  // 3. 클래스 제어 함수 만들기
+  function setClass(target,className,seq) {
+
+    // targer -  변경할 요소 대상
+    // className -  변경할 클래스명
+    // seq -  클래스가 들어갈 순번
+
+    console.log('대상:',target, '/클래스명:',className, '/순번',seq);
+
+    // 타겟은 HTML 컬렉션이므로 forEach로 순회함!
+    target.forEach((ele,idx) => {
+      // 1-1. seq와 idx가 일치할 경우 클래스 넣기
+      if(seq === idx) ele.classList.add(className);
+
+      // 1-2. 기타의 경우 클래스 제거
+      else ele.classList.remove(className);
+
+    }); //////////////////// forEach ////////////////
+
+
+
+
+
+
+  } //////// setClass 함수
+
+
+
+
+
 } /////////////// loadFn 함수 //////////////
