@@ -219,9 +219,6 @@ function showLetters() {
     }
 
 
-
-
-
   }  ///////// moveTit ////////////////
 
 
