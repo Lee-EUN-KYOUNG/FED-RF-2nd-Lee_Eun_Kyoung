@@ -14,6 +14,10 @@ const myFn = {
   // 바운딩 함수
   getBCR: ele => ele.getBoundingClientRect().top,
 
+  // 옵셋탑값 반환함수
+  getOT: ele => ele.offsetTop,
+
+
 }; /////// myFn 객체 /////////////
 
 
@@ -95,7 +99,7 @@ function showIt(){
 
 /// 스크롤 등장 기준 설정 : 화면의 2/3
 const CRITERIA = window.innerHeight / 3 * 2
-console.log('기준값:',CRITERIA);
+//console.log('기준값:',CRITERIA);
 
 
 //// [클래스 on 넣기 함수 ]
@@ -109,16 +113,7 @@ function addOn(ele){
  // 기준값보다 크면 원상복귀 (숨김-on 빼기)
  else ele.classList.remove('on');
 
-
-
 } ////////// addOn 함수
-
-
-
-
-
-
-
 
 
 
@@ -165,4 +160,80 @@ function showLetters() {
   setTimeout(() => {
     stage.classList.add("on");
   }, 2000);
+
+  /////////////////////// 글자 스크롤 이벤트 셋팅하기 ////////////////////////////
+  // 이벤트 대상 : window
+  myFn.addEvt(window,'scroll',moveTit);
+
+ // 기준이 되는 포스터 박스 위치 구하기
+ const posTop = [];
+
+ scAct.forEach((ele,idx)=>{
+    posTop[idx] = myFn.getOT(ele);
+ }); ////// forEach
+ // -> 특정요소 offsetTop 값은 최상위 라인으로부터 떨어진 위치를 의미함
+ // -> 스크롤바 이동 위치가 해당 요소가 화면 맨위에 걸린 상태와 같음
+ // 화면 중간에 위치할 때의 값은 화면 높이값의 절반을 빼주면 된다
+ // posTop[순번] - window.innerHeight/2
+
+ // 화면 절반 크기 변수 (포스터 위치에서 뺀값)
+ const gap = window.innerHeight/2;
+
+ console.log('포스터위치:',posTop,gap);
+
+
+ 
+/////// 글자 이동함수 ////////////////////
+ function moveTit(){
+    // 스크롤 위치값 구하기 
+    let scTop = window.scrollY;
+    // 호출확인
+    console.log('타이틀 이동!!!',scTop);
+
+    // 1. 맨위로 원위치 이동 : 첫번째 기준보다 작을때
+    if(scTop < posTop[0]-gap){ 
+        stage.style.top = '0%';
+        stage.style.left = '50%';
+        stage.style.transition = '1s';
+    }
+
+    // 2. 첫번째 포스터 옆으로 이동
+    if(scTop > posTop[0]-gap && scTop < posTop[0]){ 
+        stage.style.top = '50%';
+        stage.style.left = '25%';
+        stage.style.transition = '2s';
+    }
+
+    // 3. 두번째 포스터 옆으로 이동
+    if(scTop > posTop[1]-gap && scTop < posTop[1]){ 
+        stage.style.top = '70%';
+        stage.style.left = '65%';
+        stage.style.transition = '1s';
+    }
+
+    // 4. 세번째 포스터 옆으로 이동
+    if(scTop > posTop[2]-gap && scTop < posTop[2]){ 
+        stage.style.top = '50%';
+        stage.style.left = '25%';
+        stage.style.transition = '.5s';
+    }
+
+
+
+
+
+  }  ///////// moveTit ////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
 } /////////// showLetters
