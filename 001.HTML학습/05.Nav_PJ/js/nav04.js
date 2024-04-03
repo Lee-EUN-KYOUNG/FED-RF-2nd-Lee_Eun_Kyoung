@@ -27,11 +27,11 @@ const myFn = {
   // 3. 이벤트 설정하기
   gnbList.forEach(ele=>{
 
-    // 클릭시 메뉴 열기
+    // 클릭시 메뉴 열기 & 기타 서브 닫기
     myFn.addEvt(ele,'click',showMenu);
     
     // 마우스 떠날때 메뉴 닫기
-    myFn.addEvt(ele,'mouseleave',hideMenu);
+    //myFn.addEvt(ele,'mouseleave',hideMenu);
 
   }); ////////////////// forEach //////////////////////////
 
@@ -45,7 +45,7 @@ function showMenu(){
     // null의 뜻은 '빈값'
     
     // 함수호출
-    //console.log('보여줘 서브메뉴',smenu);
+    console.log('보여줘 서브메뉴',this,smenu);
 
     // 2. 조건 분기 하기 : 서브가 있는 경우 높이값 만들기
     // 높이값은 하위의 ol 요소의 높이값을 읽어와서 .smenu에 height값으로 넣어준다
@@ -54,13 +54,24 @@ function showMenu(){
         // null이 아니면 true처리됨 -> .smenu가 null이 아닌 경우만 들어옴
         // 서브 메뉴 ol 요소 높이값 읽어오기
         let hval = myFn.qsEl(smenu,'ol').clientHeight;
-        //console.log('높이값:',hval);
+        console.log('높이값:',hval);
         // clientHeight는 요소의 높이값
 
         // 높이값 적용하기
         // 대상 : .smenu -> smenu 변수
         smenu.style.height = (smenu.clientHeight ===0? hval : 0) + 'px';
         // 해석 : smenu 높이값이 0이냐? 맞으면 높이값 hval 적용, 아니면 0값 적용하여 열었다&닫았다를 가능하게 함
+
+        // 기타 다른 서브 메뉴가 열렸다면 모두 닫아줌
+        // gnb 상위 li를 모두 순회하기
+        gnbList.forEach(ele=>{
+
+            // isSame()메서드 : 순회중 같은 노드 (요소)인지 판별해주는 기능을 가짐 (같으면 true)
+            let isSame = ele.isSameNode(this);
+            console.log('서브닫기체크:',ele,isSame);
+
+        }); /////////// forEach ////////
+
 
     } //////////// if ////////////
 
