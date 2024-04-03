@@ -81,10 +81,13 @@ myFn.addEvt(window,'scroll',showIt);
 function showIt(){
 
     // 클래스 on 넣기 함수 호출하기
-    // for of 문 호출
-
-    for(let x of scAct) addOn(x);
-
+   
+    // for of 제어문 처리 방법
+    // for(let x of scAct) addOn(x);
+    
+    // for Each 메서드 처리 방법
+    scAct.forEach(ele=>addOn(ele));
+    
     /* let pos = myFn.getBCR(scAct[0]);
     let pos2 = myFn.getBCR(scAct[1]);
     let pos3 = myFn.getBCR(scAct[2]); */
@@ -179,7 +182,7 @@ function showLetters() {
  // 화면 절반 크기 변수 (포스터 위치에서 뺀값)
  const gap = window.innerHeight/2;
 
- console.log('포스터위치:',posTop,gap);
+ //console.log('포스터위치:',posTop,gap);
 
 
  
@@ -188,7 +191,7 @@ function showLetters() {
     // 스크롤 위치값 구하기 
     let scTop = window.scrollY;
     // 호출확인
-    console.log('타이틀 이동!!!',scTop);
+    // console.log('타이틀 이동!!!',scTop);
 
     // 1. 맨위로 원위치 이동 : 첫번째 기준보다 작을때
     if(scTop < posTop[0]-gap){ 
@@ -218,19 +221,41 @@ function showLetters() {
         stage.style.transition = '.5s';
     }
 
-
   }  ///////// moveTit ////////////////
 
-
-
-
-
-
-
-
-
-
-
-
-
 } /////////// showLetters
+
+///////////////////////////// 떨어지는 여자 구현하기 //////////////////////////////////////////
+
+// 기본원리 : 스크롤 이동에 따른 화면 높이값 범위 안에서 떨어지는 여자 이미지가 아래쪽으로 이동 애니함
+// 비례식을 세운다
+// 스크롤 한계값 : 윈도우 높이 = 스크롤 이동값 : 이미지 이동값
+// 이미지 이동값 = 윈도우 높이 * 스크롤 이동값 : / 스크롤 한계값
+
+
+// 0. 변수값 셋팅하기
+// (1) 스크롤 한계값 : 전체 document 높이 -  화면 높이
+// 전체 document 높이
+let docH = document.body.clientHeight;
+// 화면 높이
+let winH = window.innerHeight;
+let scLlimit  =  docH - winH;
+
+console.log('문서높이:', docH, '\n화면높이:',winH, '\n한계값:',scLlimit);
+
+
+
+// 1. 대상 선정 : 떨어지는 여자 요소
+const woman = myFn.qs('#woman');
+
+// 2. 스크롤 이벤트 설정하기 : window가 이벤트 대상임
+myFn.addEvt(window,'scroll',moveWoman);
+
+// 3. 함수 만들기 //////////////////
+function moveWoman(){
+
+  // 스크롤 위치값
+  let scTop = window.scrollY;
+  console.log('스크롤:',scTop);
+
+} /////// moveWoman 함수 ////////////////////////
