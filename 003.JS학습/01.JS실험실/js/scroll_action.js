@@ -233,6 +233,7 @@ function showLetters() {
 // 이미지 이동값 = 윈도우 높이 * 스크롤 이동값 : / 스크롤 한계값
 
 
+
 // 0. 변수값 셋팅하기
 // (1) 스크롤 한계값 : 전체 document 높이 -  화면 높이
 // 전체 document 높이
@@ -256,6 +257,19 @@ function moveWoman(){
 
   // 스크롤 위치값
   let scTop = window.scrollY;
-  console.log('스크롤:',scTop);
+  let wTop = winH * scTop / scLlimit;
+  console.log('스크롤:',scTop, '\n여자:',wTop);
+
+  
+  //  떨녀 top 값
+  // 이미지 이동값 = 윈도우 높이 * 스크롤 이동값  / 스크롤 한계값
+  // 이미지 이동값 = winH * scTop / scLlimit
+
+  // 3. 떨녀에게 적용하기
+  woman.style.top = wTop + 'px';
+
+
+  // 4. 맨위일때 윗쪽으로 숨기기
+  if(scTop === 0) woman.style.top = '-20%';
 
 } /////// moveWoman 함수 ////////////////////////
