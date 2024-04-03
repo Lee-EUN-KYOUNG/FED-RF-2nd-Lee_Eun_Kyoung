@@ -69,8 +69,11 @@ function showMenu(){
     // 기타 다른 서브 메뉴가 열렸다면 모두 닫아줌
     // gnb 상위 li를 모두 순회하기
     gnbList.forEach(ele=>{
-        // ele- 
+        // ele - 각li요소
         // isSame()메서드 : 순회중 같은 노드 (요소)인지 판별해주는 기능을 가짐 (같으면 true)
+        // -> 여기서 this키워드는 함수를 호출한 li다!
+
+        // 현재 요소가 같은 요소인지 판별하기
         let isSame = ele.isSameNode(this);
         // console.log('서브닫기체크:',ele,isSame);
 
