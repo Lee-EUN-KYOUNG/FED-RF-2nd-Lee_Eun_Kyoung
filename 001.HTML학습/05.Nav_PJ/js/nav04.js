@@ -62,22 +62,40 @@ function showMenu(){
         smenu.style.height = (smenu.clientHeight ===0? hval : 0) + 'px';
         // 해석 : smenu 높이값이 0이냐? 맞으면 높이값 hval 적용, 아니면 0값 적용하여 열었다&닫았다를 가능하게 함
 
-        // 기타 다른 서브 메뉴가 열렸다면 모두 닫아줌
-        // gnb 상위 li를 모두 순회하기
-        gnbList.forEach(ele=>{
+    } //////////// if : .smenu있는 경우 ////////////
 
-            // isSame()메서드 : 순회중 같은 노드 (요소)인지 판별해주는 기능을 가짐 (같으면 true)
-            let isSame = ele.isSameNode(this);
-            console.log('서브닫기체크:',ele,isSame);
+    // 3. 서브 메뉴가 없는 상위 li가 클릭되도 모두 닫기 처리 
 
-        }); /////////// forEach ////////
+    // 기타 다른 서브 메뉴가 열렸다면 모두 닫아줌
+    // gnb 상위 li를 모두 순회하기
+    gnbList.forEach(ele=>{
+        // ele- 
+        // isSame()메서드 : 순회중 같은 노드 (요소)인지 판별해주는 기능을 가짐 (같으면 true)
+        let isSame = ele.isSameNode(this);
+        // console.log('서브닫기체크:',ele,isSame);
 
 
-    } //////////// if ////////////
+        // 같은 요소가 아닌 경우만 하위 .smenu 가져옴
+        if(!isSame){
+            // !(not연산자)로 false일때 ture 가져옴
+            let smenu = myFn.qsEl(ele,'.smenu');
+            if(smenu){
+                // 서브 메뉴가 있는 경우
+                // 서브 메뉴의 높이값이 0이 아닌경우
+                if(smenu.clientHeight !=0){
+                    console.log('0만들어!');
+                    smenu.style.height = '0px';
+                } /////// if ///
+
+            } //// if ///
+
+        } //////////// if  ////////////
+
+    }); /////////// forEach ////////
 
 } ///////////// showMenu //////////////////////////
 
-// 4-2. 서브메뉴 숨기기 함수
+// 4. 서브메뉴 숨기기 함수
 function hideMenu(){
 
     // 1. 하위의 서브메뉴 가져오기 : 없으면 null
@@ -92,14 +110,7 @@ function hideMenu(){
             console.log('0만들어!');
             smenu.style.height = '0px';
         } 
-
-        
-
-
     } ///////////// if /////////////
-
-
-
 
 
 }  /////////////////// hideMenu //////////////////
