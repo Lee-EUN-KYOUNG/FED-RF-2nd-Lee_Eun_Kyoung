@@ -247,7 +247,7 @@ function whoWinner(){
 
 **************************************************************************************************/
 
-console.log('Math.random():',Math.random());
+/* console.log('Math.random():',Math.random());
 console.log('Math.random()*8',Math.random()*8);
 console.log('Math.ceil(Math.random()*8)',Math.ceil(Math.random()*8));
-console.log('Math.ceil(Math.random()*8)+3',Math.ceil(Math.random()*8)+3);
+console.log('Math.ceil(Math.random()*8)+3',Math.ceil(Math.random()*8)+3); */
