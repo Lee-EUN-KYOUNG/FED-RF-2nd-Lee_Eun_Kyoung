@@ -15,7 +15,7 @@ import myFn from './dom.js';
 import msgTxt from './data_racing.json' assert {type:'json'};
 
 /// 불러온 것 확인
-console.log(myFn,msgTxt);
+// console.log(myFn,msgTxt);
 
 
 
@@ -64,6 +64,15 @@ let r1pos = 0, t1pos = 0;
 // (7) 거북 이동값 상수
 const T1_NUM = 16;
 
+// (8) 결승선 위치 상수
+const FINAL_NUM = 650;
+
+// (9) 거북 작동 멈춤 상태 변수
+let t1Stop = false;
+
+
+
+
 // console.log('대상:',t1,r1,btns,level,msg);
 
 
@@ -86,17 +95,24 @@ function goGame(){
 
     // 1. 버튼 글자 읽기
     let btxt = this.innerText;
-    console.log('고고',btxt);
+    //console.log('고고',btxt);
     // 2. 버튼별 기능 분기 하기
     if(btxt === '토끼출발'){
         goR1();
-        
+
     } //////// if ////////////////
 
     else if(btxt === '거북출발'){
+
+      // 거북 멈춤 상태값이 true이면 함수 나가! (return)
+      if(t1Stop) return;
+
       // 거북의 설정된 값만큼 이동하기
       t1pos += T1_NUM;
       t1.style.left = t1pos + 'px';
+      
+      // 토끼 자동호출
+      goR1();
 
     } ///////////// else if
 
@@ -121,10 +137,26 @@ let autoI;
 
 function goR1(){
 
-    // 호출
-    setInterval(() => {
+    // 호출이 한번만 되도록 autoI가 할당전엔 undefined이므로 if문에서 false처리됨
+    if(!autoI){
+        console.log('토끼인터발',level.value);
+        autoI = setInterval(() => {
+        // 토끼 위치 이동 (1px씩)    
         r1.style.left = ++r1pos + 'px';
-    }, 10);
+
+        // 승자 판별 함수 호출 (인터발 내 계속 호출)
+        whoWinner();
+
+    }, level.value);
+
+    ///// level.value는 선택박스의 선택된 값이다
+    // 원래 option 요소의 value 값은 문자형이므로 숫자여도 숫자형으로 형변환해야하지만
+    // 요즘 브라우저는 자동형 변환해준다
+
+    
+
+    } ///////////////////////// if 
+  
 
 } ///////// goR1함수 //////////////////
 
@@ -136,4 +168,22 @@ function goR1(){
         승자를 판별하여 메시지를 보여준다!
 *****************************************/
 
- ///////// whoWinner 함수 ////////////////
+
+function whoWinner(){
+
+  /*   console.log('토끼위치:',r1pos,
+    '\n거북위치:',t1pos); */
+
+    // 토끼 / 거북 위치 값이 기준값 이상일때 토끼 인터발 함수 멈추기 + 거북 클릭 작동 막기
+    if(r1pos >= FINAL_NUM || t1pos >= FINAL_NUM){
+
+        // (1) 토끼 멈춰
+        clearInterval(autoI);
+        // (2) 거북 멈춰
+        t1Stop = true;
+
+
+    }  /////////////// if 
+
+} ///////// whoWinner 함수 ////////////////
+ 
