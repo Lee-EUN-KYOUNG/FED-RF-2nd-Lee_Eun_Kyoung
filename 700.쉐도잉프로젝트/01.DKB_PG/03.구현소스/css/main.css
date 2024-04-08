@@ -15,108 +15,158 @@
 }
  */
 
+/* 메인파트 전체박스 */
+.main-area {
+  padding: 80px;
+  padding-bottom: 60px;
+}
+
+/* 메인 파트 직계 하위 박스(겉박스) div 두번째부터 위아래간격 주기 */
+.main-area>div+div{
+    padding-top: 60px;
+}
+
 
 /* 3. 인트로영역 */
-.intro-area{
-    height: 575px;
+.intro-area {
+  /* height: 575px; */
+
 }
 
 /*********** 방송편성소개파트 : .intro-part ***********/
 .main .intro-part .partbox {
-    height: 455px;
-    padding: 10px;
+  height: 455px;
+  padding: 10px;
 }
 /* 서브타이틀 */
-.intro-part .stit{
-    padding-bottom: 0;
+.intro-part .stit {
+  padding-bottom: 0;
 }
 /* 하위제목+아이콘 박스 */
-.intro-desc{
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 2.5rem;
+.intro-desc {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 2.5rem;
 }
-.intro-desc h3{
-    margin-right: 10px;
+.intro-desc h3 {
+  margin-right: 10px;
 }
-.intro-desc ul{
-    display: flex;
-    gap: 0 15px;
+.intro-desc ul {
+  display: flex;
+  gap: 0 15px;
 }
 /* 설명박스 */
-.intro-txt{
-    padding: 20px;
-    font-size: 2.2rem;
-    line-height: 2;
-    color: #555;
+.intro-txt {
+  padding: 20px;
+  font-size: 2.2rem;
+  line-height: 2;
+  color: #555;
 }
 /* 인트로버튼 */
-.intro-btn{
-    padding: 20px 50px;
-    border-radius: 10px;
-    font-size: 1.8rem;
-    background-color: transparent;
-    border: 1px solid #000;
-    font-weight: bold;
+.intro-btn {
+  padding: 20px 50px;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  background-color: transparent;
+  border: 1px solid #000;
+  font-weight: bold;
 }
 
 /* 인트로 동영상 박스 */
-.intro-mv-img{
-    position: relative;
-    /* 부모자격 */
-    aspect-ratio: 2/1.1;
+.intro-mv-img {
+  position: relative;
+  /* 부모자격 */
+  aspect-ratio: 2/1.1;
 }
 /* 가상요소로 플레이버튼 만들기 */
 /* .off를 준 경우에만 가상요소 버튼 보임. 따라서 비디오 태그 넣을 경우 .off 지울것 */
-.intro-mv-img.off::after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 72px;
-    height: 72px;
-    background: url(../images/icon_play.png) no-repeat;
-    cursor: pointer;
+.intro-mv-img.off::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  background: url(../images/icon_play.png) no-repeat;
+  cursor: pointer;
 }
 
 /* 하위 이미지/동영상 */
 .intro-mv-img img,
-.intro-mv-img video{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+.intro-mv-img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
 }
 /* 동영상 설명박스 */
-.intro-mv-box figcaption{
-    font-size: 2rem;
-    padding-top: 10px;
+.intro-mv-box figcaption {
+  font-size: 2rem;
+  padding-top: 10px;
 }
-
-
-
-
-
-
-
 
 /* 4. 미리보기영역 */
-.preview-area{
-    height: 803px;
+.preview-area {
+  /* height: 803px; 
+   높이값을 지정하면 내용만큼 자동으로 높이값이 잡히지 않아서 매번 크기에 따라 값을 셋팅해야하므로 auto로 두자!
+  
+  */
 }
+
+/* 리스트 박스 */
+.preview-box li {
+  /* 한줄에 4개 플렉스 배치 */
+  flex-basis: calc(100% / 4 - 15px);
+  padding: 24px 20px;
+  color: #000;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #222;
+  box-sizing: border-box;
+}
+
+.preview-box ul {
+  gap: 20px;
+}
+
+/* 리스트박스 타이틀 */
+.preview-box li h3 {
+  font-size: 2rem;
+}
+
+/* 리스트 내용 */
+.preview-box li p {
+  font-size: 1.5rem;
+  margin-top: 1.4rem;
+  color: #00000099;
+  /* text-align: justify; */
+  line-height: 1.7;
+  /* 여러줄 말줄임표하기 */
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+/* 리스트 박스 오버시 내용 글자색  */
+.preview-box li:hover p {
+  color: #000;
+}
+
 /* 5. 현장포토영역 */
-.real-photo-area{
-    height: 1043px;
+.real-photo-area {
+  height: 1043px;
 }
 
 /* 6. 대표이미지 영역 */
-.main-photo-area{
-    height: 731px;
+.main-photo-area {
+  height: 731px;
 }
 
 /* 7. 최신동영상영역 */
-.clip-video-area{
-    height: 548px;
+.clip-video-area {
+  height: 548px;
 }
-
