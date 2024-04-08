@@ -118,4 +118,44 @@ introMv.onclick = () => {
 
   // 화면 출력하기
   liveBox.innerHTML = hcode;
-})(); /////////////// 미리보기 코드 랩핑 구역 종료
+})(); /////////////// 현장포토 코드 랩핑 구역 종료
+
+
+
+///////////// 대표이미지 구현 코드 랩핑 구역 시작 /////
+(() => {
+  // 대상 : .poster-box
+  const posterBox = myFn.qs(".poster-box");
+  // 데이터 : dkb_data.js의 posterData 배열
+  const poData = dkbData.posterData;
+  // 구조 : ul>li>figure>img+figcaption
+  // 8개만 데이터를 html로 구성하여 넣는다!
+  // html 변수
+  let hcode = "<ul>";
+
+  // li 구성을 hcode 변수에 대입 연산자로 할당함
+  // posterData 배열은 총 5개. 모두 돌기를 셋팅
+
+  poData.forEach((v) => {
+    hcode += `
+    <li>
+     <figure>
+     <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}">
+     <figcaption>${v.title}</figcaption>
+     </figure>
+    </li>
+`;
+  }); //////////////////////////// forEach
+
+  hcode += `</ul>`;
+
+  // 데이터 확인
+  /*  console.log('대상:',posterBox,'대표이미지 data:',poData);
+  console.log(hcode); */
+
+  // 화면 출력하기
+  posterBox.innerHTML = hcode;
+
+})(); /////////////// 대표이미지 코드 랩핑 구역 종료
+
+
