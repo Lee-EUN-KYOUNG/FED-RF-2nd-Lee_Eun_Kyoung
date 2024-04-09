@@ -96,18 +96,32 @@ sel.innerHTML = newArr.join("");
 // 한번에 쓸 수도 있다
 /* sel.innerHTML = Object.keys(frObj).map(v=>`<option>${v}</option>`).join(''); */
 
+
+
 // 3-3. 선택 과일 콤보 박스 데이터 바인딩
 // 대상 : #anum -> aNum 변수
 // 데이터 : fruit 배열
 // 갱신시 계속 재바인딩 되어야함 (함수화 필요)
-aNum.innerHTML = fruit
-  .map((v, i) => `<option value="${i}">${v}</option>`)
-  .join("");
+const bindCombo = () => {
+
+    aNum.innerHTML = fruit
+      .map((v, i) => `<option value="${i}">${v}</option>`)
+      .join("");
+
+}; ////////// bindCombo 함수
+
+
+//콤보박스 데이터 바인딩 함수 최초 호출
+bindCombo();
+
+
 
 // 4. 이벤트 설정하기
 mbtn.forEach((ele) => {
   mFn.addEvt(ele, "click", showFruit);
 }); /////////// forEach
+
+
 
 // 5. 함수 만들기
 // 기능 : 배열을 조작하여 과일을 화면에 출력
@@ -181,6 +195,9 @@ function showFruit() {
     
     //배열출력함수 호출
     showArray();
+
+    // 콤보 박스 바인딩 함수 호출
+    bindCombo();
 
     // fruit 배열 확인
     console.log('fruit배열:',fruit);
