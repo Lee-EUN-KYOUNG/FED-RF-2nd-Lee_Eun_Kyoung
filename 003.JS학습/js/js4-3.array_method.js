@@ -52,8 +52,17 @@ const delNum = mFn.qs("#delnum");
 // 3. 초기화 작업 : 처음 배열 출력 / 콤보 박스 바인딩
 
 // 3-1. 처음 배열 출력
-// 배열.join(구분자) : 배열값 사이에 구분자를 넣은 문자열값 변환
-showit.innerText = fruit.join("♥");
+// fruit 배열 변경시 다시 출력해야하므로 함수로 만들기
+const showArray = ()=>{
+    
+    showit.innerText = fruit.join("♥");
+    // 배열.join(구분자) : 배열값 사이에 구분자를 넣은 문자열값 변환
+
+};  ////////////// showArray 함수
+
+// 처음 배열 출력함수 최초 호출은 아랫쪽에서 해야 됨
+showArray();
+
 
 // 3-2. 전체 과일 콤보 박스 바인딩
 // 대상 : #sel -> sel 변수
@@ -126,4 +135,63 @@ function showFruit() {
     //// 출력 박스에 태그 넣기
     cont.innerHTML = hcode;
   } //////////////// if  ///////////////////////
+
+    // (2) '뒷배열추가요~!' 버튼 활성화 : push() 메서드
+    else if (btxt === "뒷배열추가요~!") {
+
+        // 대상 : fruit 배열
+        // 읽어올곳 : #sel 박스 -> 값은 value
+        fruit.push(sel.value);
+    } //////////////// else if  ///////////////////////
+
+
+
+     // (3) '앞배열추가요~!' 버튼 활성화 : unshift() 메서드
+     else if (btxt === "앞배열추가요~!") {
+
+        // 대상 : fruit 배열
+        // 읽어올곳 : #sel 박스 -> 값은 value
+        fruit.unshift(sel.value);
+    } //////////////// else if  ///////////////////////
+
+
+
+    // (4) '뒷배열삭제요~!' 버튼 활성화 : pop() 메서드
+    else if (btxt === "뒷배열삭제요~!") {
+
+        // 대상 : fruit 배열
+        fruit.pop();
+    } //////////////// else if  ///////////////////////
+
+
+    // (5) '앞배열삭제요~!' 버튼 활성화 : shift() 메서드
+    else if (btxt === "앞배열삭제요~!") {
+
+        // 대상 : fruit 배열
+        fruit.shift();
+    } //////////////// else if  ///////////////////////
+
+
+
+
+
+
+
+    ///////////////// 공통실행코드 구역 ///////////////
+    
+    //배열출력함수 호출
+    showArray();
+
+    // fruit 배열 확인
+    console.log('fruit배열:',fruit);
+
+
+
+
+
+
+
+
+
+
 } /////// showFruit 함수 /////////
