@@ -3,6 +3,26 @@
 // 나의 함수 호출
 import mFn from "./my_function.js";
 
+/******************************************** 
+    [ 여기 등장하는 배열 메서드 정리 ]
+    1. push(값) - 뒷배열추가!
+    2. pop() - 뒷배열삭제!
+    3. unshift(값) - 앞배열추가!
+    4. shift() - 앞배열삭제!
+    5. splice(순번,0,값) - 중간배열삽입!
+    6. splice(순번,개수) - 중간배열삭제!
+    _________________________________
+
+    7. join(구분자) - 배열값 구분자로 문자열변환!
+    8. map(v=>`<새값>${v}</새값>`) - 새배열!(배열리턴)
+    9. forEach(v=>{}) - 배열/유사배열 순회!
+    10. Object.keys(객체) - 객체의 키로 배열변환!
+    11. Object.values(객체) - 객체의 값으로 배열변환!
+********************************************/
+
+
+
+
 // 0. 기본정보 셋팅 //////////////////
 // (1) 배열변수 선언과 할당
 const fruit = ["배", "사과", "용과", "딸기"];
@@ -184,10 +204,58 @@ function showFruit() {
         // 대상 : fruit 배열
         fruit.shift();
     } //////////////// else if  ///////////////////////
+    
+    // (6) '중간배열삭제' 버튼 활성화 : splice() 메서드
+    // 삭제시 : 
+    // splice(순번) -> 해당 순번부터 뒤를 모두 삭제
+    // splice(순번,개수) -> 해당 순번부터 개수만큼 삭제
+
+    else if (btxt === "중간배열삭제") {
+
+        // 지울 순번 읽어오기 (대상 : #anum=>aNum변수)
+        let delSeq = aNum.value;
+
+        // 지울 개수 읽어오기 (대상 : #delnum=>delNum 변수)
+        let delCnt = delNum.value;
 
 
+        // 입력한 지울 개수가 숫자가 아니면 1로 넣기
+        // isNaN(변수) -> 숫자가 아니면 true, 맞으면 false
+        
+        if(isNaN(delCnt)){
+            // 변수값 1로 변경
+            delCnt = 1;
+            // 입력창에도 1로 넣기
+            delNum.value = 1;
+        } /////////////////// if ///////////////////////
 
 
+        // 대상 : fruit 배열
+        fruit.splice(delSeq, delCnt);
+        // splice(지울순번, 지울개수)
+        // isNaN(delCnt) ? 1 : delCnt
+        // -> 지울 개수 : 숫자가 아니니? 응(1) : 아니(delCnt)
+
+        console.log("삭제할 시작순번:", delSeq, "\n지울개수:", delCnt);
+        
+    } //////////////// else if  ///////////////////////
+    
+
+    // (7) '중간배열삽입' 버튼 활성화 : splice() 메서드
+    // (삽입시)
+    // splice(순번,0, 넣을값, 넣을값...)
+    // -> 순번 뒤에 전달값 0을 쓰고 그 뒤에 넣을 값을 나열
+    // -> 결과 : 선택 순번 앞쪽에 배열값이 삽입됨!
+
+    else if(btxt=== '중간배열삽입'){
+
+        // 대상 : fruit
+        // fruit.splice(순번,0,넣을값)
+        fruit.splice(aNum.value,0,sel.value);
+
+        console.log('넣을순번앞에 삽입:',aNum.value);
+
+    } ///////////// else if /////////////////
 
 
 
@@ -200,7 +268,7 @@ function showFruit() {
     bindCombo();
 
     // fruit 배열 확인
-    console.log('fruit배열:',fruit);
+    // console.log('fruit배열:',fruit);
 
 
 
