@@ -202,7 +202,10 @@ function changeSort(e,arrObj){
 
     // 1. 선택 옵션값 읽어오기
     let optVal = e.currentTarget.value;
-    /* console.log('선택값:',optVal); */
+    // 추가: 이벤트 발생 요소(선택박스)에 아이디 읽어오기
+    let selId = e.currentTarget.id;
+
+    console.log('선택값:',optVal, '/아이디:',selId);
 
     // 2. 정렬변경 분기하기
     // 2-1. 오름차순 : 값 1
@@ -224,11 +227,13 @@ function changeSort(e,arrObj){
 
     /****************************************************************************** 
                                     [주의!!]
-                        원본 배열을 정렬후엔 원본 배열은 없어진다!
+            원본 배열을 정렬후엔 원본 배열은 없어진다!
+            원본 배열을 다른 변수에 할당해도 정렬후엔 여전히 원본 배열은 없어진다!
     ******************************************************************************/
 
     // 3. 정렬 변경된 배열 화면에 출력하기
-    showImgNum(arrObj);
+    if(selId =='sel') showImgNum(arrObj);
+    else if(selId == 'sel2') showSpanText(arrObj);
 
     // 전달 변수에 할당된 배열 확인하기
     console.log('정렬후 할당 배열:', arrObj);
@@ -236,11 +241,34 @@ function changeSort(e,arrObj){
     // 원본 배열 확인 하기
     console.log('정렬후 원본 배열:', arrNumber);
 
-
-
-
-
-
-
-
 } /////////// changeSort 함수 ///////////
+
+
+
+///////////////////////////////////////////////////////////
+// 2. 문자로만 된 배열의 화면 뿌리기 /////////
+// map() 메서드로 배열값을 태그로 감싸서 출력하기
+
+// (1) 출력 대상 : .showNum2
+const showText = mFn.qs('.showNum2');
+
+// (2) 배열만큼 태그를 넣고 문자 출력하기
+const showSpanText = (arrObj) => {
+
+    // arrObj : 전달된 배열
+    showText.innerHTML = arrObj.map(v=>`<span>${v}</span>`).join('');
+
+
+};  /////////// showSpanText 함수
+
+
+// (3) 텍스트 출력 함수 최초 호출
+showSpanText(arrString);
+
+// (4) 텍스트 정렬 선택 박스 변경시 정렬함수 호출하기
+// (4-1) 대상 : #sel2
+const selBox2 = mFn.qs('#sel2');
+// (4-2) 이벤트 연결하기 : 이벤트 종류 - change
+// 연결된 함수는 위의 숫자 정렬한 정렬함수를 사용한다!
+
+mFn.addEvt(selBox2,'change',e=>changeSort(e,arrString));
