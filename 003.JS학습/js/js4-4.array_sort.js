@@ -114,7 +114,86 @@ console.log('숫자배열 오름차순정렬sort():',arrNumber2.sort());
 console.log('숫자배열 오름차순정렬sort((a,b)=>a-b):',arrNumber2.sort((a,b)=>a-b));
 console.log('숫자배열 내림차순정렬sort((a,b)=>a-b):',arrNumber2.sort((a,b)=>b-a)); */
 
-
-console.log('문자배열:',arrString);
+/* console.log('문자배열:',arrString);
 console.log('문자배열 오름차순 sort():',arrString.sort());
-console.log('문자배열 내림차순 reverse():',arrString.reverse());
+console.log('문자배열 내림차순 reverse():',arrString.reverse()); */
+
+/////////////////////////////////////////////////////////////////////////////
+// 배열 데이터 화면 출력하기
+
+// 1. 숫자로만 된배열의 화면 뿌리기
+// map() 메서드로 배열값을 태그로 감싸서 출력하기!
+
+// (1) 출력 대상 : .showNum
+const showNum = mFn.qs('.showNum');
+
+// (2) map() 매서드 없이 배열값을 이미지 태그로 변환하여 코드 만들기 함수
+const returnTag = (x) => {
+
+    // x는 배열 전달변수
+    // 태그 저장용 변수
+    let hcode = '';
+
+    // 배열만큼 순회하여 태그 만들기
+    x.forEach(v=>{
+        /* console.log('나야',v); */
+        hcode += `
+        <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">
+        `;
+    }); // forEach 함수 ////
+
+    // 코드 리턴하기
+    return hcode;
+
+}; ///// returnTag 함수 ///////////////////
+
+
+// (3) 배열 숫자 데이터만큼 이미지로 변환하기
+const showImgNum = () => {
+
+/* showNum.innerHTML = returnTag(arrNumber); */
+showNum.innerHTML = arrNumber.map(v=>`<img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`).join('');
+
+}; //////// showImgNum 함수
+
+
+/****************************************************************************************************************
+                                        [map() 매서드의 특징]
+            map((배열값,순번,전체배열)=>{});
+            1. 매서드를 사용한 자리에 결과가 배열로 리턴됨
+            2. 원본 배열은 그대로 보존됨!
+            3. 리턴 키워드가 변수, 함수 등 처리 방법 불필요
+            4. 이를 변수에 할당하면 새로운 배열이 생성됨!
+            5. 문자열로 찍어주려면 변수 메서드 join() 사용
+            -> join('') 빈문자 결합을 사용하면 배열값이 깨끗하게 문자열 덩어리로 그대로 출력됨
+            --> 배열.map().join('')
+            join()을 안 쓰면 배열의 기본 값이 콤마로 연결되어 할당되므로 콤마를 없애려면 반드시 join()을 써야함
+****************************************************************************************************************/
+
+
+console.log('원본 배열로 태그작성:', arrNumber2.map(v=>`<숫자>${v}</숫자>`));
+console.log('원본 배열로 데이터 작성:', arrNumber2.map(v=>`<숫자>${v}</숫자>`));
+
+console.log('원본 배열로 태그작성:', arrNumber2.map((v,i)=>`🎈회원번호${i+1}:${v}포인트`));
+
+console.log('원본 배열:', arrNumber2);
+
+console.log('원본 배열로 태그작성한 배열을 문자열로 변경하기:', arrNumber2
+.map(v=>`<숫자>${v}</숫자>`).join(''));
+
+
+// (4) 최초 호출
+showImgNum();
+
+// (5) 정렬 기준에 선택 박스 변경 이벤트 발생시 정렬 변경하기(오름차순/내림차순)
+// (5-1)  대상: #sel 선택 박스
+const selBox = mFn.qs('#sel');
+// (5-2) 이벤트 연결하기 : 이벤트 종류 - change
+mFn.addEvt(selBox, 'change',changeSort);
+// (5-3) 정렬 변경 함수 만들기
+function changeSort(){
+    // 1. 선택 옵션값 읽어오기
+    let optVal = this.value;
+    console.log('선택값:',optVal);
+
+} /////////// changeSort 함수 ///////////
