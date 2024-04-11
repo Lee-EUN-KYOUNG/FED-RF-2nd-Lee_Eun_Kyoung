@@ -148,7 +148,7 @@ const returnTag = (x) => {
 }; ///// returnTag 함수 ///////////////////
 
 
-// (3) 배열 숫자 데이터만큼 이미지로 변환하기
+// (3) 배열 숫자 데이터만큼 이미지로 변환하여 화면 출력하기
 const showImgNum = () => {
 
 /* showNum.innerHTML = returnTag(arrNumber); */
@@ -171,7 +171,7 @@ showNum.innerHTML = arrNumber.map(v=>`<img src="./images/num/num_0${v}.png" alt=
 ****************************************************************************************************************/
 
 
-console.log('원본 배열로 태그작성:', arrNumber2.map(v=>`<숫자>${v}</숫자>`));
+/* console.log('원본 배열로 태그작성:', arrNumber2.map(v=>`<숫자>${v}</숫자>`));
 console.log('원본 배열로 데이터 작성:', arrNumber2.map(v=>`<숫자>${v}</숫자>`));
 
 console.log('원본 배열로 태그작성:', arrNumber2.map((v,i)=>`🎈회원번호${i+1}:${v}포인트`));
@@ -179,7 +179,7 @@ console.log('원본 배열로 태그작성:', arrNumber2.map((v,i)=>`🎈회원�
 console.log('원본 배열:', arrNumber2);
 
 console.log('원본 배열로 태그작성한 배열을 문자열로 변경하기:', arrNumber2
-.map(v=>`<숫자>${v}</숫자>`).join(''));
+.map(v=>`<숫자>${v}</숫자>`).join('')); */
 
 
 // (4) 최초 호출
@@ -192,8 +192,45 @@ const selBox = mFn.qs('#sel');
 mFn.addEvt(selBox, 'change',changeSort);
 // (5-3) 정렬 변경 함수 만들기
 function changeSort(){
+
     // 1. 선택 옵션값 읽어오기
     let optVal = this.value;
-    console.log('선택값:',optVal);
+    /* console.log('선택값:',optVal); */
+
+    // 2. 정렬변경 분기하기
+    // 2-1. 오름차순 : 값 1
+    if(optVal==1){
+
+        // sort() 빼기 연산 처리 : 앞수 - 뒷수 (양수 결과일 경우 sort()가 순서바꾸기 해줌)
+        arrNumber.sort((a,b)=>a-b);
+
+    }///////////// if ///////////
+
+    // 2-2. 내림차순 : 값 2
+    else if(optVal==2){
+
+        // sort() 빼기 연산 처리 : 뒷수 - 양수 (양수 결과일 경우 sort()가 순서바꾸기 해줌)
+        arrNumber.sort((a,b)=>b-a);
+
+    }///////////// else if ///////////
+
+
+    /****************************************************************************** 
+                                    [주의!!]
+                        원본 배열을 정렬후엔 원본 배열은 없어진다!
+    ******************************************************************************/
+
+    // 3. 정렬 변경된 배열 화면에 출력하기
+    showImgNum();
+
+    // 원본 배열 확인 하기
+    console.log('정렬후 원본 배열:', arrNumber);
+
+
+
+
+
+
+
 
 } /////////// changeSort 함수 ///////////
