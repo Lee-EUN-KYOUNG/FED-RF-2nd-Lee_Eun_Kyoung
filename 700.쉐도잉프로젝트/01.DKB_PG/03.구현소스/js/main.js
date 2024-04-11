@@ -59,6 +59,19 @@ introMv.onclick = () => {
   const previewBox = myFn.qs(".preview-box");
   // 데이터 : dkb_data.js의 previewData 배열
   const pData = dkbData.previewData;
+
+
+  /* console.log(pData.sort((a,b)=>a==b?0:a<b?1:-1)); */
+  // 데이터 원본의 정렬을 내림차순으로 변경
+  // 배열값인 객체의 idx키값을 기준으로 내림차순 정렬할 때
+  // 문자형 숫자이므로 Number() 숫자형 변환 메서드로 싸서 숫자로써 비교하여 정확한 내림차순이 되도록 한다!
+
+  pData.sort(
+    (a,b)=>
+    (Number(a.idx)==Number(b.idx)?
+      0:Number(a.idx)<Number(b.idx)?1:-1));
+
+
   // 구조 : ul>li>h3+p
   // 8개만 데이터를 html로 구성하여 넣는다!
   // html 변수
