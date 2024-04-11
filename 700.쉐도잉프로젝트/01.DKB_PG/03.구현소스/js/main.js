@@ -14,7 +14,59 @@ import slideFn from "./slide.js";
 import * as dkbData from "../data/dkb_data.js";
 /* import { previewData } from '../data/dkb_data.js'; */
 
+// GNB 메뉴 데이터 불러오기
+import gnbData from "../data/gnb_data.js";
+
+console.log(gnbData);
+
 /////////////////////// 구현 코드 파트 /////////////////////
+
+// GNB 메뉴 코드 넣기
+// 대상 : .gnb
+// 데이터 : gnbData 는 객체이므로 배열용 map() 매서드 사용 불가
+// -> 키 배열로 변환해서 사용함. 이 객체의 key는 상위 메뉴이기도함
+// Object.keys(객체) -> 해당 객체의 속성명(키) 배열생성
+
+console.log(Object.keys(gnbData));
+
+myFn.qs(".gnb").innerHTML = `
+<ul>
+  ${Object.keys(gnbData)
+    .map(
+      (v) => `
+    <li>
+      <a href="#">${v}</a>
+      ${
+        // 서브 메뉴 "없음" 이면 빈값. 아니면 서브 메뉴 출력
+        // gnbData[키] -> 값을 가져옴
+        gnbData[v] == "없음"
+          ? ""
+          : `
+        <!-- 서브메뉴 -->
+      <div class="smenu">
+        <div class="swrap">
+          <h2>${v}</h2>
+          <ol>
+          ${gnbData[v]
+            .map(
+              (vSub) => `
+            <li>
+              <a href="#">${vSub}</a>
+            </li>
+            `
+            )
+            .join("")}
+          </ol>
+        </div>
+      </div>
+        `
+      }
+    </li>
+    `
+    )
+    .join("")}
+</ul>
+`;
 
 // 부드러운 스크롤 호출
 startSS();
@@ -60,17 +112,14 @@ introMv.onclick = () => {
   // 데이터 : dkb_data.js의 previewData 배열
   const pData = dkbData.previewData;
 
-
   /* console.log(pData.sort((a,b)=>a==b?0:a<b?1:-1)); */
   // 데이터 원본의 정렬을 내림차순으로 변경
   // 배열값인 객체의 idx키값을 기준으로 내림차순 정렬할 때
   // 문자형 숫자이므로 Number() 숫자형 변환 메서드로 싸서 숫자로써 비교하여 정확한 내림차순이 되도록 한다!
 
-  pData.sort(
-    (a,b)=>
-    (Number(a.idx)==Number(b.idx)?
-      0:Number(a.idx)<Number(b.idx)?1:-1));
-
+  pData.sort((a, b) =>
+    Number(a.idx) == Number(b.idx) ? 0 : Number(a.idx) < Number(b.idx) ? 1 : -1
+  );
 
   // 구조 : ul>li>h3+p
   // 8개만 데이터를 html로 구성하여 넣는다!
@@ -133,8 +182,6 @@ introMv.onclick = () => {
   liveBox.innerHTML = hcode;
 })(); /////////////// 현장포토 코드 랩핑 구역 종료
 
-
-
 ///////////// 대표이미지 구현 코드 랩핑 구역 시작 /////
 (() => {
   // 대상 : .poster-box
@@ -168,7 +215,4 @@ introMv.onclick = () => {
 
   // 화면 출력하기
   posterBox.innerHTML = hcode;
-
 })(); /////////////// 대표이미지 코드 랩핑 구역 종료
-
-
