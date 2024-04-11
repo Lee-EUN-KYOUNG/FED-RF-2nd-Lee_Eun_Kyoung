@@ -149,10 +149,11 @@ const returnTag = (x) => {
 
 
 // (3) 배열 숫자 데이터만큼 이미지로 변환하여 화면 출력하기
-const showImgNum = () => {
+const showImgNum = (arrObj) => {
 
+    // arrObj - 전달된 배열
 /* showNum.innerHTML = returnTag(arrNumber); */
-showNum.innerHTML = arrNumber.map(v=>`<img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`).join('');
+showNum.innerHTML = arrObj.map(v=>`<img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`).join('');
 
 }; //////// showImgNum 함수
 
@@ -183,18 +184,24 @@ console.log('원본 배열로 태그작성한 배열을 문자열로 변경하�
 
 
 // (4) 최초 호출
-showImgNum();
+showImgNum(arrNumber);
 
 // (5) 정렬 기준에 선택 박스 변경 이벤트 발생시 정렬 변경하기(오름차순/내림차순)
 // (5-1)  대상: #sel 선택 박스
 const selBox = mFn.qs('#sel');
 // (5-2) 이벤트 연결하기 : 이벤트 종류 - change
-mFn.addEvt(selBox, 'change',changeSort);
+mFn.addEvt(selBox, 'change',
+(e)=>changeSort(e,arrNumber));
+
+
 // (5-3) 정렬 변경 함수 만들기
-function changeSort(){
+function changeSort(e,arrObj){
+
+    // e - 이벤트 발생 요소의 전달된 이벤트 변수
+    // arrObj :  배열 전달 변수
 
     // 1. 선택 옵션값 읽어오기
-    let optVal = this.value;
+    let optVal = e.currentTarget.value;
     /* console.log('선택값:',optVal); */
 
     // 2. 정렬변경 분기하기
@@ -202,7 +209,7 @@ function changeSort(){
     if(optVal==1){
 
         // sort() 빼기 연산 처리 : 앞수 - 뒷수 (양수 결과일 경우 sort()가 순서바꾸기 해줌)
-        arrNumber.sort((a,b)=>a-b);
+        arrObj.sort((a,b)=>a-b);
 
     }///////////// if ///////////
 
@@ -210,7 +217,7 @@ function changeSort(){
     else if(optVal==2){
 
         // sort() 빼기 연산 처리 : 뒷수 - 양수 (양수 결과일 경우 sort()가 순서바꾸기 해줌)
-        arrNumber.sort((a,b)=>b-a);
+        arrObj.sort((a,b)=>b-a);
 
     }///////////// else if ///////////
 
@@ -221,7 +228,10 @@ function changeSort(){
     ******************************************************************************/
 
     // 3. 정렬 변경된 배열 화면에 출력하기
-    showImgNum();
+    showImgNum(arrObj);
+
+    // 전달 변수에 할당된 배열 확인하기
+    console.log('정렬후 할당 배열:', arrObj);
 
     // 원본 배열 확인 하기
     console.log('정렬후 원본 배열:', arrNumber);
