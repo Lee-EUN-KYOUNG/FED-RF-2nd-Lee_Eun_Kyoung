@@ -60,7 +60,11 @@ function setDrag(clsName){
         
     // 2. 드래그 함수 호출
     // HTML 컬렉션이므로 forEach 메서드로 호출
-    ele.forEach((x)=>goDrag(x));
+
+    //forEahc((요소,순번,전체)=>{})
+    // z는 전체 요소 집합 컬렉션임 ( z-idex 초기화로 필요함)
+
+    ele.forEach((x,y,z)=>goDrag(x,z));
     
 
 } ////////////////// setDrag 함수 ///////////////////
@@ -76,11 +80,14 @@ function setDrag(clsName){
 
 
 
-function goDrag(ele){
+function goDrag(ele, coll){
 
- // ele -  호출시 보내준 대상을 받는 변수
+    // ele -  호출시 보내준 대상을 받는 변수
     // 대상 : HTML 컬렉션으로 보낸 대상만 받게 함
-    console.log(ele);
+    // coll - 드래그 요소 전체 컬렉션을 받는 변수
+    // -> 마우스 다운시 z-index 대상 1로 만들때 다른 요소는 0 변경시 사용함
+
+    console.log(ele,coll);
 
 
 ///////////////// 드래그 적용 대상 및 이벤트 설정하기 //////////////////////
@@ -221,10 +228,17 @@ firstPoint(e);
 // 마우스 다운시 주먹손
 dtg.style.cursor = "grabbing";
 
+// z-index 0 초기화 (전체 컬렉션 전달 변수 coll 사용)
+coll.forEach(x=>x.style.zIndex =0);
+
+// z-index 1로 높이기
+dtg.style.zIndex =1;
+
 console.log('마우스다운',dragSts);
 
 
 }); /////////// mousedown /////////////////////
+
 
 
 
