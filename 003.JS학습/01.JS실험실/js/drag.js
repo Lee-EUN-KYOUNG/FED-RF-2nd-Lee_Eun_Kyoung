@@ -153,7 +153,7 @@ const dMove = (e) => {
         // moveX - firstX
         // moveY- firstY
         resultX = moveX - firstX;
-        resultY = moveY- firstY;
+        resultY = moveY - firstY;
         // 순수하게 움직인 거리를 계산함
         //  움직인 위치 - 첫번째 위치 순으로 빼준 이유는?
         // => top, left 위치 이동 양수, 음수 차를 고려한 순서임
@@ -172,15 +172,12 @@ const dMove = (e) => {
         console.log(`resultX: ${resultX}, resultY: ${resultY}`);
 
 
-
-
     } //////////// if ////////////
 
 
     // 드래그 중(dragSts===true)일때는 주먹손(grabbing), 
     // 드래그 아닐때는(dragSts===fales) 편손 (grab)
     dtg.style.cursor = dragSts ? "grabbing" : "grab";
-
 
 
 }; ///////////// dMove 함수 ///////////////
@@ -270,6 +267,14 @@ mFn.addEvt(dtg,'mouseleave',()=>{
 
     // 드래그 상태값 flase로 변경
     dFalse();
+
+    // 과도한 드래그로 갑자기 아웃되면 lastX, lastY 값이 셋팅되지 못한다
+    // -> 기존 요소의 위치값으로 보정해야됨
+    // 단 style 위치값 코드는 'px' 단위가 있으므로 parseInt 처리
+    
+    lastX = parseInt(dtg.style.left);
+    lastY = parseInt(dtg.style.top);
+
     console.log('마우스 나감',dragSts);
 
 
