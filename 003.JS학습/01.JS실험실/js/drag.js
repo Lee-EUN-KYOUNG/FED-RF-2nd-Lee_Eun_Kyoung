@@ -101,9 +101,11 @@ const dMove = (e) => {
 
         // (3) 이동 차이를 구한 resultX, resultY값을 대상 위치값에 적용
         // 대상 : 드래그 요소 dtg
-        dtg.style.left = resultX + 'px';
-        dtg.style.top = resultY + 'px';
+        dtg.style.left = resultX + lastX + 'px';
+        dtg.style.top = resultY + lastY + 'px';
 
+        // 처음에 lastX, lastY 값이 0으로 들어오고
+        // 두번째는 mouseup 이벤트 발생부터 저장된 최종 이동 위치값이 더해진다.
 
         // 값 확인
         console.log(`moveX: ${moveX}, moveY: ${moveY}`);
@@ -113,6 +115,13 @@ const dMove = (e) => {
 
 
     } //////////// if ////////////
+
+
+    // 드래그 중(dragSts===true)일때는 주먹손(grabbing), 
+    // 드래그 아닐때는(dragSts===fales) 편손 (grab)
+    dtg.style.cursor = dragSts ? 'grabbing' : 'grab';
+
+
 
 }; ///////////// dMove 함수 ///////////////
 
