@@ -51,6 +51,10 @@ let firstX, firstY;
 // 마지막 위치로부터 처음 계산이 이루어지므로 초기값 0 필요
 let lastX = 0, lastY = 0;
 
+// 중첩된 최종 위치가 처음에는 계산되지 않았으므로 출발 위치인 0값으로 초기값을 넣어준다
+// 초기값을 안 넣으면 최초 값을 더할 때 에러가 발생함
+
+
 // (4) 움직일때 위치 포인트 : move x, move y
 let moveX, moveY;
 
@@ -91,8 +95,14 @@ const dMove = (e) => {
         resultX = moveX - firstX;
         resultY = moveY- firstY;
         // 순수하게 움직인 거리를 계산함
+        //  움직인 위치 - 첫번째 위치 순으로 빼준 이유는?
+        // => top, left 위치 이동 양수, 음수 차를 고려한 순서임
 
 
+        // (3) 이동 차이를 구한 resultX, resultY값을 대상 위치값에 적용
+        // 대상 : 드래그 요소 dtg
+        dtg.style.left = resultX + 'px';
+        dtg.style.top = resultY + 'px';
 
 
         // 값 확인
@@ -117,13 +127,19 @@ const firstPoint = e => {
 
 
 // (5) 마지막 위치 포인트 셋팅함수 : lastX, lastY 값 셋팅
-const lastPoint = e => {
+// 왜 필요하지? -> 이동 후 결과 위치를 저장하여 다음 드래그 이동할때 그 결과를 중첩하여 반영하기 위해서 필요함
 
-    lastX = e.pageX;
-    lastY = e.pageY;
+
+const lastPoint = () => {
+
+    // 이동 결과 : 계산된 최종값을 기존 값에 더함(+=)
+    lastX += resultX;
+    lastY += resultY;
     console.log('끝포인트:',lastX,'|',lastY);
 
 }; ///// lastPoint 함수
+
+
 
 
 
