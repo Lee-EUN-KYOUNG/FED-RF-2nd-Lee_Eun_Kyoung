@@ -172,7 +172,7 @@ const dMove = (e) => {
 
     // 드래그 중(dragSts===true)일때는 주먹손(grabbing), 
     // 드래그 아닐때는(dragSts===fales) 편손 (grab)
-    dtg.style.cursor = dragSts ? 'grabbing' : 'grab';
+    dtg.style.cursor = dragSts ? "grabbing" : "grab";
 
 
 
@@ -218,6 +218,9 @@ firstPoint(e);
 // 단독 할당 되지 않고 내부 함수 호출로 연결되어 있으므로 이벤트 전달을 토스해줘야 한다
 // => 전달 변수 e 지정
 
+// 마우스 다운시 주먹손
+dtg.style.cursor = "grabbing";
+
 console.log('마우스다운',dragSts);
 
 
@@ -234,6 +237,8 @@ dFalse();
 // 마지막 위치 포인트 셋팅
 lastPoint(e);
 
+// 마우스 업시 편손
+dtg.style.cursor = "grab";
 
 console.log('마우스업',dragSts);
     
