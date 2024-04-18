@@ -109,7 +109,6 @@ dtg.style.left = leftVal + 'px';
 
 
 
-
 // 2. 변수셋팅
 // (1) 드래그 상태 변수 만들기
 let dragSts = false;
