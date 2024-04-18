@@ -63,7 +63,7 @@ function setDrag(clsName){
 
 
 // z-idex 공통관리 변수 (전역 변수 - goDrag 함수 바깥에 있으므로)
-let zNum = 0;
+/* let zNum = 0; */
 
 
 /*********************************************************************************************************************************** 
@@ -96,8 +96,15 @@ const dtg = ele;
 // 필수 셋팅 요소는 position: relative / top:0 / left:0
 
 dtg.style.position = "relative";
-dtg.style.top = "0";
-dtg.style.left = "0";
+/* dtg.style.top = "0"; */
+
+// 배너가 기준 박스에서 left -220% 이동 되어 있음
+// -> .banbx의 width 값 곱하기 2.2
+// 기준 위치값 변수에 할당 먼저하기
+let leftVal = mFn.qs('.banbx').offsetWidth*-2.2;
+console.log('left 셋팅값:',leftVal);
+// left 위치값 최초 셋업 - px 단위 꼭 쓸것
+dtg.style.left = leftVal + 'px';
 
 
 
@@ -109,21 +116,19 @@ let dragSts = false;
 // false는 드래그 아님, true는 드래그 상태
 
 // (2) 첫번째 위치 포인트 : first x, first y
-let firstX, firstY;
+let firstX;
 
 // (3) 마지막 위치 포인트 : last x, last y
-// 마지막 위치로부터 처음 계산이 이루어지므로 초기값 0 필요
-let lastX = 0, lastY = 0;
+// 최초 위치 셋팅값으로 프리셋팅
+let lastX = leftVal;
 
-// 중첩된 최종 위치가 처음에는 계산되지 않았으므로 출발 위치인 0값으로 초기값을 넣어준다
-// 초기값을 안 넣으면 최초 값을 더할 때 에러가 발생함
 
 
 // (4) 움직일때 위치 포인트 : move x, move y
-let moveX, moveY;
+let moveX;
 
 // (5) 위치 이동 차이 계산 결과 변수 : result x, result y
-let resultX, resultY;
+let resultX;
 
 
 ////////////////////////////////////////////////////////
@@ -159,7 +164,7 @@ const dMove = (e) => {
       /*   moveX = e.pageX;
         moveY = e.pageY; */
         moveX = e.pageX || e.touches[0].screenX;
-        moveY = e.pageY || e.touches[0].screenY;
+
         /* console.log(e.touches[0]); */
         
         // (2) 움직일 위치 결과값
@@ -167,7 +172,7 @@ const dMove = (e) => {
         // moveX - firstX
         // moveY- firstY
         resultX = moveX - firstX;
-        resultY = moveY - firstY;
+
         // 순수하게 움직인 거리를 계산함
         //  움직인 위치 - 첫번째 위치 순으로 빼준 이유는?
         // => top, left 위치 이동 양수, 음수 차를 고려한 순서임
@@ -176,14 +181,12 @@ const dMove = (e) => {
         // (3) 이동 차이를 구한 resultX, resultY값을 대상 위치값에 적용
         // 대상 : 드래그 요소 dtg
         dtg.style.left = resultX + lastX + 'px';
-        dtg.style.top = resultY + lastY + 'px';
-
         // 처음에 lastX, lastY 값이 0으로 들어오고
         // 두번째는 mouseup 이벤트 발생부터 저장된 최종 이동 위치값이 더해진다.
 
         // 값 확인
-        console.log(`moveX: ${moveX}, moveY: ${moveY}`);
-        console.log(`resultX: ${resultX}, resultY: ${resultY}`);
+        console.log(`moveX: ${moveX}`);
+        console.log(`resultX: ${resultX}`);
 
 
     } //////////// if ////////////
@@ -207,8 +210,8 @@ const firstPoint = (e) => {
     // PC 버전과 모바일 버전 값을 동시에 OR 문으로 할당함
 
     firstX = e.pageX || e.touches[0].screenX;
-    firstY = e.pageY || e.touches[0].screenY;
-    console.log('첫포인트:',firstX,'|',firstY);
+
+    console.log('첫포인트:',firstX);
 
 }; ///// firstPoint 함수
 
@@ -221,8 +224,7 @@ const lastPoint = () => {
 
     // 이동 결과 : 계산된 최종값을 기존 값에 더함(+=)
     lastX += resultX;
-    lastY += resultY;
-    console.log('끝포인트:',lastX,'|',lastY);
+    console.log('끝포인트:',lastX);
 
 }; ///// lastPoint 함수
 
@@ -245,7 +247,7 @@ dtg.style.cursor = "grabbing";
 
 
 // z-index 전역변수(zNum) 숫자를 1씩 높이기
-dtg.style.zIndex = ++zNum;
+/* dtg.style.zIndex = ++zNum; */
 
 console.log('마우스다운',dragSts);
 
@@ -309,7 +311,7 @@ mFn.addEvt(dtg,'touchstart',(e) => {
     firstPoint(e);
 
     // z-index 전역변수(zNum) 숫자를 1씩 높이기
-    dtg.style.zIndex = ++zNum;
+    /* dtg.style.zIndex = ++zNum; */
     
     console.log('터치스타트',dragSts);
     
