@@ -155,9 +155,19 @@ const dMove = (e) => {
 
         // (1) 드래그 상태에서 움직일때 포인터 위치값
         // - 브라우저용 포인터 위치는 pageX, pageY 사용
-        moveX = e.pageX;
-        moveY = e.pageY;
-        
+
+        // 모바일용 터치 스크린 터치 위치는 touches[0].screenX / touches[0].screenY 사용
+        // 두 가지 전부 사용하는 방법은? -> or문 할당법 쓴다
+        // or문이란? 변수 = 할당문 1 || 할당문2
+        // -> 두 할당문 중 값이 유효한(true) 값이 할당 됨
+        // 모바일과 PC버전 코드를 동시에 셋팅 가능
+
+
+      /*   moveX = e.pageX;
+        moveY = e.pageY; */
+        moveX = e.pageX || e.touches[0].screenX;
+        moveY = e.pageY || e.touches[0].screenY;
+        /* console.log(e.touches[0]); */
         
         // (2) 움직일 위치 결과값
         // 움직일때 위치 포인트 - 첫번째 위치 포인트
@@ -197,10 +207,14 @@ const dMove = (e) => {
 
 
 // (4) 첫번째 위치 포인트 셋팅함수 : firstX, firstY 값 셋팅
-const firstPoint = e => {
+const firstPoint = (e) => {
 
-    firstX = e.pageX;
-    firstY = e.pageY;
+    /* firstX = e.pageX;
+    firstY = e.pageY; */
+    // PC 버전과 모바일 버전 값을 동시에 OR 문으로 할당함
+
+    firstX = e.pageX || e.touches[0].screenX;
+    firstY = e.pageY || e.touches[0].screenY;
     console.log('첫포인트:',firstX,'|',firstY);
 
 }; ///// firstPoint 함수
@@ -281,15 +295,54 @@ mFn.addEvt(dtg,'mouseleave',()=>{
     // -> 기존 요소의 위치값으로 보정해야됨
     // 단 style 위치값 코드는 'px' 단위가 있으므로 parseInt 처리
     
-    lastX = parseInt(dtg.style.left);
-    lastY = parseInt(dtg.style.top);
+    /* lastX = parseInt(dtg.style.left);
+    lastY = parseInt(dtg.style.top); */
 
     console.log('마우스 나감',dragSts);
 
 
 });  /////////// mouseleave
 
+/////////////////// 모바일 이벤트 처리 구역 /////////////////////////////
 
+
+// (1) 터치 스타트 이벤트 함수 연결하기
+mFn.addEvt(dtg,'touchstart',(e) => {
+
+    // 드래그 상태값 true로 변경
+    dTrue();
+    
+    // 첫번째 위치 포인트 셋팅
+    firstPoint(e);
+
+    // z-index 전역변수(zNum) 숫자를 1씩 높이기
+    dtg.style.zIndex = ++zNum;
+    
+    console.log('터치스타트',dragSts);
+    
+    }); /////////// touchstart /////////////////////
+    
+    
+    // (2)  터치 엔드 이벤트 함수 연결하기
+    mFn.addEvt(dtg,'touchend',() => {
+    
+    // 드래그 상태값 false로 변경
+    dFalse();
+    
+    // 마지막 위치 포인트 셋팅
+    lastPoint();
+    
+    
+    console.log('터치엔드',dragSts);
+        
+    }); /////////// touchend /////////////////////
+    
+
+    // (3) 터치 무브 이벤트 함수 연결하기
+    
+    mFn.addEvt(dtg,'touchmove', dMove);
+    ////////////////////// touchmove  ///////////////////
+    
 } /////////////////////// goDrag 함수 /////////////////////
 
 
