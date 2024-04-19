@@ -219,7 +219,7 @@ ReactDOM.render(myEle8, target[7]);
 
 
 // 9. JSX의 표현식에 삼항연산자 사용하여 출력하기 ///////
-let time = 8;
+let time = 10;
 
 const myEle9 = (
   <React.Fragment>
