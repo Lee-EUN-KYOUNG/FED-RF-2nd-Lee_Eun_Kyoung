@@ -72,11 +72,16 @@ ReactDOM.render(myEle2, target[1]);
 let num1 = 1000,
   num2 = 7;
 
+// 표현식에 사용할 리턴이 있는 함수
+const retFn = () => `만만세`;
+
+
 // 3. JSX 표현식 사용하기
 const myEle3 = (
   <div>
     <h1>리액트는 {num1 * num2}번 사용해도 좋다</h1>
     <h1>리액트는 {num1==1000?"계속":"한번만"} 사용해도 좋다</h1>
+    <h1>리액트는 {retFn()}</h1>
   </div>
 );
 
