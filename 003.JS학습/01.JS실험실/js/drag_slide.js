@@ -162,16 +162,15 @@ function slideFn(selEl,slider) {
         //1.대상이동하기 : -330%
         slide.style.left = '-330%';
         //2.트랜지션주기
-        slide.style.transition = 
-            TIME_SLIDE+'ms ease-in-out';
+        slide.style.transition = TIME_SLIDE+'ms ease-out';
         // 이동시간 후 맨앞li 잘라서 맨뒤로 이동하기
         // appendChild(요소)
         setTimeout(() => {
             // 3.맨앞li 맨뒤로 이동
             slide.appendChild(
                 slide.querySelectorAll('li')[0]);
-            // 4.slide left값 -220%
-            slide.style.left = '-220%';
+            // 4.slide left값 -220% -> 최종 left 값 px로
+            slide.style.left = selEl.offsetWidth*-2.2 + "px";
             // 5.트랜지션 없애기
             slide.style.transition = 'none';
         }, TIME_SLIDE);
@@ -207,11 +206,11 @@ function slideFn(selEl,slider) {
             // 시간은 0이어도 비동기 처리므로 효과있음!
 
             setTimeout(() => {
-                // 4. left값 -220%으로 들어오기
-                slide.style.left = '-220%';
+                // 4. left값 -220%으로 들어오기 -> px 값으로 변환
+                slide.style.left = selEl.offsetWidth*-2.2 + "px";
                 
                 // 5. 트랜지션주기
-                slide.style.transition = TIME_SLIDE+'ms ease-in-out';
+                slide.style.transition = TIME_SLIDE+'ms ease-out';
             }, 0);
         
     } //////////// leftSlide( 함수 ////////////
@@ -509,12 +508,14 @@ else{
 
     // valFirst와 valSecond 사이 범위
     console.log('제자리!');
+    slide.style.left = "-220%";
+    slide.style.transition = ".3s ease-in-out";
 
 } ///////////// else //////
 
-
-
  // console.log('마우스업',dragSts);
+
+
 
 }); /////////// mouseup /////////////////////
 
