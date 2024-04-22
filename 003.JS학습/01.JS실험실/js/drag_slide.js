@@ -38,7 +38,7 @@ export default function setSlide(clsName){
 
 function slideFn(selEl,slider) { 
     
-    // selEl 선택 슬라이드 부모 요소
+    // selEl 선택 슬라이드 부모 요소(banbx)
     // slider 드래그할 대상 슬라이드
 
     // 0.슬라이드 공통변수 /////
@@ -186,7 +186,7 @@ function slideFn(selEl,slider) {
     // 전달값이 있으면 그 전달될 값으로 처리한다! -> 함수 전달 변수 입력값 처리라고 함
 
 
-    function leftSlide(leftVal="330%"){
+    function leftSlide(leftVal="-330%"){
 
             console.log('왼쪽버튼이동 left값:',leftVal);
             // leftVal - li 앞에 이동시 left값 설정변수
@@ -480,7 +480,7 @@ dtg.style.cursor = "grab";
 let currentLeft = parseInt(dtg.style.left);
 
 // 대상의 left 값 찍기
-console.log('슬라이드 left:', currentLeft);
+console.log('슬라이드 left:', currentLeft, 'x축 순수이동값:',resultX);
 
 // 대상의 슬라이드 이동 기준 분기하기
 if(currentLeft < valFirst) {
@@ -498,7 +498,10 @@ else if(currentLeft > valSecond) {
 
     console.log('오른쪽으로 이동');
     // 왼쪽 버튼 클릭시 오른쪽 이동과 동일
-    leftSlide();
+    
+    // 슬라이드 이동함수 드래기스 이동된 값이 계산된 -330%값을 보내준다
+    let resVal = (selEl.offsetWidth * -3.3) + resultX;
+    leftSlide(resVal+"px");
 
 } /////// else if ///////////
 
