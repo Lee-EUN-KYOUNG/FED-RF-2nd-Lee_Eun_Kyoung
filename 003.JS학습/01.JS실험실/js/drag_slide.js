@@ -513,16 +513,25 @@ else{
 
 } ///////////// else //////
 
- // console.log('마우스업',dragSts);
+
+// 드래그시 더해지는 마지막 위치값 lastX를 -220%의 left px값을 초기화해주기
+// -> 숫자만 넣어야함
+lastX = selEl.offsetWidth*-2.2;
 
 
+
+// console.log('마우스업',lastX);
 
 }); /////////// mouseup /////////////////////
 
 
+
 // (3) 마우스 무브 이벤트 함수 연결하기
 
-mFn.addEvt(dtg,'mousemove', dMove);  ////////////////////// mousemove  ///////////////////
+mFn.addEvt(dtg,'mousemove', dMove);  
+
+
+////////////////////// mousemove  ///////////////////
 
 
 // (4) 마우스가 대상을 벗어나면 드래그 상태값 false 처리하기
@@ -536,9 +545,9 @@ mFn.addEvt(dtg,'mouseleave',()=>{
     // 단 style 위치값 코드는 'px' 단위가 있으므로 parseInt 처리
     
     /* lastX = parseInt(dtg.style.left);
-    lastY = parseInt(dtg.style.top); */
+    lastY = parseInt(dtg.style.top); -> 드래그 배너에서는 불필요! (있으면 오히려 드래그 오작동남) */
 
-    // // console.log('마우스 나감',dragSts);
+    // console.log('마우스 나감',dragSts);
 
 
 });  /////////// mouseleave
