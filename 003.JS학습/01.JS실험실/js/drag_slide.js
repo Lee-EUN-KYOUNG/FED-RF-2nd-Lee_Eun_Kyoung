@@ -233,11 +233,15 @@ function slideFn(selEl) {
       // 블릿변경함수호출(오른쪽은 1)
       chgIndic(1);
 
+      // 중앙 슬라이드 클래스 on 넣기 함수 호출 -> 오른쪽 버튼(왼쪽) 이동이므로 3을 보낸다
+      addOnSlide(3);
+
       // // console.log('실행!');
       // 오른쪽버튼 클릭이벤트 강제발생!
       // 선택요소.click()
       //  abtn[1].click();
     }, 3000);
+
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
@@ -322,9 +326,16 @@ function slideFn(selEl) {
 
   // (3) 드래그일때 처리함수
   const dMove = (e) => {
+
+
+
     // e =   이벤트 객체 전달 변수
     // 드래그 상태는 dragSts값이 true인 경우에만 허용
     if (dragSts) {
+
+        // 자동넘김 멈춤함수 호출하기
+        clearAuto();
+        
       /* // console.log('드래그중'); */
 
       // (1) 드래그 상태에서 움직일때 포인터 위치값
@@ -447,6 +458,10 @@ function slideFn(selEl) {
   /////////////////////////////////////////// 4. 드래그 이벤트 설정하기//////////////////////////////////////////////////
   // (1) 마우스 다운 이벤트 함수 연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
+
+    // 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
     // 드래그 상태값 true로 변경
     dTrue();
 
@@ -466,6 +481,10 @@ function slideFn(selEl) {
 
   // (2)  마우스 업 이벤트 함수 연결하기
   mFn.addEvt(dtg, "mouseup", (e) => {
+
+    // 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
     // 드래그 상태값 false로 변경
     dFalse();
 
@@ -506,6 +525,10 @@ function slideFn(selEl) {
 
   // (1) 터치 스타트 이벤트 함수 연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
+
+    // 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
     // 드래그 상태값 true로 변경
     dTrue();
 
@@ -520,6 +543,10 @@ function slideFn(selEl) {
 
   // (2)  터치 엔드 이벤트 함수 연결하기
   mFn.addEvt(dtg, "touchend", () => {
+
+    // 자동넘김 멈춤함수 호출하기
+    clearAuto();
+
     // 드래그 상태값 false로 변경
     dFalse();
 
