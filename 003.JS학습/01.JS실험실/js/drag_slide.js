@@ -528,7 +528,9 @@ else{
 // -> 숫자만 넣어야함
 lastX = originalValue;
 
+
 // 중앙 li 클래스 on 넣기
+// slideSeq값은 오른쪽 버튼 2, 왼쪽 버튼 3
 mFn.qsaEl(slide, "li").forEach((ele,idx)=>{
     if(idx===slideSeq) ele.classList.add("on");
     else ele.classList.remove("on");
