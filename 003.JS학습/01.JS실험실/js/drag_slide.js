@@ -46,7 +46,12 @@ function slideFn(selEl) {
     let clickSts = 0;
     // 0-2. 슬라이드 이동시간 : 상수로 설정
     const TIME_SLIDE = 400;
-    
+    // 0-3. 슬라이드 기준 위치값 : 
+    let originalValue =  selEl.offsetWidth*-2.2;
+
+    //가로 크기의 2.2배 음수값
+
+
     // 1. 대상선정
     // 1-1. 슬라이드 부모요소 : 전달된 선택요소 -> selEl
     const sldWrap = selEl;// DOM요소를 직접 받음!!!
@@ -170,7 +175,7 @@ function slideFn(selEl) {
             slide.appendChild(
                 slide.querySelectorAll('li')[0]);
             // 4.slide left값 -220% -> 최종 left 값 px로
-            slide.style.left = selEl.offsetWidth*-2.2 + "px";
+            slide.style.left = originalValue + "px";
             // 5.트랜지션 없애기
             slide.style.transition = 'none';
         }, TIME_SLIDE);
@@ -207,7 +212,7 @@ function slideFn(selEl) {
 
             setTimeout(() => {
                 // 4. left값 -220%으로 들어오기 -> px 값으로 변환
-                slide.style.left = selEl.offsetWidth*-2.2 + "px";
+                slide.style.left = originalValue + "px";
                 
                 // 5. 트랜지션주기
                 slide.style.transition = TIME_SLIDE+'ms ease-out';
@@ -290,20 +295,18 @@ dtg.style.position = "relative";
 /* dtg.style.top = "0"; */
 
 // 배너가 기준 박스에서 left -220% 이동 되어 있음
-// -> .banbx의 width 값 곱하기 2.2
-// 기준 위치값 변수에 할당 먼저하기
-let leftVal = mFn.qs('.banbx').offsetWidth*-2.2;
+// -> .banbx의 width 값 곱하기 2.2 
+// 기준 위치값 변수에 할당 먼저하기 -> originalValue 변수값 할당
+let leftVal = originalValue;
 
 /* 왼쪽으로 이동할 기준값(기준 위치값*1.1) */
 let valFirst = leftVal*1.1;
 /* 오른쪽으로 이동할 기준값(기준 위치값*0.9) */
 let valSecond = leftVal*0.9;
 
+
 console.log('기준값:',leftVal);
-
-
 console.log('기준값의 110%:',valFirst)
-
 console.log('기준값의 90%:',valSecond);
 
 // left 위치값 최초 셋업 - px 단위 꼭 쓸것
@@ -472,19 +475,29 @@ lastPoint(e);
 dtg.style.cursor = "grab";
 
 
+// 중앙 li 순번 방향별 셋팅하기
+// -> 왼쪽 버튼(오른쪽이동) 기준
+let slideSeq = 2;
+
+// 오른쪽 버튼일 경우? 순번은 3이 된다 -> 업데이트는 오른쪽일 경우에만 해준다
+// 기타일 경우는 3번째 순번인 2를 유지
+
+
 // 대상의 left값  찍기 (px 단위를 parseInt()로 없애기)
 let currentLeft = parseInt(dtg.style.left);
 
 // 대상의 left 값 찍기
 console.log('슬라이드 left:', currentLeft, 'x축 순수이동값:',resultX);
 
+
 // 대상의 슬라이드 이동 기준 분기하기
 if(currentLeft < valFirst) {
 
     console.log('왼쪽으로 이동');
     // 오른쪽 버튼 클릭시 왼쪽 이동과 동일!
+    // on 넣을 li 순번 업데이트
     rightSlide();
-
+    slideSeq = 3;
 
 } ////////// if /////////
 
@@ -513,8 +526,13 @@ else{
 
 // 드래그시 더해지는 마지막 위치값 lastX를 -220%의 left px값을 초기화해주기
 // -> 숫자만 넣어야함
-lastX = selEl.offsetWidth*-2.2;
+lastX = originalValue;
 
+// 중앙 li 클래스 on 넣기
+mFn.qsaEl(slide, "li").forEach((ele,idx)=>{
+    if(idx===slideSeq) ele.classList.add("on");
+    else ele.classList.remove("on");
+});
 
 
 // console.log('마우스업',lastX);
@@ -589,4 +607,28 @@ mFn.addEvt(dtg,'touchstart',(e) => {
     mFn.addEvt(dtg,'touchmove', dMove);
     ////////////////////// touchmove  ///////////////////
     
+
+    //// 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
+    mFn.addEvt(window,"resize",()=>{
+
+        // 기준 위치값 left 업데이트
+        originalValue = selEl.offsetWidth*-2.2;
+        
+        // 기준 위치값으로 실제 슬라이드 CSS left값 변경하기
+        slide.style.left = originalValue + 'px';
+        
+        // 초기 left값 셋팅
+        leftVal = originalValue;
+        
+        /* 왼쪽으로 이동할 기준값(기준 위치값*1.1) */
+        valFirst = leftVal*1.1;
+        
+        /* 오른쪽으로 이동할 기준값(기준 위치값*0.9) */
+        valSecond = leftVal*0.9;
+        
+        // 호출 작동 확인
+        console.log('리사이즈작동',originalValue,leftVal,valFirst,valSecond);
+
+    }); //////////////////// resize 함수 ///////////
+
 } /////////////////////// SlideFn 함수 /////////////////////
