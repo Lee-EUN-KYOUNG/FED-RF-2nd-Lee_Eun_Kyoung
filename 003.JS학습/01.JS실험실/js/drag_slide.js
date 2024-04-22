@@ -245,7 +245,7 @@ function slideFn(selEl) {
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
-  /* slideAuto(); */
+  slideAuto();
 
   // 버튼을 클릭할 경우를 구분하여 자동넘김을 멈춰준다!
   function clearAuto() {
@@ -335,7 +335,7 @@ function slideFn(selEl) {
 
         // 자동넘김 멈춤함수 호출하기
         clearAuto();
-        
+
       /* // console.log('드래그중'); */
 
       // (1) 드래그 상태에서 움직일때 포인터 위치값
