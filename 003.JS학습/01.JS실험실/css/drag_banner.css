@@ -74,9 +74,25 @@ ol {
     aspect-ratio: 1/0.55;
     /* border: 2px solid red; */
     box-sizing: border-box;
-    
-    outline: 5px dotted blue;
+    /* outline: 5px dotted blue; */
+    /* 드래그 선택영역 안접히게 하기 */
+    -webkit-user-drag: none;
+    user-select: none;
 }
+
+/* 배너 최상위 박스에 드래그 막기 장치 가상 요소  */
+.banbx.on::after{
+    content: '';
+    position: absolute;
+    transform: scaleY(1.1);
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    z-index: 99;
+    /* background-color: rgba(0, 0, 255, 0.47); */
+}
+
 
 .slide {
     display: flex;
@@ -115,7 +131,7 @@ ol {
     /* 가로크기를 부모박스 크기에 맞춤! */
     /* height 값은 flex박스 자식요소에서
     등분할시 자동 100%임! */
-    outline: 2px dashed red;
+    /* outline: 2px dashed red; */
 
     /* 필터로 밝기조절(어둡게) */
     filter: brightness(70%);
