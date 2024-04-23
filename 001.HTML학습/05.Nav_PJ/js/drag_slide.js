@@ -641,12 +641,23 @@ function slideFn(selEl) {
 
   }); /////////// touchend /////////////////////
 
+
   // (3) 터치 무브 이벤트 함수 연결하기
 
   mFn.addEvt(dtg, "touchmove", dMove);
   ////////////////////// touchmove  ///////////////////
 
-  //// 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
+  // (4) 버튼, 블릿에 오버시 자동 처리 호출 셋팅
+  mFn.qsaEl(selEl,'.controls').forEach((ele) =>
+    mFn.addEvt(ele,"mouseenter", 
+    () => {
+      moveDragSlide();
+      clearAuto();
+    }) /////// 
+  );/////// forEach /////////
+
+
+  // (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
   mFn.addEvt(window, "resize", () => {
     // 기준 위치값 left 업데이트
     originalValue = selEl.offsetWidth * -2.2;
