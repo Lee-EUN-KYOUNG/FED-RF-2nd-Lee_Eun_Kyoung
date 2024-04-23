@@ -64,8 +64,8 @@ function slideFn(selEl) {
   for (let i = 0; i < sldCnt; i++) {
     indic.innerHTML += `
             <li ${i == 0 ? 'class="on"' : ""}>
-                <img src="images/dot1.png" alt="흰색">
-                <img src="images/dot2.png" alt="회색">
+                <img src="images/img_nav06/dot1.png" alt="흰색">
+                <img src="images/img_nav06/dot2.png" alt="회색">
             </li>
         `;
   } /////// for문 ////////////
@@ -553,10 +553,7 @@ function slideFn(selEl) {
     /* dtg.style.zIndex = ++zNum; */
 
     // console.log('마우스다운',dragSts);
-
-    
   }); /////////// mousedown /////////////////////
-
 
   // (2)  마우스 업 이벤트 함수 연결하기
   mFn.addEvt(dtg, "mouseup", () => {
@@ -599,9 +596,6 @@ function slideFn(selEl) {
     lastY = parseInt(dtg.style.top); -> 드래그 배너에서는 불필요! (있으면 오히려 드래그 오작동남) */
 
     // console.log('마우스 나감',dragSts);
-
-    
-
   }); /////////// mouseleave
 
   /////////////////// 모바일 이벤트 처리 구역 /////////////////////////////
@@ -652,16 +646,7 @@ function slideFn(selEl) {
   mFn.addEvt(dtg, "touchmove", dMove);
   ////////////////////// touchmove  ///////////////////
 
-  // (4) 버튼, 블릿에 오버시 자동 처리 호출 셋팅
-  mFn.qsa('.controls').forEach((ele) =>
-    mFn.addEvt(ele,"mouseenter", 
-    () => {
-      moveDragSlide();
-      clearAuto();
-    }) /////// 
-  );/////// forEach /////////
-
-  // (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
+  //// 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
   mFn.addEvt(window, "resize", () => {
     // 기준 위치값 left 업데이트
     originalValue = selEl.offsetWidth * -2.2;
