@@ -17,14 +17,17 @@
             display: flex;
             list-style: none;
             margin: 0;
-            padding: 0;        
+            padding: 0;    
         }
         .gbox li{
+            /* 플렉스 부모 박스 크기에 맞춰 줄여주기 - 0 쓰면 안 줄인다는 뜻 */
+            flex-shrink: 0;
             width: 25vw;
             aspect-ratio: 664/443;
+            padding: 1vw;
+            box-sizing: border-box;
         }
         .gbox li img{
-            flex-shrink: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
