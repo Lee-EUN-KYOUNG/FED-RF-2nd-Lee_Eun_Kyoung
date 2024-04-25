@@ -47,7 +47,7 @@ class GoghWork extends React.Component {
     return (
       <React.Fragment>
         <h2>안녕 나는 고흐 그림이야</h2>
-        <MakeImage isrc="01.png" ialt="고흐그림"/>
+        <MakeImage isrc="01.png" ialt="고흐그림" />
         {/* <img src="./images/01.png" alt="고흐그림" /> */}
       </React.Fragment>
     );
@@ -62,36 +62,30 @@ ReactDOM.render(<GoghWork />, target[0]);
 
 ///////////////////////// 함수형 컴포넌트 만들기 ///////////////////////
 // 첫글자는 대문자!
-function IronMan(){
-
-    return (
-        <React.Fragment>
-        <h2>안녕 나는 아이언맨이야</h2>
-        <MakeImage isrc="ab1.jpg" ialt="아이언맨"/>
-        {/* <img src="./images/ab1.jpg" alt="아이언맨" /> */}
-      </React.Fragment>
-    );
-
+function IronMan() {
+  return (
+    <React.Fragment>
+      <h2>안녕 나는 아이언맨이야</h2>
+      <MakeImage isrc="ab1.jpg" ialt="아이언맨" />
+      {/* <img src="./images/ab1.jpg" alt="아이언맨" /> */}
+    </React.Fragment>
+  );
 } //////////// IronMan 컴포넌트 //////////////////
 
-
 // 이미지 생성 공통 컴포넌트 ////////////////////////
+// -> 비구조화할당 (구조분해할당)으로 전달 객체를 개별 변수값으로 처리할 수 있다
+
 /* function MakeImage(헐){ */
 /* function MakeImage({isrc,ialt}){ */
-function MakeImage({ialt:ㅎㅎ, isrc : ㅋㅋ}){
-
+function MakeImage({ ialt: ㅎㅎ, isrc: ㅋㅋ }) {
   // 하나의 변수에는 전달된 값이 보낼때 설정된 객체로 전달된다 {속성:값, 속성:값,...}
-    /* console.log(헐); */
-    /* return <img src={"./images/"+ isrc} alt={ialt} />; */
-    return <img src={"./images/"+ ㅋㅋ} alt={ㅎㅎ} />;
-
+  /* console.log(헐); */
+  /* return <img src={"./images/"+ isrc} alt={ialt} />; */
+  return <img src={"./images/" + ㅋㅋ} alt={ㅎㅎ} />;
 } /////////////////// MakeImge 컴포넌트 //////////////////
-
-
 
 // 두번째 .root에 아이언맨 출력하기
 ReactDOM.render(<IronMan />, target[1]);
-
 
 /************************************************* 
     [ Props 사용하기 ]
@@ -102,3 +96,24 @@ ReactDOM.render(<IronMan />, target[1]);
     -> props라는 변수명은 마음대로 지을 수 있다
     -> 컴포넌트에 중괄호를 사용하면 개별적인 속성변수를 전달 받을 수 있다.
 *************************************************/
+
+////////////////////// 내가 좋아하는 색 표시하기 컴포넌트 ///////////////////////////
+
+function FavoriteThings(조아) {
+  return (
+    <h2>
+      내가 좋아하는 색은 {조아.color}이야! <br />
+      그리고 좋아하는 음식은 {조아.food}야! <br />
+      취미는 {조아.hobby}야! 알겠니???
+    </h2>
+  );
+} /////////// FavoriteThings 컴포넌트 //////////
+
+
+// 좋아하는 색과 음식, 취미 각각 속성명으로 생성하여
+// 컴포넌트를 호출하면 개별적으로 속성을 구분할 수 있다
+// 출력 : 세번째.root
+ReactDOM.render(<FavoriteThings color="흰색" food="피자" hobby="책읽기" />, target[2]);
+
+// 출력 : 네번째.root
+ReactDOM.render(<FavoriteThings color="파란색" food="콜라" hobby="농구" />, target[3]);
