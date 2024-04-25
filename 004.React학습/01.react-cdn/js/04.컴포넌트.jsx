@@ -76,8 +76,14 @@ function IronMan(){
 
 
 // 이미지 생성 공통 컴포넌트 ////////////////////////
-function MakeImage(props){
-    return <img src={"./images/"+props.isrc} alt={"props.ialt"} />;
+/* function MakeImage(헐){ */
+/* function MakeImage({isrc,ialt}){ */
+function MakeImage({ialt:ㅎㅎ, isrc : ㅋㅋ}){
+
+  // 하나의 변수에는 전달된 값이 보낼때 설정된 객체로 전달된다 {속성:값, 속성:값,...}
+    /* console.log(헐); */
+    /* return <img src={"./images/"+ isrc} alt={ialt} />; */
+    return <img src={"./images/"+ ㅋㅋ} alt={ㅎㅎ} />;
 
 } /////////////////// MakeImge 컴포넌트 //////////////////
 
