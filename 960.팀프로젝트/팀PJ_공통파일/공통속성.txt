@@ -1,0 +1,46 @@
+[ 공통 속성 도출을 위한 속성명 정의 ]
+
+0. CSS값 정의 하기 (변수화 하기)
+
+ <전역 변수>
+ :root{
+    --변수명 : 값;
+ }
+ 
+ <지역 변수>
+ 요소명/클래스명{
+    --변수명 : 값;
+ }
+
+1. UI / UX  구현을 위한 속성명
+(1) 박스 속성
+ - 기본 5가지 : 가로 & 세로 크기 / 보더 / 마진 / 패딩
+ 예>
+ width-size / height-size / border-size / margin-size / padding-size
+
+(2) 글자 속성
+ - 글자 크기 / 글자체 / 글자 스타일 / 글자 두께 / 글자 박스 정렬 (줄 간격, 글자 정렬..)
+예>
+font-size / font-family / font-style / font-weight / line-height / text-align /
+
+(3) 미디어 속성
+ -  video 태그 / img 태그 /  audio 태그
+
+(4) 영역 정의
+ - 상단 영역 / 메인 영역 / 하단 영역
+예>
+header-area / main-area / footer-area
+
+(5) 요소 석성 및 영역에 따른 작명하기
+ - 공통 속성 정의
+ 예> 상단 영역 로고 가로 크기
+ header-area-logo-width : 300px;
+=> 이름을 줄이기 위한 방법은 상단 영역의 변수로 별도 설정함
+    .header-area{
+        --logo-width : 300px;
+    }
+ - 큰 영역을 정의하고 그 하위 요소를 정의함
+ - 그 요소에서 필요로 하는 속성을 항목화한다
+
+2. JS 기능 구현을 위한 속성 / 메서드 정의
+ -  개별 개발 요구 사항에 따라 정의 됨
