@@ -1,6 +1,10 @@
 // 04.리액트 컴포넌트 JSX
 
-// 외부 JSX 불러오기
+// 내 함수 불러오기
+import mFn from "./my_function";
+console.log(mFn);
+
+// 외부 컴포넌트 JSX 불러오기
 // 리액트에서는 from 뒤 파일명 확장자 (js, jsx) 생략해도 됨
 import Avengers from "./avengers";
 
@@ -60,7 +64,7 @@ class GoghWork extends React.Component {
 } ///////////////// GogWork 클래스형 컴포넌트 /////////
 
 // 전체 출력 요소 선택하기
-const target = document.querySelectorAll(".root");
+const target = mFn.qsa(".root");
 
 // 첫번째 .root에 고흐 출력하기
 ReactDOM.render(<GoghWork />, target[0]);
