@@ -130,8 +130,45 @@
       );
       // 객체 확인하기
       console.log("CGV객체확인:", cgvInfo);
+      console.log("CGV객체key배열:", Object.keys(cgvInfo));
 
+      /// 로드구역 /////////////////
+      window.addEventListener("load", () => {
+
+        // 출력하기
+        document.querySelector(".cgv-part").innerHTML =
+        `
+        <div class="cgv-info">
+          <h1> [ 🎪CGV 상영관 영화 안내 ] </h1>
+          <h2>
+            <ol>
+              ${
+                Object.keys(cgvInfo).map(v=>`
+                  <li>
+                    ${
+                      v == "포스터" ?
+                    `<img src="${cgvInfo[v]}" alt="${cgvInfo["제목"]}의 포스터">`
+                    : v + ":" + cgvInfo[v]}
+                  </li>
+                `).join("")}
+              <li>
+                🎁 메시지 : ${cgvInfo.showCGV("CGV는 항상 훌륭합니다")}
+              </li>
+            </ol>
+          </h2>
+        </div>
+        `;
+
+
+
+      }); ////////////////////// 로드 구역
     </script>
   </head>
-  <body></body>
+  <body>
+    <!-- CGV 파트 -->
+    <div class="cgv-part">
+      
+    </div>
+
+  </body>
 </html>
