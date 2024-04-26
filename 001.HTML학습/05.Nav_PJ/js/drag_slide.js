@@ -84,9 +84,9 @@ function slideFn(selEl) {
 
   // 2. 이벤트 설정하기 : 버튼요소들 -> forEach()
   abtn.forEach((ele) => mFn.addEvt(ele, "click", goSlide));
-  
+
   // 3. 함수만들기
-/**********************************************************
+  /**********************************************************
     함수명 : goSlide
     기능 : 이동 버튼 클릭시 이동 분기하기
  **********************************************************/
@@ -172,7 +172,6 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
-
   /**********************************************************
     함수명 : rightSlide
     기능 : 왼쪽 방향 이동 (오른쪽 버튼)
@@ -197,7 +196,6 @@ function slideFn(selEl) {
 
     // 슬라이드 커버 만들기 함수 호출
     coverDrag();
-
   } //////////// rightSlide 함수 ////////////
 
   // 슬라이드 왼쪽 버튼 클릭시 오른쪽 방향 이동 함수 ////////////
@@ -205,7 +203,6 @@ function slideFn(selEl) {
   // 함수 전달 변수를 leftVal ="330%"로 기본 입력값 처리하면
   // 함수 호출시 전달값이 없는 경우엔 기본값으로 처리하고
   // 전달값이 있으면 그 전달될 값으로 처리한다! -> 함수 전달 변수 입력값 처리라고 함
-
 
   /**********************************************************
     함수명 : leftSlide
@@ -240,9 +237,7 @@ function slideFn(selEl) {
 
     // 슬라이드 커버 만들기 함수 호출
     coverDrag();
-
   } //////////// leftSlide( 함수 ////////////
-
 
   /******************************************************* 
         자동넘기기 기능구현
@@ -283,13 +278,10 @@ function slideFn(selEl) {
       // 선택요소.click()
       //  abtn[1].click();
     }, 3000);
-
   } ///////// slideAuto 함수 //////////////
-
 
   // 인터발함수 최초호출!
   slideAuto();
-
 
   /**********************************************************
     함수명 : clearAuto
@@ -311,14 +303,12 @@ function slideFn(selEl) {
     // 결과적으로 5초후 인터발재실행은 하나만 남는다!
   } //////////// clearAuto 함수 ///////////
 
-
   /**********************************************************
     함수명 : coverDrag
     기능 : 슬라이드 이동시 드래그 막기
  **********************************************************/
 
-  function coverDrag(){
-
+  function coverDrag() {
     // selEl로 전달된 대상에 클래스 on 줘서 가상 요소 셋팅한 슬라이드 커버가 나오게 지정함
     selEl.classList.add("on");
 
@@ -326,13 +316,9 @@ function slideFn(selEl) {
     setTimeout(() => {
       selEl.classList.remove("on");
     }, TIME_SLIDE);
-
-
   } ///////////////// coverDrag 함수 ///////
 
-
   /*********************************** 드래그 기능 구현 **************************************************************/
-
 
   //////////////////// 드래그 적용 대상 및 이벤트 설정하기 /////////////////////////
 
@@ -384,7 +370,7 @@ function slideFn(selEl) {
   let resultX;
 
   ////////////////////////////////////////////////////////
- ////////////// 3. 함수 만들기 ///////////////////////////////
+  ////////////// 3. 함수 만들기 ///////////////////////////////
 
   // 할당형 함수를 만들 경우 이벤트 설정보다 위에서 만들어준다
 
@@ -396,15 +382,19 @@ function slideFn(selEl) {
 
   // (3) 드래그일때 처리함수
   const dMove = (e) => {
-
-
-
     // e =   이벤트 객체 전달 변수
     // 드래그 상태는 dragSts값이 true인 경우에만 허용
+
+    // 이동 버튼 + 블릿 이벤트 없앰 설정하기
+    // 상위 selEl에 클래스 .no 주면 된다
+    if (dragSts) selEl.classList.add('no');
+    else selEl.classList.remove('no');
+
+
     if (dragSts) {
 
-        // 자동넘김 멈춤함수 호출하기
-        /* clearAuto(); */
+      // 자동넘김 멈춤함수 호출하기
+      /* clearAuto(); */
 
       /* // //// console.log('드래그중'); */
 
@@ -469,7 +459,6 @@ function slideFn(selEl) {
     // //// console.log('끝포인트:',lastX);
   };
 
-
   // (6) 슬라이드 드래그 이동 구현
   // -> mouseup/touchend 이벤트 발생시 아래 함수 호출
   const moveDragSlide = () => {
@@ -503,7 +492,6 @@ function slideFn(selEl) {
       //// console.log('모바일',resultX);
 
       leftSlide(resVal + "px");
-
     } /////// else if ///////////
     else {
       // valFirst와 valSecond 사이 범위
@@ -524,13 +512,10 @@ function slideFn(selEl) {
     chgIndic(slideSeq === 3 ? true : false);
   }; //////////// moveDragSlide 함수 /////////////
 
-
   /////////////////////////////////////////// 4. 드래그 이벤트 설정하기//////////////////////////////////////////////////
-  
-  
+
   // (1) 마우스 다운 이벤트 함수 연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
-
     // 자동넘김 멈춤함수 호출하기
 
     /* clearAuto(); */
@@ -557,7 +542,6 @@ function slideFn(selEl) {
 
   // (2)  마우스 업 이벤트 함수 연결하기
   mFn.addEvt(dtg, "mouseup", () => {
-
     // 자동넘김 멈춤함수 호출하기
     clearAuto();
 
@@ -574,7 +558,6 @@ function slideFn(selEl) {
     moveDragSlide();
 
     // //// console.log('마우스업',lastX);
-
   }); /////////// mouseup /////////////////////
 
   // (3) 마우스 무브 이벤트 함수 연결하기
@@ -590,9 +573,12 @@ function slideFn(selEl) {
     // 해당 코드를 setTimeout() 함수에 넣는다
     // 결과적으로 이 코드는 큐(Queue)에 들어가서 기존 처리되는 일반 요청 처리 코드가
     // 모두 스택(stack)에서 처리가 끝날 때까지 기다렸다가 큐에서 순서대로 스택으로 넘어가 처리된다
-    //dFalse();
-
+    
     setTimeout(dFalse, 0);
+    
+    if(dragSts) return moveDragSlide();
+    
+    // dFalse();
 
     // 과도한 드래그로 갑자기 아웃되면 lastX, lastY 값이 셋팅되지 못한다
     // -> 기존 요소의 위치값으로 보정해야됨
@@ -604,11 +590,23 @@ function slideFn(selEl) {
     // //// console.log('마우스 나감',dragSts);
   }); /////////// mouseleave
 
+  // (5) 버튼, 블릿에 오버시 자동 처리 호출 셋팅
+  // 조건 : 드래그 상태 변수인 dragSts값이 true일때
+ /*  mFn.qsaEl(selEl, ".controls").forEach(
+    (ele) =>
+      mFn.addEvt(ele, "mouseenter", () => {
+        console.log("dragSts:", dragSts);
+        if (dragSts) {
+          moveDragSlide();
+          clearAuto();
+        } ////////// if /////////
+      }) /////// mouseenter ///////////
+  ); /////// forEach ///////// */
+
   /////////////////// 모바일 이벤트 처리 구역 /////////////////////////////
 
   // (1) 터치 스타트 이벤트 함수 연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
-
     // 자동넘김 멈춤함수 호출하기
 
     /* clearAuto(); */
@@ -630,7 +628,6 @@ function slideFn(selEl) {
 
   // (2)  터치 엔드 이벤트 함수 연결하기
   mFn.addEvt(dtg, "touchend", () => {
-
     // 자동넘김 멈춤함수 호출하기
     clearAuto();
 
@@ -644,28 +641,12 @@ function slideFn(selEl) {
 
     // 드래그슬라이드 이동함수 호출
     moveDragSlide();
-
   }); /////////// touchend /////////////////////
-
 
   // (3) 터치 무브 이벤트 함수 연결하기
 
   mFn.addEvt(dtg, "touchmove", dMove);
   ////////////////////// touchmove  ///////////////////
-
-  // (4) 버튼, 블릿에 오버시 자동 처리 호출 셋팅
-  // 조건 : 드래그 상태 변수인 dragSts값이 true일때
-  mFn.qsaEl(selEl,'.controls').forEach((ele) =>
-    mFn.addEvt(ele,"mouseenter", 
-    () => {
-      console.log('dragSts:',dragSts);
-      if(dragSts){
-        moveDragSlide();
-        clearAuto();
-      } ////////// if /////////
-    }) /////// mouseenter ///////////
-  );/////// forEach /////////
-
 
   // (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
   mFn.addEvt(window, "resize", () => {
