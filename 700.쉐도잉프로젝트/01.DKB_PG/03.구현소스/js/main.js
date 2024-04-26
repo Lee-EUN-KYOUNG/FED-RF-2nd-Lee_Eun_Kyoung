@@ -1,6 +1,5 @@
 /* 도깨비 PJ 메인 JS - main.JS */
 
-
 // 공통 처리 함수 불러오기
 import setElement from "./common.js";
 setElement();
@@ -11,24 +10,19 @@ import myFn from "./my_function.js";
 // 부드러운 스크롤 불러오기
 import { startSS, setScrollPos } from "./smoothScroll23.js";
 
-
-
 // 데이터 셋팅 불러오기
 import * as dkbData from "../data/dkb_data.js";
 /* import { previewData } from '../data/dkb_data.js'; */
 
-
+// 드래그 슬라이드 불러오기
+import setSlide from "./drag_slide.js";
 
 /////////////////////// 구현 코드 파트 /////////////////////
-
-
 
 // 부드러운 스크롤 호출
 startSS();
 
 // console.log('모듈로 메인 JS 호출!!', document.querySelector('.top-menu'));
-
-
 
 // 인트로 동영상 파트 클릭시 동영상 태그 넣기
 // 이벤트 대상 === 변경 대상 : .intro-mv-img
@@ -103,7 +97,6 @@ introMv.onclick = () => {
 
 /* 3. 현장포토  내용 넣기 */
 
-
 ///////////// 현장포토 구현 코드 랩핑 구역 시작 /////
 (() => {
   // 대상 : .live-box
@@ -176,24 +169,20 @@ introMv.onclick = () => {
   posterBox.innerHTML = hcode;
 })(); /////////////// 대표이미지 코드 랩핑 구역 종료
 
-
 /* 5. 최신동영상 파트 데아터 태그 구성하여 화면 출력 하기 */
 
 ///////////// 최신동영상 구현 코드 랩핑 구역 시작 /////
 (() => {
-
   // 5-1. 변경 대상 : .clip-box
-  const clipBox = myFn.qs('.clip-box');
+  const clipBox = myFn.qs(".clip-box");
 
   // 5-2. 생성 코드 변수
-  let hcode = `<ul>`;
+  let hcode = `<ul class="slide">`;
 
   // 데이터만큼 순회하여 li 코드 만들기 //
   // 데이터 : dkbData.clipbData
-  dkbData.clipData.forEach(v=>{
-    
+  dkbData.clipData.forEach((v) => {
     hcode += `
-    
     <li>
     <div class="clip-mv-box">
     <img src="./images/clip_img/${v.idx}.jpg" alt="${v.subtit}"/>
@@ -203,33 +192,14 @@ introMv.onclick = () => {
     </h4>
     <h3>${v.title}</h3>
     </li>
-    
-    
     `;
-
-
   }); ///////// forEach
-
-
 
   hcode += `</ul>`;
 
   // 5-3. 화면 출력하기
   clipBox.innerHTML = hcode;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })(); /////////////// 최신동영상 코드 랩핑 구역 종료
 
+// 드래그 슬라이드 태그 구성후 호출하기
+setSlide("banbx");
