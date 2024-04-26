@@ -575,7 +575,7 @@ function slideFn(selEl) {
     // 모두 스택(stack)에서 처리가 끝날 때까지 기다렸다가 큐에서 순서대로 스택으로 넘어가 처리된다
     
     setTimeout(dFalse, 0);
-    
+    // 마우스가 벗어나면 이동 판별 함수 호출
     if(dragSts) return moveDragSlide();
     
     // dFalse();
