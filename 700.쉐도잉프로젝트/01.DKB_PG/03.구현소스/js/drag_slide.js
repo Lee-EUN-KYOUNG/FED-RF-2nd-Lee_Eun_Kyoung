@@ -386,8 +386,47 @@ function slideFn(selEl) {
       // 3. 이동차를 구한 resultX,resultY값을 대상 위치값에 적용
       // 대상 : 드래그 요소 dtg
       dtg.style.left = resultX + lastX + "px";
-    } //// if ////////
 
+      // 4. 양쪽 끝에서 튕겨서 제자리 보내기
+      // (1) 현재 리스트 li 수집하기
+      let currList = mFn.qsaEl(dtg,"li");
+      // (2) 리스트 길이 (개수)
+      let listLength = currList.length;
+      //(3) 리스트 한개당 크기 (li 가로 크기)
+      let oneSize = currList[0].offsetWidth;
+      // (4) 마지막 위치 한계값 left
+      // -> 히든 박스 width - 전체 슬라이드 width
+      // 전체 슬라이드 width는 li 한개당 width * 슬라이드 갯수다 
+      let limitSize = selEl.offsetWidth - (oneSize * listLength);
+      console.log('마지막한계left:',limitSize);
+
+      // 4-1. 맨앞에서 튕기기
+      if(parseInt(dtg.style.left)>0){
+        // 약간 시간 간격으로 조금 간후 튕겨서 돌아오는 효과
+        setTimeout(() => {
+          // left값 0
+          dtg.style.left = "0";
+          // 마지막 위치값 0
+          lastX = 0;
+        }, 200);
+      } //////// if ///////////
+      
+      // 4-2. 맨뒤에서 튕기기
+      if(parseInt(dtg.style.left)<limitSize) {
+        // 약간 시간 간격으로 조금 간후 튕겨서 돌아오는 효과
+        setTimeout(() => {
+          // left값 0
+          dtg.style.left = limitSize + "px";
+          // 마지막 위치값 0
+          lastX = limitSize;
+        }, 200);
+      } //////// if ///////////
+
+
+
+
+    } //// if ////////
+    
     // 드래그 중(dragSts===true)일때는 주먹손(grabbing),
     // 드래그아닐때(dragSts===false) 편손(grab)
     dtg.style.cursor = dragSts ? "grabbing" : "grab";
@@ -462,6 +501,38 @@ function slideFn(selEl) {
     // chgIndic(slideSeq === 3 ? true : false);
   }; ////////// moveDragSlide 함수 /////////////
 
+  // (7) 슬라이드 확정위치 이동함수
+  const fixedPosition = () =>{
+
+    // 중간 위치일때 배너 위치 수정하기
+    // (1) 현재 리스트 li 수집하기
+    let currList = mFn.qsaEl(dtg,"li");
+    // (2) 리스트 한개당 크기 (li 가로 크기)
+    let oneSize = currList[0].offsetWidth;
+    // (3)  한개 li 크기로 현재 left 위치 크기를 나누어서
+    // 소수점 아래 결과는 반올림해준다 -> 특정 위치로 이동
+    let divideNum = parseInt(dtg.style.left) / oneSize;
+
+    console.log("나눈수:", divideNum);
+
+    divideNum = Math.round(divideNum);
+    console.log("나눈수 반올림:", divideNum);
+
+    divideNum = Math.abs(divideNum);
+    console.log("나눈수 반올림후 절대값:", divideNum);
+
+    // 특정 위치로 이동하기 : 한개당 크기 * rotn
+    dtg.style.left = -(oneSize * divideNum) + "px";
+
+
+
+  }; //////////////// fixedPosition 함수 ////////////
+
+
+
+
+
+
   //////////////////////////////////////
   // 4. 드래그 이벤트 설정하기 //////////
 
@@ -488,13 +559,18 @@ function slideFn(selEl) {
     // 마지막 위치포인트 셋팅!
     lastPoint(e);
 
-    // 마우스 업시 편손!
+    // 마우스 없이 편손!
     dtg.style.cursor = "grab";
 
     // 드래그 슬라이드 이동함수 호출!
     // moveDragSlide();
 
     // // console.log("마우스 업!", lastX);
+
+    // 슬라이드 위치 확정 이동 함수 호출
+    fixedPosition();
+
+
   }); ///////// mouseup //////////
 
   // (3) 마우스 무브 이벤트 함수연결하기
@@ -507,6 +583,10 @@ function slideFn(selEl) {
 
     // 마우스가 벗어나면 이동판별함수 호출!
     // if(dragSts) moveDragSlide();
+
+    // 슬라이드 위치 확정 이동 함수 호출
+    fixedPosition();
+
   }); ///////// mouseleave //////////
 
   //////////// 모바일 이벤트 처리 구역 //////////
