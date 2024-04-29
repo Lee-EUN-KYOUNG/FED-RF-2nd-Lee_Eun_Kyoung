@@ -101,6 +101,21 @@ function slideFn(selEl) {
   // 2. 이벤트 설정하기 : 버튼요소들 -> forEach()
   abtn.forEach((ele) => mFn.addEvt(ele, "click", goSlide));
 
+
+  ////////////////////////////////// 슬라이드 초기값 셋팅하기 //////////////////////////////////////////////
+
+  // 슬라이드  처음에 left 기본값 넣기
+  slide.style.left = "0px";
+  // 슬라이드 처음 트래진션 기본값 넣기
+  slide.style.transition = "left .3s ease-out";
+
+ /// 슬라이드 버튼 부모 박스에 클래스 right 넣기
+ // parentElement는 선택 요소의 직계 부모 요소를 선택한다.
+ abtn[1].parentElement.classList.add("right");
+
+
+
+
   // 3. 함수만들기 //////////////////
   /********************************** 
     함수명: goSlide
@@ -121,30 +136,71 @@ function slideFn(selEl) {
     // classList.contains(클래스명)
     // 선택요소에 해당클래스가 있으면 true
 
+    console.log("슬left:", slide.style.left);
+    console.log('한개당 크기:', sList[0].offsetWidth);
+    
+    // 슬라이드가 몇개 나가있는지 알아내기
+    // left값 / 한개당 개수
+    let outCnt =
+    parseInt(slide.style.left) / sList[0].offsetWidth;
+    outCnt = Math.abs(outCnt);
+    
+    console.log('바깥에 나간 개수:', outCnt);
+
+    
     // 1. 오른쪽 버튼 여부 알아내기
-    let isRight = this.classList.contains("fa-chevron-right");
+    let isRight = this.classList.contains("ab2");
 
     // 2. 버튼분기하기 '.ab2' 이면 오른쪽버튼
     if (isRight) {
       // 오른쪽버튼
       // 오른쪽에서 들어오는 슬라이드함수 호출!
-      rightSlide();
+      /* rightSlide(); */
+
+      outCnt++;
+
     } ////// if //////////////
     else {
       // 왼쪽버튼
-      leftSlide();
+      /* leftSlide(); */
+      outCnt--;
+
     } /////// else //////////////
+
+
+    // 이동 적용 하기
+    slide.style.left = -(sList[0].offsetWidth * outCnt) + "px";
+
+    // 버튼 표시 분기 하기
+    
+    // (1) 왼쪽 이동 한계값 체크 (오른쪽 버튼만 보임)
+    if(outCnt == 0) {
+      abtn[0].parentElement.classList.add("right");
+      abtn[0].parentElement.classList.remove("left");
+    }
+    // (2) 오른쪽 이동 한계값 체크 (왼쪽 버튼만 보임)
+    // -> 한계값은 전체 개수 빼기 화면 노출 갯수 4개
+    else if (outCnt == SLIDE_LENGTH-4) {
+      abtn[0].parentElement.classList.add("left");
+      abtn[0].parentElement.classList.remove("right");
+    }
+    // (3) 양쪽끝 한계값 이외에는 버튼 모두 보이기
+    else{
+      abtn[0].parentElement.classList.remove("right","left");
+    }
+
+
 
     // 3. 블릿순번 변경 함수 호출
     // chgIndic(isRight); // 방향값을 보냄!
-
     // 4. 자동넘김 멈춤함수 호출하기
     // clearAuto();
-
     // 5. 중앙 li에 클래스 on넣기
     // slideSeq값은 오른쪽버튼2,왼쪽버튼3
-    let slideSeq = isRight ? 3 : 2;
-    addOnSlide(slideSeq);
+    /* let slideSeq = isRight ? 3 : 2;
+    addOnSlide(slideSeq); */
+
+
   } ////////// goSlide 함수 /////////
 
   /********************************** 
@@ -183,32 +239,13 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
-  // 슬라이드  처음에 left 기본값 넣기
-  slide.style.left = "0px";
-
 
   /********************************** 
     함수명: rightSlide
     기능: 왼쪽방향 이동(오른쪽버튼)
   **********************************/
   function rightSlide() {
-  
-    console.log("슬left:", slide.style.left);
-    
-    console.log('한개당 크기:', sList[0].offsetWidth);
-    
-    // 슬라이드가 몇개 나가있는지 알아내기
-    // left값 / 한개당 개수
-    let outCnt =
-    parseInt(slide.style.left) / sList[0].offsetWidth;
-    outCnt = Math.abs(outCnt);
-    
-    console.log('바깥에 나간 개수:', outCnt);
-
-    outCnt++;
-
-    // 이동 적용 하기
-    slide.style.left = -(sList[0].offsetWidth * outCnt) + "px";
+    // 비었다..
 
   } //////////// rightSlide 함수 ////////////
 
@@ -218,9 +255,12 @@ function slideFn(selEl) {
   **********************************/
   function leftSlide() {
 
-    console.log("슬left:", slide.style.left);
+    // 비었다..
 
   } //////////// leftSlide 함수 ////////////
+
+
+
 
   /********************************** 
         자동넘기기 기능구현
@@ -394,10 +434,15 @@ function slideFn(selEl) {
           // 마지막 위치값 0
           lastX = 0;
         }, 200);
+
+        // 버튼 처리하기 (오른쪽 버튼만 보임)
+        abtn[0].parentElement.classList.remove("left");
+        abtn[0].parentElement.classList.add("right");
+
       } //////// if ///////////
       
       // 4-2. 맨뒤에서 튕기기
-      if(parseInt(dtg.style.left)<limitSize) {
+      else if(parseInt(dtg.style.left)<limitSize) {
         // 약간 시간 간격으로 조금 간후 튕겨서 돌아오는 효과
         setTimeout(() => {
           // left값 0
@@ -405,10 +450,16 @@ function slideFn(selEl) {
           // 마지막 위치값 0
           lastX = limitSize;
         }, 200);
-      } //////// if ///////////
 
+        // 버튼 처리하기 (왼쪽 버튼만 보임)
+        abtn[0].parentElement.classList.add("left");
+        abtn[0].parentElement.classList.remove("right");
+      } //////// else if ///////////
 
-
+      // 그 밖의 경우 버튼 모두 보이기
+      else {
+        abtn[0].parentElement.classList.remove("left","right");
+      }
 
     } //// if ////////
     
