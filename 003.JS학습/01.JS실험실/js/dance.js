@@ -36,17 +36,21 @@ slidePg.innerHTML = hcode;
 const tpg = mFn.qs('.tpg');
 // 움직일 대상 : .slidePg>ul
 const target = mFn.qs('.slidePg>ul');
+// 추가 대상 : .slidePg>ul>li
+const eachList = mFn.qsaEl(target, 'li');
 
-/* console.log(tpg,target); */
+/* console.log(tpg,target,eachList); */
+
 // 2. 이벤트 설정하기
 mFn.addEvt(window, 'scroll', moveSlide);
 
 // 3. 함수 만들기
+// (1) 슬라이드 이동 함수
 function moveSlide(){
 
     // 1. 스티키 부모 박스 바운딩 top값
     let bTop = mFn.getBCR(tpg);
-    console.log('바운딩top:', bTop);
+    /* console.log('바운딩top:', bTop); */
 
     // 2. 이동할 타겟 박스 left 값으로 부모 바운딩 top값 넣기
     // (1) 바운딩 top값이 0 초과일때 처음 위치 재설정하기
@@ -64,4 +68,39 @@ function moveSlide(){
         target.style.left = '-3000px';
     }
 
+    // 3. 개별 리스트 상하 이동 함수 호출하기
+    // ele - 해당 리스트 li 자신
+    // idx -  li 자신의 순번
+    eachList.forEach((ele,idx)=>upDownFn(ele,idx));
+
 } /////////////// moveSlide
+
+
+// (2) 리스트 상하 이동 함수
+function upDownFn (ele,idx) {
+    
+    // ele - 각 li 요소
+    // idx - 각 li 순번
+
+    // 1. 스티키 박스 하위 li가 기준 보이는 화면 left 기준선에 대한 위치값 바운딩left값을 이용하여
+    // 자기 위치에서 위,아래로 이동하는 수치 변경하기
+    let mVal = mFn.getBCR2(ele);
+    
+
+    // 2. 위치값을 양수로 만들어 윈도우 크기로 나눈 후 백분율하기
+    // -> 수치가 크므로 2로 나누어주었음
+    mVal = Math.abs(mVal/window.innerWidth)*100/5;
+    
+    /* console.log('바운딩 left:',mVal); */
+
+    // 3. 들어온 li 순번이 짝수일 경우 마이너스 처리하기 
+    // 짝수일 경우 마이너스를 곱하여 방향을 반대로 해준다
+    // 짝수는 % 연산자 사용 : 숫자 %2 == 0 이면 짝수임
+
+    if (idx%2==0) mVal = -mVal;
+    console.log("순번을 2로 나눈 나머지:", idx%2);
+
+    // 4. 실제 위치 이동 CSS 적용하기
+    ele.style.translate = `0 ${mVal}%`;
+    
+} //////////////// upDownFn /////////////
