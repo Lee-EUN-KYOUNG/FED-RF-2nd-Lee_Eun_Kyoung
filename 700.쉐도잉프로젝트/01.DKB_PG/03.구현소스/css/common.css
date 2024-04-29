@@ -163,7 +163,7 @@
 }
 
 /* 버튼요소  */
-.abtn{
+.ban-area .abtn{
     position: fixed;
     top: 0;
     left: 0;

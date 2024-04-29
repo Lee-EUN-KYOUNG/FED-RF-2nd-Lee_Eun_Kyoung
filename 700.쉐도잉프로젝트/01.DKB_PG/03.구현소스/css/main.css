@@ -316,6 +316,7 @@
   color: #fff;
   border: none;
   background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 /* 왼쪽버튼 */
 .btn-box button:first-child {
@@ -326,5 +327,5 @@
 /* 오른쪽버튼 */
 .btn-box button:last-child {
   right: -35px;
-  display: none;
+  /* display: none; */
 }
