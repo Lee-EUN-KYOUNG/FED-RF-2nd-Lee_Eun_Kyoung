@@ -21,19 +21,25 @@ const carInfo = {
     {
       color: "스틸그레이",
       model: "2023년형",
-      opt: { filter: "hue-rotate(0deg)" },
+      opt: { filter: "grayscale(0.9)" },
     },
     {
-      color: "세단블랙",
+      color: "와인퍼플",
       model: "2025년형",
-      opt: { filter: "hue-rotate(109deg)", transform: "rotateY(180deg)" },
+      opt: { filter: "hue-rotate(63deg)", transform: "rotateY(180deg)" },
     },
     {
-      color: "라잇퍼플",
+      color: "아쿠아마린",
       model: "2024년형",
-      opt: { filter: "hue-rotate(215deg)" },
+      opt: { filter: "hue-rotate(307deg)" },
     },
   ],
 };
 
-export { carInfo };
+const carImage = {
+    "기아레이":"ray.png",
+    "현대제네시스":"genesis.png",
+
+};
+
+export { carInfo, carImage };

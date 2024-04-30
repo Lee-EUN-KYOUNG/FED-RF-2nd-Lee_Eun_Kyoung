@@ -4,7 +4,7 @@
 import mFn from "./my_function";
 
 // 자동차 정보 불러오기
-import { carInfo } from "./car_data";
+import { carInfo, carImage } from "./car_data";
 
 // console.log(carInfo);
 
@@ -41,7 +41,8 @@ function IntroCar({brand, modelNum}) {
     <React.Fragment>
       <h2>나의 차는 {brand}입니다</h2>
       {/* 추가 질문  호출 */}
-      <AskMoreInfo 
+      <AskMoreInfo
+      brand={brand} 
       model={setInfo.model} 
       color={setInfo.color}
       opt={setInfo.opt} />
@@ -61,13 +62,18 @@ function IntroCar({brand, modelNum}) {
 
 // 추가 질문으로 자동차 정보를 자세히 기술하는 컴포넌트
 
-function AskMoreInfo({model,color,opt}){
+function AskMoreInfo({brand, model, color, opt}){
 
     return(
         <React.Fragment>
             <h1>더 자세히 말씀해주세요?!</h1>
             {/* 디테일 정보 구성 컴포넌트 호출 */}
-            <DetailCarInfo model={model} color={color} opt={opt}/>
+            <DetailCarInfo
+            brand={brand}
+            model={model}
+            color={color}
+            opt={opt}
+            />
         </React.Fragment>
     );
 
@@ -77,11 +83,17 @@ function AskMoreInfo({model,color,opt}){
 
 //////////////////////// 디테일 정보 구성 컴포넌트
 
-function DetailCarInfo({model,color,opt}){
+function DetailCarInfo({brand, model, color, opt}){
 
     // info -  세부적인 모델 정보 객체가 들어온다!
     // 전달 속성은 model(모델명), color(자동차색), opt(CSS 옵션)
 
+    console.log("CSS옵션객체:",opt);
+    // 객체값 추가는 (객체변수.속성명=값)
+    // 실제로 CSS 변수형 속성명으로 사용해야 효과 있음
+    opt.width = "600px";
+    opt.backgroundColor = "#ccc";
+    
     return(
         <React.Fragment>
             <h2>
@@ -89,8 +101,8 @@ function DetailCarInfo({model,color,opt}){
                 자동차색은 {color} 입니다!
             </h2>
             {/* 이미지 출력 */}
-            <img src="./images/ray.png"
-            alt="기아레이"
+            <img src={"./images/"+carImage[brand]}
+            alt={brand}
             style={opt}
              />
 
@@ -121,8 +133,11 @@ function ShowBrandCar({brand, modelNum}){
 ReactDOM.render(
 <div>
     <ShowBrandCar brand="기아레이" modelNum={2}/>
-    <ShowBrandCar brand="기아레이" modelNum={0}/>
+    <ShowBrandCar brand="현대제네시스" modelNum={0}/>
     <ShowBrandCar brand="기아레이" modelNum={1}/>
+    <ShowBrandCar brand="현대제네시스" modelNum={1}/>
+    <ShowBrandCar brand="기아레이" modelNum={0}/>
+    <ShowBrandCar brand="현대제네시스" modelNum={2}/>
 </div>,
 mFn.qs("#root1")
 );
