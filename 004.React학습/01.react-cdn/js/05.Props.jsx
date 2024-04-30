@@ -54,7 +54,7 @@ function ShowBrandCar({ brand }){
      return(
         <React.Fragment>
             <h1>당신의 차는 무슨 차?</h1>
-            <IntroCar brand="{brand}"/>
+            <IntroCar brand={brand}/>
         </React.Fragment>
      );
 } //////////// ShowBrandCar 컴포넌트
