@@ -4,7 +4,6 @@
 // 주석 1
 /* 주석2 */
 
-
 /******************************************************************************************************************************* 
 
     [사스 핵심 사용법]
@@ -81,60 +80,53 @@
 // 변수 $변수명으로 만들고 지역 변수로 사용된다
 // 3. 전달 값을 보내지 않아도 에러나지 않도록 기본값 지정하기
 
-    // @mixin title-text($selColor){
-    @mixin title-text($selColor:red){
-        // $selColor 글자색 전달 변수
-    color: $selColor;
-    // 하단 마진
-    margin-bottom: $fontSize1;
-    font: {
-        size: 40px;
-        family: "Times New Roman";
-    }
-    text: {
-      align: center;
-      decoration: underline;
-      underline-offset: 10px;
-      shadow: 5px 5px 4px #000007;
-    }
-
+// @mixin title-text($selColor){
+@mixin title-text($selColor: red) {
+  // $selColor 글자색 전달 변수
+  color: $selColor;
+  // 하단 마진
+  margin-bottom: $fontSize1;
+  font: {
+    size: 40px;
+    family: "Times New Roman";
+  }
+  text: {
+    align: center;
+    decoration: underline;
+    underline-offset: 10px;
+    shadow: 5px 5px 4px #000007;
+  }
 }
 
 // (2) 박스 테두리 믹스인
-@mixin box-border($bdColor:lime){
-    border: {
-        color: $bdColor;
-        style : dashed;
-        width: 7px;
-    };
-
+@mixin box-border($bdColor: lime) {
+  border: {
+    color: $bdColor;
+    style: dashed;
+    width: 7px;
+  }
 }
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 // 전체 페이지 요소
-.wrapper{
-    max-width: 1000px;
-    margin: 0 auto;
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 /* 상단 영역 */
-.top-area{
-    color: $mainColor1;
-    // 네스팅 기법
-    h1{
-        
-        // 타이틀 텍스트 믹스인 호출
-        @include title-text($fontColor1);
+.top-area {
+  color: $mainColor1;
+  // 네스팅 기법
+  h1 {
+    // 타이틀 텍스트 믹스인 호출
+    @include title-text($fontColor1);
 
-
-        //color: $fontColor1;
-        // font와 text를 믹스인으로 만든다
-        // 속성 접두어 묶음 기법
-/*         font: {
+    //color: $fontColor1;
+    // font와 text를 믹스인으로 만든다
+    // 속성 접두어 묶음 기법
+    /*         font: {
             size: 40px;
             family: "Times New Roman";
         }
@@ -145,116 +137,124 @@
           shadow: 5px 5px 4px #000007;
         } */
 
-        background: {
-            color: $mainColor1-2;
-            image : url(../images/flower.png);
-            size: 70px;
-            position: center;
-            repeat: repeat-x;
-        }
-        padding: 20px;
+    background: {
+      color: $mainColor1-2;
+      image: url(../images/flower.png);
+      size: 70px;
+      position: center;
+      repeat: repeat-x;
     }
-    /* 서브 타이틀 박스 */
-    h2 {
-        @extend .box-basic;
-        font-size: $fontSize3;
-    }
+    padding: 20px;
+  }
+  /* 서브 타이틀 박스 */
+  h2 {
+    @extend .box-basic;
+    font-size: $fontSize3;
+  }
 }
 
 /* 메인 영역 */
-.main-area{
-    // 내부 박스 section
-    section{
-        // 박수 테두리 믹스인 호출
-        @include box-border(pink);
-        margin-bottom: 20px;
-        padding: 20px;
+.main-area {
+  // 내부 박스 section
+  section {
+    // 박수 테두리 믹스인 호출
+    @include box-border(pink);
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  // 메인 영역 타이틀 믹스인 호출
+  h3 {
+    @include title-text(darkblue);
+  }
+  // 리스트 ,문단 디자인
+  ul,
+  ol,
+  p {
+    line-height: 2;
+    font-size: 24px;
+    // 하위 li 요소
+    li {
+      text: {
+        decoration: underline;
+        underline-offset: 10px;
+        decoration-thickness: 5px;
+        decoration-color: $mainColor2;
+        align: center;
+      }
+      background: #ff0;
+      // 첫번째 li 강조하기
+      // 네스팅 이어붙이기 기법(& 사용)
+      &:first-child {
+        color: orchid;
+        font-weight: bold;
+        font-size: $fontSize3;
+        text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000;
+      }
+      /* 가상요소 블릿 넣기 */
+      &::before {
+        content: "😎";
+      }
     }
-    // 메인 영역 타이틀 믹스인 호출
-    h3{
-        @include title-text(darkblue);
-    }
-    // 리스트 ,문단 디자인
-    ul,ol,p{
-        line-height: 2;
-        font-size: 24px;
-        // 하위 li 요소
-        li{
-            text: {
-
-                decoration: underline;
-                underline-offset: 10px;
-                decoration-thickness: 5px;
-                decoration-color: $mainColor2;
-                align: center;
-            }
-            background: #FF0;
-            // 첫번째 li 강조하기
-            // 네스팅 이어붙이기 기법(& 사용)
-            &:first-child{
-                color: orchid;
-                font-weight: bold;
-                font-size: $fontSize3;
-                text-shadow:
-                1px 0 #000,
-                -1px 0 #000,
-                0 1px #000,
-                0 -1px #000;
-            }
-            /* 가상요소 블릿 넣기 */
-            &::before{
-                content: '😎';
-
-            }
-        }
-
-    }
+  }
 }
 
-
 /* 버튼 기본 디자인 클래스 */
-.button-basic{
-    display: inline-block;
-    border: 1px solid #222;
-    border-radius: 20px;
-    padding: 15px 30px;
-    text-align: center;
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 20px;
+.button-basic {
+  display: inline-block;
+  border: 1px solid #222;
+  border-radius: 20px;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 20px;
+  // 마우스 오버시 셋팅하기
+  &:hover {
+    background-color: palevioletred;
+    text : {
+      decoration: overline;
+      decoration-style: wavy;
+    }
+  }
+  // 클래스가 "my"인 경우 디자인 변경하기
+  &.my {
+    text : {
+      decoration: underline;
+      decoration-style: dotted;
+      underline-offset: 10px;
+      decoration-thickness: 5px;
+    }
+  }
 }
 
 // 일반 박스 기본
-.box-basic{
-    text-align: center;
-    padding: 20px 0;
+.box-basic {
+  text-align: center;
+  padding: 20px 0;
 }
 
 /* 기본 디자인후에 특정 클래스에 그대로 가져오기 */
 // -> @extend 클래스명 사용하기
 // 제출하기 버튼에 기본 버튼 디자인 입히기
-.button-report{
-    // 기본 버튼 클래스 가져오기
-    @extend .button-basic;
-    // 다른 디자인 요소는 추가로 구현
-    background-color: orange;
-    color: #fff;
+.button-report {
+  // 기본 버튼 클래스 가져오기
+  @extend .button-basic;
+  // 다른 디자인 요소는 추가로 구현
+  background-color: orange;
+  color: #fff;
 }
 
 /* 기본 박스 디자인을 입혀서 버튼 박스 셋팅하기 */
 
-.button-box{
-
-    // 기본 박스 확장
-    @extend .box-basic;
-    background-image: linear-gradient(to bottom, lightgreen, transparent);    
+.button-box {
+  // 기본 박스 확장
+  @extend .box-basic;
+  background-image: linear-gradient(to bottom, lightgreen, transparent);
 }
-
-
 
 /* 하단 타이틀 */
 .bottom-title {
-    // 기본 박스 적용하기
-    @extend .box-basic;
-    @include title-text;
+  // 기본 박스 적용하기
+  @extend .box-basic;
+  @include title-text;
 }

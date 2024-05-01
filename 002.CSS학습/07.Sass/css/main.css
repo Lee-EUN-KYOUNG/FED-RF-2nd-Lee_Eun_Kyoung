@@ -131,15 +131,15 @@ img {
   text-underline-offset: 10px;
   text-shadow: 5px 5px 4px #000007;
   /*         font: {
-              size: 40px;
-              family: "Times New Roman";
-          }
-          text: {
-            align: center;
-            decoration: underline;
-            underline-offset: 10px;
-            shadow: 5px 5px 4px #000007;
-          } */
+          size: 40px;
+          family: "Times New Roman";
+      }
+      text: {
+        align: center;
+        decoration: underline;
+        underline-offset: 10px;
+        shadow: 5px 5px 4px #000007;
+      } */
   background-color: rgb(255, 87, 87);
   background-image: url(../images/flower.png);
   background-size: 70px;
@@ -169,26 +169,34 @@ img {
   text-underline-offset: 10px;
   text-shadow: 5px 5px 4px #000007;
 }
-.main-area ul, .main-area ol, .main-area p {
+.main-area ul,
+.main-area ol,
+.main-area p {
   line-height: 2;
   font-size: 24px;
 }
-.main-area ul li, .main-area ol li, .main-area p li {
+.main-area ul li,
+.main-area ol li,
+.main-area p li {
   text-decoration: underline;
   text-underline-offset: 10px;
   text-decoration-thickness: 5px;
   text-decoration-color: rgb(31, 103, 166);
   text-align: center;
-  background: #FF0;
+  background: #ff0;
   /* 가상요소 블릿 넣기 */
 }
-.main-area ul li:first-child, .main-area ol li:first-child, .main-area p li:first-child {
+.main-area ul li:first-child,
+.main-area ol li:first-child,
+.main-area p li:first-child {
   color: orchid;
   font-weight: bold;
   font-size: 30px;
   text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000;
 }
-.main-area ul li::before, .main-area ol li::before, .main-area p li::before {
+.main-area ul li::before,
+.main-area ol li::before,
+.main-area p li::before {
   content: "😎";
 }
 
@@ -202,6 +210,17 @@ img {
   font-size: 20px;
   cursor: pointer;
   margin-left: 20px;
+}
+.button-basic:hover, .button-report:hover {
+  background-color: palevioletred;
+  text-decoration: overline;
+  text-decoration-style: wavy;
+}
+.button-basic.my, .my.button-report {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 5px;
 }
 
 .box-basic, .bottom-title, .button-box, .top-area h2 {
