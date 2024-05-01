@@ -53,8 +53,15 @@
         @include 믹스인 이름;
         [2]
         @include 믹스인 이름 (전달값);
-
-
+    (6) 네스팅 이어붙이기 기법 (&)
+        - 가상 요소, 가상 클래스, 특정 클래스를 현재 선택 요소에 셋팅하는 방법
+        - &(앰퍼센드)는 현재 선택 요소 자신을 가리킴
+    (7) 반복 코드 확장 : @extend (extend는 연장하다, 확장하다)
+        - 사용 이유 : 반복되는 같은 셋팅을 클래스를 지정하여 쉽게 도입한다
+        - 사용 방법 : 선택자 코드 안에 @extend 클래스명 형식으로 사용
+        - 공통 코드 외에 다른 셋팅 속성 추가시 하단에 추가로 구현함
+        - 장점 : 공통 코드 적용을 위해 각 요소에 클래스를 일일히 주지않아도 공통 코드를 적용할 수 있다
+        
 
 
 
@@ -78,6 +85,8 @@
     @mixin title-text($selColor:red){
         // $selColor 글자색 전달 변수
     color: $selColor;
+    // 하단 마진
+    margin-bottom: $fontSize1;
     font: {
         size: 40px;
         family: "Times New Roman";
@@ -145,6 +154,11 @@
         }
         padding: 20px;
     }
+    /* 서브 타이틀 박스 */
+    h2 {
+        @extend .box-basic;
+        font-size: $fontSize3;
+    }
 }
 
 /* 메인 영역 */
@@ -164,17 +178,83 @@
     ul,ol,p{
         line-height: 2;
         font-size: 24px;
+        // 하위 li 요소
+        li{
+            text: {
+
+                decoration: underline;
+                underline-offset: 10px;
+                decoration-thickness: 5px;
+                decoration-color: $mainColor2;
+                align: center;
+            }
+            background: #FF0;
+            // 첫번째 li 강조하기
+            // 네스팅 이어붙이기 기법(& 사용)
+            &:first-child{
+                color: orchid;
+                font-weight: bold;
+                font-size: $fontSize3;
+                text-shadow:
+                1px 0 #000,
+                -1px 0 #000,
+                0 1px #000,
+                0 -1px #000;
+            }
+            /* 가상요소 블릿 넣기 */
+            &::before{
+                content: '😎';
+
+            }
+        }
 
     }
 }
 
 
+/* 버튼 기본 디자인 클래스 */
+.button-basic{
+    display: inline-block;
+    border: 1px solid #222;
+    border-radius: 20px;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 20px;
+}
 
+// 일반 박스 기본
+.box-basic{
+    text-align: center;
+    padding: 20px 0;
+}
 
+/* 기본 디자인후에 특정 클래스에 그대로 가져오기 */
+// -> @extend 클래스명 사용하기
+// 제출하기 버튼에 기본 버튼 디자인 입히기
+.button-report{
+    // 기본 버튼 클래스 가져오기
+    @extend .button-basic;
+    // 다른 디자인 요소는 추가로 구현
+    background-color: orange;
+    color: #fff;
+}
+
+/* 기본 박스 디자인을 입혀서 버튼 박스 셋팅하기 */
+
+.button-box{
+
+    // 기본 박스 확장
+    @extend .box-basic;
+    background-image: linear-gradient(to bottom, lightgreen, transparent);    
+}
 
 
 
 /* 하단 타이틀 */
 .bottom-title {
+    // 기본 박스 적용하기
+    @extend .box-basic;
     @include title-text;
 }
