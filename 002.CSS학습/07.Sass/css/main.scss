@@ -1,0 +1,167 @@
+// 메인 Sass : main.scss
+
+// 1. 사스 주석문
+// 주석 1
+/* 주석2 */
+
+
+/******************************************************************************************************************************* 
+
+    [사스 핵심 사용법]
+    1. 사스 확장자별 파일 구분
+    (1) .scss - 사스 관리 파일
+    (2) .sass - 중괄호, 세미콜론 사용하지 않는 문법 사스 파일.
+    (3) .css.map - 사스 파일과 CSS 연결 정보 파일
+    (4) .css - 실제로 적용되는컴파일된 CSS
+
+    2. 사스 파일 컴파일 하기
+    -> Live Sass Compiler 확장 프로그램 설치후 하단 Watch Sass 클릭하여 작동시킴
+    -> 에러가 없는 한 컴파일하여 같은 이름의 CSS 파일을 생성함 (Watting 상태가 됨)
+    -> 에러 발생시 컴파일이 안되고 cmd 창에 에러 메시지가 뜬다
+
+    3. 주요 문법
+    (1) 네스팅 기법
+        - 선택자 중괄호 안에 다른 하위 선택을 하는 것
+        예) div{h1{color:red;}}
+        -> 장점 : 같은 셋팅 요소를 선택시 중복된 선택자 반복을 하지 않아도 된다! 또한 같은 구성 요소를 묶어서 셋팅 관리 가능
+    (2) 속성 접두어 묶음 기법
+        - 반복되는 같은 종류의 하위 속성의 접두어를 한번만 사용하여 셋팅을 묶어주는 방법
+        예) font: {size: 10px; weight:bold; ..}
+    (3) 변수 사용 기법
+        - 동일하게 사용할 값을 변수에 넣고 디자인을 배치함
+        - 변수 사용법 _> $변수명: 값
+        - 변수명은 모두 붙여 쓰며 구분 단어는 케믈 케이스(camelCase) 또는 캐밥케이스(camel-case)를 사용한다
+        - 변수의 범위는 변수를  선언후 하위로 상속되어 값이 유지됨
+    (4) 파일 분리 기법
+        - @import : 부분 파일을 분리하여 공통 모듈로 합쳐서 사용한다
+        - 부분 파일명은 사스에서 앞에 언더바를 붙여서 사용하는 것이 원칙이지만 언더바를 안 써도 기본적으로 부분 파일 처리를 해준다
+        - 파일 호출시 확장자 생략 가능 (예) @import "reset";
+        - 자동으로 앞에 언더바와 확장자를 생략해준다
+        - 일반 CSS import와 다른 점은 http 요청을 하지 않음
+    (5) 믹스인 : 일종의 공통 CSS 코드를 리턴하는 함수
+        - 셋팅 형식 :
+        [1] 전달 변수가 없는 믹스인
+        @mixin 믹스인 이름 {CSS 코드}
+
+        [2] 전달변수가 있는 믹스인
+        @mixin 믹스인 이름 (변수){CSS 코드}
+
+        [3] 전달변수가 있고 기본값도 있는 믹스인
+        @mixin 믹스인 이름 (변수:기본값){CSS 코드}
+        - 믹스인 호출 방법 : 믹스인을 포함하라 (@include)
+        [1]
+        @include 믹스인 이름;
+        [2]
+        @include 믹스인 이름 (전달값);
+
+
+
+
+
+*******************************************************************************************************************************/
+
+// 외부 변수 셋팅 sass 불러오기
+@import "./data/variables";
+
+// 초기화 셋팅 sass 불러오기
+@import "./common/reset";
+
+// @mixin 셋팅하기 ////////////////
+// (1) 타이틀 디자인 믹스인
+// 1. 전달해서 변경할 값이 없다면 전달 변수 없는 믹스인 만들기
+//@mixin title-text{
+// 2. 글자색을 전달해서 변경해야하므로 전달 변수를 만들어준다
+// 변수 $변수명으로 만들고 지역 변수로 사용된다
+// 3. 전달 값을 보내지 않아도 에러나지 않도록 기본값 지정하기
+
+    // @mixin title-text($selColor){
+    @mixin title-text($selColor:red){
+        // $selColor 글자색 전달 변수
+    color: $selColor;
+    font: {
+        size: 40px;
+        family: "Times New Roman";
+    }
+    text: {
+      align: center;
+      decoration: underline;
+      underline-offset: 10px;
+      shadow: 5px 5px 4px #000007;
+    }
+
+}
+
+// (2) 박스 테두리 믹스인
+@mixin box-border($bdColor:lime){
+    border: {
+        color: $bdColor;
+        style : dashed;
+        width: 7px;
+    };
+
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// 전체 페이지 요소
+.wrapper{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 상단 영역 */
+.top-area{
+    color: $mainColor1;
+    // 네스팅 기법
+    h1{
+        
+        // 타이틀 텍스트 믹스인 호출
+        @include title-text($fontColor1);
+
+
+        //color: $fontColor1;
+        // font와 text를 믹스인으로 만든다
+        // 속성 접두어 묶음 기법
+/*         font: {
+            size: 40px;
+            family: "Times New Roman";
+        }
+        text: {
+          align: center;
+          decoration: underline;
+          underline-offset: 10px;
+          shadow: 5px 5px 4px #000007;
+        } */
+
+        background: {
+            color: $mainColor1-2;
+            image : url(../images/flower.png);
+            size: 70px;
+            position: center;
+            repeat: repeat-x;
+        }
+        padding: 20px;
+    }
+}
+
+/* 메인 영역 */
+.main-area{
+    // 내부 박스 section
+    section{
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+    // 메인 영역 타이틀 믹스인 호출
+    h3{
+        @include title-text(darkblue);
+    }
+
+}
+
+/* 하단 타이틀 */
+.bottom-title {
+    @include title-text;
+}
