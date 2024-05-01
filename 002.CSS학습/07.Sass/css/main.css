@@ -141,6 +141,9 @@ img {
 
 /* 메인 영역 */
 .main-area section {
+  border-color: pink;
+  border-style: dashed;
+  border-width: 7px;
   margin-bottom: 20px;
   padding: 20px;
 }
@@ -152,6 +155,10 @@ img {
   text-decoration: underline;
   text-underline-offset: 10px;
   text-shadow: 5px 5px 4px #000007;
+}
+.main-area ul, .main-area ol, .main-area p {
+  line-height: 2;
+  font-size: 24px;
 }
 
 /* 하단 타이틀 */

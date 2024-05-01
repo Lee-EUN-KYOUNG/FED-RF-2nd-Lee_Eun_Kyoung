@@ -151,6 +151,8 @@
 .main-area{
     // 내부 박스 section
     section{
+        // 박수 테두리 믹스인 호출
+        @include box-border(pink);
         margin-bottom: 20px;
         padding: 20px;
     }
@@ -158,8 +160,19 @@
     h3{
         @include title-text(darkblue);
     }
+    // 리스트 ,문단 디자인
+    ul,ol,p{
+        line-height: 2;
+        font-size: 24px;
 
+    }
 }
+
+
+
+
+
+
 
 /* 하단 타이틀 */
 .bottom-title {
