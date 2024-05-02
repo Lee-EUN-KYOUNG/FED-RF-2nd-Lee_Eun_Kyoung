@@ -96,6 +96,9 @@ a{
 /* 메뉴 플렉스박스 */
 .gnb ul {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 0;
 }
 .gnb li {
     margin: 0 7px;
@@ -172,4 +175,26 @@ a{
 /* 설명글자숨기기 */
 .indic span {
     display: none;
+}
+/* 미디어 쿼리 */
+
+@media screen and (max-width: 700px) and (hover: none) {
+    
+    /* 상단영역 속박스 */
+.header {
+    height: auto;
+    }
+    
+    /* 1-1.로고 */
+#logo {
+    margin: 0 auto;
+    }
+    /* 1-2. GNB 메뉴 */
+    .gnb {
+        position: static;
+    }
+    /* 메뉴 플렉스박스 */
+    .gnb ul {
+    translate: 0 -20px;
+    }
 }
