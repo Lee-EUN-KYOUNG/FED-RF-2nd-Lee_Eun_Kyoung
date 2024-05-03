@@ -72,6 +72,11 @@ let onceSts = false;
 const getLamp = () => {
 
     console.log ("램프 가져와");
+    // 1. 램프 선택하기 : .lamp
+    let lampBox = mFn.qs(".lamp");
+    // 램프 이미지 출력
+    ReactDOM.render(<img src="./images/lamp.png" alt="램프" />,lampBox);
+
 
 }; ///////// getLamp 함수 ////////////
 
