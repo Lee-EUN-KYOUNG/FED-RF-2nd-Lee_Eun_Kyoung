@@ -111,14 +111,43 @@ const getLamp = () => {
         lampImg.right = "calc(50% - 100px)";
         // 회전 하기
         lampImg.rotate = "720deg";
-        
       }, 500);
+
+      // 소원 빌기 버튼 3초후 보이기
+      setTimeout(() => {
+        
+        mFn.qsa("button")[1].style.display = "inline-block";
+      }, 3000);
 
 }; ///////// getLamp 함수 ////////////
 
 
+// (3) 페라리 가져오기 함수
+const getFerrari = () => {
+
+  console.log("페라리 줄께~!");
+  // 페라리 이미지 넣기
+  // 대상 : #ferrari
+  ReactDOM.render(
+    <MakeImg 
+      isrc="./images/ferrari.png"
+      ialt="페라리레드"
+      itit="클릭하면 시운전해요"
+      idName="fcar"
+      clickFn={moveCar}
+    />, 
+    mFn.qs("#ferrari"));
 
 
+
+
+
+
+
+
+
+
+}; //////////////// getFerrari 함수 /////////////////
 
 
   // 2. 리턴 코드 만들기
@@ -135,8 +164,8 @@ const getLamp = () => {
         {/* 램프가 들어갈 요소 */}
         <div className="lamp"></div>
         {/* 버튼들 */}
-        <button onClick={getLamp}>램프 가져오기</button>
-        <button>소원빌기~ 페라리 주세요</button>
+        <button onClick={getLamp}>램프 가져오기</button> <br/>
+        <button onClick={getFerrari}>소원빌기~ 페라리 주세요</button> 
 
         {/* 소원이 무엇이냐 말풍선 박스 */}
         <div className="tit"></div>
@@ -149,18 +178,33 @@ const getLamp = () => {
 /*************************************************************************************************** 
                             [이미지 생성 컴포넌트] : MakeImg
 ***************************************************************************************************/
-function MakeImg({isrc,ialt, icss, overFn}){
+function MakeImg({isrc,ialt, icss, overFn, itit, idName, clickFn}){
 
   // 리턴 코드
   return (
-
-    <img src={isrc} alt={ialt} style={icss} onMouseOver={overFn}/>
+    <img
+    src={isrc} 
+    alt={ialt} 
+    style={icss} 
+    onMouseOver={overFn} 
+    title={itit} 
+    id={idName}
+    onClick={clickFn}
+    
+    />
     // 리턴 코드 바로 뒤에 JSX 태그를 바로 이어쓰거나 소괄호 시작부분을 같은 라인에 써야 에러나지 않음
   );
 
 } ///////////////////// MakeImg 컴포넌트
 
 
-
 /// 화면 출력하기
 ReactDOM.render(<EventShow />, mFn.qs("#root"));
+
+// 일반 함수로 페라리 움직이기 구현
+function moveCar(){
+
+ console.log("페라리 움직여");
+
+
+} /////////////// moveCar 함수 //////////
