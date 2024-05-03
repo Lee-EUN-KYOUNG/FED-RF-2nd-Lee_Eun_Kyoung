@@ -37,9 +37,41 @@ const TIME_SLIDE = 400;
 // 갤러리 이동하기 함수
 function changeSlide(){
 
+
+    // 0. 광클 금지
+    if(stopClick) return;
+    stopClick = true;
+    setTimeout(() => stopClick = false, TIME_SLIDE);
+
     // 1. 버튼 구분하기
     // classList.contains("클래스명"); -> 해당 클래스명이면 true 아니면 false
     let isR = this.classList.contains("rb");
     console.log("나",isR);
-    
+
+    // 2. 이동 대상 담기 (변수 할당)
+    let eachOne = mFn.qsaEl(gbx,"div");
+
+    // 3. 분기하기
+    // 3-1. 오른쪽 버튼일 경우
+    if(isR){
+        // 오른쪽에서 이미지 박스가 들어오므로
+        // 맨앞 div 맨뒤로 이동함!
+        // appendChild(맨앞div)
+        // 대상 : gbx
+        gbx.appendChild(eachOne[0]);
+    } /////// if
+
+    // 3-2. 왼쪽 버튼일 경우
+    else{
+        // 왼쪽에서 이미지 박스가 들어오므로
+        // 맨뒤 div 맨앞으로 이동함!
+        // inserBefore(맨뒤div를 맨앞 div에다가)
+        // 대상 : gbx
+        // 맨뒤 div 순번은 [갯수-1]
+        gbx.insertBefore(eachOne[eachOne.length-1],eachOne[0]);
+    } /////// else
+
+
+
+
 } /////////// changeSlide 함수 //////
