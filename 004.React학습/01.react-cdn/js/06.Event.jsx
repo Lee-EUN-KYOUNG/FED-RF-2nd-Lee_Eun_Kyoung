@@ -11,6 +11,9 @@ import mFn from "./my_function.js";
     예) onclick -> onClick
     4. 이벤트 핸들러 : 중괄호 안에 작성(중괄호는 JSX표현식영역)
     예) onclick="getIt()" => onClick={getIt}
+    5. 리액트의 속성 형태로 등록하는 이벤트는 HTML 요소의 등록된
+       이벤트 속성과 다르게 JS 이벤트 리스너를 통한 이벤트 객체의
+       등록되므로 HTML 태그상 이벤트 등록 속성이 보이지 않는다
 *************************************************************/
 
 ///////////////// 전체 이벤트 적용할 컴포넌트 구성하기 ////////////////////
@@ -35,8 +38,12 @@ let onceSts = false;
         // HTML 출력 대상 : #ala
         let alaBox = mFn.qs("#ala");
         // 알라딘 이미지 출력
-        ReactDOM.render(<img src="./images/ala4.jpg" alt="알라딘"/>,alaBox);
+        ReactDOM.render(<MakeImg isrc="./images/ala4.jpg" ialt="알라딘"/>,alaBox);
      
+        // 컴포넌트 호출 시 전달 변수를 셋팅하여 보내야하는데 만약 전달 변수 이름이 되었거나 누락하면
+        // 컴포넌트에서 에러표시 없이 해당 항목을 제외함->표시 자체를 하지 않는 특징이 있음
+        // 해당 알라딘 이미지 불러오기에 icss가 있으나 안 보내주니 에러 표시 되지 않는다
+
         // 말풍선 박스에 글자 넣기
         let titBox = mFn.qs(".tit");
         titBox.innerText = "소원이 무엇이냐?";
@@ -74,11 +81,44 @@ const getLamp = () => {
     console.log ("램프 가져와");
     // 1. 램프 선택하기 : .lamp
     let lampBox = mFn.qs(".lamp");
-    // 램프 이미지 출력
-    ReactDOM.render(<img src="./images/lamp.png" alt="램프" />,lampBox);
 
+    // 램프 이미지 CSS 객체 셋팅
+    let lampCSS = {
+      position: "absolute",
+      top: "0",
+      right: "0",
+      width: "200px",
+      borderRadius: "50%",
+      zIndex: "99999",
+      transition: "2s, right 1s 2s",
+    };
+
+    // 램프 이미지 출력
+    ReactDOM.render(<MakeImg
+      isrc={"https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/3168457870/B.png"}
+      ialt={"알라딘램프"}
+      icss={lampCSS}
+      />,
+      lampBox);
+    // 3. 0.5초후 램프 중앙 이동하기
+      setTimeout(() => {
+
+        let lampImg = mFn.qsEl(lampBox, "img").style;
+
+        // 수직방향 이동
+        lampImg.top = "310px";
+        // 수평 방향 중앙 계산
+        lampImg.right = "calc(50% - 100px)";
+        // 회전 하기
+        lampImg.rotate = "720deg";
+        
+      }, 500);
 
 }; ///////// getLamp 함수 ////////////
+
+
+
+
 
 
   // 2. 리턴 코드 만들기
@@ -87,10 +127,10 @@ const getLamp = () => {
       <div id="tbox" style={{ textAlign: "center" }}>
         {/* 스타일 인라인 적용시 바깥 중괄호는 표현식, 
                 내부 중괄호는 객체 형식의 스타일 설정 */}
-        <img
-        src="./images/genie.jpg" alt="지니"
+        <MakeImg
+        isrc="./images/genie.jpg" ialt="지니"
         /* 마우스 오버시 showAladin 함수 호출 */
-        onMouseOver={showAladin}
+        overFn={showAladin}
         />
         {/* 램프가 들어갈 요소 */}
         <div className="lamp"></div>
@@ -104,6 +144,23 @@ const getLamp = () => {
     </React.Fragment>
   ); ////////////
 } ///////////////////// EventShow 컴포넌트 //////////////
+
+
+/*************************************************************************************************** 
+                            [이미지 생성 컴포넌트] : MakeImg
+***************************************************************************************************/
+function MakeImg({isrc,ialt, icss, overFn}){
+
+  // 리턴 코드
+  return (
+
+    <img src={isrc} alt={ialt} style={icss} onMouseOver={overFn}/>
+    // 리턴 코드 바로 뒤에 JSX 태그를 바로 이어쓰거나 소괄호 시작부분을 같은 라인에 써야 에러나지 않음
+  );
+
+} ///////////////////// MakeImg 컴포넌트
+
+
 
 /// 화면 출력하기
 ReactDOM.render(<EventShow />, mFn.qs("#root"));
