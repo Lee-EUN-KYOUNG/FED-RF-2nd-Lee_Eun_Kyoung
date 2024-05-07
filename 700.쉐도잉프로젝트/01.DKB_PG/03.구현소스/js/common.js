@@ -11,8 +11,10 @@ import comData from "../data/common_data.js";
 import slideFn from "./slide.js";
 // GNB 메뉴 데이터 불러오기
 import gnbData from "../data/gnb_data.js";
+// 콤보 박스 데이터 불러오기
+import comboData from "../data/combo_data.js";
 
-console.log(gnbData);
+console.log(comboData);
 
 export default function setElement() {
   // 대상 선정 : #top-area, #ban-area, #spart-menu, #footer-area
@@ -35,6 +37,10 @@ export default function setElement() {
 
   /// slideFn 슬라이드 기능 함수 호출
   slideFn();
+
+  // 하단 콤보 박스 바인딩 함수 호출
+  bindCombo();
+
 } //////////// setElement 함수
 
 
@@ -88,5 +94,29 @@ function makeMenu(){
 </ul>
 `;
 
-
 } /////// makeMenu 함수 //////////
+
+//////// 콤보박스 바인딩 함수 //////////////
+function bindCombo(){
+
+  // 1. 대상 선정 : #brand, #corp
+  const brandBox = document.querySelector("#brand");
+  const corpBox = document.querySelector("#corp");
+  console.log("콤보바인딩:",brandBox,corpBox);
+
+  //  2. 데이터 바인딩하기
+  //  2-1. 브랜드 바로가기 콤보 박스 : 단순 바인딩 (option만)
+
+  // 데이터 대상 : ComboData.brand
+
+  // 대상 요소 내부 데이터 넣기
+  // 배열 데이터.map().join('');
+  brandBox.innerHTML = comboData.brand.map((v,i)=>`
+    <option value="brand${i}">${v}</option>
+  `).join('');
+  
+
+
+
+
+} //////////// bindCombo
