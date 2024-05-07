@@ -111,8 +111,10 @@ function bindCombo(){
 
   // 대상 요소 내부 데이터 넣기
   // 배열 데이터.map().join('');
-  brandBox.innerHTML = comboData.brand.map((v,i)=>`
-    <option value="brand${i}">${v}</option>
+  brandBox.innerHTML = 
+  `<option value="init">브랜드 바로가기</option>`+
+  comboData.brand.map((v,i)=>`
+    <option value="brand${i+1}">${v}</option>
   `).join('');
   
   // 2-2. 계열사 바로가기
@@ -122,13 +124,13 @@ function bindCombo(){
   // 객체의 값을 사용할 경우는 원본 객체 [키]
 
 
-
   // 데이터 대상 : ComboData.corp
   const corpData = Object.keys(comboData.corp);
-  console.log(corpData);
+  // console.log(corpData);
 
   // 데이터 만들어서 넣기
   corpBox.innerHTML =
+  `<option value="init">계열사 바로가기</option>`+
   corpData.map((v,i)=>`
   <optgroup label="${v}">
   ${
@@ -142,6 +144,44 @@ function bindCombo(){
   </optgroup>
   `).join('');
 
-
+  // 3.  선택 박스 선택 변경시 링크 이동하기
+  // 3-1. 브랜드 바로가기 링크 이동하기
+  // 대상 : brandBox
+  // 이벤트 : change
+  brandBox.addEventListener("change",openWindow);
+  // 3-2. 브랜드 바로가기 링크 이동하기
+  // 대상 : coprBox
+  // 이벤트 : change
+  corpBox.addEventListener("change",openWindow);
 
 } //////////// bindCombo
+
+/////// 링크 이동 함수
+function openWindow(){
+  
+  // 현재 나 자신의 아이디?
+  //console.log(this.id);
+  //if(this.value == "init") return;
+
+  // 1. 이동할 주소
+  // -> comboData.brandLink 또는 comboData.corpLink 객체 선택
+  // -> 객체 이름 조합을 (id명+"Link")
+  // 그 하위의 옵션값을 url값으로 가져옴
+
+  let url = comboData[this.id+"Link"][this.value];
+  //console.log("브랜드?",url);
+  // 만약 데이터가 없으면 url 변수값은 셋팅되지 못하여 undefined 처리됨
+  // -> if문으로 처리하여 아래 새창 띄우기 코드를 감싸준다
+  // -> url 값이 셋팅되지 않으면 새창 열기 코드는 실행되지 않음! 따라서 위의 "init" 코드도 별도 처리가 불필요
+  // undefined는 if문에서 flase 처리 됨
+  
+
+
+
+  // 2. 선택 옵션값 주소로 이동하기
+  // 새창열기 : window.open(이동 주소)
+  if(url)window.open(url);
+  else alert("선택을 변경할 수 없습니다.");
+  
+
+} //////////// openWindow
