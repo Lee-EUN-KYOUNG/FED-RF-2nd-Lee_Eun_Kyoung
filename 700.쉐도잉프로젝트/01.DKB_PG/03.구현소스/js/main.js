@@ -8,7 +8,7 @@ setElement();
 import myFn from "./my_function.js";
 
 // 부드러운 스크롤 불러오기
-import SmoothScroll from "./smooth_scroll.js";
+import SmoothScroll from "./smoothScroll.js";
 
 // 데이터 셋팅 불러오기
 import * as dkbData from "../data/dkb_data.js";
@@ -19,8 +19,8 @@ import setSlide from "./drag_slide_multi.js";
 
 /////////////////////// 구현 코드 파트 /////////////////////
 
-// 부드러운 스크롤 호출
-/* startSS(); */
+// 1. 부드러운 스크롤 호출
+const mySmooth = new SmoothScroll(document, 30, 20);
 
 // console.log('모듈로 메인 JS 호출!!', document.querySelector('.top-menu'));
 
@@ -248,11 +248,28 @@ $(".spart-menu a").click(e=>{
   // $("html,body").animate({scrollTop:몇px},시간,이징,함수);
 
   $("html,body")
-  .animate({scrollTop:pos+"px"},800,"easeOutCirc",()=>{setScrollPos(pos);});
+  .animate({scrollTop:pos+"px"},800,"easeOutCirc",()=>{mySmooth.setScrollPos(pos);});
     // 이동 후 부드러운 스크롤 위치값 업데이트 필수
     // 이것 안하면 위치 이동후 스크롤시 튐
+    // 애니 후 호출되는 함수 : 생성자 함수 객체 변수로 등록된 함수를 호출함!
 
 });  ////////////////// 도깨비 파트 메뉴 클릭 함수
 
 
-//
+// 개별 박스에 부드러운 스크롤 생성자 함수 적용하기 연습
+
+/* 
+
+$(".preview-box").css({
+  height: "200px",
+  overflow: "auto"
+})
+.on("wheel",e=>{
+  e.stopPropagation();
+})
+
+///  부드러운 스크롤 개별 적용
+const smallSmooth = new SmoothScroll(myFn.qs(".preview-box"),20,30)
+
+
+*/
