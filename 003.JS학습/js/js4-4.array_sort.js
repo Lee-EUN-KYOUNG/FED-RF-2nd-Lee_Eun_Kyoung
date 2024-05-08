@@ -274,3 +274,95 @@ const selBox2 = mFn.qs("#sel2");
 // 연결된 함수는 위의 숫자 정렬한 정렬함수를 사용한다!
 
 mFn.addEvt(selBox2, "change", (e) => changeSort(e, arrString));
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//// 3. 객체 데이터 배열의 정렬
+// 3-1. 데이터 : 객체데이터 배열
+/// 데이터 구조 : (1) 순번 - idx / (2) 제목 - tit / (3) 내용 - cont
+
+const list1 = [
+  {
+    idx: 8,
+    tit: "나는 구누?",
+    cont: "공동구매) 슬로건 공구 (계좌와 네이버폼)",
+  },
+  {
+    idx: 4,
+    tit: "여기는 어디?",
+    cont: "총공 공지] 오늘부터 일 2회, 총공 진행합니다",
+  },
+  {
+    idx: 1,
+    tit: "나야나",
+    cont: "연합 갈라 서포트 계좌오픈",
+  },
+  {
+    idx: 15,
+    tit: "이제 얼마나 남은거니?",
+    cont: "음악프로그램에 출연 요청글도 써볼까요?",
+  },
+]; /////////////// list1 /////////////
+
+// console.log(list1);
+// 3-2. 출력 대상 : .showList3
+const showList3 = mFn.qs(".showList3");
+
+// 3-3. 배열 데이터로 코드 만들기 함수
+const updateCode = (arrData, exBox) => {
+  // arrData : 배열 데이터 , exBox : 출력할 박스
+  // 태그 출력하기
+  exBox.innerHTML = `
+  <table>
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>내용</th>
+      </tr>
+    </thead>
+  
+  <tbody>
+    ${arrData
+      .map(
+        (v) => `
+      <tr>
+        <td>${v.idx}</td>
+        <td>${v.tit}</td>
+        <td>${v.cont}</td>
+      </tr>
+    `
+      )
+      .join("")}
+  </tbody>
+  </table>
+  `;
+}; /////////////////////// updateCode 함수
+
+
+// 3-4. 3-3의 코드 만들기 함수 호출
+// updateCode(배열데이터,출력박스); 
+updateCode(list1, showList3);
+
+// 3-5. 정렬 변경 이벤트 발생시 실제 정렬 변경하기
+// change 이벤트 대상 선택 박스들
+// (1) 이벤트 대상 : .sel3
+const sel3 = mFn.qs(".sel3");
+// (2) 정렬 기준 대상 : .cta3
+const cta3 = mFn.qs(".cta3");
+
+// (3) 이벤트 대상 선택 변경시 -> 실제 정렬을 적용하여 리스트를 초기화
+// 정렬 적용시 정렬 기준 대상 선택 항목을 가져가야함
+mFn.addEvt(sel3,"change",함수);
+
+
+// (4) 정렬 기준 대상 선택 변경시 -> 정렬 종류 대상 선택 초기화하기("정렬선택"으로 변경)
+
+// 3-6. 정렬 함수 만들기
+function sortingFn(evt, arrData, exBox) {
+      // evt -  이벤트 발생 요소의 이벤트 객체 전달
+      // arrData - 배열 데이터
+      // exBox - 출력 대상 박스
+      console.log(evt,arrData,exBox);
+
+
+}  /////////// sortingFn 함수///
