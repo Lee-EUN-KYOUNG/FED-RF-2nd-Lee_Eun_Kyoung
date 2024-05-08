@@ -352,17 +352,47 @@ const cta3 = mFn.qs(".cta3");
 
 // (3) 이벤트 대상 선택 변경시 -> 실제 정렬을 적용하여 리스트를 초기화
 // 정렬 적용시 정렬 기준 대상 선택 항목을 가져가야함
-mFn.addEvt(sel3,"change",함수);
+mFn.addEvt(sel3,"change",(e)=>sortingFn(e,cta3.value,list1,showList3));
 
 
 // (4) 정렬 기준 대상 선택 변경시 -> 정렬 종류 대상 선택 초기화하기("정렬선택"으로 변경)
+mFn.addEvt(cta3,"change",()=>{
+
+  sel3.value = "0";
+  // 정렬 종류 첫번째 값은 value가 0이므로 이것을 value에 할당하면 선택박스 값이 첫번째(초기화)로 변경된다
+
+}); ///////////////////// chage 이벤트 함수
+
 
 // 3-6. 정렬 함수 만들기
-function sortingFn(evt, arrData, exBox) {
+function sortingFn(evt, cta, arrData, exBox) {
       // evt -  이벤트 발생 요소의 이벤트 객체 전달
       // arrData - 배열 데이터
       // exBox - 출력 대상 박스
-      console.log(evt,arrData,exBox);
+      // cta - 정렬 기준 값 (객체 속성명:key명)
+      //console.log(evt,arrData,exBox);
+    // 1. 선택값 읽어오기
+    let selVal = evt.target.value;
+    console.log("선택값:",selVal);
 
+    // 검색 기준 선택박스 값 읽어오기
+    console.log("정렬기준:",cta);
+
+    // 2. 정렬 분기하기
+    // 2-1 오름차순
+    if(selVal == 1){
+      arrData.sort((a,b)=> a[cta] == b[cta] ? 0 : a[cta] > b[cta] ? 1 : -1)
+
+    } //////////////// if
+    // 2-2 내림차순
+    else if(selVal == 2){
+      arrData.sort((a,b)=> a[cta] == b[cta] ? 0 : a[cta] > b[cta] ? -1 : 1)
+
+    } //////////////else if
+
+    console.log("정렬결과:",arrData);
+
+    // 3. 정렬 결과 리스트 업데이트
+    updateCode(arrData,exBox);
 
 }  /////////// sortingFn 함수///
