@@ -98,9 +98,51 @@ function upDownFn (ele,idx) {
     // 짝수는 % 연산자 사용 : 숫자 %2 == 0 이면 짝수임
 
     if (idx%2==0) mVal = -mVal;
-    console.log("순번을 2로 나눈 나머지:", idx%2);
+    //console.log("순번을 2로 나눈 나머지:", idx%2);
 
     // 4. 실제 위치 이동 CSS 적용하기
     ele.style.translate = `0 ${mVal}%`;
     
 } //////////////// upDownFn /////////////
+
+/////////////////////////////////////////////////////////////
+// 메뉴 오버시 배경 박스 따라다니기 구현 ////////////
+
+// 1. 대상 선정
+// 이벤트 대상 : .gnb li
+const gnbList = mFn.qsa(".gnb li");
+
+// 변경 대상 : .mbg
+const mbg = mFn.qs(".mbg");
+
+// 2. 이벤트 설정하기
+// 이벤트  종류 : mouseenter / mouseleave
+gnbList.forEach(ele=>{
+
+    mFn.addEvt(ele,"mouseenter",overFn);
+    mFn.addEvt(ele,"mouseleave",outFn);
+
+}); ////////// forEach
+
+// 3. 함수 만들기
+function overFn(){
+
+    // 오버된 li에 left 위치값 읽기
+    let posLeft = this.offsetLeft;
+    let boxWidth = this.offsetWidth;
+    // console.log("오버:",posLeft);
+    
+    mbg.style.opacity = 1;
+    mbg.style.left = posLeft + 'px';
+    mbg.style.width = boxWidth + 'px';
+
+
+}  ////// overFn
+
+
+function outFn(){
+
+    // console.log("아웃:",this);
+    mbg.style.opacity = 0;
+
+}  ////// outFn
