@@ -37,14 +37,14 @@ body{
     text-align: center;
 }
 /********* GNB박스 *********/
-.gnb {
+.gnb ul{
     display: flex;
     gap: 0 20px;
     line-height: 60px;
 }
 
 /* gnb공통 a */
-.gnb>ul>li:first-child>a{
+.gnb>ul>li>a{
     color: #fff;
 }
 /* 서브메뉴 박스 : 100%차지 서브영역 */
@@ -57,18 +57,20 @@ body{
     height: 0;
     overflow: hidden;
     background-color: #fff;
-
     /* 트랜지션 */
     transition: .4s ease-in-out;
 }
-/* -> 동적 높이값은 JS로 함!(+이벤트)
-.gnb>ul>li:hover .smenu{
-    height: 300px;
-} */
+
+/* -> 동적 높이값은 JS로 함!(+이벤트)*/
+/* .gnb>ul>li:hover .smenu{
+    height: 500px;
+}  */
 /* 임시 첫번째 */
 /* .gnb>ul:first-child .smenu{
     display: block;
-} */
+}
+ */
+
 /* 서브 첫타이틀 */
 .stit{
     font-size: 30px;
