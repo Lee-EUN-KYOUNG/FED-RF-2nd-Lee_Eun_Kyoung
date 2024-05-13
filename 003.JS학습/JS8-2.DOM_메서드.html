@@ -337,9 +337,9 @@
           qsaEl(box2,"li").forEach(ele=>{
 
             // 지움 설정
+            ele.onclick = () => ele.remove();
             // 툴팁 넣기
-
-
+            qsEl(ele,"img").title = "클릭하시면 지워집니다!";
           });  ////// forEach
 
 
