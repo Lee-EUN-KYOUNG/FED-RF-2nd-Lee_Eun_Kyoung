@@ -51,58 +51,54 @@
       // querySelector 함수 짧게 만들기! ////
       const qs = (x) => document.querySelector(x);
       const qsa = (x) => document.querySelectorAll(x);
-      const qsEl = (ele,x) => ele.querySelector(x);
-      const qsaEl = (ele,x) => ele.querySelectorAll(x);
+      const qsEl = (ele, x) => ele.querySelector(x);
+      const qsaEl = (ele, x) => ele.querySelectorAll(x);
 
       // addEventListener 함수 짧게 만들기! ////
       const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
 
       ///////////////// 로드 구역 이벤트 설정하기 ///////////////////////
-      addEvt(window,'load',loadFn);
-      
+      addEvt(window, "load", loadFn);
+
       // 로드 함수
-    function loadFn(){
-        console.log('로딩완료!');
+      function loadFn() {
+        console.log("로딩완료!");
 
         /************************************************************ 
                 마우스 오버시
                 1. 서브메뉴 보이기
                 2. 링크 이동하기
         ************************************************************/
-     // 1. 대상 선정 : .smenu
-     const smenu = qsa('.smenu');
-     // 대상 개수
-     let cntSmenu = smenu.length;
+        // 1. 대상 선정 : .smenu
+        const smenu = qsa(".smenu");
+        // 대상 개수
+        let cntSmenu = smenu.length;
 
-     console.log('메뉴:',smenu,cntSmenu);
+        //console.log('메뉴:',smenu,cntSmenu);
 
-     // 2. 이벤트 설정하기
-     for(let i = 0; i < cntSmenu; i++){
-        smenu[i].onmouseover = () =>{
+        // 2. 이벤트 설정하기
+        for (let i = 0; i < cntSmenu; i++) {
+          smenu[i].onmouseover = () => {
             // 변경 대상 : .smenu div
-            let target = qsEl(smenu[i],'div');
+            let target = qsEl(smenu[i], "div");
             // 높이값 대상 : .smenu ol -> 높이값은 offsetHeight 속성으로 읽어옴
-            let htVal =  qsEl(smenu[i],'ol').offsetHeight;
-            console.log('하위메뉴높이:',htVal);
+            let htVal = qsEl(smenu[i], "ol").offsetHeight;
+            //console.log('하위메뉴높이:',htVal);
 
             // 변경내용 : 높이값,트랜지션
-            target.style.height = htVal + 'px';
-            target.style.transition = '.3s';
+            target.style.height = htVal + "px";
+            target.style.transition = ".3s";
+          }; //// mouseover 이벤트 함수
 
-        }; //// mouseover 이벤트 함수
-
-        smenu[i].onmouseout = () =>{
+          smenu[i].onmouseout = () => {
             // 변경 대상
-            let target = qsEl(smenu[i],'div');
+            let target = qsEl(smenu[i], "div");
             // 변경 내용 : 높이값
-            target.style.height = '0';
+            target.style.height = "0";
+          }; ////// mouseout 이벤트 함수
+        } /// for문
 
-        }; ////// mouseout 이벤트 함수
-
-
-     } /// for문
-
-     /********************************************** 
+        /********************************************** 
         [ 선택요소의 현재 크기, 위치값 알아오는 JS속성 ]
         1. 선택요소.offsetWidth : 가로값
         2. 선택요소.offsetHeight : 높이값
@@ -110,14 +106,213 @@
         4. 선택요소.offsetLeft : left 위치값            
      **********************************************/
 
-     /// [이벤트 비교]
-     // mouseover / mouseout -> 요소 위에 오버시 / 아웃시 (대부분 버블링 발생함)
-     // mouseenter / mouseleave -> 요소 경계선 안으로 들어갈때 / 경계선 떠날때 (버블링 발생 안함)
+        /// [이벤트 비교]
+        // mouseover / mouseout -> 요소 위에 오버시 / 아웃시 (대부분 버블링 발생함)
+        // mouseenter / mouseleave -> 요소 경계선 안으로 들어갈때 / 경계선 떠날때 (버블링 발생 안함)
+
+        // [추가기능 : 링크 클릭시 페이지 새창 이동하기]
+        // 대상 선정 : .smenu ol a
+        const link = qsa(".smenu ol a");
+
+        // forEach로 순회하며 링크 이동 함수 호출하기 -> 클릭 이벤트 설정
+        link.forEach((ele) => addEvt(ele, "click", linkFn));
+
+        // 이동 함수 만들기
+        function linkFn() {
+          // 클릭된 a요소의 글자 데이터 읽어오기
+          let txt = this.innerText;
+          // 기본 이동 막기
+          event.preventDefault();
+          //console.log(txt);
+
+          // 3. 이동할 주소 분기하여 할당하기
+          // 주소 변수
+          let url;
+
+          switch (txt) {
+            case "Google":
+              url = "https://www.google.com";
+              break;
+            case "Naver":
+              url = "http://www.naver.com";
+              break;
+            case "Daum":
+              url = "http://www.daum.net";
+              break;
+            case "Nate":
+              url = "http://www.nate.com";
+              break;
+            case "SK":
+              url = "http://www.sktelecom.com";
+              break;
+            case "KT":
+              url = "http://www.kt.com";
+              break;
+            case "Uplus":
+              url = "http://www.uplus.co.kr";
+              break;
+            case "CGV":
+              url = "http://www.cgv.co.kr";
+              break;
+            case "MEGABOX":
+              url = "http://www.megabox.co.kr";
+              break;
+            case "LOTTE CINEMA":
+              url = "https://www.lottecinema.co.kr/NLCHS";
+              break;
+            case "GMARKET":
+              url = "http://www.gmarket.co.kr";
+              break;
+            case "11번가":
+              url = "http://www.11st.co.kr";
+              break;
+            case "Auction":
+              url = "http://www.auction.co.kr";
+              break;
+            case "스토어팜":
+              url = "https://shopping.naver.com/";
+              break;
+            case "인터파크":
+              url = "http://www.interpark.co.kr";
+              break;
+            case "쿠팡":
+              url = "http://www.coopang.co.kr";
+              break;
+            case "Apple":
+              url = "http://www.apple.com";
+              break;
+            case "Samsung":
+              url = "http://www.samsung.com";
+              break;
+            case "넷마블":
+              url = "http://www.netmarble.net";
+              break;
+            case "넥슨":
+              url = "https://www.nexon.com";
+              break;
+            case "IMC":
+              url = "http://www.imc.co.kr";
+              break;
+          } ////// switch case문
+
+          // 새 창으로 페이지 이동하기
+          // (1) 현재창 이동(히스토리 남음) : location.href = "이동주소"
+          // 참고 : 히스토리 남지 않는 창 이동은
+          // location.replace(이동주소)
+          // (2) 새창 이동 : window.open(이동주소)
+          if (url) {
+            //location.href = url; -> 이전 창 뒤로 가기 가능
+            // url이 할당된 경우에만 이동
+
+            //location.replace(url);
+            // 이전 창 뒤로 가기 불가능
+
+            window.open(url);
+          } ///// if
+        } ///////////// linkFn 함수
+
+        /************************************************** 
+                
+          [ 요소의 생성, 삭제, 이동
+          1. 맨뒤 생성 혹은 맨뒤 이동
+          -> 선택요소.appendChild(요소)
+
+          2. 특정위치에 요소 넣기 혹은 이동
+          -> 선택요소.insertBefore(넣을놈,넣을놈전놈)
+
+          3. 요소의 삭제
+          -> 선택요소.remove()
+
+          4. 새로운 요소 생성 (메모리상에 생성함)
+          -> document.createElement(태그명)
+
+          5. 요소에 새로운 속성넣기 (메모리상에 생성함)
+          -> document.createAttribute(속성명)
+
+          6. 생성된 속성에 값넣기
+          -> 생성된속성.value = 값
+
+          7. 요소의 새로운 속성 넣기
+          -> 선택요소.setAttributeNode(새로운속성)
+
+        ***************************************************/
+
+          //////// 새리스트 요소 생성하기 ///////
+          // 이벤트 종류: click
+          // 이벤트 대상: .nbt
+          // 변경대상: #div02 ul
+          /////////////////////////////////////////////////////////////////////////////////
+
+          // 대상 선정
+          // 1. 새로 생성 버튼          
+
+          const btnNew = qs(".nbt");
+
+          // 2. 변경 대상
+
+          const box2 = qs("#div02 ul");
+
+          // 3. 이벤트 설정하기
+          addEvt(btnNew, "click", makeEle);
+
+          // 4. 이벤트 함수 만들기
+          function makeEle(){
+
+            // 호출확인
+            //console.log("만들기");
+
+            // 할 일 : 새로운 li 요소를 만들어서 넣기
+            // 변경 대상 : ul
+            // DOM 메서드를 이용하여 메모리상에 먼저 요소를 생성한다
+
+            // 1. 새로운 li를 생성하여 변수에 할당
+            let newEle = document.createElement("li");
+
+            // 이미지 랜덤수 만들기 : 1~5사이 수
+            // Math.ceil(math.random()*최대수)
+
+            let rdmNum = Math.ceil(Math.random()*5);
+            console.log("랜덤:",rdmNum);
+
+            // 이미지 alt 설명 배열
+            const avenName = ["아이언맨","딱딱이","토르","닥스","스타로드"];
+
+            // 메모리상에 생성된 li에 이미지 요소를 innerHTML로 넣기
+            // DOM에 직접 넣기가 아닌 메모리상 태그 넣기가 가능? => 가능
+            newEle.innerHTML = ` <img src="images/ab${rdmNum}.jpg" alt="${avenName[rdmNum-1]}" title="${avenName[rdmNum-1]}">`;
 
 
-    };  //////// loadFn 함수 /////
+            // 변경 대상에 새로운 li 넣기
+            // appendChild(요소)
+            // 기존 요소면 맨뒤로 이동, 새 요소면 맨뒤에 추가
+            box2.appendChild(newEle);
 
 
+
+          } ///// makeEle 함수 ///////
+
+
+          // 맨뒤이동 버튼 클릭시 /////////////////////////////////////////////////////
+          // 맨앞요소를 맨뒤로 이동하기 ///
+          // 이벤트 대상: .mvl
+          // 변경대상: #div02 ul -> box2변수
+
+
+
+          /// 맨앞이동버튼 클릭시 ////////////////////////////////////////////////////////
+          // 맨뒤li가 맨 앞으로 이동됨
+          // 이벤트 대상: .mvf
+          // 변경대상: #div02 ul -> box2변수
+
+
+        /************************************************** 
+            ※ appendChild() 와 insertBefore()는 
+            대상을 정하는 것에 따라 중간에 적용할 수 있다!
+        ************************************************/
+
+
+
+      } //////// loadFn 함수 /////
     </script>
   </head>
 
