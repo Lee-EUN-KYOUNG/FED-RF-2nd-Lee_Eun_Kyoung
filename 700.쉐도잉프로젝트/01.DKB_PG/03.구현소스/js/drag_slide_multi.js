@@ -68,7 +68,7 @@ function slideFn(selEl) {
   // let indic = mFn.qsEl(sldWrap, ".indic");
 
   // 대상확인
-  console.log("대상", abtn, slide);
+  //console.log("대상", abtn, slide);
 
   // 1.4. 슬라이드 개수와 동일한 블릿동적생성
   // 대상: .indic -> indic변수
@@ -136,8 +136,8 @@ function slideFn(selEl) {
     // classList.contains(클래스명)
     // 선택요소에 해당클래스가 있으면 true
 
-    console.log("슬left:", slide.style.left);
-    console.log('한개당 크기:', sList[0].offsetWidth);
+    //console.log("슬left:", slide.style.left);
+    //console.log('한개당 크기:', sList[0].offsetWidth);
     
     // 슬라이드가 몇개 나가있는지 알아내기
     // left값 / 한개당 개수
@@ -145,7 +145,7 @@ function slideFn(selEl) {
     parseInt(slide.style.left) / sList[0].offsetWidth;
     outCnt = Math.abs(outCnt);
     
-    console.log('바깥에 나간 개수:', outCnt);
+    //console.log('바깥에 나간 개수:', outCnt);
 
     
     // 1. 오른쪽 버튼 여부 알아내기
@@ -423,7 +423,7 @@ function slideFn(selEl) {
       // -> 히든 박스 width - 전체 슬라이드 width
       // 전체 슬라이드 width는 li 한개당 width * 슬라이드 갯수다 
       let limitSize = selEl.offsetWidth - (oneSize * listLength);
-      console.log('마지막한계left:',limitSize);
+      //console.log('마지막한계left:',limitSize);
 
       // 4-1. 맨앞에서 튕기기
       if(parseInt(dtg.style.left)>0){

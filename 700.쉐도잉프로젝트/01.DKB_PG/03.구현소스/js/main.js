@@ -38,7 +38,7 @@ const mySmooth = new SmoothScroll(document, 30, 20);
 // 이벤트 대상 === 변경 대상 : .intro-mv-img
 const introMv = myFn.qs(".intro-mv-img");
 introMv.onclick = () => {
-  console.log("인트로영상!");
+  //console.log("인트로영상!");
 
   // 동영상 넣기
   introMv.innerHTML = `
@@ -82,10 +82,10 @@ introMv.onclick = () => {
   // 구조 : ul>li>h3+p
   // 8개만 데이터를 html로 구성하여 넣는다!
   // html 변수
-  let hcode = '<ul class="fx-box">';
+/*   let hcode = '<ul class="fx-box">';
 
   // li 구성을 hcode 변수에 대입 연산자로 할당함
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 15; i++) {
     hcode += `
     <li>
      <h3>${pData[i].title}</h3>
@@ -96,13 +96,25 @@ introMv.onclick = () => {
   } //////////////////// for문//////////////////////////////////
 
   hcode += `</ul>`;
+ */
+
 
   // 데이터 확인
   /* console.log('대상:', previewBox, '미리보기 data: ', pData); */
   /* console.log(hcode); */
 
   // 화면 출력하기
-  previewBox.innerHTML = hcode;
+  previewBox.innerHTML = `
+    <ul class="fx-box">
+      ${pData.map(v=>`
+      <li data-idx="${v.idx}">
+        <h3>${v.title}</h3>
+        <p>${"방송일 : "+v.date+" "+v.story}</p>
+      </li>
+      `).join('')}
+    </ul>
+  `;
+
 })(); /////////////// 미리보기 코드 랩핑 구역 종료
 
 /* 3. 현장포토  내용 넣기 */
@@ -227,7 +239,7 @@ $(".spart-menu a").click(e=>{
 
   // 1. 클릭한 a 요소의 글자 읽어오기
   let txt = $(e.target).text();
-  console.log(txt);
+  //console.log(txt);
 
   // 2. 이동할 위치값 알아내기
   
@@ -251,7 +263,7 @@ $(".spart-menu a").click(e=>{
   // offset().top - 제이쿼리 전용 top 위치값 정보
   pos = $(pos).offset().top;
 
-  console.log("위치값:",pos);
+  //console.log("위치값:",pos);
 
   // 3. 스크롤 애니메이션 이동하기
   // 제이쿼리는 이것을 정말 잘한다
