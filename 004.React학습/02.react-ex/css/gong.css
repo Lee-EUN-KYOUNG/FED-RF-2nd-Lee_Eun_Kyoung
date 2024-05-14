@@ -6,6 +6,15 @@ body{
     새로 스크롤바 트랙 생성시 화면이 약간 옆으로 움직이는
     문제를 막아준다! */
 }
+/* 변수 */
+:root{
+
+    /* 가로 리스트 갯수 */
+    --show-num : 5;
+}
+
+
+
 /* 대상박스 */
 #root {
     max-width: 1200px;
@@ -53,9 +62,12 @@ body{
     padding-top: 20px;
     margin: 0;
 }
+
+/* 상품 리스트 비율 셋팅 */
 .gwrap ul>li{
-    flex-basis: calc(100%/5 - 20px);
+    flex-basis: calc(100%/var(--show-num) - 20px);
 }
+
 /* 리스트 하위 링크 */
 .gwrap a{
     color: #222;
@@ -75,4 +87,29 @@ body{
 /* 상품이미지 */
 .glist img {
     width: 100%;
+}
+
+
+/* 미디어 쿼리 */
+@media screen and (max-width: 1000px) {
+    :root{
+        --show-num : 4;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    :root{
+        --show-num : 3;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    :root{
+        --show-num : 2;
+    }
+}
+@media screen and (max-width: 500px) {
+    :root{
+        --show-num : 1;
+    }
 }
