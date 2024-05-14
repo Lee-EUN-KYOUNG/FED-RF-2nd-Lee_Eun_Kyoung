@@ -33,3 +33,5 @@ guData.forEach((v)=>{
     //console.log(rdmNum(countryNum));
 
 }) ////////////////////// forEach
+
+
