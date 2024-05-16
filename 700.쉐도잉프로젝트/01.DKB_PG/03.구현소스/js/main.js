@@ -105,7 +105,7 @@ introMv.onclick = () => {
 
   // 화면 출력하기
   previewBox.innerHTML = `
-    <ul class="fx-box">
+    <ul class="fx-box" data-db="previewData">
       ${pData.map(v=>`
       <li data-idx="${v.idx}">
         <h3>${v.title}</h3>
@@ -128,7 +128,7 @@ introMv.onclick = () => {
   // 구조 : ul>li>figure>img+figcaption
   // 8개만 데이터를 html로 구성하여 넣는다!
   // html 변수
-  let hcode = "<ul>";
+/*   let hcode = "<ul>";
 
   // li 구성을 hcode 변수에 대입 연산자로 할당함
   // liveData 배열은 총 8개. 모두 돌기를 셋팅
@@ -144,14 +144,27 @@ introMv.onclick = () => {
 `;
   }); //////////////////////////// forEach
 
-  hcode += `</ul>`;
+  hcode += `</ul>`; */
 
   // 데이터 확인
   /*  console.log('대상:',liveBox,'현장포토 data:',lvData);
   console.log(hcode); */
 
-  // 화면 출력하기
-  liveBox.innerHTML = hcode;
+  // 화면 출력하기 : map()으로 데이터 생성하기
+
+  liveBox.innerHTML = `
+  <ul>
+  ${lvData.map(v=>`
+      <li data-idx="${v.idx}">
+        <figure>
+          <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
+        <figcaption>${v.title}</figcaption>
+        </figure>
+      </li>
+  `).join('')}
+  </ul>
+  `;
+
 })(); /////////////// 현장포토 코드 랩핑 구역 종료
 
 /* 4. 대표 이미지 내용 넣기 */
