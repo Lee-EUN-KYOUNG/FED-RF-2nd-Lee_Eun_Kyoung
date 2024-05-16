@@ -95,17 +95,33 @@ export default function showSubBox() {
         <img src="./images/live_photo/${selData.imgName}.jpg" alt="${selData.title}"/>
       </div>
       `:
-      // 현장포토 출력
+      // 대표포스터 출력
       db=="posterData"?
       `
       <button class="cbtn">×</button>
       <div class="sub-inbox inbox">
-      <h1>현장 포토 : ${selData.title}</h1>
+      <h1>대표 포스터 : ${selData.title}</h1>
       <div class="sub-item">
         <img src="./images/poster_img/${selData.imgName}.jpg" alt="${selData.title}"/>
       </div>
       `:
-      ``
+     // 클립 영상 출력
+     db=="clipData"?
+     `
+     <button class="cbtn">×</button>
+     <div class="sub-inbox inbox">
+     <h1>클립 영상 : ${selData.title}</h1>
+     <div class="sub-item">
+       <iframe src="https://www.youtube.com/embed/${selData.mvid}?autoplay=1"></iframe>
+       <h2>${selData.subtit}</h2>
+     </div>
+     `:
+      `
+      <button class="cbtn">×</button>
+        <div class="sub-inbox inbox">
+        <h1>DB 정보 확인 필요</h1>
+        </div>
+      `
       )
       .show();
       // show(); 는 display 보여주는 메서드
