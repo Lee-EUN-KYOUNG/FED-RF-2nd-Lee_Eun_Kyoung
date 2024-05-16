@@ -2,6 +2,7 @@
 
 // 데이터 셋팅 불러오기
 import * as dkbData from "../data/dkb_data.js";
+//console.log(dkbData);
 
 export default function showSubBox() {
   //console.log("서브박스다");
@@ -31,7 +32,10 @@ export default function showSubBox() {
     // 그 div 박스의 클래스가 preview-box인가? -> is(클래스명) 메서드로 알아보기
     //let confPrt = $(this).parent().parent().is(".preview-box");
 
+    // [데이터명]
     // 사용하고자하는 데이터 이름을 ul 태그의 data-db 속성에 담아놓고 이것을 읽어온다
+    //  $(this).parent()는 li 바로 위의 부모인 ul이다
+    // attr('data-db') 속성값 읽어오기
     let db = $(this).parent().attr('data-db');
 
 
@@ -70,16 +74,40 @@ export default function showSubBox() {
       // 제이 쿼리는 innerHTML 할당대신 html() 메서드를 사용함
 
       subContBox
-        .html(
-          `
-        <button class="cbtn">×</button>
-        <div class="sub-inbox inbox">
-          <h1>${selData.title}</h1>
-          <div class="sub-item">${selData.story}</div>
-        </div>
+      .html(
+
+        //미리 보기 출력
+        db=="previewData"?
         `
-        )
-        .show();
+      <button class="cbtn">×</button>
+      <div class="sub-inbox inbox">
+        <h1>${selData.title}</h1>
+        <div class="sub-item">${selData.story}</div>
+      </div>
+      `:
+      // 현장포토 출력
+      db=="liveData"?
+      `
+      <button class="cbtn">×</button>
+      <div class="sub-inbox inbox">
+      <h1>현장 포토 : ${selData.title}</h1>
+      <div class="sub-item">
+        <img src="./images/live_photo/${selData.imgName}.jpg" alt="${selData.title}"/>
+      </div>
+      `:
+      // 현장포토 출력
+      db=="posterData"?
+      `
+      <button class="cbtn">×</button>
+      <div class="sub-inbox inbox">
+      <h1>현장 포토 : ${selData.title}</h1>
+      <div class="sub-item">
+        <img src="./images/poster_img/${selData.imgName}.jpg" alt="${selData.title}"/>
+      </div>
+      `:
+      ``
+      )
+      .show();
       // show(); 는 display 보여주는 메서드
       // hide(); 는 display 숨기는 메서드
       // toggle(); 는 display 토글하는 메서드

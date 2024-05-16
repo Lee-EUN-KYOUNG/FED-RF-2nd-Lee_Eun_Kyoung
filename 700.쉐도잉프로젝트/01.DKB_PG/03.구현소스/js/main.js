@@ -153,8 +153,8 @@ introMv.onclick = () => {
   // 화면 출력하기 : map()으로 데이터 생성하기
 
   liveBox.innerHTML = `
-  <ul>
-  ${lvData.map(v=>`
+  <ul data-db="liveData">
+  ${lvData.map((v)=>`
       <li data-idx="${v.idx}">
         <figure>
           <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
@@ -178,12 +178,12 @@ introMv.onclick = () => {
   // 구조 : ul>li>figure>img+figcaption
   // 8개만 데이터를 html로 구성하여 넣는다!
   // html 변수
-  let hcode = "<ul>";
+  // let hcode = "<ul>";
 
   // li 구성을 hcode 변수에 대입 연산자로 할당함
   // posterData 배열은 총 5개. 모두 돌기를 셋팅
 
-  poData.forEach((v) => {
+/*   poData.forEach((v) => {
     hcode += `
     <li>
      <figure>
@@ -194,14 +194,26 @@ introMv.onclick = () => {
 `;
   }); //////////////////////////// forEach
 
-  hcode += `</ul>`;
+  hcode += `</ul>`; */
 
   // 데이터 확인
   /*  console.log('대상:',posterBox,'대표이미지 data:',poData);
   console.log(hcode); */
 
   // 화면 출력하기
-  posterBox.innerHTML = hcode;
+  posterBox.innerHTML = `
+  <ul data-db="posterData">
+  ${poData.map((v)=>`
+      <li data-idx="${v.idx}">
+        <figure>
+        <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}">
+        <figcaption>${v.title}</figcaption>
+        </figure>
+      </li>
+  `).join('')}
+  </ul>
+  `;
+
 })(); /////////////// 대표이미지 코드 랩핑 구역 종료
 
 /* 5. 최신동영상 파트 데아터 태그 구성하여 화면 출력 하기 */
@@ -210,9 +222,12 @@ introMv.onclick = () => {
 (() => {
   // 5-1. 변경 대상 : .clip-box
   const clipBox = myFn.qs(".clip-box");
+  
+  // 데이터 연결 변수 할당
+  const cData = dkbData.clipData; 
 
   // 5-2. 생성 코드 변수
-  let hcode = `<ul class="slide">`;
+/*   let hcode = `<ul class="slide">`;
 
   // 데이터만큼 순회하여 li 코드 만들기 //
   // 데이터 : dkbData.clipbData
@@ -230,10 +245,28 @@ introMv.onclick = () => {
     `;
   }); ///////// forEach
 
-  hcode += `</ul>`;
+  hcode += `</ul>`; */
 
   // 5-3. 화면 출력하기
-  clipBox.innerHTML = hcode;
+  clipBox.innerHTML = `
+  <ul class="slide" data-db="clipData">
+  ${cData.map((v)=>`
+      <li data-idx="${v.idx}">
+        <div class="clip-mv-box">
+        <img src="./images/clip_img/${v.idx}.jpg" alt="${v.subtit}"/>
+        </div>
+        <h4>
+        ${v.subtit}</h4>
+        </h4>
+        <h3>${v.title}</h3>
+      </li>
+  `).join('')}
+  </ul>
+  
+  
+  
+  
+  `;
 })(); /////////////// 최신동영상 코드 랩핑 구역 종료
 
 // 드래그 슬라이드 태그 구성후 호출하기
