@@ -157,7 +157,7 @@ introMv.onclick = () => {
   ${lvData.map((v)=>`
       <li data-idx="${v.idx}">
         <figure>
-          <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
+          <img src="./images/live_photo/${v.imgName[0]}.jpg" alt="${v.title}">
         <figcaption>${v.title}</figcaption>
         </figure>
       </li>
