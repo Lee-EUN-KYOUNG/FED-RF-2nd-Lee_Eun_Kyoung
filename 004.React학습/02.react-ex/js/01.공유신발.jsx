@@ -7,7 +7,7 @@
 // 공유 신발 데이터 불러오기
 import guData from "./data/gu_data";
 
-console.log(guData);
+//console.log(guData);
 
 function MainComponent() {
   /****************************************************************** 
@@ -47,12 +47,9 @@ function MainComponent() {
           {guData.map((v) => (
             <li>
               <a href="#">
-                <ol class="glist">
+                <ol className="glist">
                   <li>
-                    <img
-                      src={"./images/vans/vans_" + v.idx + ".jpg"}
-                      alt="신발"
-                    />
+                    <img src={`./images/vans/vans_${v.idx}.jpg`} alt="신발" />
                   </li>
                   <li>{v.gname}</li>
                   <li>가격 : {v.gprice}원</li>

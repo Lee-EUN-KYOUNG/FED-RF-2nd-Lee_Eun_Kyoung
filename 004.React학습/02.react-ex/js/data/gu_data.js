@@ -1,7 +1,6 @@
 // [vans신발 데이터]
 
 const guData = [
-  [
     {
       idx: "1",
       gname: "반스어얼리",
@@ -302,7 +301,6 @@ const guData = [
       "A/S 전화번호": "온라인 스토어 고객센터 1522-1882",
       Model: "VN000CYU1011",
     },
-  ],
 ];
 
 export default guData;
