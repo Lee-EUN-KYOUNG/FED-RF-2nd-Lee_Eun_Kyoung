@@ -7,7 +7,7 @@ const  comData = {
         <header class="top-area inbox">
         <!--  <h2 class="temp-tit">1. 상단영역</h2> -->
         <!-- 1. 로고/GNB 파트 -->
-        <div class="cont-box">
+      <div class="cont-box">
         <!-- 1-1. 로고 파트 -->
         <div class="col-2">
             <h1 class="mlogo">
@@ -33,7 +33,9 @@ const  comData = {
             <!-- GNB 메뉴 -->
             <nav class="gnb"></nav>
         </div>
-        </div>
+      </div>
+      <!-- 모바일 햄버거 버튼 -->
+      <button class="ham"></button>
     </header>
     `,
     // 2. 하단 영역 코드 
