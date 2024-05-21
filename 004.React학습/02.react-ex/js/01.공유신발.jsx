@@ -4,8 +4,13 @@
 // 컴포넌트란? -> 특정 모듈로 구성된 HTML 코드를 리턴하는 객체
 // 함수형 컴포넌트는 첫글자가 대문자인 함수 키워드로 만든다
 
-// 공유 신발 데이터 불러오기
-import guData from "./data/gu_data";
+// 상품 리스트 서브 컴포넌트 불러오기
+import GoodsList from "./components/goods_list";
+// 상품 상세 보기 서브 컴포넌트 불러오기
+import GoodsDetails from "./components/goods_detail";
+// 주의 : CDN에서 여기 import 대상은 모두 html 페이지에서 불러와야 사용할 수 있다
+
+
 
 //console.log(guData);
 
@@ -63,88 +68,6 @@ function MainComponent() {
     </React.Fragment>
   );
 } ///////////////// MainComponent 컴포넌트
-
-// 상품 리스트 서브 컴포넌트  : GoodsList
-function GoodsList ({viewDetail, updateIdx}){
-
-  // updateIdx = 부모 컴포넌트의 setIdx 상태 관리 변수의 메서드
-  // viewDetail - 부모 컴포넌트가 전달해준 상태 변수 viewList를 업데이트하는 setViewList 메서드임
-
-
-  // 반복 요소 li에 key 속성을 쓸것을 리액트는 필수적이라고 함
-  // ㄴ> 업데이트시 순번 구분을 위해 사용
-  // node.js 개발 환경에서는 안 쓰면 에러남
-
-  // 코드 리턴 구역
-  return(
-  <ul>
-    {guData.map((v,i) => (
-      <li key={i}>
-        <a href="#"
-        onClick={(e)=>{
-          // a 요소 기본 이동 막기
-          e.preventDefault();
-          // 상태 변수 viewList 업데이트 - setViewList 메서드가 viewDetail로 들어옴
-          viewDetail(false);
-          // setIdx 메서드가 updateIdx로 들어옴
-          updateIdx(i);
-          }}>
-          <ol className="glist">
-            <li>
-              <img src={`./images/vans/vans_${v.idx}.jpg`} alt="신발" />
-            </li>
-            <li>{v.gname}</li>
-            <li>가격 : {v.gprice}원</li>
-          </ol>
-        </a>
-      </li>
-    ))}
-  </ul>
-  );
-} /////// GoodsList 컴포넌트
-
-
-///// 상품 상세보기 서브 컴포넌트 : GoodsDetail
-function GoodsDetails({backList, gNo}){
-
-  // backList - 부모 컴포넌트가 전달해준 상태 변수 viewList를 업데이트하는 setViewList 메서드임
-  // gNo - 상품 데이터 배열 순번
-  // idx 상태 관리 변수가 전달 됨 -> 이 값이 변경시 컴포넌트 변경됨
-  // return 구역
-  return (
-    <ol style={{display:"flex", listStyle:"none", justifyContent:"center"}}>
-          <li>
-            <img src = {"./images/vans/vans_"+guData[gNo].idx+".jpg"} alt = "반스신발"
-            style={{Width:"100%"}}/>
-          </li>
-          <li style={{lineHeight:"2",padding:"10px", textAlign:"left"}}>
-            상품명 : {guData[gNo].gname} <br/>
-            가격 : {guData[gNo].gprice} <br/>
-            소재 : {guData[gNo].소재} <br/>
-            색상 : {guData[gNo].색상} <br/>
-            치수 : {guData[gNo].치수} <br/>
-            제조자/수입자 : {guData[gNo]["제조자/수입자"]} <br/>
-            제조국 : {guData[gNo].제조국} <br/>
-            제조연월 : {guData[gNo].제조연월} <br/>
-            A/S 책임자 : {guData[gNo]["A/S 책임자"]} <br/>
-            A/S 전화번호 : {guData[gNo]["A/S 책임자"]} <br/>
-            Model : {guData[gNo].Model} <br/>
-            <div className="btnbx" style={{textAlign:"right", padding:"15px"}}>
-              <button
-               onClick={()=>backList(true)}
-               style={{fontSize:"20px"}}>리스트로 가기</button>
-            </div>
-          </li>     
-        </ol>
-  );
-
-
-
-
-} //////////////////// GoodsDetail 컴포넌트
-
-
-
 
 
 
