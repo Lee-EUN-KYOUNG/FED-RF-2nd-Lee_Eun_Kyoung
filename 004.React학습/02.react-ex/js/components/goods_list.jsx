@@ -1,6 +1,6 @@
 // 공유 신발 데이터 불러오기
 import guData from "../data/gu_data";
-// 효진 신발 데이터 불러오기
+// 효진 드레스 데이터 불러오기
 import hjData from "../data/hj_data";
 
 

@@ -38,8 +38,23 @@ function MainComponent() {
               -> 상품 상세 보기 : ol > li > (img / text / button)
 
     ******************************************************************/
+  // useEffect 테스트 함수
+  const testFn = () => {
+    console.log("테스트중");
 
-  //// 코드 리턴 구역 /////////
+  }; /////////////// testFn
+
+  // [1. useEffect : 컴포넌트 생성, 변경, 삭제전 DOM 완성 후 매번 실행되는 코드 구역] 
+ React.useEffect(()=>{
+
+  console.log("DOM이 완성되었어");
+  // 글자 커지기 테스트
+  $(".tit").animate({fontSize:"50px"},1000)
+  .animate({fontSize:"20px"},1000);
+ });
+
+
+  ///////////////// 코드 리턴 구역 /////////
   return (
     <React.Fragment>
       {/* 타이틀 */}
@@ -76,6 +91,9 @@ function MainComponent() {
           setSelItem(selItem=="공유"?"효진":"공유")}
         >{selItem=="공유"?"효진":"공유"}바로가기
         </button>
+        <br/> <br/>
+        {/* 테스트 버튼 */}
+        <button onClick={testFn}>useEffect의존성테스트</button>
       </div>
       {/* 상품 리스트 박스 */}
       <div className="gwrap">
@@ -83,7 +101,7 @@ function MainComponent() {
           // 상태 관리 변수 viewList 값이 true면 리스트 보기
           viewList?
           <GoodsList viewDetail={setViewList} updateIdx={setIdx} selItem={selItem}/>:
-          <GoodsDetails backList={setViewList} gNo={idx}/>
+          <GoodsDetails backList={setViewList} gNo={idx} selItem={selItem}/>
           // false면 상품 상세리스트 보기
         }
 
