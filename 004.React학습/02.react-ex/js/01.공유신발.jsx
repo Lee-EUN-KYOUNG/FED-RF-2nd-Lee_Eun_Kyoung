@@ -82,7 +82,7 @@ function MainComponent() {
         {
           // 상태 관리 변수 viewList 값이 true면 리스트 보기
           viewList?
-          <GoodsList viewDetail={setViewList} updateIdx={setIdx}/>:
+          <GoodsList viewDetail={setViewList} updateIdx={setIdx} selItem={selItem}/>:
           <GoodsDetails backList={setViewList} gNo={idx}/>
           // false면 상품 상세리스트 보기
         }
