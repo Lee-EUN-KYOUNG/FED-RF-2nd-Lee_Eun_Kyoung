@@ -1,5 +1,9 @@
 @charset "utf-8";
 /* 01.공유신발 CSS - gong.css */
+
+/* 웹폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Single+Day&display=swap');
+
 body{
     overflow-y: scroll;
     /* 스크롤이 없어도 스크롤바 트랙이 나와 있어서
@@ -26,17 +30,22 @@ body{
 }
 /* 제목 */
 .tit {
-    color: orangered;
+    color: lightblue;
+    font-size: min(50px,5vw);
+    -webkit-text-stroke: 0.4px #000;
+    font-family: "Single Day", cursive;
 }
 /* 내용박스 */
 #root section {
     border: 4px double gray;
     padding: 2vw;
 }
+
 /* 내용박스 이미지 */
 #root section img {
-    max-width: 100%;
-    max-height: 70vh;
+    /* max-width: 100%;
+    max-height: 70vh; */
+    height: 60vmin;
     border-radius: 20px;
 }
 /* 버튼박스 */
@@ -54,9 +63,7 @@ body{
     /* 하위 ol박스를 옆으로 흐르게함 */
     justify-content: center;
     flex-wrap: wrap;
-    
     gap: 10px 20px; /* 상하 좌우 사이간격 */
-    
     list-style: none;
     padding: 0;
     padding-top: 20px;
