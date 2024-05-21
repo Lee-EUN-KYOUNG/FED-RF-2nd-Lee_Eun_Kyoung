@@ -19,7 +19,27 @@ export default function GoodsList({ viewDetail, updateIdx, selItem }) {
   // 선택 코드에 따른 데이터 선택하기
   const selData = selItem == "공유"?guData:selItem =="효진"?hjData:[];
 
-  // 코드 리턴 구역
+
+  ////////// useEffect 구역 : 화면업데이트후 실행 구역
+  React.useEffect(()=>{
+
+    console.log("나는 리스트 컴포넌트다");
+
+    // useEffect 함수 구역에 return 함수 코드를 쓰면 컴포넌트 소멸시 실행된다
+    return(()=>{
+
+      console.log("리스트 컴포넌트 소멸");
+      
+    });
+
+
+  }); ////////////// useEffect
+
+
+
+
+
+  //////////////////////////////////// 코드 리턴 구역
   return (
     <ul>
       {selData.map((v, i) => (
