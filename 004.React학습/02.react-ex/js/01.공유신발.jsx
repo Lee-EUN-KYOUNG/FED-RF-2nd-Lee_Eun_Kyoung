@@ -21,7 +21,8 @@ function MainComponent() {
   const [viewList, setViewList] = React.useState(true);
   // 2. 상품 데이터 인덱스값 상태 관리 변수
   const [idx, setIdx] = React.useState(0);
-
+  // 3. 선택 아이템 고유 이름 상태 관리 변수
+  const [selItem, setSelItem] = React.useState("공유");
 
   /****************************************************************** 
     
@@ -42,17 +43,39 @@ function MainComponent() {
   return (
     <React.Fragment>
       {/* 타이틀 */}
-      <h1 className="tit">공유가 신고 다닌다는!</h1>
+      <h1 className="tit">
+        {selItem =="공유"?
+        "공유가 신고 다닌다는!":
+        selItem == "효진"?
+        "효진이 입고 다닌다는!":
+        "없음"
+        }
+        </h1>
       {/* 내용 박스 */}
       <section>
-        <h2>공유는 오늘도 멋집니다!</h2>
+        <h2>
+        {selItem =="공유"?
+        "공유는 오늘도 멋집니다!":
+        selItem == "효진"?
+        "효진은 오늘도 쨍~합니다!":
+        "없음"
+        }
+        </h2>
         <div className="img-box">
-          <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />
+        {selItem =="공유"?
+        <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />:
+        selItem == "효진"?
+        <img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진"/>:
+        ("없음")
+        }
         </div>
       </section>
       {/* 기능 버튼 박스 */}
       <div className="btn-box">
-        <button>효진초이스 바로가기</button>
+        <button onClick={()=>
+          setSelItem(selItem=="공유"?"효진":"공유")}
+        >{selItem=="공유"?"효진":"공유"}바로가기
+        </button>
       </div>
       {/* 상품 리스트 박스 */}
       <div className="gwrap">
