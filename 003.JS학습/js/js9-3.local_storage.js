@@ -185,5 +185,62 @@ function binData(){
         `).join('')}
     </table>
     `;
+    // 4. 지우기 버튼 셋업하기
+    mFn.qsa(".del-link a").forEach(ele=>{
+        ele.onclick = (e) => {
+            // 기본 이동 막기
+            e.preventDefault();
+            // 지울 순번 속성 (data-idx) 읽어오기
+            let idx = ele.getAttribute("data-idx");
+            
+            // 3. 로컬쓰 읽어와서 파싱하기
+            let localData = JSON.parse(localStorage.getItem("minfo"));
+            console.log("지울 순번",idx,localData);
+
+            // 4. 메모리에 있는 배열값 지우기
+            // 배열.splice(순번,개수)
+            // 1개 삭제이므로 splice(순번,1)
+            localData.splice(idx,1);
+
+            // 5. 배열값 로컬쓰에 반영하기
+            localStorage.setItem("minfo",JSON.stringify(localData));
+
+            // 6. 화면 출력 함수 호출
+            binData();
+
+        }; /////////////click
+    }); /////////////////// forEach
+
 
 } /////////////// binData
+
+// 게시판 최초 호출
+binData();
+
+
+//////// 게시판 입력 버튼 클릭시 구현하기 /////////////////
+mFn.qs("#sbtn").onclick=()=>{
+
+    
+    // 어디에 무엇을 입력해야되나
+    // 로컬쓰에 제목, 내용을 입력한다
+
+    // 1. 로컬쓰 데이터 읽어와서 배열로 변환
+    const localData = JSON.parse(localStorage.getItem("minfo"));
+    console.log("입력",localData);
+
+    // 2. 입력할 데이터 객체 형식으로 배열에 넣기
+    // 배열.push({객체})
+    localData.push({
+        idx : localData.length+1,
+        tit : mFn.qs("#tit").value,
+        cont : mFn.qs("#cont").value
+    });
+
+    // 3. 배열 데이터를 문자화하여 로컬쓰에 입력
+    localStorage.setItem("minfo",JSON.stringify(localData));
+
+    // 4. 화면 출력 함수 호출하기
+    binData();
+
+}; ///// click 함수
