@@ -156,11 +156,14 @@ function binData(){
     // 1. 로컬쓰 데이터 읽어오기
     let localData = localStorage.getItem("minfo");
 
+    // 2. 로컬쓰 데이터 파싱하기 : JSON.parse()
+    localData = JSON.parse(localData);
 
 
     console.log("게시판 화면 뿌리기!", localData);
 
     // 출력 대상 : .board
+    // 3. 화면에 출력하기
     mFn.qs(".board").innerHTML = `
     <table>
         <tr>
@@ -170,15 +173,17 @@ function binData(){
             <th>삭제</th>
         </tr>
         <!-- 데이터에 따른 반복바인딩 -->
-        
+        ${localData.map((v,i)=>`
         <tr>
-            <td>번호</td>
-            <td>제목</td>
-            <td>내용</td>
-            <td>삭제</td>
+            <td>${v.idx}</td>
+            <td>${v.tit}</td>
+            <td>${v.cont}</td>
+            <td class="del-link">
+                <a href="#" data-idx="${i}">×</a>
+            </td>
         </tr>
+        `).join('')}
     </table>
     `;
-
 
 } /////////////// binData
