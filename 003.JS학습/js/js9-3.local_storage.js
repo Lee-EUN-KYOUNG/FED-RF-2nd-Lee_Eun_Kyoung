@@ -68,6 +68,62 @@ function localsFn(){
     let btxt = this.innerText;
     console.log("로컬쓰", btxt);
 
+    // 2. 버튼별 기능 분기하기
+    if(btxt == "처음"){
+
+        // (1) 로컬 스토리지 셋팅하기
+        // localStorage.setItem(키,값)
+        localStorage.setItem("actor-name","이정재");
+        localStorage.setItem("actor-role","박평호역");
+        localStorage.setItem("actor-cat","조직내 스파이를 색출하는 해외팀 안기부장");
+    } ///// if //////////
+    else if(btxt == "보여줘"){
+
+        // 배우 이름 출력
+        mFn.qs(".local .nm").innerText = localStorage.getItem("actor-name");
+        // 역할 이름 출력
+        mFn.qs(".local .role").innerText = localStorage.getItem("actor-role");
+        // 캐릭터 소개 출력
+        mFn.qs(".local .cat").innerText = localStorage.getItem("actor-cat")
+
+    } //////////// else if
+
+    else if (btxt == "전체삭제"){
+        /// 로컬 스토리 전체 삭제 -> 해당 url 스토리지만 대상으로 모두 지움
+        localStorage.clear();
+        // 개별 삭제는 removeItem(키)
+        //localStorage.removeItem("actor-name");
+    } /////////// else if
+
+    else if(btxt=="처리"){
+
+        // 배열 객체 만들기
+        // 1. 로컬쓰에 "minfo" 키가 없으면 새로 만들기
+        // -> 만약 키가 없으면 null값을 리턴함! 이것은 if문에서는 false처리됨
+        // false일때 처리해야하므로 NOT(!) 연산자 사용
+        if(!localStorage.getItem("minfo")){
+
+            // 최초 객체 데이터 만들기 함수 호출
+            makeObj();
+
+
+        } ////////////// if
+
+
+        //console.log(localStorage.getItem("minfo"));
+
+    } //// else if
+
 
 
 } /////////////////// localsFn
+
+
+// "minfo" 로컬쓰 키가 없으면 객체를 만들어 넣기 함수
+function makeObj (){
+
+   console.log("minfo 만들기");
+
+
+
+} /////////////////// makeObj
