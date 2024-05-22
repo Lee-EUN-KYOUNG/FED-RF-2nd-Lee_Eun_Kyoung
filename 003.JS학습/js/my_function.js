@@ -3,10 +3,10 @@
 
 // 객체 내보내기 : 변수 선언과 이름없이 바로 직접 내보냄!
 
-// const myFn =  -> 선언과 할당후 export default 하려면 하단에서 해야됨
+// 선언과 할당후 export default 하려면 하단에서 해야됨
+//export default
 
-export default
-{
+const mFn = {
     // 요소선택함수 ////////
     qs: (x) => document.querySelector(x),
     qsEl: (el, x) => el.querySelector(x),
@@ -22,3 +22,6 @@ export default
     // 옵셋탑값 반환함수
     getOT: (ele) => ele.offsetTop,
   };
+
+
+  export default  mFn;
