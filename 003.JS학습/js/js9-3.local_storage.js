@@ -197,8 +197,12 @@ function binData() {
   }); /////////////////// forEach
 } /////////////// binData
 
-// 게시판 최초 호출
-binData();
+
+
+// 게시판 최초 호출 : 로컬쓰 minfo 존재 여부에 따라 처리
+if(!localStorage.getItem("minfo")) binData();
+else makeObj();
+
 
 //////// 게시판 입력 버튼 클릭시 구현하기 /////////////////
 mFn.qs("#sbtn").onclick = () => {
@@ -209,10 +213,22 @@ mFn.qs("#sbtn").onclick = () => {
   const localData = JSON.parse(localStorage.getItem("minfo"));
   console.log("입력", localData);
 
+  // 입력값 비었으면 돌려보내기
+  // trim() 앞뒤공백 제거 메서드
+  if(mFn.qs("#tit").value.trim() == "" || mFn.qs("#cont").value.trim() == ""){
+    alert("제목과 내용 입력은 필수입니다");
+    return;
+  }; ////////// if
+
+
+  console.log("idx값 배열:", localData.map(v=>v.idx));
   // 2. 입력할 데이터 객체 형식으로 배열에 넣기
   // 배열.push({객체})
   localData.push({
-    idx: localData.length + 1,
+    // 순번은 배열 객체 idx 값중 최대값을 구하여 1 더한다
+    // apply(보낼객체,배열) -> 보낼 객체가 여기서는 null
+
+    idx: Math.max.apply(null,localData.map(v=>v.idx))+ 1,
     tit: mFn.qs("#tit").value,
     cont: mFn.qs("#cont").value,
   });
@@ -223,3 +239,29 @@ mFn.qs("#sbtn").onclick = () => {
   // 4. 화면 출력 함수 호출하기
   binData();
 }; ///// click 함수
+
+// CRUD 쿠르드!!
+// Create(만들기) / Read(읽기) / Update(수정) / Delete(삭제) 
+///////////////////////// 수정 기능 구현하기 ///////////////////////////////
+
+// 수정 항목 선택 박스 함수 호출하기
+updateItemList();
+
+
+// 수정할 항목 업데이트 함수 //////////
+function updateItemList(){
+
+  // 대상 : 수정 선택 박스 - #sel
+  const selBox = mFn.qs("#sel");
+
+  // 데이터의 idx를 순회하며 option 만들기
+  const localDta = JSON.parse(localStorage.getItem("minfo"));
+  selBox.innerHTML = localDta.map(
+    v=>`
+      <option value="${v.idx}">${v.idx}</option>
+  `).join('');
+
+
+
+
+} /////////////////////// updateItemList
