@@ -357,6 +357,67 @@ body * {
 .footer-area {
   /* 최소높이 */
   min-height: 285px;
+  background-color: #000;
+  padding: 70px;
+  block-size: border-box;
+  /* 글씨체 공통 */
+  font-family: "Roboto", nbg;
+  color: #fff;
+}
+.footer-area .blogo {
+  text-align: center;
+}
+.footer-area .addr {
+  color: #747474;
+  text-align: center;
+  font-size: 11px;
+  /* address 요소 기본 이탤릭해제 */
+  font-style: normal;
+  margin: 20px 0 10px;
+}
+.footer-area .blink {
+  /* 플렉스박스 */
+  display: flex;
+  /* 진행방향정렬 : 중앙 */
+  justify-content: center;
+  /* 플렉스 랩핑박스 */
+  flex-wrap: wrap;
+  /* 사이간격 gap: 위아래 양쪽 */
+  gap: 0 12px;
+  /* 마지막 li a만 볼드 */
+}
+.footer-area .blink a {
+  color: #747474;
+  font-size: 13px;
+}
+.footer-area .blink li:last-child a {
+  font-weight: bold;
+}
+
+/* 위로가기 버튼 */
+.tbtn {
+  position: fixed;
+  bottom: -35px; /* 아랫쪽에 나가있음 */
+  right: 75px;
+  width: 48px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  background-color: #333;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  z-index: 9999;
+  font-size: 12px;
+  opacity: 0; /* 처음에 투명 */
+  /* 트랜지션 - bottom엔 적용되면 안되므로 별도지정함 */
+  transition: background-color 0.3s, opacity 0.3s;
+}
+.tbtn.on {
+  opacity: 1;
+  bottom: 0;
+}
+.tbtn:hover {
+  background-color: red;
 }
 
 /* 개별배경이미지 */
