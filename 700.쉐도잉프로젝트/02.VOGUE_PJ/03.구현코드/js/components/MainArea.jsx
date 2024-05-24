@@ -26,7 +26,7 @@ export default function MainArea() {
         {/* <!-- 컨텐츠3 --> */}
         <section className="pt1">
           <div className="cbx bgi bg5">
-            <h2> ‘퀸스 갬빗’이후 엄청난 신작을 준비 중인 안야 테일러 조이</h2>
+            <h2> &lt;퀸스 갬빗&gt; 이후 엄청난 신작을 준비 중인 안야 테일러 조이</h2>
           </div>
         </section>
         {/* <!-- 컨텐츠4 --> */}
