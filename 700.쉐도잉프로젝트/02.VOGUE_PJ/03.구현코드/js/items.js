@@ -9,6 +9,8 @@ import ItemsArea from "./components/ItemsArea";
 // 하단 영역 불러오기
 import FooterArea from "./components/FooterArea";
 
+
+
 // 아이템 페이지 전체 레이아웃 로딩 컴포넌트
 function Layout() {
   return (
@@ -16,7 +18,7 @@ function Layout() {
       {/* 1. 상단 영역 컴포넌트 */}
       <TopArea />
       {/* 2. 아이템 영역 컴포넌트 */}
-      <ItemsArea />
+      <ItemsArea catName="living" />
       {/* 3. 하단 영역 컴포넌트 */}
       <FooterArea />
     </React.Fragment>

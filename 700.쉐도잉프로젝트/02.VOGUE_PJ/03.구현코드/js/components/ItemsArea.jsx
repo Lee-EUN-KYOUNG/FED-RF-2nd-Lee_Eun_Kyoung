@@ -1,16 +1,38 @@
-// 메인영역 서브 컴포넌트
+// 아이템 영역 서브 컴포넌트
 
-export default function ItemsArea() {
+// 아이템 카테고리 데이터 불러오기
+import catData from "../data/category";
+
+export default function ItemsArea({ catName }) {
+  // 해당 카테고리의 데이터 선택하여 담기
+  const selData = catData[catName];
+  console.log(selData);
+
   /// 코드 리턴 구역
   return (
     <div id="main-area">
-      <main className="main-area ibx">
+      {/* 데이터 적용 1 : 최상위 클래스명 추가하기 */}
+      <main className={"main-area ibx " + selData.경로}>
         {/* <!-- 2-1. 카테고리 페이지 상단영역 --> */}
         <header className="cat-top-area">
           {/* <!-- 2-1-1. 서브타이틀 --> */}
-          <h2 className="cat-tit">Fashion</h2>
+          {/* 데이터 적용 2 : 제목 넣기 */}
+          <h2 className="cat-tit">{selData.제목}</h2>
           {/* <!-- 2-1-2. 서브메뉴(LNB:Local Navigation Bar) --> */}
-          <nav className="lnb"></nav>
+          {
+          selData.메뉴 != "없음" &&
+          <nav className="lnb">
+            {
+              <ul>
+                {selData.메뉴.map((v) => (
+                  <li>
+                    <a href="#">{v}</a>
+                  </li>
+                ))}
+              </ul>
+            }
+          </nav>
+          }
         </header>
         {/* <!-- 2-2. 카테고리 페이지 컨텐츠영역 --> */}
         <div className="cat-cont-area">
