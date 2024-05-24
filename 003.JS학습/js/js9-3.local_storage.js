@@ -43,6 +43,9 @@ import mFn from "./my_function.js";
 
     [ JS 로컬 스토리지 / 세션 스토리지 장단점 ]
     (1) 장점: 간단한 프론트엔드 데이터를 DB없이 테스트해보는데 탁월함
+              쿠키와 같이 사용자 동의를 필요로하는 로컬 기록 수단의 단점은
+              이것을 거부하면 쓸 수 없는데 JS 스토리지는 이런 제약이 없다
+              보안상 안정이 보장되므로 사용 가능함
     (2) 단점: 데이터의 지속 보장이 없다!
         (그나마 로컬 스토리지는 브라우저 경로가 같고 PC가 같고
         브라우저종류가 같다면 지우기 전까지는 데이터를 유지한다!)
@@ -384,6 +387,54 @@ function updateItemList(){
             <option value="${v.idx}">
                 ${v.idx}</option>
         `).join('');
-
-
 } //////////// updateItemList 함수 ///////////
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// [2. 세션 스토리지 연습]
+
+// 1. 버튼 기능 이벤트 대상 : session-box button
+const btnSession = mFn.qsa(".session-box button");
+console.log("대상:", btnSession);
+
+// 2. 버튼에 이벤트 설정하기
+btnSession.forEach((ele) => mFn.addEvt(ele, "click", sessionsFn));
+
+// 3. 세션쓰 처리 함수 만들기
+function sessionsFn() {
+  // 1. 버튼 텍스트 읽기
+  let btxt = this.innerText;
+  console.log("세션쓰", btxt);
+
+  // 2. 버튼별 기능 분기하기
+  if (btxt == "처음") {
+    // (1) 세션 스토리지 셋팅하기
+    // sessionStorage.setItem(키,값)
+    sessionStorage.setItem("actor-name", "정우성");
+    sessionStorage.setItem("actor-role", "김정도역");
+    sessionStorage.setItem(
+      "actor-cat",
+      "국내팀 안기부팀장, 박평호랑 사이 나쁨"
+    );
+  } ///// if //////////
+  else if (btxt == "보여줘") {
+    // 배우 이름 출력
+    mFn.qs(".session .nm").innerText = sessionStorage.getItem("actor-name");
+    // 역할 이름 출력
+    mFn.qs(".session .role").innerText = sessionStorage.getItem("actor-role");
+    // 캐릭터 소개 출력
+    mFn.qs(".session .cat").innerText = sessionStorage.getItem("actor-cat");
+  } //////////// else if
+  else if (btxt == "전체삭제") {
+    /// 로컬 스토리 전체 삭제 -> 해당 url 스토리지만 대상으로 모두 지움
+    sessionStorage.clear();
+    // 개별 삭제는 removeItem(키)
+    //sessionStorage.removeItem("actor-name");
+  } /////////// else if
+  
+} /////////////////// sessionsFn
