@@ -176,6 +176,13 @@ function binData() {
     ele.onclick = (e) => {
       // 기본 이동 막기
       e.preventDefault();
+
+      // 지울지 여부 확인하기(confirm 대화창 사용)
+      // confirm(메시지) -> 확인(true)/취소(false)
+      if(!confirm("지움?")) return;
+      // not 연산자 써서 flase 일때 리턴한다
+
+
       // 지울 순번 속성 (data-idx) 읽어오기
       let idx = ele.getAttribute("data-idx");
 
@@ -193,6 +200,9 @@ function binData() {
 
       // 6. 화면 출력 함수 호출
       binData();
+
+      // 7. 수정 선택 박스 업데이트 하기
+      updateItemList();
     }; /////////////click
   }); /////////////////// forEach
 } /////////////// binData
@@ -228,7 +238,7 @@ mFn.qs("#sbtn").onclick = () => {
     // 순번은 배열 객체 idx 값중 최대값을 구하여 1 더한다
     // apply(보낼객체,배열) -> 보낼 객체가 여기서는 null
 
-    idx: Math.max.apply(null,localData.map(v=>v.idx))+ 1,
+    idx: Math.max.apply(null,localData.map(v=>v.idx)) + 1,
     tit: mFn.qs("#tit").value,
     cont: mFn.qs("#cont").value,
   });
@@ -238,30 +248,80 @@ mFn.qs("#sbtn").onclick = () => {
 
   // 4. 화면 출력 함수 호출하기
   binData();
+
+  // 5. 기존 입력 데이터 지워주기
+  mFn.qs("#tit").value = "";
+  mFn.qs("#cont").value = "";
+
+  // 6. 수정 선택 박스 업데이트 하기
+  updateItemList();
+
 }; ///// click 함수
 
 // CRUD 쿠르드!!
 // Create(만들기) / Read(읽기) / Update(수정) / Delete(삭제) 
 ///////////////////////// 수정 기능 구현하기 ///////////////////////////////
 
+
+
+// 대상: 수정선택박스 - #sel
+const selBox = mFn.qs("#sel");
+
 // 수정 항목 선택 박스 함수 호출하기
 updateItemList();
 
 
-// 수정할 항목 업데이트 함수 //////////
+// 수정 선택 박스 선택 변경시 이벤트  설정하기
+mFn.addEvt(selBox, "change", (e)=>{
+
+  // 1. 옵션값 읽어오기
+  let optval = e.target.value;
+  console.log("선택값:",optval);
+  // 2. 선택항목 아닌 경우 걸러내기
+  if(optval == "opt"){
+    alert("수정할 항목을 선택하세요");
+    return; //// 여기서 나감
+  } ////// if
+  // 3. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+  console.log("수정", localData);
+
+  // 4. 배열 데이터에서 읽어온 옵션값 idx와 비교하여 데이터 선택하기
+  // 배열.find(v=>{if(조건){return true}})
+
+  let selRec = localData.find(v=>{
+    if(v.idx == optval) return true;
+    // 선택 idx와 순회하는 배열 idx와 일치할 경우 이것을 저장하는 시그널은 return true다
+  });
+  console.log("선택된 데이터:",selRec);
+
+
+  
+
+
+
+
+}); ///////////// change
+
+/////////////////////////////////////
+// 수정할 항목 업데이트 함수 ////////
+/////////////////////////////////////
+
 function updateItemList(){
+    
+  // 대상: 수정선택박스 - #sel -> selBox 변수
 
-  // 대상 : 수정 선택 박스 - #sel
-  const selBox = mFn.qs("#sel");
+    // 데이터의 idx를 순회하며 option만들기
+    const localData = 
+    JSON.parse(localStorage.getItem("minfo"));
 
-  // 데이터의 idx를 순회하며 option 만들기
-  const localDta = JSON.parse(localStorage.getItem("minfo"));
-  selBox.innerHTML = localDta.map(
-    v=>`
-      <option value="${v.idx}">${v.idx}</option>
-  `).join('');
+    selBox.innerHTML =
+    `<option value="opt">수정항목선택</option>` + 
+    localData.map(
+        v=>`
+            <option value="${v.idx}">
+                ${v.idx}</option>
+        `).join('');
 
 
-
-
-} /////////////////////// updateItemList
+} //////////// updateItemList 함수 ///////////
