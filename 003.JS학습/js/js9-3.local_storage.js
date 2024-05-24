@@ -277,11 +277,17 @@ mFn.addEvt(selBox, "change", (e)=>{
   // 1. 옵션값 읽어오기
   let optval = e.target.value;
   console.log("선택값:",optval);
+
   // 2. 선택항목 아닌 경우 걸러내기
   if(optval == "opt"){
     alert("수정할 항목을 선택하세요");
+    // 입력창 초기화
+    mFn.qs("#tit2").value = "";
+    mFn.qs("#cont2").value = "";
     return; //// 여기서 나감
   } ////// if
+
+
   // 3. 로컬쓰 데이터 읽어와서 배열로 변환
   const localData = JSON.parse(localStorage.getItem("minfo"));
   console.log("수정", localData);
@@ -295,13 +301,69 @@ mFn.addEvt(selBox, "change", (e)=>{
   });
   console.log("선택된 데이터:",selRec);
 
-
+  // 5. 선택 데이터로 수정창에 기존 데이터 넣기
+  mFn.qs("#tit2").value = selRec.tit;
+  mFn.qs("#cont2").value = selRec.cont;
   
 
-
-
-
 }); ///////////// change
+
+// 수정 버튼 클릭시 이벤트 설정하기
+mFn.qs("#mobtn").onclick = ()=>{
+
+  // 입력값 비었으면 돌려보내기
+  // trim() 앞뒤공백 제거 메서드
+  if(mFn.qs("#tit2").value.trim() == "" || mFn.qs("#cont2").value.trim() == ""){
+    alert("제목과 내용 입력은 필수입니다");
+    return;
+  }; ////////// if
+
+  // 1. 선택박스 선택값 읽어오기
+  let optval = selBox.value;
+  console.log("수정버튼",optval);
+
+  // 2. 선택항목 아닌 경우 걸러내기
+  if(optval == "opt"){
+    alert("수정할 항목을 선택하세요");
+    // 입력창 초기화
+    mFn.qs("#tit2").value = "";
+    mFn.qs("#cont2").value = "";
+    return; //// 여기서 나감
+  } ////// if
+
+  // 3. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+  console.log("수정", localData);
+
+  // 4. 배열 데이터에서 읽어온 옵션값 idx와 비교하여 데이터 선택하기
+  // 배열.find(v=>{if(조건){변경코드; true}}) 
+  localData.find((v)=>{
+    console.log("수정", v.idx);
+    if(v.idx == optval){
+      v.tit = mFn.qs("#tit2").value;
+      v.cont = mFn.qs("#cont2").value;
+      // 변수에 find() 할당시 저장하거나 여기서 순회를 끝낸다는 의미임
+      return true;
+    } 
+  }); /////////////// find
+ 
+  console.log("변경후 배열", localData);
+
+  /// 5. 변경 된 배열 로컬쓰에 저장하기
+  localStorage.setItem("minfo", JSON.stringify(localData));
+
+  // 6. 데이터 바인딩 함수 호출
+  binData();
+
+ // 7. 선택값 초기화
+ selBox.value = "opt";
+
+ // 8. 입력창 초기화
+ mFn.qs("#tit2").value = "";
+ mFn.qs("#cont2").value = "";
+
+}; ////////////////// click /////////////
+
 
 /////////////////////////////////////
 // 수정할 항목 업데이트 함수 ////////
