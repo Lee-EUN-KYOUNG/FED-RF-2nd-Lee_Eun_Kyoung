@@ -4,11 +4,27 @@ export default function Gallery() {
   /// 스와이퍼 인스턴스 생성 함수
   const setSwiper = () => {
     var swiper = new Swiper(".mySwiper", {
+        // 한 화면당 슬라이드 수 (아래 breakpoint로 설정함)
       slidesPerView: 1,
       spaceBetween: 10,
+      /* 무한 넘기기 */
+      loop: true,
+      /* 자동 넘기기 */
+      autoplay: {
+        // 사이 간격
+        delay: 2500,
+        // 상호 작용 죽이기 속성 없앰
+        disableOnInteraction: false,
+      },
+      /* 하단 블릿표시 */
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
+      },
+      /* 양쪽 이동 버튼 */
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
       /* 가로 사이즈별 스와이퍼 설정 변경 */
       breakpoints: {
@@ -76,6 +92,8 @@ export default function Gallery() {
                 <img src="images/beauty/cont1-1b.jpg" alt="보그갤러리" />
               </div>
             </div>
+            <div className="swiper-button-next"></div>
+            <div className="swiper-button-prev"></div>
             <div className="swiper-pagination"></div>
           </div>
         </section>
