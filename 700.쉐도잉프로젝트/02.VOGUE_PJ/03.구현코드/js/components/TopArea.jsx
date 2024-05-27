@@ -1,5 +1,6 @@
 // 상단영역 컴포넌트
 
+
 // 상단영역 서브 컴포넌트
 export default function TopArea({ changeMenu }) {
   ///changeNenu는 - 부모의 setMenu 상태 관리 메서드

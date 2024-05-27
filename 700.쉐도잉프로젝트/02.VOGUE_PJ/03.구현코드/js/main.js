@@ -20,7 +20,15 @@ function Layout() {
   // [1] 메뉴 변경 상태 변수
   const [menu, setMenu] = React.useState("home");
 
+  // 화면 랜더링 직전에 CSS 로딩 변경하기
+  React.useLayoutEffect(() => {
 
+    // menu 상태 변수에 의존시킨다
+    // 메인 CSS 대상 요소 - #main-css
+    // menu값이 "home"인 경우 main.css 로딩하고 기타 메뉴인 경우 items.css를 로딩한다
+    document.querySelector("#main-css").href=
+    menu=="home"? "./css/main.css" : "./css/items.css";
+  }),[menu];
 
 
 
