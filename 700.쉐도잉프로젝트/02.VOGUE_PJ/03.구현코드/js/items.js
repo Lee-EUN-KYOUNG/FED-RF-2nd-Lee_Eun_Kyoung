@@ -3,7 +3,7 @@
 // 상단영역 불러오기
 import TopArea from "./components/TopArea";
 
-// 메인영역 불러오기
+// 아이템 영역 불러오기
 import ItemsArea from "./components/ItemsArea";
 
 // 하단 영역 불러오기
