@@ -18,7 +18,7 @@ function Layout() {
 
   /// 상태 관리 변수 설정 구역
   // [1] 메뉴 변경 상태 변수
-  const [menu, setMenu] = React.useState("people");
+  const [menu, setMenu] = React.useState("home");
 
 
 
