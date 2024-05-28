@@ -12,8 +12,11 @@ import ItemsArea from "./components/ItemsArea";
 // 하단 영역 불러오기
 import FooterArea from "./components/FooterArea";
 
-// 갤러리 페이지
+// 갤러리 페이지 불러오기
 import Gallery from "./components/Gallery";
+
+// 로그인 페이지 불러오기
+import Login from "./components/Login";
 
 // 메인 페이지 전체 레이아웃 로딩 컴포넌트
 function Layout() {
@@ -35,6 +38,8 @@ function Layout() {
     ? "./css/main.css"
     :menu=="gallery"
     ? "./css/gallery.css"
+    :menu=="login"
+    ? "./css/login.css"
     : "./css/items.css";
   }),[menu];
 
@@ -51,6 +56,8 @@ function Layout() {
       ?<MainArea />
       :menu=="gallery"
       ?<Gallery />
+      :menu=="login"
+      ?<Login />
       :<ItemsArea catName={menu}/>
     }
       {/* 3. 하단 영역 컴포넌트 */}
