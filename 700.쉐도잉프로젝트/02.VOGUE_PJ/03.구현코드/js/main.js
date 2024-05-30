@@ -67,7 +67,7 @@ function Layout() {
       :menu=="login"
       ?<Login />
       :menu=="member"
-      ?<Member />
+      ?<Member changeMenu={setMenu} />
       :<ItemsArea catName={menu}/>
     }
       {/* 3. 하단 영역 컴포넌트 */}

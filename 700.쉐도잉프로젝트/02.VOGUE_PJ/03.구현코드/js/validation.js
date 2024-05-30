@@ -1,7 +1,8 @@
 // 회원가입 유효성 검사 JS
 
-export default function validateFn() {
-  console.log("검사");
+export default function validateFn(changeMenu) {
+  // changeMenu - 상태 변수 메서드 setMenu 전달
+  console.log("검사",changeMenu);
 
   /********************************************** 
     [ 사용자 입력폼 유효성 검사 ]
@@ -49,7 +50,7 @@ form.logF input[type=password]`;
 
     // 공백 제거 후 입력창에 시켜주기
     $(this).val(cv);
-    console.log("현재아이디", cid, "\n값:", cv);
+    // console.log("현재아이디", cid, "\n값:", cv);
 
     /************************************* 
         3. 빈값 여부 검사하기 (필수입력항목)
@@ -365,18 +366,21 @@ form.logF input[type=password]`;
     // 원래는 POST방식으로 DB에 회원가입정보를
     // 전송하여 입력후 DB처리완료시 성공메시지나
     // 로그인 페이지로 넘겨준다!
+    // 개별 페이지가 아닌 리액트 SPA 방식은 일반적인 페이지 이동이 불가
+    // => 리액트 페이지 변경에 사용하는 상태 변수를 업데이트하여 페이지 이동해야됨
+    
+    
+    // 리액트 상태 변수 변경시 관련 컴포넌트 모두 업데이트
+    changeMenu("login");
 
-    // 로그인 페이지로 리디렉션!
-    // location.href = 'login.html';
-
-    // 민감한 입력 데이터 페이지가 다시 돌아와서
-    // 보이면 안되기 때문에 히스토리를 지우는
-    // replace()로 이동한다!
-    //location.replace("login.html");
   } //////// if : 통과시 ///////////
+
+
   else {
     ///// 불통과시 //////
     alert("입력을 수정하세요~!");
+
+
   } //////// else : 불통과시 //////
 
 
