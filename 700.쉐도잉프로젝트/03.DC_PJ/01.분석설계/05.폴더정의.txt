@@ -1,0 +1,37 @@
+[모듈 폴더 구성 정의] : components 폴더 하위
+
+1. layout : 레이아웃 컴포넌트 (영역별 레이아웃)
+    (0) Layout
+    (1) TopArea
+    (2) MainArea
+    (3) FootArea
+
+2. pages : 메인 영역에 들어갈 메인 컴포넌트
+    (1) Main - 첫 페이지
+    (2) News - 뉴스 페이지
+    (3) Board - 게시판 페이지
+    ...
+
+3. models : 페이지 컴포넌트의 내부 부분 컴포넌트
+
+4. func : 기능 구현 JS 파일
+
+5. data : 데이터 객체 파일
+
+6. plugin : 플러그인 모듈 컴포넌트 (스와이퍼 등)
+
+[기타 폴더 구성 정의]
+
+1. CSS : 스타일시트 파일
+
+2. static : 정적 구성 파일 (웹폰트 파일 등)
+
+
+[컴포넌트 호출 관계]
+
+1. MainComponent 
+-> 2. Layout 
+-> 3. (TopArea, MainArea, FootArea) 
+-> 4. 페이지 컴포넌트가 각각 자신 요소인 서브 컴포넌트를 models 폴더 등에서 호출하여 사용함
+
+
