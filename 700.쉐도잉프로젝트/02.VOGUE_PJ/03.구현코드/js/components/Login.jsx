@@ -1,6 +1,15 @@
 // 보그 JS 로그인 컴포넌트
 
+// 유효성 검사 함수 불러오기
+import validateLogin from "../valid_login.js";
+
+
 export default function Login() {
+
+  // 페이지 랜더링 후 실행구역 ///
+  React.useEffect(()=>validateLogin(),[]);
+
+
   // 코드 리턴 구역
   return (
     <div id="main-area">
