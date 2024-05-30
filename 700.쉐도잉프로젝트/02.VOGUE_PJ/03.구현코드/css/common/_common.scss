@@ -237,22 +237,24 @@
   /* 최소높이 : 컨텐츠가 작을 경우대비 */
   min-height: 600px;
 }
+
 /****************** 3.하단영역 ******************/
-// 하단 영역
+// 하단속박스
 .footer-area {
   /* 최소높이 */
   min-height: 285px;
   background-color: #000;
   padding: 70px;
-  // 박스 크기 유지
-  block-size: border-box;
+  // 박스크기유지
+  box-sizing: border-box;
   /* 글씨체 공통 */
   font-family: "Roboto", nbg;
-  color: #fff;
+
+  // 3-1. 하단로고
   .blogo {
     text-align: center;
   }
-  // 회사 주소
+  // 3-2. 회사주소
   .addr {
     color: #747474;
     text-align: center;
@@ -261,6 +263,7 @@
     font-style: normal;
     margin: 20px 0 10px;
   }
+  // 3-3. 하단링크
   .blink {
     /* 플렉스박스 */
     display: flex;
@@ -270,17 +273,20 @@
     flex-wrap: wrap;
     /* 사이간격 gap: 위아래 양쪽 */
     gap: 0 12px;
-    // 하위 a 요소
+
+    // 하위 a요소
     a {
       color: #747474;
       font-size: 13px;
     }
-    /* 마지막 li a만 볼드 */
+
+    // 마지막li a만 두꺼운글자
     li:last-child a {
       font-weight: bold;
     }
   }
 }
+
 /* 위로가기 버튼 */
 .tbtn {
   position: fixed;
@@ -298,11 +304,13 @@
   opacity: 0; /* 처음에 투명 */
   /* 트랜지션 - bottom엔 적용되면 안되므로 별도지정함 */
   transition: background-color 0.3s, opacity 0.3s;
-  // 클래스 on 추가시 디자인 변경
+
+  // 클래스 on추가시 디자인변경
   &.on {
     opacity: 1;
     bottom: 0;
   }
+
   // 마우스 오버시 디자인
   &:hover {
     background-color: red;
