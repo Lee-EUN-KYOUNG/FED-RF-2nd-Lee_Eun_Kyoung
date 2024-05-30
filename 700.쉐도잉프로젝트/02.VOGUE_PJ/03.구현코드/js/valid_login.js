@@ -1,5 +1,6 @@
 // 로그인 페이지 유효성 검사 JS
 
+
 export default function validateLogin(changeMenu) {
   console.log("로그인 검사");
 
