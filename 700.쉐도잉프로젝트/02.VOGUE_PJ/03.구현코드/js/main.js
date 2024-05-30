@@ -49,11 +49,16 @@ function Layout() {
     :menu=="member"
     ? "./css/member.css"
     : "./css/items.css";
+
+    // 페이지 최상단 이동 코드
+    window.scrollTo(0,0);
+
   }),[menu];
 
 
 
-  /// 코드 리턴 구역
+
+  ////////////////////// 코드 리턴 구역
   return (
     <React.Fragment>
       {/* 1. 상단 영역 컴포넌트 */}
