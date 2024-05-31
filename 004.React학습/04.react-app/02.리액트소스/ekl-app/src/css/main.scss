@@ -1,5 +1,9 @@
 // 메인 페이지 css 
 
+// 공통 초기화 셋팅
+@import "./common/reset";
+
+
 // 사이즈 변수 불러오기
 // 확장자 생략 가능
 @import "./variables/size-set";
@@ -10,8 +14,85 @@
 //
 @import "./variables/bg-set";
 
+
+// 배경 설정 믹스인
+@mixin bgSet($imgSrc){
+    background-image: url($imgSrc);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+
+} ///////////// bgSet 믹스인
+
+
+// body 배경 넣기
+body{
+
+height: 100vh;
+//믹스인 호출
+@include bgSet($bigbg);
+
+}
+
+//작은 박스 셋팅
 h1{
     width: $box-wz;
     height: $box-hz;
     border: 3px dotted $bd-color1;
+    
+    font-size: 40px;
+    line-height: $box-hz;
+    text-align: center;
+
+
+
+    // 믹스인 호출
+    @include bgSet($sunjae);
+
+    // 하위 b 요소 - 앞글자
+    b{
+        color: #fff;
+        -webkit-text-stroke: 1px #000;
+        
+    }
+    // 하위 span - 뒷글자
+    span{
+        text-decoration: overline;
+        text-decoration-style: wavy;
+        font-size: 20px;
+        color: #fff;
+        -webkit-text-stroke: 1px #000;
+        transition: .3s .4s;
+    }
+
+
+    // 원본 트랜지션
+    transition: .4s;
+
+    // 마우스 오버시
+    &:hover{
+        translate: 200px 50px;
+        scale: 1.5;
+        // h1 오버시 하위 span 요소
+        span{
+            color: hotpink;
+            scale: 2;
+
+            // 트랜스폼 적용하려면 인라인은 안됨
+            display: inline-block;
+            translate: 500px 0;
+    
+        }
+    }
+
+    *{
+        opacity: 0;
+    }
+    // 한번에 하위 모든 요소 투명도
+    &:hover *{
+        opacity: 1;
+    }
 }
+
+// 
