@@ -1,0 +1,17 @@
+// 메인 페이지 css 
+
+// 사이즈 변수 불러오기
+// 확장자 생략 가능
+@import "./variables/size-set";
+
+// 컬러 변수 불러오기
+@import "./variables/color-set";
+
+//
+@import "./variables/bg-set";
+
+h1{
+    width: $box-wz;
+    height: $box-hz;
+    border: 3px dotted $bd-color1;
+}

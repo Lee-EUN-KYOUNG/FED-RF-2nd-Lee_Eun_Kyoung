@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// 사스(sass) 패키지 설치했다면 바로 사스 사용 가능 - 확장자 생략 가능하나 여기에서는 써야함
+import "./css/main.scss";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root'));
 root.render(
   <>
-  <App/>
+  <h1><b>Hello,</b><span>world!</span></h1>
   </>
 
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
