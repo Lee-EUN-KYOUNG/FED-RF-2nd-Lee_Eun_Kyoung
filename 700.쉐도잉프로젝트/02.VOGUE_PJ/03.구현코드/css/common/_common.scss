@@ -9,7 +9,9 @@
   // 박스그림자가 위로 올라오게함
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-  ////// 상단영역 겉박스에 클래스 on줄경우 슬림메뉴////
+  /****************************************** 
+    상단영역 겉박스에 클래스 on줄경우 슬림메뉴
+  ******************************************/
   &.on {
     position: fixed;
     top: 0;
@@ -62,7 +64,7 @@
     }
   }
 }
-//상단영역 속박스
+// 상단영역 속박스
 .top-area {
   /* 최소높이 */
   min-height: 206px;
@@ -97,7 +99,7 @@
     // a요소 마우스 오버시
     &:hover {
       opacity: 0.8;
-      color: red;
+      color: hotpink;
     }
     /* 트위터 크기조정 */
     &.fi-twitter {
@@ -139,15 +141,15 @@
           color: #747474;
         }
         /* 사이드메뉴 상위메뉴 첫번째li 사이구분선 */
-        // &는 선택자를 명확히 구분할 때 사용한다
+        // &는 선택자를 명확히 구분할때 사용한다!
         &:first-child {
           border-right: 1px solid #e5e5e5;
-          // 직계 a요소만 커서 글자용 표시
+          // 직계 a요소만 오버시 커서글자용표시
           > a {
             cursor: text;
           }
         }
-        // 사이드 메뉴 서브 박스
+        // 사이드 메뉴 서브박스
         .smsub {
           position: absolute;
           border: 1px solid #e5e5e5;
@@ -158,21 +160,22 @@
           opacity: 0;
           /* 트랜지션 */
           transition: 0.5s;
-          // a 요소 디자인
+
+          // a요소 디자인
           a {
             display: block;
             padding: 7px 10px;
             padding-right: 19px;
             background-color: #fff;
             color: #747474;
-            // 서브 a에 마우스 오버시
+            // 서브a에 마우스 오버시
             &:hover {
-              background-color: peachpuff;
+              background-color: pink;
               color: #333;
             }
           }
         }
-        // 상위 li에 마우스 오버시 서브 메뉴 보이기
+        // 상위li에 마우스 오버시 서브메뉴 보이기
         &:hover .smsub {
           opacity: 1;
           height: auto;
@@ -182,7 +185,6 @@
   }
 }
 // 1-2.로고박스
-/* 1-2.로고박스 */
 .logo {
   height: 104px;
   margin-bottom: 10px;
@@ -210,24 +212,25 @@
         부모요소인 flex박스에서 gap속성으로 준다! */
       font-family: "Roboto Condensed", sans-serif;
       line-height: 40px;
-      // 마지막 li 돋보기 두꺼운 글자 적용
+
+      // 마지막 li돋보기 두꺼운 글자적용
       &:last-child i {
         font-weight: bold;
         cursor: pointer;
-        //  오버시
+        // i에 오버시
         &:hover {
           color: red;
         }
       }
-      /* GNB a요소 */
-      a {
-        /* 트랜지션 */
-        transition: color 0.2s linear;
-        // 오버시
-        &:hover {
-          color: red;
-        }
-      }
+    }
+  }
+  /* GNB a요소 */
+  a {
+    /* 트랜지션 */
+    transition: color 0.2s linear;
+    // a에 오버시
+    &:hover {
+      color: red;
     }
   }
 }
