@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import {menu} from "../data/gnb";
 
 
+
 // 상단 영역 CSS 불러오기
 import "../../css/top_area.scss";
-
+import Logo from "../modules/Logo";
 
 
 export default function TopArea() {
@@ -23,7 +24,7 @@ export default function TopArea() {
           <ul>
             {/* 1. 로고 컴포넌트 */}
             <li>
-              
+              <Logo logoStyle="top"/>
             </li>
             {/* 2. GNB메뉴 데이터 배열로 만들기 */}
             {menu.map((v,i)=>
