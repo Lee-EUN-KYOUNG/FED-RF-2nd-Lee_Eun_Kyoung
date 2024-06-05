@@ -48,7 +48,7 @@
 
                 (2) 인스턴스를 열어서 전송준비를 한다
                 -> open(방식,요청URL,아이디,비번,비동기옵션)
-                -> 핵심: open(방식,요소URL)
+                -> 핵심: open(방식,요청URL)
                     1) 방식: GET/POST -> GET방식을 더 선호함
                         이유는 가볍고 빠르게 처리함
                         POST방식은 민감한 데이터 처리시 사용!
@@ -82,6 +82,7 @@
                         1) responseText : 데이터를 문자형식 받기
                         2) responseXML : 데이터를 XML형식 받기
                         3) responseURL : 데이터 전송 URL 받기
+                        4) 제이슨 데이터일 경우 : response로 받은 후 JSON.parse로 변환
 
                 (4) 오픈 셋팅된 요청객체를 전송한다!
                     인스턴스변수.send()
@@ -153,7 +154,7 @@
           function(성공){
             // 시간이 걸리는 코드
             setTimeout(()=>{
-              성공("오마이갓김치!!!");
+              성공("오마이갓!!!");
             },3000);
           });
 
@@ -162,9 +163,78 @@
             화면뿌려("와우!~"+값);
             화면뿌려(`<img src="https://ojsfile.ohmynews.com/STD_IMG_FILE/2014/0103/IE001663873_STD.jpg" style="height:70vh" alt="약속">`);
           }); ///// then 메서드 /////
+          
+          // 샘플 제이슨 (사이트제공)
+          // https://jsonplaceholder.typicode.com/comments
 
         // 3. 파일을 전송 받은 후 실행하는 약속객체 생성하기
         
+          const 파일약속 = new Promise((성공함수,실패함수)=>{
+
+            // 1. XMLTttpRequest 객체 인스턴스 만들기
+            const myAjax = new XMLHttpRequest();
+
+            // 2. 비동기 파일 요소 열기
+            // 전송 기능 메모리 생성
+            myAjax.open("GET", "https://jsonplaceholder.typicode.com/comments");
+
+            // 3. 결과를 리턴 받는 onload 이벤트 함수 구역 만들기
+            myAjax.onload = function() {
+
+              //console.log("전송결과:", myAjax.status, myAjax.response);
+              
+              // 성공시 처리하기
+              if(myAjax.status == 200){
+                // 프라미스 성공후 then 메서드 실행은 성공 함수 호출로 함
+                성공함수(myAjax.response);
+
+
+              }///// if
+
+
+              /// 실패시 처리하기
+              else{
+                실패함수(myAjax.status);
+
+              } ////////// else
+
+
+            }; /////////// onload 함수 //////////////////////
+
+            // 4. 비동기 요청보내기 : send()
+            myAjax.send();
+
+
+          }); //////////////promises////////////
+
+
+        // 파일 약속 실행 후 결과 then 메서드 받기
+        // then(성공시함수, 실패시함수)
+        // response로 보내준 제이슨은 문자형이므로 JSON.parse()로 변환해준다
+
+        파일약속.then(
+          // 성공시
+          (v)=>{
+            let res = JSON.parse(v);
+            console.log("성공",res);
+            화면뿌려(`
+            <h2>220번 전송 데이터 찍기</h2>
+            <ol>
+              <li>이름 : ${res[220].name}</li>
+              <li>이메일 : ${res[220].email}</li>
+              <li>소개 : ${res[220].body}</li>
+            </ol>
+            `);
+            },
+
+            // 실패시
+            (v)=>{
+              console.log("실패",v);
+            }
+            );
+
+
+
       }); /////////////// load //////////////
     </script>
     <style>
