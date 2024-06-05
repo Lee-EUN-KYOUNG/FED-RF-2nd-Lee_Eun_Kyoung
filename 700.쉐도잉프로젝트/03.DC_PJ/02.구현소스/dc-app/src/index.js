@@ -72,8 +72,7 @@ export default function MainComponent() {
           <Route path="games" element={<Games />} />
           <Route path="news" element={<News />} />
           <Route path="video" element={<Video />} />
-          <Route path="board" element={<Board />} />
-                                                                                                                                                                                                                                       
+          <Route path="board" element={<Board />} />                                                     
         </Route>
         {/* Layout 루트 Route로 하위 Route를 감싼다! */}
       </Routes>
