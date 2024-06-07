@@ -7,10 +7,8 @@ export default function Main(){
     //// 코드 리턴구역 //////////////
     return(
         <>
-           {/* 1. 배너 컴포넌트 */}
-           <Banner catName="THE FLASH"/>
-           {/* 배너 컴포넌트 */}
-           <Banner catName="CHARACTERS"/>
+           {/* 1. 배너 컴포넌트 - "main" 이름 뒤 숫자는 1~3사이 랜덤수 */}
+           <Banner catName={"main"+Math.ceil(Math.random()*3)}/>
         </>
     );
 
