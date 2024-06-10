@@ -5,7 +5,7 @@ export default function Board(){
     //// 코드 리턴구역 //////////////
     return(
         <>
-           <h1>보더페이지</h1>
+           <h1>게시판</h1>
         </>
     );
 

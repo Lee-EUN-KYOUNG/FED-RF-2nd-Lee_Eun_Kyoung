@@ -9,6 +9,7 @@ export default function Series(){
         <>
            {/* 배너 컴포넌트 */}
            <Banner catName="SERIES"/>
+           
         </>
     );
 
