@@ -9,15 +9,23 @@ import scrollShowFn from "../scroll_show";
 
 export default function MainArea() {
 
+  /// 컴포넌트 화면 랜더링 직전 로드 구역 ///
+  // 부드러운 스크롤 호출
+  React.useLayoutEffect(()=>{
   // 스크롤 등장 대상에 클래스 넣기 : .hide-el
-  $();
+  // 제이쿼리용 forEach메서드 : each((idx,ele)=>{코드})
+  // idx - 순번 , ele - 요소 자신
+  $(".main-area>section").each((idx,ele)=>{
+
+    // 첫번째를 제외한 나머지 모두 클래스 넣기
+    if (idx != 0) $(ele).addClass("hide-el");
+
+  }); /////////// each
 
   // 스크롤 등장 함수 호출
   scrollShowFn();
 
-  /// 컴포넌트 화면 랜더링 직전 로드 구역 ///
-  // 부드러운 스크롤 호출
-  React.useLayoutEffect(()=>{
+
 
     // 부드러운 스크롤은 "home"에서만 적용함
     // "home"이 아닌 경우 모두 이벤트 해제함 - removeEventListener 사용!
@@ -38,7 +46,7 @@ export default function MainArea() {
      // window.scrollTo(0, 0);
 
       // 제이쿼리 애니메이션 상단 이동
-      $("html,body").animate({screenTop:"0"},500);
+      $("html,body").animate({ scrollTop: "0" }, 500);
 
     };
 
@@ -74,12 +82,17 @@ export default function MainArea() {
     return(()=>{
 
       console.log("메인영역종료");
-
+    // 부드러운 스크롤 초기값 0
+    setPos(0);
     // 부드러운 스크롤 이벤트 삭제
     document.removeEventListener("wheel", scrolled, { passive: false });
     // 슬림 스크롤 이벤트 삭제
     window.removeEventListener("scroll", chkSlim);
-    }); ///// 소멸시 리런 함수
+    // 클래스가 들어가있을수 있으므로 삭제 코드 실행
+    topMenu.classList.remove("on");
+    tbtn.classList.remove("on");
+
+    }); ///// 소멸시 리턴 함수
 
     // 참고로 이벤트를 개별 셋팅한 요소의 이벤트를 지울경우
     // 속성 할당 방식의 이벤트는 빈값을 할댕해서 지우거나 (예: tbtn.onclick = "";)

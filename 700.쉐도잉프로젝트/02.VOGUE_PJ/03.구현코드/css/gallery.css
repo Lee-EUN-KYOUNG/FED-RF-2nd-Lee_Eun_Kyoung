@@ -492,10 +492,13 @@ font-family: 'Roboto Condensed', sans-serif;
   -webkit-user-drag: none;
 }
 
+/* 스와이퍼용 CSS */
 .swiper {
   max-width: 1300px;
   height: 700px;
   margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .swiper-slide {
