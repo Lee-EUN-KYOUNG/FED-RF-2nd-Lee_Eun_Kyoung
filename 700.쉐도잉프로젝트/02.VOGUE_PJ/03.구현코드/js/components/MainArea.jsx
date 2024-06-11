@@ -1,15 +1,107 @@
 // 메인영역 서브 컴포넌트
 
+// 부드러운 스크롤 불러오기
+import { scrolled, setPos } from "../../js/smoothScroll24";
+
+// 등장 액션 스크롤 함수 불러오기
+import scrollShowFn from "../scroll_show";
+
 
 export default function MainArea() {
-  /// 코드 리턴 구역
+
+  // 스크롤 등장 대상에 클래스 넣기 : .hide-el
+  $();
+
+  // 스크롤 등장 함수 호출
+  scrollShowFn();
+
+  /// 컴포넌트 화면 랜더링 직전 로드 구역 ///
+  // 부드러운 스크롤 호출
+  React.useLayoutEffect(()=>{
+
+    // 부드러운 스크롤은 "home"에서만 적용함
+    // "home"이 아닌 경우 모두 이벤트 해제함 - removeEventListener 사용!
+    document.addEventListener("wheel", scrolled, { passive: false });
+
+    // 슬림 적용 대상
+    const topMenu = document.querySelector("#top-area");
+    // 상단 이동 버튼 대상 : .tbtn
+    const tbtn = document.querySelector(".tbtn");
+
+    // 상단 이동 기능
+    tbtn.onclick = (e) => {
+      // 기본 이동 막기
+      e.preventDefault();
+      // 상단 이동하기
+      setPos(0);
+      // 스크롤 위치 이동
+     // window.scrollTo(0, 0);
+
+      // 제이쿼리 애니메이션 상단 이동
+      $("html,body").animate({screenTop:"0"},500);
+
+    };
+
+    // 슬림 메뉴 적용하기 : "home"에서만 적용
+    const chkSlim = () => {
+
+        // 스크롤 위치값 구하기
+        let scTop = window.scrollY;
+        //console.log("슬림적용:", scTop);
+
+        // 슬림 메뉴 적용
+        if (scTop > 200) topMenu.classList.add("on");
+        else topMenu.classList.remove("on");
+
+        // 상단 이동 버튼 적용
+        if (scTop > 300) tbtn.classList.add("on");
+        else tbtn.classList.remove("on");
+    };
+
+    // 스크롤 이벤트 적용하기
+    window.addEventListener("scroll", chkSlim);
+    // 부드러운 스크롤 초기값 0
+    setPos(0);
+   
+      
+
+    console.log("메인영역시작");
+
+    // 컴포넌트 소멸시(unmounting) 리턴 함수 사용 -> 이 구역에서 전역적으로 셋팅된 이벤트 함수를 삭제처리하면 됨
+    // -> window, document, body 이 세가지 경우는 컴포넌트가 소멸해도 그대로 존재하므로
+    // 이벤트를 removeEventListener로 지운다
+    // 리턴함수안에 함수나 함수 구역이 소멸시 실행된다
+    return(()=>{
+
+      console.log("메인영역종료");
+
+    // 부드러운 스크롤 이벤트 삭제
+    document.removeEventListener("wheel", scrolled, { passive: false });
+    // 슬림 스크롤 이벤트 삭제
+    window.removeEventListener("scroll", chkSlim);
+    }); ///// 소멸시 리런 함수
+
+    // 참고로 이벤트를 개별 셋팅한 요소의 이벤트를 지울경우
+    // 속성 할당 방식의 이벤트는 빈값을 할댕해서 지우거나 (예: tbtn.onclick = "";)
+    // 제이쿼리일 경우는 off() 메서드로 삭제한다 (예 : $(".my").off("click");)
+    // 이벤트등록으로 설정한 것은 removeEventListener로 삭제함
+
+
+
+
+  },[]); ///////////////////////////////// useLayoutEffect 구역
+
+
+
+
+  //////////////////////// 코드 리턴 구역
   return (
     <div id="main-area">
       <main className="main-area ibx">
         {/* <!-- 컨텐츠1 --> */}
         <section className="pt1">
           <div className="cbx bgi bg1">
-            <h2>복싱과 맺은 모델 수주의 이야기</h2>
+            <h2>복싱과 인연 맺은 모델 수주의 이야기</h2>
           </div>
         </section>
         {/* <!-- 컨텐츠2 --> */}
