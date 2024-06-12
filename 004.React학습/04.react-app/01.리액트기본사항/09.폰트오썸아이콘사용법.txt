@@ -30,6 +30,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default () => <FontAwesomeIcon icon={faCamera} />;
 
 
-
+[4] 편리한 사용법
+리액트 사용시 
+애니메이션 효과 사용시
+https://docs.fontawesome.com/web/style/animate
+Individual import 버전으로 쓰면됨
 
 
