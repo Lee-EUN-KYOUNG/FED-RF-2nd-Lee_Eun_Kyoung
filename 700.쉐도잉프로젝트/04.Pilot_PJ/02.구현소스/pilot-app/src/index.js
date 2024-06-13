@@ -1,11 +1,21 @@
 import React from 'react';
 import ReactDom, { createRoot } from 'react-dom/client';
+import TopArea from './components/layout/TopArea';
+import MainArea from './components/layout/MainArea';
+import FooterArea from './components/layout/FooterArea';
 
+// 공통 CSS 불러오기
+import "./css/index.scss";
+
+
+//////////////////////////////////////
 function MainComponent(props) {
   return (
-    <div>
-      <h1>파일럿 PJ</h1>
-    </div>
+    <>
+      <TopArea />
+      <MainArea />
+      <FooterArea />
+    </>
   );
 }
 
