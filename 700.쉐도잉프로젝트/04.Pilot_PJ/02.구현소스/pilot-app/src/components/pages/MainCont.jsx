@@ -8,14 +8,10 @@ import FashionIntro from "../modules/FashionIntro";
 // 자동 휠 함수 불러오기
 import * as wFn from "../../func/auto_wheel";
 
-
-
 ////////////////////////////
 function MainCont(props) {
-
   //// 화면 랜더링 실행 구역
-  useEffect(()=>{
-
+  useEffect(() => {
     //console.log("useEffect");
     // document / body/ window 이 세가지는 이벤트를 등록하고 삭제할수 있도록
     // 여기서 이벤트를 걸어준다
@@ -24,26 +20,20 @@ function MainCont(props) {
     // 메뉴+인디케이터 이벤트 기능 설정 함수 호출
     wFn.evtFn();
 
+    // 등장 요소 CSS 초기화 함수 호출
+    wFn.initSet();
+
     /// 컴포넌트 소멸시 이벤트 삭제하기
-    return(()=>{
-
+    return () => {
       console.log("메인소멸");
-
-    });
-
-  },[]);
-
+    };
+  }, []);
 
   //useLayoutEffect(()=>{
-//
+  //
   //  console.log("useLayoutEffect");
-//
+  //
   //},[]);
-
-
-
-
-
 
   ///// 코드 리턴 구역
   return (
@@ -58,14 +48,16 @@ function MainCont(props) {
       </section>
       {/* 2. 남성패션 영역 */}
       <section className="page">
-        <FashionIntro catName={"men"} subCat={"etc"} opt={false}/>
+        <FashionIntro catName="men" subCat="etc" opt={false} />
       </section>
       {/* 3. 여성패션 영역 */}
       <section className="page">
-      <FashionIntro catName={"women"} subCat={"etc"} opt={true}/>
+        <FashionIntro catName="women" subCat="etc" opt={true} />
       </section>
       {/* 4. 스타일패션 영역 */}
-      <section className="page"></section>
+      <section className="page">
+        <FashionIntro catName="style" subCat="etc" opt={false} />
+      </section>
       {/* 메인에만 나오는 사이드 인디케이터 */}
       <nav className="indic">
         <ul>
