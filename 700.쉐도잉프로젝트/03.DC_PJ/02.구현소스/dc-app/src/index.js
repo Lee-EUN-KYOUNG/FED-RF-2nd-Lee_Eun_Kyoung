@@ -11,6 +11,7 @@ import Games from "./components/pages/Games";
 import News from "./components/pages/News";
 import Video from "./components/pages/Video";
 import Board from "./components/pages/Board";
+import CatDetail from "./components/pages/CatDetail";
 
 // 전체 공통 CSS 불러오기
 import "../src/css/index.scss";
@@ -73,6 +74,7 @@ export default function MainComponent() {
           <Route path="news" element={<News />} />
           <Route path="video" element={<Video />} />
           <Route path="board" element={<Board />} />                                                     
+          <Route path="detail" element={<CatDetail />} />                                                     
         </Route>
         {/* Layout 루트 Route로 하위 Route를 감싼다! */}
       </Routes>

@@ -1,6 +1,7 @@
 // 캐릭터 스와이퍼 플러그인 컴포넌트
 
 import React from "react";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,6 +18,7 @@ import "./css/swiper_cat.scss";
 // 데이터 불러오기
 import { catListData } from "../data/swiper_cat";
 import { Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 // import required modules
 // 사용할 스와이퍼 모듈을 불러온다
@@ -58,6 +60,15 @@ export function SwiperCat() {
             /* idx 번호가 고유 번호 7이하만 출력하기 - idx가 문자형이므로 비교를 위해 숫자형으로 바꿔야함 */
             Number(v.idx) <= 7 && (
               <SwiperSlide key={i}>
+                <Link
+                to="/detail"
+                /* 여기서 state로 3가지 값을 넘겨준다 */
+                state={{
+                  cname: v.cname, // 캐릭터 이름
+                  cdesc: v.cdesc, // 캐릭터 설명
+                  facts: v.facts, // 캐릭터 상세
+                }}
+                >
                 <section className="sw-inbox2">
                   {/* 캐릭터이미지영역 */}
                   <div className="cat-img2">
@@ -68,6 +79,7 @@ export function SwiperCat() {
                     <h3>{v.cname}</h3>
                   </div>
                 </section>
+                </Link>
               </SwiperSlide>
             )
         )}
