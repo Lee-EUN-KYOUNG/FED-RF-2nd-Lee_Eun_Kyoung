@@ -1,8 +1,12 @@
 /// 배너 모듈 컴포넌트
-import React from "react";
+import React, { useEffect } from "react";
+
+import { dragBanner } from "../../func/drag_banner";
+
 
 /// 배너 모듈 CSS 불러오기
 import "../../css/banner.scss";
+
 
 //////////////////
 function Banner(props) {
@@ -49,6 +53,16 @@ function Banner(props) {
     // 코드리턴
     return hcode;
   }; ///////// makeList 함수 /////////
+
+  // 화면 랜더링 실행 구역
+  useEffect(()=>{
+
+    // 배너 기능 함수 호출
+    dragBanner();
+
+  },[]);
+
+
 
   ///// 코드 리턴
   return (
