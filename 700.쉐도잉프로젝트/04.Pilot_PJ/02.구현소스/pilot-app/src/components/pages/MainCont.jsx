@@ -3,6 +3,9 @@ import React, { useEffect, useLayoutEffect } from "react";
 
 /// 모듈 불러오기
 import Banner from "../modules/Banner";
+import FashionIntro from "../modules/FashionIntro";
+
+// 자동 휠 함수 불러오기
 import * as wFn from "../../func/auto_wheel";
 
 
@@ -54,10 +57,13 @@ function MainCont(props) {
         <Banner />
       </section>
       {/* 2. 남성패션 영역 */}
-      <section className="page">남성패션 영역</section>
-
+      <section className="page">
+        <FashionIntro catName={"men"} subCat={"etc"}/>
+      </section>
       {/* 3. 여성패션 영역 */}
-      <section className="page">여성패션 영역</section>
+      <section className="page">
+      <FashionIntro catName={"women"} subCat={"etc"}/>
+      </section>
 
       {/* 4. 스타일패션 영역 */}
       <section className="page">스타일패션 영역</section>
