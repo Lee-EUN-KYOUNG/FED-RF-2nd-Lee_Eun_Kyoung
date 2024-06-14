@@ -58,15 +58,14 @@ function MainCont(props) {
       </section>
       {/* 2. 남성패션 영역 */}
       <section className="page">
-        <FashionIntro catName={"men"} subCat={"etc"}/>
+        <FashionIntro catName={"men"} subCat={"etc"} opt={false}/>
       </section>
       {/* 3. 여성패션 영역 */}
       <section className="page">
-      <FashionIntro catName={"women"} subCat={"etc"}/>
+      <FashionIntro catName={"women"} subCat={"etc"} opt={true}/>
       </section>
-
       {/* 4. 스타일패션 영역 */}
-      <section className="page">스타일패션 영역</section>
+      <section className="page"></section>
       {/* 메인에만 나오는 사이드 인디케이터 */}
       <nav className="indic">
         <ul>

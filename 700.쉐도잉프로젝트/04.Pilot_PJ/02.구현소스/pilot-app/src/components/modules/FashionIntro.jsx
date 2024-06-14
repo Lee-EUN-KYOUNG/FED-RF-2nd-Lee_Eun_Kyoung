@@ -9,16 +9,20 @@ import {fsData} from "../../js/data/fashion_intro";
 
 
 //////////////////
-function FashionIntro({catName, subCat}) {
+function FashionIntro({catName, subCat, opt}) {
 
     // catName : 카테고리명 / subCat : 서브 카테고리명
     // 서브가 아닌 경우 subCat값은 "etc"
+    // opt : 방향 옶션 (역방향은 true 정방향은 false)
+    // -> 역방향은 flex-direction: row-reverse 적용
+
+
     // 선택 데이터 변수 할당
     const selData = fsData[catName];
 
   return (
     <div id={catName} className="fs-page">
-      <ul className="pgc">
+      <ul className="pgc" style={{flexDirection:opt?"row-reverse":"row"}}>
         <li className="imgc">
           <img src={selData.isrc} alt={selData.ialt} />
         </li>
