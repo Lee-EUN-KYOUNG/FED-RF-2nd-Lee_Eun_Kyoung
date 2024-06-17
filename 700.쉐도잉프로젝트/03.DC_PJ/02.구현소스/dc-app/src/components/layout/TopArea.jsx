@@ -4,10 +4,13 @@
 import { Link } from "react-router-dom";
 import { menu } from "../data/gnb";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 // 상단 영역 CSS 불러오기
 import "../../css/top_area.scss";
 import Logo from "../modules/Logo";
+
 
 export default function TopArea() {
   /// 이동함수
@@ -76,6 +79,25 @@ export default function TopArea() {
                 }
               </li>
             ))}
+            {/* 3. 검색, 회원 가입, 로그인 링크 */}
+            <li style={{
+              marginLeft: "auto",
+              marginRight: "25px",
+            }}>
+              {/* 검색 입력 박스 */}
+              <div className="searchingGnb"
+              style={{display:"block"}}>
+                {/* 검색 버튼 돋보기 아이콘 */}
+                <FontAwesomeIcon icon={faSearch}
+                className="schbtnGnb"
+                title="Open search"/>
+                {/* 입력창 */}
+                <input type="text"
+                name="schinGnb"
+                id="schinGnb"
+                placeholder="Filter by Keyword"/>
+              </div>
+            </li>
           </ul>
         </nav>
       </header>
