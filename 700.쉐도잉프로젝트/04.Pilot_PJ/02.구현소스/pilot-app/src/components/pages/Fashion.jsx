@@ -1,13 +1,73 @@
-/// 패션 페이지
-import React from "react";
+/// 패션 페이지 컴포넌트
+
+import React, { useContext, useEffect, useLayoutEffect } from "react";
+
+// 스크롤 JS 불러오기
+import { scrolled, setPos } from "../../func/smoothScroll24.js";
+
+// 컨텍스트 API 불러오기
+import { pCon } from "../modules/pCont";
+
+/// 제이쿼리
+import $ from "jquery";
 
 /// CSS 연결하기
 import "../../css/fashion.scss";
 
-//////
+//////////////////////////////////////////////////
 function Fashion(props) {
+  // 컨텍스트 API사용하기
+  const myCon = useContext(pCon);
 
-  //// 코드리턴 구역
+  ////// 화면 랜더링 실행 구역
+  /// 실제 DOM이 화면 출력전 가상 DOM 에서 태그가 만들어진 후가 useLayoutEffect임
+  // DOM 셋팅이 필요한 코드는 여기서 작성함
+
+  useLayoutEffect(() => {
+    document.addEventListener("wheel", scrolled, { passive: false });
+
+    // 이벤트 설정시 passive:false 설정의 이유는
+    // 기본 설정값은 true이고 이것은 window,document,body
+    // 이 세가지에 preventDefault() 기본작동막기를 할 경우
+    // 이것을 사용할 수 없도록 설정된 값이 treu다!
+    // passive모드를 false로 꺼놔야 window,document,body에 대한 기본 막기가 가능함!(여기서는 스크롤 기능임!)
+
+    // 부드러운 스크롤 위치 초기화
+    setPos(0);
+
+    // 실제 스크롤 위치값 초기화
+    window.scrollTo(0, 0);
+
+    // 스크롤바 생성하기 (x축은 숨김)
+    $("html, body").css({ overflow: "visible", overflowX: "hidden" });
+
+    // 소멸자 구역
+    return () => {
+      // 부드러운 스크롤 해제하기
+      document.addEventListener("wheel", scrolled, { passive: false });
+      // 스크롤바 없애기
+      $("html, body").css({ overflow: "hidden" });
+
+      // 부드러운 스크롤 위치 초기화
+      setPos(0);
+      
+      // 실제 스크롤 위치값 초기화
+      window.scrollTo(0, 0);
+    };
+  }, []);
+
+  /// 화면 랜더링 코드 구역 //////
+  // 화면에 요소가 실제로 출력된 후 DOM 이벤트 설정시 여기서 코딩해야 적용됨
+
+  useEffect(() => {
+    // 로고 클릭시 페이지 이동하기
+    $("#logo a").on("click", (e) => {
+      e.preventDefault();
+      myCon.setPgName("main");
+    });
+  }, []);
+
+  ///////////////////////////////////// 코드리턴 구역
   return (
     <>
       {/* 1. 배너영역 */}
