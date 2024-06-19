@@ -1,5 +1,8 @@
 /////////// 패션 인트로 컴포넌트
-import React from "react";
+import React, { useContext } from "react";
+
+// 컨텍스트 API 불러오기
+import { pCon } from "./pCont";
 
 /// CSS 불러오기
 import "../../css/fashion_intro.scss";
@@ -13,6 +16,10 @@ function FashionIntro({ catName, subCat, opt }) {
   // 서브가 아닌 경우 subCat값은 "etc"
   // opt : 방향 옶션 (역방향은 true 정방향은 false)
   // -> 역방향은 flex-direction: row-reverse 적용
+
+  // 컨텍스트 API 사용하기
+  const myCon = useContext(pCon);
+
 
   // 선택 데이터 변수 할당
   const selData = fsData[catName];
@@ -32,7 +39,10 @@ function FashionIntro({ catName, subCat, opt }) {
           <h2 className={catName == "style" ? "tm" : ""}>
             {/* 데이터에 태그가 있어서 이를 html로 넣으려면? */}
             {/* <a href="#" dangerouslySetInnerHTML={{__html:데이터}}></a> 속성을 사용한다*/}
-            <a href="#">
+            <a href="#" onClick={(e)=>{
+              e.preventDefault();
+              myCon.setPgName("fashion");
+            }}>
               {selData.tit[0][0]}
               <br />
               {selData.tit[0][1]}
