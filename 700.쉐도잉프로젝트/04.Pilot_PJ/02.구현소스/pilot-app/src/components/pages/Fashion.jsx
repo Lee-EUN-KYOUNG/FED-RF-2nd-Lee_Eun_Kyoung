@@ -7,6 +7,7 @@ import { scrolled, setPos } from "../../func/smoothScroll24.js";
 
 // 컨텍스트 API 불러오기
 import { pCon } from "../modules/pCont";
+import { SwiperBan } from "../plugin/SwiperBan";
 
 /// 제이쿼리
 import $ from "jquery";
@@ -14,8 +15,12 @@ import $ from "jquery";
 /// CSS 연결하기
 import "../../css/fashion.scss";
 
+
 //////////////////////////////////////////////////
-function Fashion(props) {
+function Fashion({ subCat }) {
+  // subCat - 서브 카테고리 명
+  // 값 : men, women, style
+
   // 컨텍스트 API사용하기
   const myCon = useContext(pCon);
 
@@ -50,7 +55,7 @@ function Fashion(props) {
 
       // 부드러운 스크롤 위치 초기화
       setPos(0);
-      
+
       // 실제 스크롤 위치값 초기화
       window.scrollTo(0, 0);
     };
@@ -71,7 +76,9 @@ function Fashion(props) {
   return (
     <>
       {/* 1. 배너영역 */}
-      <section id="ban" className="page"></section>
+      <section id="ban" className="page">
+        <SwiperBan cat={subCat} />
+      </section>
       {/* 2. 신상품영역 */}
       <section id="c1" className="cont sc-ani c1"></section>
       {/* 2.5. 상세보기박스 */}

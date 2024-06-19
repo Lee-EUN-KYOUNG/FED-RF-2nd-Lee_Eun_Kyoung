@@ -12,7 +12,7 @@ import { fsData } from "../../js/data/fashion_intro";
 
 //////////////////
 function FashionIntro({ catName, subCat, opt }) {
-  // catName : 카테고리명 / subCat : 서브 카테고리명
+  // catName : 카테고리명(men,women,style) / subCat : 서브 카테고리명
   // 서브가 아닌 경우 subCat값은 "etc"
   // opt : 방향 옶션 (역방향은 true 정방향은 false)
   // -> 역방향은 flex-direction: row-reverse 적용
@@ -41,7 +41,7 @@ function FashionIntro({ catName, subCat, opt }) {
             {/* <a href="#" dangerouslySetInnerHTML={{__html:데이터}}></a> 속성을 사용한다*/}
             <a href="#" onClick={(e)=>{
               e.preventDefault();
-              myCon.setPgName("fashion");
+              myCon.setPgName(catName);
             }}>
               {selData.tit[0][0]}
               <br />
