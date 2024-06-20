@@ -53,6 +53,8 @@ function Searching({ kword }) {
   
   //console.log("newList", newList);
 
+  /// 결과내 재검색 : 데이터 항목중 aligment 값으로 검색함
+
 
   //////////////////////////////// 정렬 기능 추가 하기//////////////////////////////
   //////////////// (1) 오름차순
@@ -124,7 +126,17 @@ function Searching({ kword }) {
                   <li>
                     Heroes
                     {/* 숨긴 체크박스 */}
-                    <input type="checkbox" id="hero" className="chkhdn" />
+                    <input
+                    type="checkbox"
+                    id="hero"
+                    className="chkhdn" 
+                    // 체크 변경시 change 이벤트 발생
+                    onChange={(e)=>{
+
+                      // 체크 박스의 checked 속성은 체크시 true, 미체크시 falese 리턴
+                      console.log(e.target.checked);
+                    }}
+                    />
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="hero" className="chklb"></label>
                   </li>

@@ -27,6 +27,8 @@ function MainComponent(props) {
   // 1. 페이지 변경 상태 변수
   const [pgName, setPgName] = useState("main");
 
+
+
   //// 코드 리턴 구역
   return (
     <pCon.Provider value={{setPgName}}>
