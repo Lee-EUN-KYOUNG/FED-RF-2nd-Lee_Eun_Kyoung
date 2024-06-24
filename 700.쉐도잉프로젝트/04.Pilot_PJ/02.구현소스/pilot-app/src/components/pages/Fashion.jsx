@@ -1,6 +1,6 @@
 /// 패션 페이지 컴포넌트
 
-import React, { useContext, useEffect, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 
 // 스크롤 JS 불러오기
 import { scrolled, setPos } from "../../func/smoothScroll24.js";
@@ -8,13 +8,13 @@ import { scrolled, setPos } from "../../func/smoothScroll24.js";
 // 컨텍스트 API 불러오기
 import { pCon } from "../modules/pCont";
 import { SwiperBan } from "../plugin/SwiperBan";
+import SinSang from "../modules/SinSang";
 
 /// 제이쿼리
 import $ from "jquery";
 
 /// CSS 연결하기
 import "../../css/fashion.scss";
-
 
 //////////////////////////////////////////////////
 function Fashion({ subCat }) {
@@ -38,39 +38,59 @@ function Fashion({ subCat }) {
     // passive모드를 false로 꺼놔야 window,document,body에 대한 기본 막기가 가능함!(여기서는 스크롤 기능임!)
 
     // 부드러운 스크롤 위치 초기화
-    setPos(0);
+    //setPos(0);
 
     // 실제 스크롤 위치값 초기화
     window.scrollTo(0, 0);
 
     // 스크롤바 생성하기 (x축은 숨김)
-    $("html, body").css({ overflow: "visible", overflowX: "hidden" });
+    $("html,body").css({
+      overflow: "visible",
+      overflowX: "hidden",
+    });
 
-    // 소멸자 구역
+    // 소멸자 구역 //////////
     return () => {
       // 부드러운 스크롤 해제하기
-      document.addEventListener("wheel", scrolled, { passive: false });
-      // 스크롤바 없애기
-      $("html, body").css({ overflow: "hidden" });
+      document.removeEventListener("wheel", scrolled, { passive: false });
 
-      // 부드러운 스크롤 위치 초기화
+      // 스크롤바 없애기
+      $("html,body").css({
+        overflow: "hidden",
+      });
+
+      // 부드러운 스크롤 위치초기화
       setPos(0);
 
-      // 실제 스크롤 위치값 초기화
+      // 실제 스크롤위치값 초기화
       window.scrollTo(0, 0);
     };
   }, []);
 
-  /// 화면 랜더링 코드 구역 //////
-  // 화면에 요소가 실제로 출력된 후 DOM 이벤트 설정시 여기서 코딩해야 적용됨
-
+  // (( 화면랜더링 실행구역 : useEffect ))
+  // -> 화면에 요소가 실제로 출력된후 ////
+  // DOM이벤트 설정시 여기서 코딩해야 적용됨!
   useEffect(() => {
     // 로고 클릭시 페이지 이동하기
     $("#logo a").on("click", (e) => {
       e.preventDefault();
       myCon.setPgName("main");
-    });
+    }); ////////// click ////////////
   }, []);
+
+  // 후크 상태변수
+  const [item, setItem] = useState("m1");
+
+  // 신상컴포넌트에서 상세컴포넌트로 값을 전하기 위한
+  // 상태변수를 셋팅하여 함수로 이것을 변경하게 해준다!
+  // 프롭스 펑션다운~!!
+  const chgItem = (v) => {
+    console.log("상품정보:", v);
+    // 상태변수 업데이트
+    setItem(v);
+    // 상세박스 슬라이드 애니로 보이기
+    $(".bgbx").slideDown(400);
+  }; /////////// chgItem 함수 //////
 
   ///////////////////////////////////// 코드리턴 구역
   return (

@@ -27,6 +27,11 @@ function Searching({ kword }) {
 
   /// [2] 정렬 기준 상태 관리 변수
   const [sort, setSort] = useState("asc");
+  // 값: 오름차순 - asc / 내림차순 - desc
+  // [3] 체크박스 체크여부 상태관리변수
+  const [chk, setChk] = useState([true, true, true]);
+  // 배열로 만들고 체크박스 상태를 묶어서 관리함
+  console.log("체크훅배열:", chk);
 
   // 값 : 오름차순 asc , 내림차순 desc
 
@@ -44,6 +49,9 @@ function Searching({ kword }) {
 
     // 전달받은 키워드도 소문자처리
     // 상태 변수인 kw로 대체한다
+    // ((중요!!!)) 상태변수인 kw로 대체한다!!!
+    let key = kw.toLocaleLowerCase();
+    // 문자열이 있는 값만 배열로 재수집!
     if (
       // 1과 2의 조건이 모두 true여야함!
       // 1.검색어 조건 (cname속성)

@@ -57,8 +57,8 @@ export function SwiperBan({ cat }) {
             <video
               src={"./images/sub/" + cat + "/banner/mv.mp4"}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              //   muted
-              loop
+              muted
+              // loop ->루프는 동영상멈춤이벤트체크시 주석
               className={cat + "-vid"}
               //   autoPlay
             />
