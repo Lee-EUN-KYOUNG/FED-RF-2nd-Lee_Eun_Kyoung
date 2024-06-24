@@ -16,21 +16,20 @@ function Searching({ kword }) {
   console.log("kword:", kword);
   console.log("data:", catListData);
 
-  // 키워드에 따라 검색 결과가 달라지므로 
+  // 키워드에 따라 검색 결과가 달라지므로
   // 핵심데이터인 검색어를  상태 관리 변수로 만든다
   // 초기값으로 전달 받은 검색어 변수를 넣어준다
 
-/// 상태 관리 변수
-// kword = 전달 받은 키워드
-/// [1] 검색어 상태 관리 변수
+  /// 상태 관리 변수
+  // kword = 전달 받은 키워드
+  /// [1] 검색어 상태 관리 변수
   const [kw, setKw] = useState(kword);
 
   /// [2] 정렬 기준 상태 관리 변수
-  const [sort,setSort] = useState("asc");
+  const [sort, setSort] = useState("asc");
 
   // 값 : 오름차순 asc , 내림차순 desc
 
-  
   // 검색어가 있는 데이터 필터하기
   // 변수 = 배열.filter(v=>{if(v.속성명.indexOf(검색어)!=-1)return true})
   //  ---> 결과는 검색어가 있는 경우 변수에 모아서 담아준다 (결과값도 배열, 결과가 없어도 빈 배열)
@@ -45,37 +44,54 @@ function Searching({ kword }) {
 
     // 전달받은 키워드도 소문자처리
     // 상태 변수인 kw로 대체한다
-    let key = kw.toLocaleLowerCase();
+    if (
+      // 1과 2의 조건이 모두 true여야함!
+      // 1.검색어 조건 (cname속성)
+      newVal.indexOf(key) !== -1 &&
+      // 2. 체크박스항목 조건 (alignment속성)
+      // 주의: 조건문 내의 삼항연산자는 반드시 소괄호로
+      // 묶어서 논리연산자(&&,||,!)와의 충돌을 막아줘야함!
+      // OR문의 결과가 false이려면 모두 false여야함!
+      // 체크박스 모두 불체크시 false로 처리!
+      ((chk[0] ? v.alignment == "hero" : false) ||
+        (chk[1] ? v.alignment == "comp" : false) ||
+        (chk[2] ? v.alignment == "villain" : false))
+      //true && (true||false||false)
+      // -> &&문은 모두 true여야 true
+      // -> ||문은 하나만 true면 true
+    )
+      return true;
+    // 문자열.indexOf(문자) 문자열위치번호 리턴함
+    // 그런데 결과가 없으면 -1을 리턴함!
+    // 그래서 -1이 아닐경우 true를 리턴하면
+    // filter에서 변수에 저장할 배열로 수집된다!
+  }); //////////////// filter ///////////////////
 
-    // 문자열이 있는 값만 배열로 재수집
-    if (newVal.indexOf(key) !== -1) return true;
-  });
-  
-  //console.log("newList", newList);
+  // [ 결과내 재검색 : 데이터 항목중 alignment값으로 검색함! ]
 
-  /// 결과내 재검색 : 데이터 항목중 aligment 값으로 검색함
-
-
-  //////////////////////////////// 정렬 기능 추가 하기//////////////////////////////
-  //////////////// (1) 오름차순
-  if(sort == "asc"){
-    newList.sort((a,b)=>
-      a.cname > b.cname
-      ? 1 : a.cname < b.cname
-      ? -1 : 0
+  // [ 정렬기능 추가하기 ] /////////
+  // (1) 오름차순일 경우
+  if (sort == "asc") {
+    newList.sort((a, b) =>
+      a.cname > b.cname ? 1 : a.cname < b.cname ? -1 : 0
     );
-
-  }
-
-  //////////////// (2) 내림차순
-  else if (sort == "desc"){
-    newList.sort((a,b)=>
-    a.cname > b.cname
-    ? -1 : a.cname < b.cname
-    ? 1 : 0
+  } /// if ///////////////////////
+  // (2) 내림차순일 경우
+  else if (sort == "desc") {
+    newList.sort((a, b) =>
+      a.cname > b.cname ? -1 : a.cname < b.cname ? 1 : 0
     );
-  }
+  } /// else if ///////////////////
 
+  console.log("newList:", newList);
+  /* 
+    변수 = 배열.filter(v=>{
+        if(v.속성명.indexOf(검색어)!=-1) return true
+    })
+
+    -> 결과는 검색어가 있는 경우 변수에 모아서 담아준다!
+    -> 결과값도 배열, 결과가 없어도 빈배열!
+*/
 
   // 코드 리턴구역 ////////////////////////
   return (
@@ -100,8 +116,8 @@ function Searching({ kword }) {
               defaultValue={kword}
               // 엔터키를 눌렀을때 검색실행
               // 검색어 상태변수만 업데이트하면 끝
-              onKeyUp={(e)=>{
-                if(e.key=="Enter") {
+              onKeyUp={(e) => {
+                if (e.key == "Enter") {
                   // 검색어 상태값 변경변경
                   setKw(e.target.value);
                   // 처음 검색시 정렬은 기본 정렬 오름차순(asc)
@@ -127,15 +143,17 @@ function Searching({ kword }) {
                     Heroes
                     {/* 숨긴 체크박스 */}
                     <input
-                    type="checkbox"
-                    id="hero"
-                    className="chkhdn" 
-                    // 체크 변경시 change 이벤트 발생
-                    onChange={(e)=>{
-
-                      // 체크 박스의 checked 속성은 체크시 true, 미체크시 falese 리턴
-                      console.log(e.target.checked);
-                    }}
+                      type="checkbox"
+                      id="hero"
+                      className="chkhdn"
+                      // 체크 변경시 change 이벤트 발생
+                      onChange={(e) => {
+                        // 체크박스의 checked속성은
+                        // 체크시 true, 불체크시 false리턴
+                        console.log(e.target.checked);
+                        // 훅값 업데이트
+                        setChk([e.target.checked, chk[1], chk[2]]);
+                      }}
                     />
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="hero" className="chklb"></label>
@@ -150,7 +168,21 @@ function Searching({ kword }) {
                   <li>
                     Villains
                     {/* 숨긴 체크박스 */}
-                    <input type="checkbox" id="villain" className="chkhdn" />
+                    <input
+                      type="checkbox"
+                      id="villain"
+                      className="chkhdn"
+                      // 체크박스 체크속성값을 훅연결!
+                      checked={chk[2]}
+                      // 체크변경시 change이벤트발생
+                      onChange={(e) => {
+                        // 체크박스의 checked속성은
+                        // 체크시 true, 불체크시 false리턴
+                        console.log(e.target.checked);
+                        // 훅값 업데이트
+                        setChk([chk[0], chk[1], e.target.checked]);
+                      }}
+                    />
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="villain" className="chklb"></label>
                   </li>
@@ -166,15 +198,15 @@ function Searching({ kword }) {
           {/* 2-2. 정렬선택박스 */}
           <aside className="sortbx">
             <select
-            name="sel"
-            id="sel"
-            className="sel"
-            // 값을 변경할때 이벤트 발생 
-            onChange={(e)=>{
-              console.log(e.target.value);
-              // 정렬 기준 상태 변수 업데이트
-              setSort(e.target.value);
-            }}
+              name="sel"
+              id="sel"
+              className="sel"
+              // 값을 변경할때 이벤트 발생
+              onChange={(e) => {
+                console.log(e.target.value);
+                // 정렬 기준 상태 변수 업데이트
+                setSort(e.target.value);
+              }}
             >
               <option value="asc">A-Z</option>
               <option value="desc">Z-A</option>
