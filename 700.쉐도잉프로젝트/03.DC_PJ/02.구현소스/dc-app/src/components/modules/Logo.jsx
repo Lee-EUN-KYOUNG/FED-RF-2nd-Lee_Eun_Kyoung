@@ -32,7 +32,7 @@ export default function Logo({ logoStyle }) {
   // 코드 리턴 구역
   return (
     <h1 style={myStyle[logoStyle]}>
-      <img style={imgStyle[logoStyle]} src={isrc.logo} alt="DC Logo" />
+      <img style={imgStyle[logoStyle]} src={process.env.PUBLIC_URL+isrc.logo} alt="DC Logo" />
     </h1>
   ); /////////////// return //////////////////////
 } /////////////// Logo //////////////////////
