@@ -6,10 +6,13 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 // CSS 불러오기
 import "../../css/searching.scss";
+
+
 /// 데이터 불러오기
 import { catListData } from "../data/swiper_cat";
 // 캐릭터 리스트 결과 컴포넌트
 import SearchingCat from "./SearchingCat";
+
 
 /////////////////////////////////////////////
 function Searching({ kword }) {

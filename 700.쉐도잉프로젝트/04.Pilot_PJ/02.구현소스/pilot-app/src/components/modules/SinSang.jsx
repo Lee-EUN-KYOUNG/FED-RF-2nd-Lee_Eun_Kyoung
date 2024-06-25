@@ -4,7 +4,8 @@ import React, { useLayoutEffect, useRef } from "react";
 import $ from "jquery";
 
 // 신상 함수 불러오기 ////
-import { showInfo, removeInfo, flowList } from "../../js/func/sinsang_fn";
+import { showInfo, removeInfo, flowList } from "../../func/sinsang_fn";
+
 
 // 신상 데이터 불러오기 /////
 import { sinsangData } from "../../js/data/sinsang";
