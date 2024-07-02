@@ -49,23 +49,23 @@ export default function TopArea() {
 
   }; //////// showSearch함수
 
-  /// 2. 검색창에 엔터키 누르면 검색 함수 호출
-  const enterkey = e => {
-
-      console.log(e.key,e.keyCode);
+  // 2. 검색창에 엔터키 누르면 검색함수 호출
+  const enterKey = e => {
+    // e.keyCode는 숫자, e.key문자로 리턴함
+    // console.log(e.key,e.keyCode);
     if(e.key == "Enter"){
-      /// 입력창에 입력값 읽어오기 : val() 사용
+      // 입력창의 입력값 읽어오기 : val()사용
       let txt = $(e.target).val().trim();
       console.log(txt);
-      // 빈값이 아니면 검색 함수 호출 (검색어 전달!)
+      // 빈값이 아니면 검색함수 호출(검색어전달!)
       if(txt!=''){
         // 입력창 비우고 부모박스 닫기
         $(e.target).val("").parent().hide();
         // 검색 보내기
         goSearch(txt);
-      } /////// if
 
-    } /////////////////// if
+      } /// if ///
+    } //// if ////
 
   }; //////// enterkey 함수
 
@@ -172,7 +172,7 @@ export default function TopArea() {
                   name="schinGnb"
                   id="schinGnb"
                   placeholder="Filter by Keyword"
-                  onKeyUp={enterkey}
+                  onKeyUp={enterKey}
                 />
               </div>
               {/* 검색 기능 링크 - 클릭시 검색창 보이기 */}
