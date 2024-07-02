@@ -4,6 +4,9 @@
 import { Link } from "react-router-dom";
 import { menu } from "../data/gnb";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import Logo from "../modules/Logo";
+import { dCon } from "../modules/dCon";
 
 // 폰트 어썸
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,13 +17,22 @@ import $ from "jquery";
 
 // 상단 영역 CSS 불러오기
 import "../../css/top_area.scss";
-import Logo from "../modules/Logo";
+
+
+
+
 
 
 
 //////////////////////////////////////////////////////
 ////// 코드구역
 export default function TopArea() {
+
+  // 컨텍스트 사용하기
+  const myCon = useContext(dCon);
+
+
+
   /// 이동함수
   // 사용법: 반드시 useNavigate()메서드를 변수에 담아
   // 이동할 라우터 주소를 쓰면 이동한다
@@ -30,59 +42,47 @@ export default function TopArea() {
   // 슬래쉬 없이 써도 루트로 인식함 -> 빈값이면 루트로 이동함
   const goNav = useNavigate();
 
-
   // 사용시 goNav(라우터주소,{전달객체,없으면 비워두기})
 
   // 검색관련 함수들
   // 1. 검색창 보이기 함수
-  const showSearch = (e)=>{
-
+  const showSearch = (e) => {
     // 기본 기능 막기
     e.preventDefault();
-    
+
     // 검색창 보이기
     // show는 display를 보이게함
     $(".searchingGnb").show();
 
     // 입력창에 포커스 보내기
     $("#schinGnb").focus();
-
   }; //////// showSearch함수
 
   // 2. 검색창에 엔터키 누르면 검색함수 호출
-  const enterKey = e => {
+  const enterKey = (e) => {
     // e.keyCode는 숫자, e.key문자로 리턴함
     // console.log(e.key,e.keyCode);
-    if(e.key == "Enter"){
+    if (e.key == "Enter") {
       // 입력창의 입력값 읽어오기 : val()사용
       let txt = $(e.target).val().trim();
       console.log(txt);
       // 빈값이 아니면 검색함수 호출(검색어전달!)
-      if(txt!=''){
+      if (txt != "") {
         // 입력창 비우고 부모박스 닫기
         $(e.target).val("").parent().hide();
         // 검색 보내기
         goSearch(txt);
-
       } /// if ///
     } //// if ////
-
   }; //////// enterkey 함수
 
   // 3. 검색 페이지로 검색어와 함께 이동하기 함수
-  const goSearch = txt => {
-
+  const goSearch = (txt) => {
     console.log("검색하기");
     /// 라우터 이동 함수로 이동하기
     // 네비게이트 메서드 (라우터 주소, {state:{보낼 객체}})
-    goNav("search",{state:{keyword:txt}})
-
+    goNav("search", { state: { keyword: txt } });
   }; ///////// goSearch ///////////
-
-
-
-
-
 
   //// 코드 리턴구역 //////////////
   return (
@@ -153,16 +153,15 @@ export default function TopArea() {
                   icon={faSearch}
                   className="schbtnGnb"
                   title="Open search"
-                  onClick={(e)=>{
+                  onClick={(e) => {
                     // 검색어 읽기
                     let stxt = e.currentTarget.nextElementSibling.value;
-                    if(stxt.trim()!=""){
+                    if (stxt.trim() != "") {
                       // 검색하기
                       goSearch(stxt);
-                    }
-                    else{
+                    } else {
                       // 검색어 비었을때 메시지
-                    alert("Please enter a search term!");
+                      alert("Please enter a search term!");
                     }
                   }}
                 />
@@ -180,13 +179,33 @@ export default function TopArea() {
                 <FontAwesomeIcon icon={faSearch} />
               </a>
             </li>
-            {/* 회원가입, 로그인 버튼 */}
-            <li>
-              <Link to="/member">JOIN US</Link>
-            </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li>
+            {
+            /* 회원가입, 로그인 버튼 - 로그인 상태가 null일때 나옴 */
+            myCon.loginSts === null &&
+            <>
+              <li>
+                <Link to="/member">JOIN US</Link>
+              </li>
+              <li>
+                <Link to="/login">LOGIN</Link>
+              </li>
+            </>
+            }
+            {
+            /* 로그인 상ㅌ이면 로그아웃 버튼 나옴 */
+            myCon.loginSts !== null &&
+            <>
+              <li>
+                <a href="#" onClick={(e)=>{
+                  // 기본 이동 ㅏㅁ끼
+                  e.preventDefault();
+                  // 로그아웃 처리 함수 호출
+                }}>
+                  LOGOUT
+                </a>
+              </li>
+            </>
+            }
           </ul>
         </nav>
       </header>
