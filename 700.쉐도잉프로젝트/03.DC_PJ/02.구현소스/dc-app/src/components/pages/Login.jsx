@@ -115,7 +115,58 @@ function Login(props) {
 
       // 3. 로컬스 객체변환
       memData = JSON.parse(memData);
+      console.log(memData);
+
+      // 4. 아이디 존재 여부 검사하기
+      // 배열.find() -> 있을 경우 레코드 저장
+      // find는 filter와 달리 배열로 저장하지 않고 값만 저장함.
+      // 그래서 결과값이 없으면 undefined를 리턴함
+
+      let result = memData.find((v) => {
+        if (v.uid === userId) return true;
+      }); /////// find ///////
+      console.log("결과:", result);
+
+      // 4-1. 결과값이 없으면 메시지 보이기
+      if(!result) {
+
+        // (1) 에러 메시지 선택하기
+        setIdMsg(msgId[1]);
+        // (2) 에러 메시지 띄우기
+        setUserIdError(true);
+
+      } ///////if
+
+      /// 4-2. 결과값이 있으면 비밀번호 검사
+      else{
+
+        // (1) 아이디 에러 메시지 숨기기
+        setUserIdError(false);
+
+        // (2) 비밀번호 검사 - 입력 비번 == 결과 비번
+        // -> 원래 비밀번호는 암호화 되어 있으므로 백엔드 비밀번호 검사 모듈로 대부분 검사함
+        if(pwd===result.pwd){
+            // 같을 경우 로그인 성공
+            alert("Login Success!");
+        }
+        // 로그인 실패시 메시지 출력
+        else{
+            // 비밀번호 에러 메시지 선택하기
+            setPwdMsg(msgPwd[1]);
+  
+            // 비밀 번호 에러 메시지 보이기
+            setPwdError(true);
+        } ////// else //////
+        
+
+      } ////////// else
+
     } ///////// if /////////
+
+
+
+
+
     // 3. 불통과시 /////
     else {
       alert("Change your input!");
@@ -141,9 +192,9 @@ function Login(props) {
               {
                 //   에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : userId가 입력전일때 안보임처리
+
                 // userId가 입력전엔 false로 리턴됨!
-                userIdError && userId && (
+                userIdError && (
                   <div className="msg">
                     <small
                       style={{
@@ -169,9 +220,8 @@ function Login(props) {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : pwd가 입력전일때 안보임처리
                 // pwd가 입력전엔 false로 리턴됨!
-                pwdError && pwd && (
+                pwdError && (
                   <div className="msg">
                     <small
                       style={{
@@ -186,7 +236,9 @@ function Login(props) {
               }
             </li>
             <li style={{ overflow: "hidden" }}>
-              <button className="sbtn">Submit</button>
+              <button className="sbtn" onClick={onSubmit}>
+                Submit
+              </button>
             </li>
           </ul>
         </form>
