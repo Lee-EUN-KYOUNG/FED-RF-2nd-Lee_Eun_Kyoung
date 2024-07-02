@@ -4,21 +4,19 @@
 
 /********* 최대사이즈 1024px 이하 시작 *********/
 @media screen and (max-width: 1024px) {
-
-/* 내가 직접 수정한거 */
-.preview-box li {
+  /* 내가 직접 수정한거 */
+  .preview-box li {
     flex-basis: calc(100% / 2 - 15px);
-}
-
+  }
 
   /* x축 스크롤없앰 -> html,body에 줄때
   하위 박스중 sticky박스가 작동하지 않음!
   따라서 body>* 박스에 이것을 준다! */
-  body>* {
+  body > * {
     overflow-x: hidden;
   }
   /* 스티키 박스 메뉴 아래쪽에 걸리게 top값 조정 */
-  #dokebi-menu{
+  #dokebi-menu {
     top: 58px;
     z-index: 999;
   }
@@ -66,6 +64,7 @@
     z-index: 99999;
     background-color: #fff;
   }
+
   /* 전체메뉴박스 */
   .gnb {
     position: fixed;
@@ -80,8 +79,9 @@
     /* 트랜지션 */
     transition: left 0.4s ease-in-out;
   }
-  /* 메뉴박스 등장 */
-  .top-area.on .gnb {
+  /* 메뉴박스 등장
+  - .gnb에 클래스 on넣으면 등장 */
+  .gnb.on {
     left: 0;
   }
 
@@ -111,8 +111,7 @@
     display: none;
   }
 
-
-  #spart-menu{
+  #spart-menu {
     /* 상단메뉴가 고정되므로 그 아래에 걸려야함! */
     top: 56px;
     /* 모바일에서 가로스크롤 */
@@ -145,9 +144,8 @@
     /* grid-template-rows: auto; */
   }
   /* 대표이미지 그리드 공통 */
-  .poster-box ul li{
+  .poster-box ul li {
     grid-row: auto !important;
-   
   }
 
   /* 최신동영상 - 한번에 2개만 보이기 */
@@ -239,9 +237,6 @@
     margin-bottom: 5vw;
     padding: 8px 15px;
   }
-
- 
-
 
   /* 동영상 설명박스 */
   .intro-mv-box figcaption {

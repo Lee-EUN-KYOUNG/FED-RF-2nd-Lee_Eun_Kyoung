@@ -1,9 +1,8 @@
 // 공통 요소 데이터 객체 - common_data.js
 
-const  comData = {
-
-    // 1. 상단 영역 코드 
-    topArea: `
+const comData = {
+  // 1. 상단 영역 코드
+  topArea: `
         <header class="top-area inbox">
         <!--  <h2 class="temp-tit">1. 상단영역</h2> -->
         <!-- 1. 로고/GNB 파트 -->
@@ -30,16 +29,19 @@ const  comData = {
                 </li>
             </ul>
             </nav>
-            <!-- GNB 메뉴 -->
-            <nav class="gnb"></nav>
+
         </div>
       </div>
       <!-- 모바일 햄버거 버튼 -->
       <button class="ham"></button>
     </header>
     `,
-    // 2. 하단 영역 코드 
-    footerArea: `
+  // 전체메뉴코드
+  navArea: `
+        <nav class="gnb"></nav>
+      `,
+  // 2. 하단 영역 코드
+  footerArea: `
     <footer class="footer-area inbox">
         <h2 class="temp-tit"></h2>
         <div class="cont-box">
@@ -143,8 +145,8 @@ const  comData = {
         </div>
       </footer>
     `,
-    // 3. 스티키메뉴 코드
-    spartMenu:`
+  // 3. 스티키메뉴 코드
+  spartMenu: `
       <nav class="spart-menu inbox">
         <ul>
           <li class="on">
@@ -193,8 +195,8 @@ const  comData = {
         </ul>
       </nav>
     `,
-    // 4. 배너 영역 코드 
-    banArea: `
+  // 4. 배너 영역 코드
+  banArea: `
     
     <!-- 배너는 중앙속박스 적용안함 -->
     <section class="ban-area">
@@ -378,9 +380,6 @@ const  comData = {
       </div>
     </section>
     `,
-
-
 }; //////////// comData 객체 /////////////////////
-
 
 export default comData;
