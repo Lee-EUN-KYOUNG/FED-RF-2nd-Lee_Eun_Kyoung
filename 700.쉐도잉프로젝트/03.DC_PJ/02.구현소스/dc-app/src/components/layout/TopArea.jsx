@@ -90,7 +90,7 @@ export default function TopArea() {
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
-
+          <div className="logmsg">{myCon.loginMsg}</div>
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
           <ul>
@@ -197,9 +197,10 @@ export default function TopArea() {
             <>
               <li>
                 <a href="#" onClick={(e)=>{
-                  // 기본 이동 ㅏㅁ끼
+                  // 기본 이동 막끼
                   e.preventDefault();
                   // 로그아웃 처리 함수 호출
+                  myCon.logoutFn();
                 }}>
                   LOGOUT
                 </a>
