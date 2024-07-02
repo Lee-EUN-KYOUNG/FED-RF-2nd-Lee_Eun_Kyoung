@@ -1,14 +1,24 @@
 // 로그인 페이지 컴포넌트 - Login.jsx
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // CSS 불러오기 (회원가입과 동일)
 import "../../css/member.scss";
 
 // 로컬 스토리지 셋팅 함수 호출!
 import { initData } from "../func/mem_fn";
+import { dCon } from "../modules/dCon";
+
 
 
 function Login(props) {
+
+   // 컨텍스트 사용
+   const myCon = useContext(dCon);
+   console.log(myCon.loginSts);
+
+
+
+    
   // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
   // 1. 아이디변수
