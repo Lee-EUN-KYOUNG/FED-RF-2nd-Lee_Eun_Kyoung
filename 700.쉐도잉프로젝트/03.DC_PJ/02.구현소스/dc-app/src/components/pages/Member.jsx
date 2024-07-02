@@ -1,3 +1,5 @@
+// 회원 가입 페이지 컴포넌트
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -7,7 +9,8 @@ import { initData } from "../func/mem_fn";
 // 회원가입 CSS 불러오기
 import "../../css/member.scss";
 
-function Member(props) {
+
+function Member() {
   // [ 회원가입 페이지 요구사항 ]
   // 1. 각 입력항목별로 유효성검사를 실행함
   // 2. 상태체크를 통하여 적절한 유효성검사시
@@ -288,6 +291,7 @@ function Member(props) {
       localStorage.setItem(
         "mem-data",JSON.stringify(memData));
 
+      //
 
 
     } ///////// if /////////
