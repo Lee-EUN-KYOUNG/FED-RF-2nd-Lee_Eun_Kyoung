@@ -6,7 +6,7 @@ import MainArea from "./MainArea";
 import TopArea from "./TopArea";
 
 // 컨텍스트 API 불러오기
-import { dCon } from "./modules/dCont";
+import { dCon } from "../modules/dCon";
 
 export default function Layout() {
 
