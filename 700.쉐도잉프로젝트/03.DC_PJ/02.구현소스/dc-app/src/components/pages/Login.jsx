@@ -1,11 +1,12 @@
 // 로그인 페이지 컴포넌트 - Login.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // CSS 불러오기 (회원가입과 동일)
 import "../../css/member.scss";
 
 // 로컬 스토리지 셋팅 함수 호출!
 import { initData } from "../func/mem_fn";
+
 
 function Login(props) {
   // [ 상태관리변수 ] /////////////
@@ -164,14 +165,18 @@ function Login(props) {
     } ///////// if /////////
 
 
-
-
-
     // 3. 불통과시 /////
     else {
       alert("Change your input!");
     } //// else ///////////
   }; /////////// onSubmit 함수 //////////
+
+
+  // 화면 랜더링 구역
+  useEffect(()=>{
+    // 아이디 입력창 포커스
+    document.querySelector("#user-id").focus();
+  },[]);
 
   // 코드 리턴구역 ////////////////////////
   return (
@@ -183,6 +188,7 @@ function Login(props) {
             <li>
               <label>ID : </label>
               <input
+                id="user-id"
                 type="text"
                 maxLength="20"
                 placeholder="Please enter your ID"
