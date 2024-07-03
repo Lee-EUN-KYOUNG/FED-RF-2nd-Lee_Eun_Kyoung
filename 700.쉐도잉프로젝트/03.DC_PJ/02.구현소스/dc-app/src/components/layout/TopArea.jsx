@@ -4,7 +4,7 @@
 import { Link } from "react-router-dom";
 import { menu } from "../data/gnb";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import Logo from "../modules/Logo";
 import { dCon } from "../modules/dCon";
 
