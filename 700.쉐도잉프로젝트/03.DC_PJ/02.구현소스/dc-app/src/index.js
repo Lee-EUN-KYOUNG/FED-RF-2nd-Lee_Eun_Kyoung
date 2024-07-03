@@ -104,9 +104,7 @@ const ScrollTop = ()=>{
     // 스크롤 최상단 이동
     window.scrollTo(0,0);
     // 스크롤 라우터 경로값 확인
-    console.log("라우터 경로:",pathname);
-
-    
+    //console.log("라우터 경로:",pathname);
 
   },[pathname]);
 

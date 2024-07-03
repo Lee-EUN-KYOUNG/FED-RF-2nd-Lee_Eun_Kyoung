@@ -1,13 +1,13 @@
 // 전체 레이아웃 컴포넌트 ///
 
-import { useEffect, useState } from "react";
-import FooterArea from "./FooterArea";
+import { useCallback, useEffect, useState } from "react";
+import {FooterArea} from "./FooterArea";
 import MainArea from "./MainArea";
-import TopArea from "./TopArea";
-import { useNavigate } from "react-router-dom";
+import {TopArea} from "./TopArea";
 
 // 컨텍스트 API 불러오기
 import { dCon } from "../modules/dCon";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -32,30 +32,27 @@ export default function Layout() {
   // 1. 라우팅 이동 함수
   const goPage = useNavigate();
   // 2. 로그인 환영 메시지 생성 함수
-  const makeMsg = (name) =>{
+  const makeMsg = useCallback((name) => {
     // 유저아이콘
-    let usrIcon = ["🙍‍♂","🧏‍♀","🦸‍♂","👨‍🎤","🦸‍♀"];
-    // 랜덤수 0~4 사이의 수
+    let usrIcon = ["🙍‍♂️","🧏‍♀️","🦸‍♂","👨‍🎤","🦸‍♀"];
+    // 랜덤수 : 0~4사이의 수
     let rdm = Math.floor(Math.random()*5);
-    // 로그인 메시지 상태 변수 업데이트
-    setLoginMsg(`Welcom ${name} ${usrIcon[rdm]}`);
-  }; //////////// makeMsg 함수
+    // 로그인 메시지 상태변수 업데이트
+    setLoginMsg(`Welcome ${name} ${usrIcon[rdm]}`);
+  },[]); /////// makeMsg 함수 /////////
+
 
   // 3. 로그 아웃 함수 만들기
-  const logoutFn = () => {
-
-    // [1.] 로그인 상태값 null
+  const logoutFn = useCallback(() => {
+    // 1. 로그인 상태값 null
     setLoginSts(null);
-    // [2.] 세션스 지우기 : minfo
+    // 2. 세션스 지우기 : minfo
     sessionStorage.removeItem("minfo");
-
-    // [3.] 로그인 메시지 초기화
+    // 3. 로그인 메시지 초기화
     setLoginMsg(null);
-
-    // [4.] 로그아웃시 메인 페이지로 이동
+    // 4. 메인 페이지로 돌아가기
     goPage("/");
-
-  }; ///////////// logoutFn 함수
+  },[]); //////// logoutFn 함수 /////////
 
 
   //////////// 화면 랜더링 구역 -> 로그인 상태 체크 ///////////

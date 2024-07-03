@@ -14,7 +14,7 @@ function Login(props) {
 
    // 컨텍스트 사용
    const myCon = useContext(dCon);
-   console.log(myCon.loginSts);
+   //console.log(myCon.loginSts);
 
 
 
