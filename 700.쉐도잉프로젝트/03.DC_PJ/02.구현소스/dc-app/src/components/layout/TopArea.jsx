@@ -33,7 +33,8 @@ import "../../css/top_area.scss";
 
 //////////////////////////////////////////////////////
 ////// 코드구역
-export default function TopArea() {
+export const TopArea = memo(() => {
+  console.log("상단영역!!!");
 
   // 컨텍스트 사용하기
   const myCon = useContext(dCon);
@@ -219,4 +220,4 @@ export default function TopArea() {
       </header>
     </>
   );
-} /////////// TopArea /////////////////////
+}) /////////// TopArea /////////////////////
