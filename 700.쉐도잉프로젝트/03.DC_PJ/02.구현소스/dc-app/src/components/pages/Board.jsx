@@ -54,19 +54,26 @@ export default function Board() {
     // -> 끝번호 = 페이지번호*페이지당 단위수
     let eNum = pageNum * unitSize;
 
+    //console.log("첫번호:",sNum,"끝번호:",eNum);
+
     // 결과 배열
     const selData = [];
 
     // for문으로 배열 만들기
     for (let i = sNum; i < eNum; i++) {
+      //console.log(i);
+      // 끝번호가 전체 갯수보다 크면 나가라!
+      if(i>=totalCount.current) break;
+      // 대상 배열값 추가
       selData.push(orgData[i]);
-    }
+    } ////////////// for문
 
     console.log("일부데이터:", selData);
 
     return selData.map((v, i) => (
       <tr key={i}>
-        <td>{i + 1}</td>
+        {/* 시작번호를 더하여 페이지별 순번을 변경 */}
+        <td>{i + 1 + sNum}</td>
         <td>
           <a href="#" data-idx="51">
             {v.cont}
