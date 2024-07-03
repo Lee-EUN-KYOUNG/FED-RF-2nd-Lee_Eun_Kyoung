@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>깃허브 첫페이지</title>
+    <title>ios에서 전체 높이값이 100svh로 컨트롤러 제외한 경우</title>
     <style>
         html,body{
             margin: 0;
@@ -19,7 +19,13 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: var(--app-height);
+            /* 
+            [ svh 단위 : vh 와 달리 small vh로써 컨트롤러 제외 높이단위 ] 
+            100svh는 ios에서 컨트롤러를 제외한 화면 높이가되어서
+            하단부분이 모두 보인다! 단, 컨트롤러가 내려가면 빈 공간이
+            생기므로 min-height: -webkit-fill-available 속성과
+            함께 사용해야 컨트롤러가 내려가지 않게된다. */
+            height: 100svh;
             background-color: #20b2ab74;
             box-sizing: border-box;
         }
@@ -41,15 +47,6 @@
             border-radius: 20px;
         }
     </style>
-    <script>
-        const changeHeight = () => {
-            const { innerHeight } = window;
-            document.documentElement.style.setProperty("--app-height",`${innerHeight}px`);
-
-        };
-        window.addEventListener("DOMContentLoaded", changeHeight);
-        window.addEventListener("resize", changeHeight);
-      </script>
 </head>
 <body>
     <div class="wrap">
