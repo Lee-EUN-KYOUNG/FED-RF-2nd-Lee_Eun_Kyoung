@@ -4,9 +4,9 @@
 import { Link } from "react-router-dom";
 import { menu } from "../data/gnb";
 import { useNavigate } from "react-router-dom";
-import { memo, useContext } from "react";
+import { memo } from "react";
 import Logo from "../modules/Logo";
-import { dCon } from "../modules/dCon";
+//import { dCon } from "../modules/dCon";
 
 // 폰트 어썸
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,28 +18,28 @@ import $ from "jquery";
 // 상단 영역 CSS 불러오기
 import "../../css/top_area.scss";
 
-
 // 메모이제이션 적용하기! /////
 // -> 그.러.나... 단순히 적용하면 효과가 없음!
 // 이유는? 컨텍스트 API가 전역적인 함수/변수를 전달하고 있어서
-// 매번 새롭게 리랜더린 됨으므로 인해 메모이제이션 갱신을
-// 하게끔 하기에 효가가 없는것!!!
-// ->>> 방법은? 컨텍스트API를 사용하지 말고
-// props로 전달하는 방식으로 전환하면 효과를 볼 수 있다!
-// -> React.memo는 전달속성이 변경됨을 기준하여
-// 메모이제이션 기능를 제공하기 때문이다!
+// 매번 새롭게 리랜더린 됨으므로 인해 메모이제이션 갱신을 하게끔 하기에 효가가 없는것!!!
+// ->>> 방법은? 컨텍스트API를 사용하지 말고 props로 전달하는 방식으로 전환하면 효과를 볼 수 있다!
+// -> React.memo는 전달속성이 변경됨을 기준하여 메모이제이션 기능를 제공하기 때문이다!
 // -> 전달되는 함수가 반드시 useCallback() 처리가 되어야 한다!!!
-
+// -> 객체, 배열, 함수는 모두 값 저장이 아니고 주소 저장
+//    그래서 이 주소를 고정해 줘야 같은 값으로 인식하여 메모이제이션 된다
 
 //////////////////////////////////////////////////////
 ////// 코드구역
-export const TopArea = memo(() => {
+export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
   console.log("상단영역!!!");
 
-  // 컨텍스트 사용하기
-  const myCon = useContext(dCon);
+  // 전달값
+  // 1. loginMsg -  로그인 메시지 변수
+  // 2. loginSts -  로그인 상태 변수
+  // 3. logoutFn - 로그아웃 함수
 
-
+  // 컨텍스트 사용하기 - 메모이제이션을 위해 사용안함
+  //const myCon = useContext(dCon);
 
   /// 이동함수
   // 사용법: 반드시 useNavigate()메서드를 변수에 담아
@@ -48,7 +48,8 @@ export const TopArea = memo(() => {
   // 예) goNav('/') -> 첫페이지이동
   // 이동주소는 대소문자 구분없음!
   // 슬래쉬 없이 써도 루트로 인식함 -> 빈값이면 루트로 이동함
-  const goNav = useNavigate();
+
+  //const goPage = useNavigate();
 
   // 사용시 goNav(라우터주소,{전달객체,없으면 비워두기})
 
@@ -89,7 +90,7 @@ export const TopArea = memo(() => {
     console.log("검색하기");
     /// 라우터 이동 함수로 이동하기
     // 네비게이트 메서드 (라우터 주소, {state:{보낼 객체}})
-    goNav("search", { state: { keyword: txt } });
+    goPage("search", { state: { keyword: txt } });
   }; ///////// goSearch ///////////
 
   //// 코드 리턴구역 //////////////
@@ -98,7 +99,7 @@ export const TopArea = memo(() => {
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
-          <div className="logmsg">{myCon.loginMsg}</div>
+        <div className="logmsg">{loginMsg}</div>
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
           <ul>
@@ -110,7 +111,7 @@ export const TopArea = memo(() => {
                   // 기본 이동 막기
                   e.preventDefault();
                   // 라우터 이동 메서드 호출
-                  goNav("/");
+                  goPage("/");
                 }}
               >
                 <Logo logoStyle="top" />
@@ -188,36 +189,41 @@ export const TopArea = memo(() => {
               </a>
             </li>
             {
-            /* 회원가입, 로그인 버튼 - 로그인 상태가 null일때 나옴 */
-            myCon.loginSts === null &&
-            <>
-              <li>
-                <Link to="/member">JOIN US</Link>
-              </li>
-              <li>
-                <Link to="/login">LOGIN</Link>
-              </li>
-            </>
+              /* 회원가입, 로그인 버튼 - 로그인 상태가 null일때 나옴 */
+              loginSts === null && (
+                <>
+                  <li>
+                    <Link to="/member">JOIN US</Link>
+                  </li>
+                  <li>
+                    <Link to="/login">LOGIN</Link>
+                  </li>
+                </>
+              )
             }
             {
-            /* 로그인 상ㅌ이면 로그아웃 버튼 나옴 */
-            myCon.loginSts !== null &&
-            <>
-              <li>
-                <a href="#" onClick={(e)=>{
-                  // 기본 이동 막끼
-                  e.preventDefault();
-                  // 로그아웃 처리 함수 호출
-                  myCon.logoutFn();
-                }}>
-                  LOGOUT
-                </a>
-              </li>
-            </>
+              /* 로그인 상ㅌ이면 로그아웃 버튼 나옴 */
+              loginSts !== null && (
+                <>
+                  <li>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        // 기본 이동 막끼
+                        e.preventDefault();
+                        // 로그아웃 처리 함수 호출
+                        logoutFn();
+                      }}
+                    >
+                      LOGOUT
+                    </a>
+                  </li>
+                </>
+              )
             }
           </ul>
         </nav>
       </header>
     </>
   );
-}) /////////// TopArea /////////////////////
+}); /////////// TopArea /////////////////////
