@@ -28,7 +28,8 @@ export function SwiperBan({ cat }) {
   // 스와이퍼 객체를 담기위한 참조변수
   const swpObj = useRef(null);
 
-  // 화면 랜더링구역 ///////////
+
+  ////////////////////////////////////////// 화면 랜더링구역 ///////////
   useEffect(() => {
     // 스와이퍼 배너 첫페이지로 이동하기
     // 스와이퍼 객체
@@ -90,17 +91,53 @@ export function SwiperBan({ cat }) {
   }; ///////////// makeList 함수 //////////
 
 
-  /////////// 소멸자 코드
+  /////////////////////////////////////////////// 화면 랜더링 구역 : 한번만
   useEffect(()=>{
-      return(()=>{
 
+
+
+    // 스와이퍼 객체 : ref로 외부에 노출한 스와이퍼 객체
+    let objSwp = swpObj.current.swiper;
+
+    // 스크롤
+    const winCta = window.innerHeight / 2;
+    const scrollFn = () => {
+        if (window.scrollY > winCta) {
+            // 영상플레이시 자동넘김 끄기
+            objSwp.autoplay.stop();
+            objSwp.autoplay.running = false;
+            endObj.current = true;
+            // 영상멈추기
+            mvEle.pause();
+        } else {
+            // 자동넘김 시작
+            objSwp.autoplay.start();
+            // 자동넘김 속성 true전환!
+            objSwp.autoplay.running = true;
+            endObj.current = false;
+            // 영상재생
+            mvEle.play();
+        }
+    };
+    // 스크롤 이동시 기준값에 따라 동영상 재생, 멈춤
+    // 단, 동영상 객체가 있을 때만 걸어준다
+    if(mvEle)
+    window.addEventListener("scroll", scrollFn);
+
+
+////////////////////////////////////소멸자 코드
+      return(()=>{
         // 동영상 변수가 null이 아닐때만 이벤트 삭제
-        if(mvEle)
-        mvEle.removeEventListener("timeupdate", actionVideo);
+        if(mvEle){
+          // 동영상 시간 업데이트 이벤트 설정 제거
+          mvEle.removeEventListener("timeupdate", actionVideo);
+          // 스코롤 이벤트 설정 제거
+          window.removeEventListener("scroll", scrollFn);
+        } //// if
         console.log("소멸자 에러수집:");
       });
-
   },[]);
+
 
   // 동영상 재생시 작동 함수
   const actionVideo = (e) => {

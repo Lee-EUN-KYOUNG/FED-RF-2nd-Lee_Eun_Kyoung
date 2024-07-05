@@ -14,28 +14,21 @@ import $ from "jquery";
 import itemListData from "../../js/data/item_list";
 import ItemDetail from "../modules/ItemDetail";
 
-
-
 ///////////////////////////////////////////
-function ItemList(props) {
+function ItemList() {
+  // 상태변수 만들기 //////
+  // [1] 카테고리정보
+  const [cat, setCat] = useState(itemListData[0].cat);
+  // [2] 상품정보
+  const [ginfo, setGinfo] = useState(itemListData[0].ginfo);
 
-
-  // 상태 변수 만들기
-  // [1] 카테고리 정보
-  const [cat, setCat] = useState(null);
-  
-  // [2] 상품 정보
-  const [ginfo, setGinfo] = useState(null);
-  
-
-
-  ////// 화면 랜더링 구역
+  // 화면랜더링구역 ////////
   useEffect(() => {
     // 전체 스크롤바 살리기
-    $("html, body").css({ overflow: "visible" });
-  }, []); /////////////useEffect
+    $("html,body").css({ overflow: "visible" });
+  }, []); ////// useEffect ///////
 
-  ////////////////// 코드 리턴 구역
+  // 코드리턴구역 //////////////////
   return (
     <main id="cont">
       <h1 className="tit">All ITEMS LIST</h1>
@@ -51,14 +44,18 @@ function ItemList(props) {
         <div className="grid">
           {itemListData.map((v, i) => (
             <div key={i}>
-              <a href="#" onClick={(e)=>{
-                e.preventDefault();
-                // 상품 상세 모듈 전달 상태 변수 변경
-                setCat(v.cat);
-                setGinfo(v.ginfo);
-                // 상세 상품 정보 박스 보여주기
-                $(".bgbx").show();
-              }}>
+              <a
+                href="#"
+                onClick={(e) => {
+                  // 기본이동막기
+                  e.preventDefault();
+                  // 상품상세모듈 전달 상태변수 변경
+                  setCat(v.cat);
+                  setGinfo(v.ginfo);
+                  // 상세상품정보 박스 보이기
+                  $(".bgbx").show();
+                }}
+              >
                 [{i + 1}]
                 <img
                   src={
@@ -77,7 +74,7 @@ function ItemList(props) {
         </div>
       </section>
 
-      {/* 상세 상품 정보 박스 */}
+      {/* 상세 상품정보 박스 */}
       <div
         className="bgbx"
         style={{
