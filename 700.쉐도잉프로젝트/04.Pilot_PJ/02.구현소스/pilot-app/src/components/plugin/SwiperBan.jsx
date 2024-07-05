@@ -94,19 +94,17 @@ export function SwiperBan({ cat }) {
   /////////////////////////////////////////////// 화면 랜더링 구역 : 한번만
   useEffect(()=>{
 
-
-
     // 스와이퍼 객체 : ref로 외부에 노출한 스와이퍼 객체
     let objSwp = swpObj.current.swiper;
 
-    // 스크롤
+    // 화면절반크기 기준값
     const winCta = window.innerHeight / 2;
+    // 스크롤시 호출함수
     const scrollFn = () => {
         if (window.scrollY > winCta) {
             // 영상플레이시 자동넘김 끄기
             objSwp.autoplay.stop();
             objSwp.autoplay.running = false;
-            endObj.current = true;
             // 영상멈추기
             mvEle.pause();
         } else {
@@ -114,11 +112,11 @@ export function SwiperBan({ cat }) {
             objSwp.autoplay.start();
             // 자동넘김 속성 true전환!
             objSwp.autoplay.running = true;
-            endObj.current = false;
             // 영상재생
             mvEle.play();
         }
-    };
+    }; ////////////////// scrollFn
+    
     // 스크롤 이동시 기준값에 따라 동영상 재생, 멈춤
     // 단, 동영상 객체가 있을 때만 걸어준다
     if(mvEle)
