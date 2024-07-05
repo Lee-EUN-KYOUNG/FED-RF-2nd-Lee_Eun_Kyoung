@@ -90,8 +90,19 @@ function ItemList() {
           zIndex: "9999",
         }}
       >
-        {/* 아이템 디테일 컴포넌트 불러오기 */}
-        <ItemDetail cat={cat} ginfo={ginfo} />
+        {/* 
+        아이템 디테일 컴포넌트 불러오기 
+         cat - 카테고리
+         ginfo - 상품 정보
+         dt - 상품 데이터
+         setGinfo - ginfo 값 변경 메서드
+        */}
+        <ItemDetail
+        cat={cat}
+        ginfo={ginfo}
+        dt={itemListData}
+        setGinfo={setGinfo}
+        />
       </div>
     </main>
   );

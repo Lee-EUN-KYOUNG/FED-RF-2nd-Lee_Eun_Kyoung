@@ -237,6 +237,8 @@ body {
 /* 속박스 : 플렉스박스 */
 .inx {
   display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
   height: 100%;
   border: 4px double gray;
 }
