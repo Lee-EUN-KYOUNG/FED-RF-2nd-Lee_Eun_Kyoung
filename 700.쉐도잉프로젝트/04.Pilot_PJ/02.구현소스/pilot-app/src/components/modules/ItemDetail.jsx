@@ -82,7 +82,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
                       }); /////////// find
                       // 상품 상세 모듈 전달 상태 변수 변경하기
                       setGinfo(res.ginfo);
-
+                      
                     }}
                     >
                       <img
