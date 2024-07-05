@@ -98,9 +98,12 @@ function ItemList() {
          setGinfo - ginfo 값 변경 메서드
         */}
         <ItemDetail
+        // 개별 상품 정보
         cat={cat}
         ginfo={ginfo}
+        // dt 전체 데이터 (한줄 리스트 때문)
         dt={itemListData}
+        // 한줄 리스트 클릭시 변경
         setGinfo={setGinfo}
         />
       </div>

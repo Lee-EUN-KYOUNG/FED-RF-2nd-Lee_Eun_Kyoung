@@ -68,6 +68,16 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
               {Array(5)
                 .fill("")
                 .map((v, i) => {
+
+
+                  // 한줄 리스트와 같은 번호면 6번 이미지 나오게함 (1~5까지이므로)
+                  // substr(시작순번,개수) - 개수없으면 순번부터 다 가져옴
+                  let num = ginfo[0].substr(1)==i+1?6:i+1;
+
+                  // 현재ㅔ 상품 번호가 1~5중에 같은게 있으면 6번
+                  //console.log("검사번호:",ginfo[0].substr(1));
+                  //console.log("변경번호:", num);
+
                   return (
                     <a href="#" key={i}
                     onClick={(e)=>{
@@ -77,18 +87,20 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
                       let res = dt.find(v=>{
                         if(
                           v.cat==cat&&
-                          v.ginfo[0]=="m"+(i+1))
+                          v.ginfo[0]=="m"+(num))
                           return true;
                       }); /////////// find
                       // 상품 상세 모듈 전달 상태 변수 변경하기
+                      // find에서 받은 값은 객체값
+                      // 그중 ginfo 속성값만 필요
+                      // 카테고리 값은 바꿀 필요 없음
                       setGinfo(res.ginfo);
-                      
                     }}
                     >
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          `/images/goods/${cat}/m${i+1}.png`
+                          `/images/goods/${cat}/m${num}.png`
                         }
                         alt="썸네일 이미지"
                       />
