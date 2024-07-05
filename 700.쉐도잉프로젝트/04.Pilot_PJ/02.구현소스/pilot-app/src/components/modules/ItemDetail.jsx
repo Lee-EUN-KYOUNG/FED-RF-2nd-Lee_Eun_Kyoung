@@ -10,6 +10,15 @@ function ItemDetail({ cat, ginfo }) {
   // ginfo - 상품정보
   console.log(cat, ginfo);
 
+
+
+
+
+
+
+
+
+  
   ////////////////// 코드 리턴 구역
   return (
     <>

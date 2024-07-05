@@ -15,7 +15,7 @@ import { pCon } from "./pCont";
 
 
 ///////////////////////////////////////////////////////
-function SinSang({ cat, chgItemFn }) {
+function SinSang({ cat, chgItemFn, setPos }) {
   // cat - 카테고리 분류명 (men/women/style)
   // chgItemFn - 선택상품정보 변경 부모함수
 
@@ -28,14 +28,22 @@ function SinSang({ cat, chgItemFn }) {
   // ->  useRef를 사용한다!! -> 변수명.current로 사용!
   const lpos = useRef(0);
   // 재귀호출 상태값(1-호출,0-멈춤)
-  const callSts = useRef(1);
+  const callSts = useRef(true);
 
   // 전달변수 cat 카테고리명이 다를 경우에만 업데이트!
   useLayoutEffect(()=>{
+    console.log("초기화실행!!");
     // 신상 흘러가기 변수 초기화
     lpos.current = 0;
     // 신상 멈춤/가기 상태변수 초기화
-    callSts.current = 1;
+    callSts.current = false;
+    // 다시호출하여 초기화적용!
+    flowList($(".flist"), lpos, callSts)
+    // 윈도우최상
+    window.scrollTo(0,0);
+    // 부드러운 스크롤 0
+    setPos(0);
+
   },[cat]); /////// cat이 다를때
 
   // 신상품 선택 데이터 만들기
@@ -82,9 +90,15 @@ function SinSang({ cat, chgItemFn }) {
       </h2>
       <div
         className="flowbx"
-        onMouseEnter={() => {}}
+        onMouseEnter={() => {
+          // 호출참조변수값 false로 변경
+          callSts.current = false;
+          // -> 이 값으로 옆으로 흘러가기 멈춤
+        }}
         onMouseLeave={() => {
-          // callSts.current = 1;
+          // 호출참조변수값 ture로 변경
+          callSts.current = true;
+          // 다시 흘러가기 함수 호출!
           flowList($(".flist"), lpos, callSts);
         }}
       >
