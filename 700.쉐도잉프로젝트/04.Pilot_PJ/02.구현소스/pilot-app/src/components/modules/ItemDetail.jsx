@@ -1,9 +1,10 @@
 //// 아이템 디테일 컴포넌트
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { addComma } from "../../func/common_fn";
 
 // 제이쿼리
 import $ from "jquery";
+
 
 ////////////////////////////////////
 function ItemDetail({ cat, ginfo, dt, setGinfo }) {
@@ -12,7 +13,13 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
   // dt - 상품 데이터
   //setGinfo - ginfo 값 변경 메서드
 
-  //console.log(cat, ginfo);
+  console.log(cat, ginfo);
+  // 제이쿼리 이벤트 함수에 전달할 ginfo값 참조 변수
+  const getGinfo = useRef(ginfo);
+  // getGinfo 참조 변수는 들어온 ginfo 전달값이 달라진 경우 업데이트함
+  if (getGinfo.current!=ginfo) getGinfo.current = ginfo;
+
+
 
   // 배열 생성 테스트
   // 1. 배열 변수 =  [] -> 배열리터럴
@@ -33,6 +40,74 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
   //console.log(Array(10).fill(8));
   //console.log(Array(10).fill(7,2));
   //console.log(Array(10).fill(7,2,5));
+
+
+  ///////////////// 화면 랜더링 구역 : 한번만
+  useEffect(()=>{
+
+    // 수량 증감 버튼 클릭시 증감 기능
+
+
+    // 1. 대상 출력
+    // 숫자 출력 input
+    const sum = $("#sum");
+    
+    // 수량 증가 이미지 버튼
+    const numBtn = $(".chg_num img");
+
+    // 총합계 요소
+    const total = $("#total");
+
+    //console.log(sum,numBtn);
+
+
+    // 2. 수량증감 이벤트 함수
+    // 참고 : 제거용 numBtn.off("click");
+    numBtn.on("click",(e)=>{
+
+      // 이미지 순번
+      let seq = $(e.target).index();
+      //console.log("버튼순번:",seq);
+      // 0은 중가 / 1은 감소
+
+      // 기존 숫자값 읽기
+      let num = Number(sum.val());
+      //console.log("현재숫자:",num);
+
+      // 증감 반영하기 (0은 false, 1은 true 처리)
+      // 증감 기호가 앞에 있어야 먼저 증감하고 할당함
+      // seq가 0이냐 그럼 증가++, 아니면 num이 1이냐? 그럼 1 아니면 감소--
+      // 그럼 1 아니면 감소 -> num이 1이하면 안됨
+      sum.val(!seq?++num:num==1?1:--num);
+      console.log("현재숫자:",num);
+
+      console.log("확인:",ginfo[3]);
+      console.log("확인2:",getGinfo.current);
+
+      // ginfo[3]으로 읽으면 최초에 셋팅된 값이 그대로 유지가 됨
+      // 본 함수는 최초 한번만 셋팅되기 때문
+      // -> 새로 들어오는 ginfo값을 참조 변수에 넣어서 본 함수에서 그 값을 읽으면 된다
+
+      // 총합계 반영하기
+      // 원가격은 컴포넌트 전달변수 ginfo[3] -> 갱신안됨
+      // -> getGinfo 사용하여 매번 업데이트되게 해야함
+      total.text(addComma(getGinfo.current[3]*num)+"원");
+
+
+    }); //////////////// click
+
+
+  },[]); ////////////// 현재 컴포넌트 생성시 한번만 샐행 구역
+
+
+  // 화면 랜더링 구역 : 매번
+  useEffect(()=>{
+    // 매번 리렌더링될때마다 수량 초기화
+    $("#sum").val(1);
+    // 총합계 초기화
+    $("#total").text(addComma(ginfo[3])+"원");
+  });
+
 
   ////////////////// 코드 리턴 구역
   return (
