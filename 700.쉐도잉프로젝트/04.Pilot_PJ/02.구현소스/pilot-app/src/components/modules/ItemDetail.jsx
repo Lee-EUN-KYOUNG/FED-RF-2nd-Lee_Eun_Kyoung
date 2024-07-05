@@ -3,6 +3,9 @@ import React from "react";
 import { addComma } from "../../func/common_fn";
 
 
+// 제이쿼리
+import $ from "jquery";
+
 
 ////////////////////////////////////
 function ItemDetail({ cat, ginfo }) {
@@ -11,18 +14,17 @@ function ItemDetail({ cat, ginfo }) {
   console.log(cat, ginfo);
 
 
-
-
-
-
-
-
-
-  
   ////////////////// 코드 리턴 구역
   return (
     <>
-      <a href="#" className="cbtn">
+      <a href="#" className="cbtn"
+      onClick={
+        (e)=>{
+          // 기본 이동 막기
+          e.preventDefault();
+          // 창닫기
+          $(".bgbx").hide();
+        }}>
         <span className="ir">닫기버튼</span>
       </a>
       <div id="imbx">

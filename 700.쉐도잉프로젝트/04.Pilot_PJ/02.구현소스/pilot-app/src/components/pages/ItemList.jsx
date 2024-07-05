@@ -16,6 +16,7 @@ import ItemDetail from "../modules/ItemDetail";
 
 ///////////////////////////////////////////
 function ItemList() {
+
   // 상태변수 만들기 //////
   // [1] 카테고리정보
   const [cat, setCat] = useState(itemListData[0].cat);
@@ -81,6 +82,9 @@ function ItemList() {
           position: "fixed",
           top: "0px",
           paddingTop: "12vh",
+          padding: "12vh 4vw 0",
+          boxSizing : "border-box",
+          width : "100%",
           backdropFilter: "blur(8px)",
           height: "100vh",
           zIndex: "9999",
