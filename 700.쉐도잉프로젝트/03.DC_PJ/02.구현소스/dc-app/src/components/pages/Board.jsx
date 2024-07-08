@@ -2,10 +2,11 @@
 
 // 사용자 기본 정보 생성 함수 불러오기
 import { initData } from "../func/mem_fn";
+import { initBoardData } from "../func/board_fn";
 import { Fragment, useRef, useState } from "react";
 
 // 로컬스토리지 게시판 기본 데이터 제이슨
-import baseData from "../data/board.json";
+//import baseData from "../data/board.json";
 
 // 리액트 웹펙에서 제이슨은 이름을 지어서 불러오면 된다!
 // 제이슨 파일 처리는 다르므로 확장자는 반드시 쓸것
@@ -18,9 +19,19 @@ import "../../css/board.scss";
 import "../../css/board_file.scss";
 
 export default function Board() {
+
+  // 로컬 스토리지 게시판 데이터 정보 확인
+  initBoardData();
+
+  // 로컬스 데이터 변수 할당하기
+  const baseData = JSON.parse(localStorage.getItem("board-data"));
+
   // [상태 관리 변수]
   // 페이지 번호
   const [pageNum, setPageNum] = useState(1);
+
+  // 기능모드
+  const [mode, setMode] = useState("L");
 
   // [참조 변수]
   // 전체 갯수 - 매번 계산하지 않도록 참조 변수로
@@ -145,6 +156,40 @@ export default function Board() {
   return (
     <main className="cont">
       <h1 className="tit">OPINION</h1>
+      {
+        // 1. 리스트 모드일 경우 리스트 출력하기
+        mode == "L" && <ListeMode bindList={bindList} pagingList={pagingList} />
+      }
+      <br />
+      <table className="dtbl btngrp">
+        <tbody>
+          <tr>
+            <td>
+              <button>
+                <a href="#">Write</a>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  );
+} /////////// Board /////////////////////
+
+
+
+/**************************************************************************************** 
+
+  리스트 모드 서브 컴포넌트
+
+
+****************************************************************************************/
+
+const ListeMode = ({bindList, pagingList}) => {
+
+  return (
+
+    <>
       <div className="selbx">
         <select name="cta" id="cta" className="cta">
           <option value="tit">Title</option>
@@ -177,18 +222,9 @@ export default function Board() {
           </tr>
         </tfoot>
       </table>
-      <br />
-      <table className="dtbl btngrp">
-        <tbody>
-          <tr>
-            <td>
-              <button>
-                <a href="#">Write</a>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
+    </>
+
   );
-} /////////// Board /////////////////////
+
+
+};
