@@ -1,9 +1,10 @@
 //// 아이템 디테일 컴포넌트
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { addComma } from "../../func/common_fn";
 
 // 제이쿼리
 import $ from "jquery";
+import { pCon } from "./pCont";
 
 
 ////////////////////////////////////
@@ -14,6 +15,12 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
   //setGinfo - ginfo 값 변경 메서드
 
   console.log(cat, ginfo);
+
+  // 전역 카트 사용 여부값 업데이트 사용 위해 전역 컨텍스트 사용
+  const myCon = useContext(pCon);
+
+
+
   // 제이쿼리 이벤트 함수에 전달할 ginfo값 참조 변수
   const getGinfo = useRef(ginfo);
   // getGinfo 참조 변수는 들어온 ginfo 전달값이 달라진 경우 업데이트함
@@ -284,7 +291,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button className="btn">SHOPPING CART</button>
+              <button className="btn" onClick={()=>myCon.setCartSts(true)}>SHOPPING CART</button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>
