@@ -20,13 +20,11 @@ import "../../css/board.scss";
 import "../../css/board_file.scss";
 
 export default function Board() {
-
-
   // 컨텍스트 사용하기
   const myCon = useContext(dCon);
   // 전역 로그인 상태 변수 확인하기
-  const sts = myCon.loginSts
-  console.log("로그인상태:", sts);
+  const sts = myCon.loginSts;
+  //console.log("로그인상태:", sts);
 
   // 로컬 스토리지 게시판 데이터 정보 확인
   initBoardData();
@@ -98,14 +96,17 @@ export default function Board() {
         {/* 시작번호를 더하여 페이지별 순번을 변경 */}
         <td>{i + 1 + sNum}</td>
         <td>
-          <a href="#" onClick={e=>{
-            e.preventDefault();
-            // 읽기 모드로 변경
-            setMode("R");
-            // 해당 데이터 저장하기
-            selRecord.current = v;
-          }}>
-            {v.cont}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              // 읽기 모드로 변경
+              setMode("R");
+              // 해당 데이터 저장하기
+              selRecord.current = v;
+            }}
+          >
+            {v.tit}
           </a>
         </td>
         <td>{v.unm}</td>
@@ -170,23 +171,100 @@ export default function Board() {
     return pgCode;
   }; ////////// pagingList 함수
 
-
   /// 버튼 클릭시 변경함수
   const clickButton = (e) => {
     // 버튼 글자 읽기
     let btnText = e.target.innerText;
     //console.log(btnText);
 
-    // 버튼별 분귀
-    switch (btnText){
+    // 버튼별 분기
+    switch (btnText) {
       // 글쓰기 모드로 변경
-      case "Write" : console.log("글쓰기");break;
+      case "Write":
+        setMode("W");
+        break;
       // 리스트 모드로 변경
-      case "List" : setMode("L");break;
+      case "List":
+        setMode("L");
+        break;
+      // 글쓰기 모드일 경우 함수 호출
+      case "Submit":
+        submitFn();
+        break;
     }
-  };
+  }; //////////////////////////////////////
 
+  ////////// 서브및 처리 함수
+  const submitFn = () => {
+    // 제목 입력 항목
+    let title = $(".subject").val().trim();
+    //console.log("제목:", title);
 
+    // 내용 입력 항목
+    let cont = $(".content").val().trim();
+    //console.log("내용:", cont);
+    // trim()으로 앞뒤공백 제거후 검사
+
+    // 1. 공통 유효성 검사
+    // 제목, 내용 모두 비었으면 리턴
+    if (title == "" || cont == "") {
+      alert("Insert title or content!");
+      return; // 서브밋 없이 함수 나가기
+    }
+
+    // 2. 글쓰기 서브밋 (mode == "w")
+
+    if (mode == "W") {
+      // 현재 로그인 사용자 정보 파싱하기
+      let person = JSON.parse(sts);
+
+      // 오늘날짜
+      let today = new Date();
+      // yy-mm-dd 형식으로 구하기 (제이슨 형식으로 : toJSON())
+      // 또는 ISO 표준 형식 : toISOString()
+      // 시간까지 나오므로 앞에 10자리만 가져감 : 문자열.substr(0,10)
+
+      // 글번호 만들기
+      // 전체 데이터중 idx만 모아서 배열 만들기
+
+      let arrIdx = baseData.map((v) => parseInt(v.idx));
+
+      // 최대값 찾기 : 스프레드 연산자로 배열값만 넣음
+      let maxNum = Math.max(...arrIdx);
+
+      console.log(maxNum);
+
+      let data = {
+        idx: maxNum + 1,
+        tit: title,
+        cont: cont,
+        att: "",
+        date: today.toJSON().substr(0, 10),
+        uid: person.uid,
+        unm: person.unm,
+        cnt: "0",
+      };
+      console.log("글쓰기 서브밋:", data);
+
+      // 로컬쓰에 입력하기
+      // 1. 로컬스 파싱
+      let locals = localStorage.getItem("board-data");
+      locals = JSON.parse(locals);
+
+      // 2. 파싱 배열에 푸쉬
+      locals.push(data);
+
+      // 3. 새 배열을 문자화하여 로컬쓰에 넣기
+      localStorage.setItem("board-data", JSON.stringify(locals));
+
+      //console.log("로컬쓰:", localStorage.getItem("board-data"));
+
+      // 리스트 돌아가기 -> 모드 변경
+      setMode("L");
+    }
+
+    // 3. 수정 모드 서브밋 (mode == "M")
+  }; ////////////////////////
 
   /////////////////////////////////// 코드 리턴구역 /////////////////////
   return (
@@ -198,26 +276,40 @@ export default function Board() {
       }
       {
         // 2. 읽기 모드일 경우 상세보기 출력하기
-        mode == "R" && <ReadMode selRecord={selRecord}/>
+        mode == "R" && <ReadMode selRecord={selRecord} />
+      }
+      {
+        // 3. 쓰기 모드일 경우 로그인 정보 보내기
+        /// sts값은 문자열이므로 파싱하여 객체로 보냄
+        mode == "W" && <WriteMode sts={JSON.parse(sts)} />
       }
       <br />
+      {/* 모드별 버튼 출력 박스 */}
       <table className="dtbl btngrp">
         <tbody>
           <tr>
             <td>
               {
                 // 1. 글쓰기 버튼은 로그인 상태이고 L이면 출력
-                mode=="L" && sts &&
-              <button onClick={clickButton}>
-                Write
-              </button>
+                mode == "L" && sts && (
+                  <button onClick={clickButton}>Write</button>
+                )
               }
               {
                 // 2. 글보기 "R" 상태일 경우
-                mode == "R" &&
+                mode == "R" && <button onClick={clickButton}>List</button>
+              }
+             {
+                // 3. 쓰기상태 "W" 일 경우
+                mode == "W" && 
+                <>
+                <button onClick={clickButton}>
+                  Submit
+                </button>
                 <button onClick={clickButton}>
                   List
                 </button>
+                </>
               }
             </td>
           </tr>
@@ -274,8 +366,7 @@ const ListeMode = ({ bindList, pagingList }) => {
                                   읽기 모드 서브 컴포넌트
 ****************************************************************************************/
 
-const ReadMode = ({selRecord}) => {
-
+const ReadMode = ({ selRecord }) => {
   // 읽기 모드가 호출되었다는 것은 리스트의 제목이 클릭되었다는 것을 의미
   // 현재 레코드값도 저장되었다는 의미
   //console.log("전달된 참조변수",selRecord.current);
@@ -302,8 +393,13 @@ const ReadMode = ({selRecord}) => {
           <tr>
             <td>Title</td>
             <td>
-              <input type="text" className="subject" size="60" readOnly
-              value={data.tit} />
+              <input
+                type="text"
+                className="subject"
+                size="60"
+                readOnly
+                value={data.tit}
+              />
             </td>
           </tr>
           <tr>
@@ -326,4 +422,65 @@ const ReadMode = ({selRecord}) => {
       </table>
     </>
   );
-};
+}; ///////////// ReadMode //////////////////
+
+/****************************************** 
+        쓰기 모드 서브 컴포넌트
+******************************************/
+const WriteMode = ({ sts }) => {
+  // sts - 로그인 상태정보
+  // 로그인한 사람만 글쓰기 가능!
+  console.log(sts);
+
+  return (
+    <>
+      <table className="dtblview readone">
+        <caption>OPINION : Write</caption>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>
+              <input
+                type="text"
+                className="name"
+                size="20"
+                readOnly
+                // 로그인한 사람이름
+                value={sts.unm}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>
+              <input
+                type="text"
+                className="email"
+                size="40"
+                readOnly
+                // 로그인한 사람이메일
+                value={sts.eml}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>
+              <input type="text" className="subject" size="60" />
+            </td>
+          </tr>
+          <tr>
+            <td>Content</td>
+            <td>
+              <textarea className="content" cols="60" rows="10"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>Attachment</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+}; ///////////// WriteMode //////////////////
