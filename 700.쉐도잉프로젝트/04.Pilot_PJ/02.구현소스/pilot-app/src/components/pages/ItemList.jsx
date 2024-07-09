@@ -1,5 +1,5 @@
 // 상품 리스트 컴포넌트
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // 공통함수 불러오기
 import { addComma } from "../../func/common_fn";
@@ -22,6 +22,12 @@ function ItemList() {
   const [cat, setCat] = useState(itemListData[0].cat);
   // [2] 상품정보
   const [ginfo, setGinfo] = useState(itemListData[0].ginfo);
+
+  // [3] 상품 고유 번호 참조 변수
+  const gIdx = useRef(0);
+
+
+
 
   // 화면랜더링구역 ////////
   useEffect(() => {
@@ -53,8 +59,11 @@ function ItemList() {
                   // 상품상세모듈 전달 상태변수 변경
                   setCat(v.cat);
                   setGinfo(v.ginfo);
+                  // 상품 고유 번호 idx 업데이트
+                  gIdx.current = v.idx;
                   // 상세상품정보 박스 보이기
                   $(".bgbx").show();
+                  //console.log("data:",v);
                 }}
               >
                 [{i + 1}]
@@ -105,6 +114,8 @@ function ItemList() {
         dt={itemListData}
         // 한줄 리스트 클릭시 변경
         setGinfo={setGinfo}
+        // 상품 고유 번호 전달
+        gIdx={gIdx.current}
         />
       </div>
     </main>

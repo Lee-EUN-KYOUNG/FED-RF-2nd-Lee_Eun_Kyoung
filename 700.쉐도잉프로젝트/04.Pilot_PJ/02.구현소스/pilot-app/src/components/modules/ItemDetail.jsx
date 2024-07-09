@@ -8,13 +8,15 @@ import { pCon } from "./pCont";
 
 
 ////////////////////////////////////
-function ItemDetail({ cat, ginfo, dt, setGinfo }) {
+function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
   // cat - 카테고리
   // ginfo - 상품정보
   // dt - 상품 데이터
   //setGinfo - ginfo 값 변경 메서드
+  // gIdx -  상품 고유 번호
 
-  console.log(cat, ginfo);
+
+  console.log(cat, ginfo, gIdx);
 
   // 전역 카트 사용 여부값 업데이트 사용 위해 전역 컨텍스트 사용
   const myCon = useContext(pCon);
@@ -291,7 +293,32 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button className="btn" onClick={()=>myCon.setCartSts(true)}>SHOPPING CART</button>
+              <button className="btn" onClick={()=>{
+                // 로컬스에 넣기
+                if(!localStorage.getItem("cart-data")){
+                  // 로컬스없으면 만들기
+                  localStorage.setItem("cart-data","[]");
+                } ////////////// if
+
+                /// 로컬스 읽어와서 파싱하기;
+                let locals = localStorage.getItem("cart-data");
+                locals = JSON.parse(locals);
+
+                // 로칼스에 객체 데이터 추가하기
+                locals.push({
+                  num: 1,
+                  idx: gIdx,
+                  cat: cat,
+                  ginfo: ginfo,
+                });
+                // 로컬스에 문자화하여 입력하기
+                //localStorage.setItem("cart-data",JSON.stringify());
+                localStorage.setItem("cart-data", JSON.stringify(locals));
+
+                // 카트 상태값 변경
+                myCon.setCartSts(true)}}>
+                  SHOPPING CART
+              </button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>
