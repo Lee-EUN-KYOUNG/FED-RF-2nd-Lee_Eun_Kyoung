@@ -3,7 +3,8 @@
 // 사용자 기본 정보 생성 함수 불러오기
 import { initData } from "../func/mem_fn";
 import { initBoardData } from "../func/board_fn";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
+import { dCon } from "../modules/dCon";
 
 // 로컬스토리지 게시판 기본 데이터 제이슨
 //import baseData from "../data/board.json";
@@ -19,6 +20,14 @@ import "../../css/board.scss";
 import "../../css/board_file.scss";
 
 export default function Board() {
+
+
+  // 컨텍스트 사용하기
+  const myCon = useContext(dCon);
+  // 전역 로그인 상태 변수 확인하기
+  const sts = myCon.loginSts
+  console.log("로그인상태:", sts);
+
   // 로컬 스토리지 게시판 데이터 정보 확인
   initBoardData();
 
@@ -35,7 +44,7 @@ export default function Board() {
   // [참조 변수]
   // 전체 갯수 - 매번 계산하지 않도록 참조 변수로
   const totalCount = useRef(baseData.length);
-  console.log("전체개수 :", totalCount);
+  //console.log("전체개수 :", totalCount);
 
   // 선택 데이터 저장
   const selRecord = useRef(null);
@@ -82,7 +91,7 @@ export default function Board() {
       selData.push(orgData[i]);
     } ////////////// for문
 
-    console.log("일부데이터:", selData);
+    //console.log("일부데이터:", selData);
 
     return selData.map((v, i) => (
       <tr key={i}>
@@ -122,12 +131,12 @@ export default function Board() {
       pagingCount++;
     }
 
-    console.log(
-      "페이징갯수:",
-      pagingCount,
-      "나머지연산결과:",
-      totalCount.current % unitSize
-    );
+    //console.log(
+    //  "페이징갯수:",
+    //  pagingCount,
+    //  "나머지연산결과:",
+    //  totalCount.current % unitSize
+    //);
 
     // 링크 코드 만들기
     const pgCode = [];
@@ -166,7 +175,7 @@ export default function Board() {
   const clickButton = (e) => {
     // 버튼 글자 읽기
     let btnText = e.target.innerText;
-    console.log(btnText);
+    //console.log(btnText);
 
     // 버튼별 분귀
     switch (btnText){
@@ -198,8 +207,7 @@ export default function Board() {
             <td>
               {
                 // 1. 글쓰기 버튼은 로그인 상태이고 L이면 출력
-
-                mode=="L" &&
+                mode=="L" && sts &&
               <button onClick={clickButton}>
                 Write
               </button>
@@ -270,7 +278,7 @@ const ReadMode = ({selRecord}) => {
 
   // 읽기 모드가 호출되었다는 것은 리스트의 제목이 클릭되었다는 것을 의미
   // 현재 레코드값도 저장되었다는 의미
-  console.log("전달된 참조변수",selRecord.current);
+  //console.log("전달된 참조변수",selRecord.current);
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
