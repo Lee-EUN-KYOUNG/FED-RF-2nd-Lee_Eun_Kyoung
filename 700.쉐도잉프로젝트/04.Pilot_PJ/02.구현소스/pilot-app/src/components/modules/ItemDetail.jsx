@@ -8,15 +8,18 @@ import { pCon } from "./pCont";
 
 
 ////////////////////////////////////
-function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
-  // cat - 카테고리
-  // ginfo - 상품정보
+function ItemDetail({ dt, setTot, tot }) {
+
   // dt - 상품 데이터
-  //setGinfo - ginfo 값 변경 메서드
-  // gIdx -  상품 고유 번호
+  // tot - 상품 토탈 정보
+
+  // 상품 정보 개별 셋업
+  let cat = tot.cat;
+  let ginfo = tot.ginfo;
+  let gIdx = tot.idx;
 
 
-  console.log(cat, ginfo, gIdx);
+  //console.log(cat, ginfo, gIdx);
 
   // 전역 카트 사용 여부값 업데이트 사용 위해 전역 컨텍스트 사용
   const myCon = useContext(pCon);
@@ -176,9 +179,9 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                       }); /////////// find
                       // 상품 상세 모듈 전달 상태 변수 변경하기
                       // find에서 받은 값은 객체값
-                      // 그중 ginfo 속성값만 필요
                       // 카테고리 값은 바꿀 필요 없음
-                      setGinfo(res.ginfo);
+                      // 상품 토탈 정보로 모든 객체값을 업데이트함
+                      setTot(res);
                     }}
                     >
                       <img
