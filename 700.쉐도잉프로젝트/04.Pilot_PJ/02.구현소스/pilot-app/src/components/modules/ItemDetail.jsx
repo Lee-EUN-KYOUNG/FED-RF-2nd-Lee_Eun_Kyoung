@@ -313,7 +313,18 @@ function ItemDetail({ dt, setTot, tot }) {
                   idx: gIdx,
                   cat: cat,
                   ginfo: ginfo,
+                  cnt : 1
                 });
+                
+                /* 
+                [데이터 구조 정의] 
+                1. num : 카트 리스트 순번
+                2. idx : 상품 고유 번호
+                3. cat : 카테고리
+                4. ginfo : 상품 정보
+                5. cnt : 상품 갯수
+                */
+
                 // 로컬스에 문자화하여 입력하기
                 //localStorage.setItem("cart-data",JSON.stringify());
                 localStorage.setItem("cart-data", JSON.stringify(locals));
