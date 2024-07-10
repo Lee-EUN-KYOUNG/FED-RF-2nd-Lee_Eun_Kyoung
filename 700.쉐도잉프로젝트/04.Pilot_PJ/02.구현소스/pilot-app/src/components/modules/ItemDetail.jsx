@@ -132,6 +132,10 @@ function ItemDetail({ dt, setTot, tot }) {
           e.preventDefault();
           // 창닫기
           $(".bgbx").hide();
+          // 창 닫을때 초기화하기
+          $("#sum").val(1);
+          // 총합계 초기화
+          $("#total").text(addComma(ginfo[3])+"원");
         }}
       >
         <span className="ir">닫기버튼</span>
@@ -309,13 +313,13 @@ function ItemDetail({ dt, setTot, tot }) {
 
                 // 로칼스에 객체 데이터 추가하기
                 locals.push({
-                  num: 1,
+                  num: locals.length+1,
                   idx: gIdx,
                   cat: cat,
                   ginfo: ginfo,
-                  cnt : 1
+                  cnt : $("#sum").val()
                 });
-                
+
                 /* 
                 [데이터 구조 정의] 
                 1. num : 카트 리스트 순번
