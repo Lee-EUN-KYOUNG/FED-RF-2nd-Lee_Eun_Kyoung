@@ -13,7 +13,7 @@ function CartList(props) {
   const myCon = useContext(pCon);
 
   // 로컬스 데이터 가져오기
-  const selData = JSON.parse(localStorage.getItem("cart-data"));
+  const selData = JSON.parse(myCon.localsCart);
 
   // 전체 데이터 갯수
   const dataCnt = selData.length;
@@ -38,7 +38,18 @@ function CartList(props) {
     return result;
   };
 
-  //// 화면 랜더링 구역
+  /// 화면 랜더링 구역 : seldata 의존성
+  useEffect(() => {
+    // 카트 버튼 나타나기
+    $("#mycart").removeClass("on")
+    .fadeIn(300, function(){
+      // 나타난후 클래스 넣으면 오른쪽 이동 + 작아짐
+      $(this).addClass("on");
+    });
+  },[selData]);
+
+
+  //// 화면 랜더링 구역 : 한번만
   useEffect(() => {
 
     // 카트 버튼 나타나기

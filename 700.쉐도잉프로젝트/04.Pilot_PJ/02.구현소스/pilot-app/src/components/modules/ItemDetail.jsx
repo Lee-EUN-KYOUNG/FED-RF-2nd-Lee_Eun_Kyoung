@@ -301,17 +301,31 @@ function ItemDetail({ dt, setTot, tot }) {
             <div>
               <button className="btn btn1">BUY NOW</button>
               <button className="btn" onClick={()=>{
-                // 로컬스에 넣기
+                // 1. 로컬스 카트 데이터에 넣기
                 if(!localStorage.getItem("cart-data")){
                   // 로컬스없으면 만들기
                   localStorage.setItem("cart-data","[]");
                 } ////////////// if
 
-                /// 로컬스 읽어와서 파싱하기;
+                /// 2. 로컬스 읽어와서 파싱하기;
                 let locals = localStorage.getItem("cart-data");
                 locals = JSON.parse(locals);
 
-                // 로칼스에 객체 데이터 추가하기
+                // 3. 기존 데이터 중 동일 데이터 거르기
+                // 파싱된 로컬스 데이터 중 idx 항목을 검사하여 gIdx로 넣을 상품 idx와 같은 것이 있으면
+                // 메시지와 함께 리턴처리하여 입력을 막아준다
+                let retSts = locals.some(v=>{
+                  if(v.idx==gIdx) return true;
+                });
+
+                console.log("중복상태:",retSts);
+                
+                if(retSts){
+                  alert("중복 선택입니다!")
+                  return;
+                }/////if
+
+                // 4. 로칼스에 객체 데이터 추가하기
                 locals.push({
                   idx: gIdx,
                   cat: cat,
@@ -331,8 +345,11 @@ function ItemDetail({ dt, setTot, tot }) {
                 //localStorage.setItem("cart-data",JSON.stringify());
                 localStorage.setItem("cart-data", JSON.stringify(locals));
 
-                // 카트 상태값 변경
-                myCon.setCartSts(true)}}>
+                // 로컬스 카트 데이터 상태값 변경
+                myCon.setLocalsCart(localStorage.getItem("cart-data"));
+                // 카트 리스트 생성 상태값 변경
+                myCon.setCartSts(true);
+                }}>
                   SHOPPING CART
               </button>
               <button className="btn">WISH LIST</button>
