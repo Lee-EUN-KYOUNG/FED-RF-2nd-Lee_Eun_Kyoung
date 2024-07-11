@@ -314,12 +314,32 @@ function ItemDetail({ dt, setTot, tot }) {
                 // 3. 기존 데이터 중 동일 데이터 거르기
                 // 파싱된 로컬스 데이터 중 idx 항목을 검사하여 gIdx로 넣을 상품 idx와 같은 것이 있으면
                 // 메시지와 함께 리턴처리하여 입력을 막아준다
-                let retSts = locals.some(v=>{
-                  if(v.idx==gIdx) return true;
-                });
+
+                // 배열 중복 검사시 새용하는 메서드 : some() 메서드
+                // -> 중복 데이터 발생시 true 리턴시켜서 구분해준다
+                
+                // [방법 1]
+                //let retSts = locals.some(v=>{
+                //  if(v.idx==gIdx) return true;
+                //});
+
+                // [방법 2]
+                // 배열.includes(비교값)
+                // 주의사항: 배열값이 단일값이어야 비교가 됨
+                // 예) let aa= [11, 22, 33]
+                // aa.includes(22) -> 있으면 결과가 true
+
+                // idx값만 모아서 다른 배열 만들기
+                let newLocals = locals.map(v=>v.idx);
+                console.log("idx 새배열:",newLocals);
+
+                // include 비교
+                let retSts = newLocals.includes(gIdx);
+
+
 
                 console.log("중복상태:",retSts);
-                
+
                 if(retSts){
                   alert("중복 선택입니다!")
                   return;
