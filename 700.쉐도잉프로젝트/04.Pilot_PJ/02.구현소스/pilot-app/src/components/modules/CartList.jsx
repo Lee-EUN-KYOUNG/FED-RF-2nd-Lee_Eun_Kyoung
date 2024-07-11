@@ -219,6 +219,11 @@ function CartList(props) {
                                 // 카트리스트 전역 상태 변수 변경
                                 myCon.setLocalsCart(res);
 
+                                // 데이터 갯수가 0이면 카트리스트 상태변수를 flase로 변경하여
+                                // 카트리스트 출력을 없앤다
+
+                                if(selData.length==0) myCon.setCartSts(false);
+
 
                                 //let aa = [];
                                 //aa.splice(지울순번,지울개수)
