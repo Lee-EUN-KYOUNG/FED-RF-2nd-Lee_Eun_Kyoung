@@ -198,13 +198,34 @@ function CartList(props) {
                               // confirm()의 "확인" 클릭시 true
                               if(window.confirm("지우시겠습니까?")){
                                 console.log("삭제");
+                                console.log("현재객체",selData);
+                                console.log("지울순번",i);
+                                // splice 자체를 찍으면 지워진 요소가 찍힘
+                                //console.log("지움",selData.splice(i,1));
+
+                                // 지울 배열 순번은 map()에서 i로 들어옴
+                                // 지울 배열은 selData임
+                                
+                                // 데이터 지우기
+                                selData.splice(i,1);
+                                
+
+                                // 데이터 문자화하기 : 변경된 원본을 문자화
+                                let res = JSON.stringify(selData);
+
+                                // 로컬쓰 "cart-data"에 반영하기
+                                localStorage.setItem("cart-data",res);
+
+                                // 카트리스트 전역 상태 변수 변경
+                                myCon.setLocalsCart(res);
+
 
                                 //let aa = [];
                                 //aa.splice(지울순번,지울개수)
-                                let selSeq = selData.find((val,i)=>{
-                                  if(val.idx==v.idx) return i;
-                                  //console.log(selSeq);
-                                });
+                                //let selSeq = selData.find((val,i)=>{
+                                //  if(val.idx==v.idx) return i;
+                                //  //console.log(selSeq);
+                                //});
 
 
                               } ////// if
