@@ -47,23 +47,17 @@ function CartList(props) {
       // 나타난후 클래스 넣으면 오른쪽 이동 + 작아짐
       $(this).addClass("on");
     });
+    // 총합계 찍기
+    $(".total-num").text(addComma(totalFn()));
   },[dataCnt]);
    // 숫자값은 값할당이므로 변함없음
   // ,[selData]는 리랜더링시 객체 주소값이 변경되어 매번 새로운 값이 업데이트 되기때문에 부적격
 
+
+
   //// 화면 랜더링 구역 : 한번만
-  useEffect(() => {
-
-    // 카트 버튼 나타나기
-    $("#mycart").fadeIn(300,function(){
-      $(this).addClass("on");
-    });
-    // 총합계 찍기
-    $(".total-num").text(addComma(totalFn()));
-  }, []);
+  // useEffect(() => {}, []);
  
-
-
 
 
   ///////////////////////////////////////// 코드 리턴 구역
@@ -95,13 +89,13 @@ function CartList(props) {
           </colgroup>
           {/* 테이블 제목 */}
           <caption>
-            <h1> 카트 리스트</h1>
+            <h1> 카트 리스트 ({dataCnt})</h1>
           </caption>
           {/* 테이블 상단영역 : 분류 항목 출력 */}
           <thead>
             <tr>
-              <th>상품</th>
               <th>번호</th>
+              <th>상품</th>
               <th>상품명</th>
               <th>상품코드</th>
               <th>단가</th>
@@ -135,6 +129,9 @@ function CartList(props) {
                           */}
                       {selData.map((v, i) => (
                         <tr key={i}>
+                          {/* 일련번호 */}
+                          <td>{i+1}</td>
+                          {/* 상품 번호 */}
                           <td>
                             <img
                               src={
@@ -144,7 +141,6 @@ function CartList(props) {
                               alt="item"
                             />
                           </td>
-                          <td>{v.num}</td>
                           <td>{v.ginfo[1]}</td>
                           <td>{v.ginfo[2]}</td>
                           <td>{addComma(v.ginfo[3])}원</td>
@@ -196,7 +192,24 @@ function CartList(props) {
                             />
                           </td>
                           <td>
-                            <button className="cfn" data-idx="20">
+                            {/* 데이터 삭제 기능 버튼 */}
+                            <button className="cfn"
+                            onClick={()=>{
+                              // confirm()의 "확인" 클릭시 true
+                              if(window.confirm("지우시겠습니까?")){
+                                console.log("삭제");
+
+                                //let aa = [];
+                                //aa.splice(지울순번,지울개수)
+                                let selSeq = selData.find((val,i)=>{
+                                  if(val.idx==v.idx) return i;
+                                  //console.log(selSeq);
+                                });
+
+
+                              } ////// if
+                            }}
+                            >
                               ×
                             </button>
                           </td>
