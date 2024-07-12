@@ -28,8 +28,6 @@ function MainComponent(props) {
   // 로컬스 카트 존재여부 변수
   let cartTemp = false;
 
-  
-
   // 로컬스 카트 데이터 상태변수
   const [localsCart,setLocalsCart] = 
   useState(localStorage.getItem("cart-data"));
@@ -68,7 +66,7 @@ function MainComponent(props) {
   //// 코드 리턴 구역
   return (
     <pCon.Provider value={{setPgName, setCartSts, setLocalsCart, localsCart}}>
-      <TopArea />
+      <TopArea pgName={pgName} />
       <MainArea page={pgName} />
       <FooterArea />
       {/* 카트 리스트 : 카트 상태값 true 출력*/}
