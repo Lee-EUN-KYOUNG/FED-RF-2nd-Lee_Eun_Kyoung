@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { pCon } from "./pCont";
 
 // CSS 불러오기
@@ -9,6 +9,15 @@ import { addComma } from "../../func/common_fn";
 import $ from "jquery";
 
 function CartList(props) {
+
+
+  // 강제 리랜더링을 위한 상태 변수
+  // 불린값을 넣어놓고 강제 리랜더링이 필요한경우
+  // setForce(!force); 기존 불린값을 반대로 넣어준다
+  const [force, setForce] = useState(false);
+
+  // sestForce(Math.randow()) 랜덤수 넣어준다
+
   // 컨텍스트 사용
   const myCon = useContext(pCon);
 
@@ -38,9 +47,10 @@ function CartList(props) {
     return result;
   };
 
-  /// 화면 랜더링 구역 : seldata 의존성
+  /// 화면 랜더링 구역 : dataCnt, force의존성
   useEffect(() => {
     // 카트 버튼 나타나기
+    
     $("#mycart")
       .removeClass("on")
       .delay(500) // 애니메이션 지연시간
@@ -50,7 +60,11 @@ function CartList(props) {
       });
     // 총합계 찍기
     $(".total-num").text(addComma(totalFn()));
-  }, [dataCnt]);
+  }, [dataCnt, force]);
+
+  // 의존성 추가 -> 강제 리랜더링 상태 변수도 등록해준다
+
+
   // 숫자값은 값할당이므로 변함없음
   // ,[selData]는 리랜더링시 객체 주소값이 변경되어 매번 새로운 값이 업데이트 되기때문에 부적격
 
@@ -173,22 +187,47 @@ function CartList(props) {
                                   // 카트리스트 전역 상태 변수 변경
                                   myCon.setLocalsCart(res);
                                   
+                                  // 데이터 변경 sync가 맞지 않는 경우가 생기게됨
+                                  // 데이터 변경했음에도 리랜더링 안된 이유:
+                                  // -> 배열의 객체값이 변경되거나 배열 순서를 변경한 경우
+                                  //    배열이 변경되었다고 체크되지 않음
+                                  //    이때 강제 리랜더링이 필요하다
+                                  setForce(!force);
+                                  
                                   // 반영 버튼 숨기기
-                                  $(e.currentTarget).css({width: "0"});
-
+                                  $(e.currentTarget)
+                                  .css({width: "0"}).hide()
+                                  .next() // 취소버튼;
+                                  .css({width: "0"}).hide();
+                                  // 아래 기능은 리랜더링 되면 해결됨
                                   // 전체 총합계 계산 다시 하기
-                                  $(".total-num").text(addComma(totalFn()));
+                                  //$(".total-num").text(addComma(totalFn()));
                                 }}
                                 >
                                   반영
+                                </button>
+                                {/* 취소 버튼 */}
+                                <button
+                                className="btn-cancel"
+                                onClick={(e)=>{
+                                  $(e.currentTarget)
+                                  .hide()
+                                  .prev() // 반영 버튼
+                                  .hide()
+                                  .siblings("input")
+                                  .val(v.cnt)
+                                  // 취소 버튼 자신의 CSS를 변경하고 (안보이게)
+                                  // 이전 버튼인 "반영" 버튼도 안보이게하고
+                                  // 형제 요소 중 input을 찾아 값으로 기존 값인 v.cnt를 넣는다
+                                }}
+                                >취소
                                 </button>
                                 <b
                                   className="btn-cnt"
                                   onClick={(e) => {
                                     // 업데이트 대상 (input)
-                                    let tg = $(e.currentTarget).siblings(
-                                      "input"
-                                    );
+                                    let tg = $(e.currentTarget)
+                                    .siblings("input");
                                     // 입력창의 blur 이벤트발생을 위해 강제로 포커스를 준다
                                     tg.focus();
                                     // 하위 클릭된 이미지 종류 파악하기
@@ -211,7 +250,11 @@ function CartList(props) {
                                       );
                                     } /////////// else if
                                     // 클릭시 반영버튼 나타나기
-                                    $(e.currentTarget).siblings(".btn-insert").css({width: "auto"});
+                                    $(e.currentTarget)
+                                    .siblings(".btn-insert")
+                                    .show()
+                                    .next()
+                                    .show();
                                   }}
                                 >
                                   <img
