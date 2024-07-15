@@ -3,7 +3,7 @@
 // 사용자 기본 정보 생성 함수 불러오기
 import { initData } from "../func/mem_fn";
 import { initBoardData } from "../func/board_fn";
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { dCon } from "../modules/dCon";
 
 // 로컬스토리지 게시판 기본 데이터 제이슨
@@ -31,6 +31,11 @@ export default function Board() {
 
   // 로컬스 데이터 변수 할당하기
   const baseData = JSON.parse(localStorage.getItem("board-data"));
+
+  // 원본 데이터에 정렬 적용하기 : 내림차순
+  baseData.sort((a, b) =>
+  Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
+  );
 
   // [상태 관리 변수]
   // 페이지 번호
@@ -195,8 +200,49 @@ export default function Board() {
       case "Modify":
         setMode("M");
         break;
+      // 삭제일 경우 삭제 함수 호출
+      case "Delete":
+        deleteFn();
+        break;
     }
   }; //////////////////////////////////////
+
+  // 삭제 처리 함수
+  const deleteFn = () =>{
+
+    // 삭제 여부 확인
+    if(window.confirm("Are you sure you want to delete?")){
+
+    // 해당 항목 idx 담기
+    let currIdx = selRecord.current.idx;
+
+    // some()로 순회하여 해당 항목 삭제하기
+    // find와 달리 some은 결과앖을 boolean값으로 리턴하여 처리한다
+    // 이것을 이용하여 코드처리해보자
+    baseData.some((v,i)=>{
+      if(v.idx == currIdx){
+        // 해당 순번 배열값을 삭제하자
+        // 배열 삭제는 splice(순번,1)
+        baseData.splice(i,1);
+        // 리턴 true할 경우 종료
+        return true;
+      }
+    }); /////////// some
+
+    // 3. 로컬쓰에 업데이트하기
+    localStorage.setItem("board-data", JSON.stringify(baseData));
+
+    // 4. 삭제후 리스트 리랜더링시 리스트 불일치로 인한
+    // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다!
+    totalCount.current = baseData.length;
+
+    // 5. 리스트 돌아가기 -> 모드 변경
+    setMode("L");
+    
+    }
+  }; //////////////////////// deleteFn 함수
+
+
 
   ////////// 서브및 처리 함수
   const submitFn = () => {
@@ -236,7 +282,7 @@ export default function Board() {
       // 최대값 찾기 : 스프레드 연산자로 배열값만 넣음
       let maxNum = Math.max(...arrIdx);
 
-      console.log(maxNum);
+      //console.log(maxNum);
 
       let data = {
         idx: maxNum + 1,
@@ -248,7 +294,7 @@ export default function Board() {
         unm: person.unm,
         cnt: "0",
       };
-      console.log("글쓰기 서브밋:", data);
+      //console.log("글쓰기 서브밋:", data);
 
       // 로컬쓰에 입력하기
       // 1. 로컬스 파싱
@@ -263,12 +309,70 @@ export default function Board() {
 
       //console.log("로컬쓰:", localStorage.getItem("board-data"));
 
-      // 리스트 돌아가기 -> 모드 변경
+      // 4. 추가후 리스트 리랜더링시 리스트 불일치로 인한
+      // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다!
+      totalCount.current = baseData.length;
+
+      // 5. 리스트 돌아가기 -> 모드 변경
       setMode("L");
     }
 
+
     // 3. 수정 모드 서브밋 (mode == "M")
-  }; ////////////////////////
+    else if (mode == "M") {
+      
+      // 오늘날짜 생성하기
+      // 수정시 수정 날짜 항목을 새로 만들고 입력함
+
+      let today = new Date();
+      // yy-mm-dd 형식으로 구하기 (제이슨 형식으로 : toJSON())
+      // 또는 ISO 표준 형식 : toISOString()
+      // 시간까지 나오므로 앞에 10자리만 가져감 : 문자열.substr(0,10)
+
+      // 2. 현재 데이터 idx값 변수 할당
+      let currIdx = selRecord.current.idx;
+
+      // 3. 기존 데이터로 찾아서 변경하기 : 로컬스 데이터 -> baseData
+      // find는 특정 항목을 찾아서 리턴하여 데이터를 가져오기도 하지만
+      // 업데이트 등 작업도 가능함
+      baseData.find((v) => {
+        //console.log(v,selRecord);
+        if(v.idx == currIdx){
+
+          // 이미 선택된 selRecord 참조 변수의 글번호인 idx로 
+          // 원본 데이터를 조회하여 기존 데이터를 업데이트한다
+
+          // [업데이트 작업하기]
+          // 기존 항목 변경 : tit, cont
+          // (1) 글제목 : tit
+          v.tit = title;
+
+          // (2) 글내용 : cont
+          v.cont = cont;
+
+          // * 추가 항목 : 
+          // 원래는 확정된 DB 스키마에 따라 입력해야하지만 
+          // 우리가 사용하는 로컬스토리지의 확정성에 따라 필요한 항목을 추가하여 넣는다
+          // (3) 수정일 : mdate
+          v.mdate = today.toJSON().substr(0, 10);
+          // 해당 항목을 만나면 끝
+          return true;
+        }
+      })
+          
+      // 4. 로컬쓰에 업데이트하기
+      localStorage.setItem("board-data", JSON.stringify(baseData));
+
+      //console.log("로컬쓰:", localStorage.getItem("board-data"));
+
+      // 리스트 돌아가기 -> 모드 변경
+      setMode("L");
+    } ////// els if
+
+
+  }; //////////////////////// submitFn
+
+
 
   /////////////////////////////////// 코드 리턴구역 /////////////////////
   return (
@@ -314,7 +418,7 @@ export default function Board() {
                 글 정보 항목 중 uid가 사용자 아이디임!
                 로그인 상태 정보 하위의 sts.uid와 비교함
                 */}
-               { console.log("비교:",JSON.parse(sts).uid,"==?", selRecord.current)}
+             {/*   { console.log("비교:",JSON.parse(sts).uid,"==?", selRecord.current)} */}
                 {
                 (mode == "R" && sts &&
                 JSON.parse(sts).uid == selRecord.current.uid) && 
@@ -323,7 +427,7 @@ export default function Board() {
               }
 
              {
-                // 3. 쓰기상태 "W" 일 경우
+                // 3. 쓰기 상태 "W" 일 경우
                 mode == "W" && 
                 <>
                 <button onClick={clickButton}>
