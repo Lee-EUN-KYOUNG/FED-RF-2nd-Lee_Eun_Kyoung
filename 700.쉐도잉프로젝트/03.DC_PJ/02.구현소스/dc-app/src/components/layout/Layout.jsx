@@ -51,6 +51,10 @@ export default function Layout() {
     let rdm = Math.floor(Math.random() * 5);
     // 로그인 메시지 상태변수 업데이트
     setLoginMsg(`Welcome ${name} ${usrIcon[rdm]}`);
+
+    //  메시지 생성시 게시판 조회 데이터 세션스 삭제(초기화)
+    // 추가 삭제 : 게시판 조회 데이터 세션스
+    sessionStorage.removeItem("bd-rec");
   }, []); /////// makeMsg 함수 /////////
 
   // 3. 로그 아웃 함수 만들기
