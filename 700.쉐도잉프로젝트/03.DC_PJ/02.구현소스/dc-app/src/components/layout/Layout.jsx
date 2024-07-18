@@ -29,7 +29,7 @@ export default function Layout() {
   const [loginMsg, setLoginMsg] = useState(null);
   //console.log(loginMsg);
 
-  
+
 
 
 
@@ -58,11 +58,16 @@ export default function Layout() {
     // 1. 로그인 상태값 null
     setLoginSts(null);
     // 2. 세션스 지우기 : minfo
+    // 세션스 지우기
     sessionStorage.removeItem("minfo");
+    // 추가 삭제 : 게시판 조회 데이터 세션스
+    sessionStorage.removeItem("bd-rec");
+
     // 3. 로그인 메시지 초기화
     setLoginMsg(null);
     // 4. 메인 페이지로 돌아가기
     goPage("/");
+    //5. 
   }, []); //////// logoutFn 함수 /////////
 
   //////////// 화면 랜더링 구역 -> 로그인 상태 체크 ///////////
