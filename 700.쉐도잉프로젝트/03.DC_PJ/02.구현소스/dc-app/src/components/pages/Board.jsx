@@ -238,7 +238,10 @@ export default function Board() {
 
     // 5. 리스트 돌아가기 -> 모드 변경
     setMode("L");
-    
+
+    // 삭제후 첫페이지로 이동
+    setPageNum(1);
+
     }
   }; //////////////////////// deleteFn 함수
 
@@ -315,6 +318,9 @@ export default function Board() {
 
       // 5. 리스트 돌아가기 -> 모드 변경
       setMode("L");
+
+      // 추가후에 첫페이지 이동
+      setPageNum(1);
     }
 
 
@@ -384,7 +390,7 @@ export default function Board() {
       }
       {
         // 2. 읽기 모드일 경우 상세보기 출력하기
-        mode == "R" && <ReadMode selRecord={selRecord} />
+        mode == "R" && <ReadMode selRecord={selRecord} sts={sts}/>
       }
       {
         // 3. 쓰기 모드일 경우 로그인 정보 보내기
@@ -508,13 +514,88 @@ const ListeMode = ({ bindList, pagingList }) => {
                                   읽기 모드 서브 컴포넌트
 ****************************************************************************************/
 
-const ReadMode = ({ selRecord }) => {
+const ReadMode = ({ selRecord, sts }) => {
+
+  // selRecord : 현재 글 정보, sts : 로그인 사용자 정보
+
   // 읽기 모드가 호출되었다는 것은 리스트의 제목이 클릭되었다는 것을 의미
   // 현재 레코드값도 저장되었다는 의미
   //console.log("전달된 참조변수",selRecord.current);
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
+ 
+
+  // 조회수 증가하기
+  // 규칙 1. 자신의 글은 조회수 증가하지 않는다.
+  // 규칙 2. 타인의 글은 증가한다 
+  // 규칙 3. 로그인한 상태에서 한번만 조회수 증가한다
+
+  // 조회된 글 저장 방법
+  // 세션스토리지만 가능 (창을 닫으면 사라지므로)
+  // 참조 변수(전역 참조 변수)는 새로 고침하면 초기화 되므로 사용 불가
+  // 쿠키는 삭제 방법 즉각적이지 못하므로 제외
+
+  // 1. 없으면 세션스 만들기
+  if(!sessionStorage.getItem("bd-rec")){
+    sessionStorage.setItem("bd-rec","[]");
+  }
+  // 2. 세션스에 글번호 저장하기
+  let rec = JSON.parse(sessionStorage.getItem("bd-rec"));
+
+  // (1) 기존 배열 값에 현재 글 번호 존재 여부 검사하기
+  // 결과가 true면 조회수를 증가하지 않는다
+  let isRec = rec.includes(data.idx);
+  console.log("확인",isRec);
+
+  // (2) 로그인한 사용자의 글이면 true처리
+  if(sts){
+    console.log("선택글 아이디:",data.uid,
+    "로그인 사용자 아이디:",JSON.parse(sts).uid
+    );
+    /// 글쓴이 아이디와 로그인 사용자 아이디가 같은가?
+    if(data.uid == JSON.parse(sts).uid){
+      
+      // 글번호 저장과 조회수 증가를 하지 않도록 isRec값을 true로 변경한다
+      isRec = true;
+    }
+  }
+
+  // (3)배열에 값 추가하기 : 기존값에 없으면 넣기
+  if(!isRec) rec.push(data.idx);
+
+  // (4)세션스에 다시 저장하기
+  sessionStorage.setItem("bd-rec",JSON.stringify(rec));
+
+  // 3. 글번호 증가하기
+  // 게시판 원본 데이터에 조회수 업데이트하기
+  
+  
+  // (2) 게시판 해당 데이터 cnt값 증가
+  // 조건 isRec 값이 false일때
+  if(!isRec) {
+    // (1) 게시판 로컬스 데이터 파싱
+    let bdData = JSON.parse(localStorage.getItem("board-data"));
+
+    // (2) 게시판 해당 데이터 cnt값 증가
+    bdData.some(v=>{
+      if(v.idx == data.idx){
+        // 기존값에 1 증가하여 넣기
+        v.cnt = Number(v.cnt)+1;
+        return true;
+      } ////////if
+    }); /////////// some
+
+    // (3) 다시 로컬스에 저장하기
+    localStorage.setItem("board-data",JSON.stringify(bdData));
+  }///////// if : (!isRec)
+
+
+
+
+
+
+  /// 코드 리턴 구역
   return (
     <>
       <table className="dtblview readone">

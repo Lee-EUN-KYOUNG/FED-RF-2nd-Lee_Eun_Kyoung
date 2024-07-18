@@ -9,6 +9,10 @@ import { TopArea } from "./TopArea";
 import { dCon } from "../modules/dCon";
 import { useNavigate } from "react-router-dom";
 
+import $ from "jquery";
+import "jquery.cookie";
+
+
 export default function Layout() {
   // 상태 관리 변수
   // 1. 로그인 상태 관리 변수
@@ -23,7 +27,12 @@ export default function Layout() {
 
   // 2. 로그인 환영 메시지 상태 변수
   const [loginMsg, setLoginMsg] = useState(null);
-  console.log(loginMsg);
+  //console.log(loginMsg);
+
+  
+
+
+
 
   // [공통함수]
   // 1. 라우팅 이동 함수 : 라우터 이동 후크인 useNavigate는 다른 useCallback() 후크로 처리할 수 없다
@@ -67,8 +76,10 @@ export default function Layout() {
       setLoginSts(ss);
       // 로그인 메시지 업데이트 : 세션스값의 unm(이름값)을 보내준다
       makeMsg(JSON.parse(ss).unm);
-    } ///////////// if
+    } ///// if ///////
+    $.cookie("aa","bb",{expires: 2});
   }, []);
+
 
   //// 코드 리턴구역 //////////////
   return (
