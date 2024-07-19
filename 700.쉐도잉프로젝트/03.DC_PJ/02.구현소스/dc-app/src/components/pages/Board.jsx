@@ -766,42 +766,104 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
 
   // 페이지의 페이징 한계수 구하기
   // 페이징의 페이징 개수
-  let pgPgCount = Math.floor(pgPgNum.current / pgPgSize);
+  // -> 전체 페이징 개수 / 페이징의 페이징 단위 수
+  let pgPgCount = Math.floor(pagingCount / pgPgSize);
 
-  // 나머지가 있으면 다음 페이지가 필요함
+
+  // 페이징 개수를 페이징의 페이징 단위수로 나눈 나머지가 있으면 다음 페이징 번호가 필요함
   // 나머지가 0이 아니면 1 더하기
-  if (totalCount.current % unitSize > 0) {
-    pagingCount++;
+  if (pagingCount % pgPgSize > 0) {
+    pgPgCount++;
   }
+  
+  console.log("페이징의 페이징 개수:",pgPgCount);
+
+  // 리스트 시작값 / 한계값 구하기
+  // 시작값 : (pgPgNum-1)*pgPgSize
+
+  let initNum = (pgPgNum.current - 1) * pgPgSize;
+  // 한계값 : pgPgNum * pgPgSize
+  let limitNum = pgPgNum.current * pgPgSize;
+
+  console.log("시작값:",initNum,"/한계값:",limitNum);
 
 
   // 링크 코드 만들기
   const pgCode = [];
 
-  // 1부터 페이지 끝번호까지 돌면서 코드 만들기
-  for (let i = 1; i <= pagingCount; i++) {
+  // 페이징의 페이징에 맞게 돌면서 코드 만들기
+  // - 계산된 시작값, 한계값을 기준으로 코드를 생성
+
+  // for : 페이징 리스트 출력 시작 /////
+  for (let i = initNum; i < limitNum; i++) {
     pgCode.push(
       <Fragment key={i}>
         {/* 페이징 번호와 현재 페이지 번호 일치시 b태그 */}
-        {i === pageNum ? (
-          <b>{i}</b>
+        {i+1 === pageNum ? (
+          <b>{i+1}</b>
         ) : (
           // 불일치시에는 모두 링크 코드
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              setPageNum(i);
+              setPageNum(i+1);
             }}
           >
-            {i}
+            {i+1}
           </a>
         )}
         {/* 사이에 | 넣기 */}
-        {i !== pagingCount && "  |"}
+        {i+1 !== limitNum && " | "}
       </Fragment>
     );
+  } //////////// for : 페이징 리스트 출력 끝 ////////////
+
+  {
+    // for : 페이징 이전 블록 이동 버튼 만들기 /////
+    // 기준 : 1페이지가 아니면 보이기
+    // 배열 맨 앞추가는 unshift()
+
+
+
+
   }
+
+  {
+    // for : 페이징 다음 블록 이동 버튼 만들기 /////
+    // 기준 : 끝페이지가 아니면 보이기
+    // 배열 맨 뒤 추가는 push()
+    pgCode.push(
+      pgPgNum.current === pgPgCount ? "" :
+      // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함
+      // 단 중복되면 안됨
+      // 중복 안되는 수인 마이너스로 셋팅한다
+      <Fragment key={-2}>
+        &nbsp;&nbsp;
+        <a
+        href="#"
+        onClick={()=>{}}
+        title="move next"
+        style={{marginLeft: "10px"}}
+        >
+          ▶
+        </a>
+        <a
+        href="#"
+        onClick={()=>{}}
+        title="move next"
+        style={{marginLeft: "10px"}}
+        >
+          »
+        </a>
+      </Fragment>
+    );
+
+
+
+
+  }
+
 
   // 코드 리턴
   return pgCode;
