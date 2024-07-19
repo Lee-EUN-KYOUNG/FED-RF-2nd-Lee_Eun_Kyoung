@@ -829,18 +829,18 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 배열 맨 앞추가는 unshift()
 
     pgCode.unshift(
-      pgPgNum.current === pgPgCount ? "" :
+      pgPgNum.current === 1 ? "" :
       // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함
       // 단 중복되면 안됨
       // 중복 안되는 수인 마이너스로 셋팅한다
-      <Fragment key={-2}>
+      <Fragment key={-1}>
         &nbsp;&nbsp;
         <a
         href="#"
         onClick={(e)=>{
           e.preventDefault();
           goPaging(-1,true)}}
-        title="move next end"
+        title="move previous end"
         style={{marginLeft: "10px"}}
         >
           «
@@ -850,11 +850,12 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
         onClick={(e)=>{
           e.preventDefault();
           goPaging(-1,false)}}
-        title="move next"
+        title="move previous"
         style={{marginLeft: "10px"}}
         >
           ◀
         </a>
+        &nbsp;&nbsp;
       </Fragment>
     );
   }
@@ -869,7 +870,7 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
       // 단 중복되면 안됨
       // 중복 안되는 수인 마이너스로 셋팅한다
       <Fragment key={-2}>
-        &nbsp;&nbsp;
+        &nbsp;
         <a
         href="#"
         onClick={(e)=>{
@@ -909,7 +910,9 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     if(opt) newPgPgNum = pgPgNum.current + dir;
 
     // 끝 페이지 이동 
-    else newPgPgNum = dir;
+    // 오른쪽일 경우 맨 끝 페이징 번호로 이동(pgPgCount)
+    // 왼쪽일 경우 맨앞 페이징 번호로 이동(1) 
+    else newPgPgNum = dir==1?pgPgCount:1;
 
     // 페이징 번호 업데이트
     pgPgNum.current = newPgPgNum;
