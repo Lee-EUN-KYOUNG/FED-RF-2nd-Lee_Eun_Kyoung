@@ -44,6 +44,9 @@ export default function Board() {
   // 기능모드
   const [mode, setMode] = useState("L");
 
+
+
+
   // [참조 변수]
   // 전체 갯수 - 매번 계산하지 않도록 참조 변수로
   const totalCount = useRef(baseData.length);
@@ -53,9 +56,23 @@ export default function Board() {
   const selRecord = useRef(null);
   // -> 특정 리스트 글 제목 클릭시 데이터 저장
 
-  // 페이지당 갯수
-  const unitSize = 8;
+  // 페이징의 페이징 번호
+  const pgPgNum = useRef(1);
 
+
+  // 일반 변수로 매번 같은 값을 유지하면 되는 변수
+  // 페이지당 갯수 : 페이지당 레코드수
+  const unitSize = 4;
+
+  // 페이징의 페이징 개수 : 한번에 보여줄 페이징 개수
+  const pgPgSize = 4;
+
+
+
+
+
+
+  ////////////////////////////////////////////////////////////////////////
   /// 함수명 : bindList
   /// 기능 : 페이지별 리스트를 생성하여 바인딩함
 
@@ -326,6 +343,8 @@ export default function Board() {
             unitSize={unitSize}
             pageNum={pageNum}
             setPageNum={setPageNum}
+            pgPgNum={pgPgNum}
+            pgPgSize={pgPgSize}
           />
         )
       }
@@ -412,7 +431,7 @@ export default function Board() {
 // pageNum - 현재 페이지 번호
 // setPageNum - 현재 페이지번호 변경 메서드
 
-const ListeMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum }) => {
+const ListeMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSize }) => {
   return (
     <>
       <div className="selbx">
@@ -448,6 +467,8 @@ const ListeMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum }) => {
                   unitSize={unitSize}
                   pageNum={pageNum}
                   setPageNum={setPageNum}
+                  pgPgNum={pgPgNum}
+                  pgPgSize={pgPgSize}
                 />
               }
             </td>
@@ -709,9 +730,10 @@ const ModifyMode = ({ selRecord }) => {
   );
 }; ///////////// ModifyMode //////////////////
 
+///////////////////////////////////////////////////////////
 //// PagingList : 페이징 기능 컴포넌트
 
-const PagingList = ({ totalCount, unitSize, pageNum, setPageNum }) => {
+const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSize }) => {
   // [전달 변수]
   // totalCount - 전체 레코드 개수
   // unitSize - 게시판 리스트 당 레코드 개수
@@ -736,6 +758,22 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum }) => {
   //  "나머지연산결과:",
   //  totalCount.current % unitSize
   //);
+
+  // [ 페이징의 페이징 하기 ]
+  // [1] 페이징 블록 - 한 페이징블록수 : pgPgSize 변수(4)
+  // [2] 페이징의 페이징 현재번호 : pgPgNum 변수(기본값1)
+
+
+  // 페이지의 페이징 한계수 구하기
+  // 페이징의 페이징 개수
+  let pgPgCount = Math.floor(pgPgNum.current / pgPgSize);
+
+  // 나머지가 있으면 다음 페이지가 필요함
+  // 나머지가 0이 아니면 1 더하기
+  if (totalCount.current % unitSize > 0) {
+    pagingCount++;
+  }
+
 
   // 링크 코드 만들기
   const pgCode = [];
