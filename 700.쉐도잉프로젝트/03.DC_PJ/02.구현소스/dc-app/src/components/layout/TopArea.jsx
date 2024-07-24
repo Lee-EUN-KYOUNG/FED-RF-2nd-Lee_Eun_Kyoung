@@ -202,7 +202,7 @@ export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
               )
             }
             {
-              /* 로그인 상ㅌ이면 로그아웃 버튼 나옴 */
+              /* 로그인 상태이면 로그아웃 버튼 나옴 */
               loginSts !== null && (
                 <>
                   <li>
