@@ -1,7 +1,7 @@
 // 오피니언 페이지 컴포넌트 ///
 
 // 사용자 기본 정보 생성 함수 불러오기
-import { initData } from "../func/mem_fn";
+// import { initData } from "../func/mem_fn";
 import { initBoardData } from "../func/board_fn";
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { dCon } from "../modules/dCon";
@@ -44,8 +44,9 @@ export default function Board() {
   // 기능모드
   const [mode, setMode] = useState("L");
 
-
-
+  // 검색어 저장 변수 : 배열 [기준, 검색어]
+  const [keyword, setKeyword] = useState(["", ""]);
+  console.log("[기준,키워드]", keyword);
 
   // [참조 변수]
   // 전체 갯수 - 매번 계산하지 않도록 참조 변수로
@@ -59,18 +60,12 @@ export default function Board() {
   // 페이징의 페이징 번호
   const pgPgNum = useRef(1);
 
-
   // 일반 변수로 매번 같은 값을 유지하면 되는 변수
   // 페이지당 갯수 : 페이지당 레코드수
   const unitSize = 4;
 
   // 페이징의 페이징 개수 : 한번에 보여줄 페이징 개수
   const pgPgSize = 4;
-
-
-
-
-
 
   ////////////////////////////////////////////////////////////////////////
   /// 함수명 : bindList
@@ -80,7 +75,30 @@ export default function Board() {
     //console.log(baseData);
 
     // 전체 데이터 선택
-    const orgData = baseData;
+    let orgData;
+    // 검색어가 있는 경우 필터하기
+    if (keyword[1] != "") {
+      orgData = baseData.filter((v) => {
+        // 소문자 처리하기
+        let orgTxt = v[keyword[0]].toLocaleLowerCase();
+        //console.log(v);
+
+        // 검색어 데이터
+        let txt = keyword[1].toLocaleLowerCase();
+
+        // keyword[0] - 검색 기준 / keyword[1] 검색어
+        // 필터 검색 조건에 맞는 데이터 수집하기
+        if (orgTxt.indexOf(txt) != -1) return true;
+      });
+    }
+
+    // 검색어가 없는 경우 전체넣기
+    else {
+      orgData = baseData;
+    }
+
+    // 새로 데이터를 담은 후 바로 전체 갯수 업데이트 필수
+    totalCount.current = orgData.length;
 
     // 정렬 적용하기 : 내림차순
     orgData.sort((a, b) =>
@@ -113,29 +131,36 @@ export default function Board() {
 
     //console.log("일부데이터:", selData);
 
-    return selData.map((v, i) => (
-      <tr key={i}>
-        {/* 시작번호를 더하여 페이지별 순번을 변경 */}
-        <td>{i + 1 + sNum}</td>
-        <td>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              // 읽기 모드로 변경
-              setMode("R");
-              // 해당 데이터 저장하기
-              selRecord.current = v;
-            }}
-          >
-            {v.tit}
-          </a>
-        </td>
-        <td>{v.unm}</td>
-        <td>{v.date}</td>
-        <td>{v.cnt}</td>
+    return totalCount.current > 0 ? (
+      selData.map((v, i) => (
+        <tr key={i}>
+          {/* 시작번호를 더하여 페이지별 순번을 변경 */}
+          <td>{i + 1 + sNum}</td>
+          <td>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                // 읽기 모드로 변경
+                setMode("R");
+                // 해당 데이터 저장하기
+                selRecord.current = v;
+              }}
+            >
+              {v.tit}
+            </a>
+          </td>
+          <td>{v.unm}</td>
+          <td>{v.date}</td>
+          <td>{v.cnt}</td>
+        </tr>
+      ))
+    ) : (
+      // 데이터가 없을 때 출력
+      <tr>
+        <td colSpan="5">There is no data.</td>
       </tr>
-    ));
+    ); ///////// return
   }; ////////////bindList 함수
 
   /// 버튼 클릭시 변경함수
@@ -153,6 +178,8 @@ export default function Board() {
       // 리스트 모드로 변경
       case "List":
         setMode("L");
+        // 검색시에도 전체 데이터 나오게 함
+        setKeyword(['','']);
         break;
       // 글쓰기 모드일 경우 함수 호출
       case "Submit":
@@ -345,6 +372,7 @@ export default function Board() {
             setPageNum={setPageNum}
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
+            setKeyword={setKeyword}
           />
         )
       }
@@ -431,7 +459,16 @@ export default function Board() {
 // pageNum - 현재 페이지 번호
 // setPageNum - 현재 페이지번호 변경 메서드
 
-const ListeMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSize }) => {
+const ListeMode = ({
+  bindList,
+  totalCount,
+  unitSize,
+  pageNum,
+  setPageNum,
+  pgPgNum,
+  pgPgSize,
+  setKeyword,
+}) => {
   return (
     <>
       <div className="selbx">
@@ -445,7 +482,29 @@ const ListeMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNu
           <option value="1">Ascending</option>
         </select>
         <input id="stxt" type="text" maxLength="50" />
-        <button className="sbtn">Search</button>
+        <button
+          className="sbtn"
+          onClick={(e) => {
+            // 검색기준값 읽어오기
+            let creteria = $(e.target).siblings(".cta").val();
+            console.log("기준값:", creteria);
+            // 검색어 읽어오기
+            let txt = $(e.target).prev().val();
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴!
+            if (txt != "") {
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
+              setKeyword([creteria, txt]);
+            }
+            // 빈값일 경우
+            else {
+              alert("Please enter a keyword!");
+            }
+          }}
+        >
+          Search
+        </button>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -733,7 +792,14 @@ const ModifyMode = ({ selRecord }) => {
 ///////////////////////////////////////////////////////////
 //// PagingList : 페이징 기능 컴포넌트
 
-const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSize }) => {
+const PagingList = ({
+  totalCount,
+  unitSize,
+  pageNum,
+  setPageNum,
+  pgPgNum,
+  pgPgSize,
+}) => {
   // [전달 변수]
   // totalCount - 전체 레코드 개수
   // unitSize - 게시판 리스트 당 레코드 개수
@@ -763,20 +829,18 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
   // [1] 페이징 블록 - 한 페이징블록수 : pgPgSize 변수(4)
   // [2] 페이징의 페이징 현재번호 : pgPgNum 변수(기본값1)
 
-
   // 페이지의 페이징 한계수 구하기
   // 페이징의 페이징 개수
   // -> 전체 페이징 개수 / 페이징의 페이징 단위 수
   let pgPgCount = Math.floor(pagingCount / pgPgSize);
-
 
   // 페이징 개수를 페이징의 페이징 단위수로 나눈 나머지가 있으면 다음 페이징 번호가 필요함
   // 나머지가 0이 아니면 1 더하기
   if (pagingCount % pgPgSize > 0) {
     pgPgCount++;
   }
-  
-  console.log("페이징의 페이징 개수:",pgPgCount);
+
+  console.log("페이징의 페이징 개수:", pgPgCount);
 
   // 리스트 시작값 / 한계값 구하기
   // 시작값 : (pgPgNum-1)*pgPgSize
@@ -785,8 +849,7 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
   // 한계값 : pgPgNum * pgPgSize
   let limitNum = pgPgNum.current * pgPgSize;
 
-  console.log("시작값:",initNum,"/한계값:",limitNum);
-
+  console.log("시작값:", initNum, "/한계값:", limitNum);
 
   // 링크 코드 만들기
   const pgCode = [];
@@ -799,26 +862,25 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 전체 페이징 번호를 만드는 i가 페이징 전체 개수보다 클 경우 나가야함
     if (i >= pagingCount) break;
 
-
     pgCode.push(
       <Fragment key={i}>
         {/* 페이징 번호와 현재 페이지 번호 일치시 b태그 */}
-        {i+1 === pageNum ? (
-          <b>{i+1}</b>
+        {i + 1 === pageNum ? (
+          <b>{i + 1}</b>
         ) : (
           // 불일치시에는 모두 링크 코드
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              setPageNum(i+1);
+              setPageNum(i + 1);
             }}
           >
-            {i+1}
+            {i + 1}
           </a>
         )}
         {/* 사이에 | 넣기 */}
-        {(i+1 !== limitNum && i+1 < pagingCount) && " | "}
+        {i + 1 !== limitNum && i + 1 < pagingCount && " | "}
       </Fragment>
     );
   } //////////// for : 페이징 리스트 출력 끝 ////////////
@@ -829,34 +891,39 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 배열 맨 앞추가는 unshift()
 
     pgCode.unshift(
-      pgPgNum.current === 1 ? "" :
-      // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함
-      // 단 중복되면 안됨
-      // 중복 안되는 수인 마이너스로 셋팅한다
-      <Fragment key={-1}>
-        &nbsp;&nbsp;
-        <a
-        href="#"
-        onClick={(e)=>{
-          e.preventDefault();
-          goPaging(-1,true)}}
-        title="move previous end"
-        style={{marginLeft: "10px"}}
-        >
-          «
-        </a>
-        <a
-        href="#"
-        onClick={(e)=>{
-          e.preventDefault();
-          goPaging(-1,false)}}
-        title="move previous"
-        style={{marginLeft: "10px"}}
-        >
-          ◀
-        </a>
-        &nbsp;&nbsp;
-      </Fragment>
+      pgPgNum.current === 1 ? (
+        ""
+      ) : (
+        // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함
+        // 단 중복되면 안됨
+        // 중복 안되는 수인 마이너스로 셋팅한다
+        <Fragment key={-1}>
+          &nbsp;&nbsp;
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              goPaging(-1, true);
+            }}
+            title="move previous end"
+            style={{ marginLeft: "10px" }}
+          >
+            «
+          </a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              goPaging(-1, false);
+            }}
+            title="move previous"
+            style={{ marginLeft: "10px" }}
+          >
+            ◀
+          </a>
+          &nbsp;&nbsp;
+        </Fragment>
+      )
     );
   }
 
@@ -865,54 +932,57 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 기준 : 끝페이지가 아니면 보이기
     // 배열 맨 뒤 추가는 push()
     pgCode.push(
-      pgPgNum.current === pgPgCount ? "" :
-      // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함
-      // 단 중복되면 안됨
-      // 중복 안되는 수인 마이너스로 셋팅한다
-      <Fragment key={-2}>
-        &nbsp;
-        <a
-        href="#"
-        onClick={(e)=>{
-          e.preventDefault();
-          goPaging(1,true)}}
-        title="move next"
-        style={{marginLeft: "10px"}}
-        >
-          ▶
-        </a>
-        <a
-        href="#"
-        onClick={(e)=>{
-          e.preventDefault();
-          goPaging(1,false)}}
-        title="move next end"
-        style={{marginLeft: "10px"}}
-        >
-          »
-        </a>
-      </Fragment>
+      pgPgNum.current === pgPgCount ? (
+        ""
+      ) : (
+        // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함
+        // 단 중복되면 안됨
+        // 중복 안되는 수인 마이너스로 셋팅한다
+        <Fragment key={-2}>
+          &nbsp;
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              goPaging(1, true);
+            }}
+            title="move next"
+            style={{ marginLeft: "10px" }}
+          >
+            ▶
+          </a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              goPaging(1, false);
+            }}
+            title="move next end"
+            style={{ marginLeft: "10px" }}
+          >
+            »
+          </a>
+        </Fragment>
+      )
     );
   }
 
   // [블록 이동 함수]
-  const goPaging = (dir, opt)=>{
-
+  const goPaging = (dir, opt) => {
     // dir - 이동 방향 (오른쪽:+1 , 왼쪽:-1)
     // opt - 일반 이동은(true), 끝이동(false)
 
-    console.log("방향:",dir,"/옵션:",opt);
+    console.log("방향:", dir, "/옵션:", opt);
 
     // 새 페이징의 페이징 번호
     let newPgPgNum;
     // opt가 옵션에 따라 페이징의 페이징 이동 번호 만들기
     // 일반 페이징 이동은 현재 페이징 번호에 증감
-    if(opt) newPgPgNum = pgPgNum.current + dir;
-
-    // 끝 페이지 이동 
+    if (opt) newPgPgNum = pgPgNum.current + dir;
+    // 끝 페이지 이동
     // 오른쪽일 경우 맨 끝 페이징 번호로 이동(pgPgCount)
-    // 왼쪽일 경우 맨앞 페이징 번호로 이동(1) 
-    else newPgPgNum = dir==1?pgPgCount:1;
+    // 왼쪽일 경우 맨앞 페이징 번호로 이동(1)
+    else newPgPgNum = dir == 1 ? pgPgCount : 1;
 
     // 페이징 번호 업데이트
     pgPgNum.current = newPgPgNum;
@@ -920,15 +990,13 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 새로운 페이지의 페이징 구역의 페이지 번호
     // 첫번째 업데이트하기
     // -> 항상 이전 블록의 마지막 번호 +1이 첫번호
-    // 이동할 페이지번호 : 
-    let landingPage = ((pgPgNum.current-1)*pgPgSize)+1;
-    
-    console.log("도착번호:",landingPage);
+    // 이동할 페이지번호 :
+    let landingPage = (pgPgNum.current - 1) * pgPgSize + 1;
+
+    console.log("도착번호:", landingPage);
 
     // 페이지번호 상태변수 업데이트로 전체 리랜더링
     setPageNum(landingPage);
-
-
   }; ///////////goPaging
 
   // 코드 리턴
