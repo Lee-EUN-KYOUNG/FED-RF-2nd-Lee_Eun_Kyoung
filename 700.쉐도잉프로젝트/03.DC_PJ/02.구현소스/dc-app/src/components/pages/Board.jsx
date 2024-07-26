@@ -134,8 +134,10 @@ export default function Board() {
     // sort값이 -1이면 asc(부호반대변경)
 
     // "idx" 정렬 항목일 경우만 Number처리
+    // idx - 숫자형으로 정렬
+    // tit - 문자형이고 소문자로 비교
     const chgVal = x =>
-    sortCta=="idx"?Number(x[sortCta]):x[sortCta];
+    sortCta=="idx"?Number(x[sortCta]):x[sortCta].toLowerCase();
 
     // 정렬 항목은 sortCta값에 따름("idx"/"tit")
     orgData.sort((a, b) =>
@@ -424,6 +426,7 @@ export default function Board() {
             setPageNum={setPageNum}
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
+            keyword={keyword}
             setKeyword={setKeyword}
             sort={sort}
             setSort={setSort}
@@ -523,6 +526,7 @@ const ListeMode = ({
   setPageNum,
   pgPgNum,
   pgPgSize,
+  keyword,
   setKeyword,
   sort,
   setSort,
@@ -547,7 +551,13 @@ const ListeMode = ({
           >Ascending</option>
         </select>
         
-        <input id="stxt" type="text" maxLength="50" />
+        <input id="stxt" type="text" maxLength="50"
+          onKeyUp={(e)=>{
+            // e.keyCode는 번호로 13이 엔터
+            // e.key는 문자로 "Enter"가 엔터
+            if(e.key=="Enter"){$(e.currentTarget).next().trigger("click")}
+          }}
+        />
         <button
           className="sbtn"
           onClick={(e) => {
@@ -574,10 +584,34 @@ const ListeMode = ({
           }}
         >
           Search
-          {/* 정렬 기준 선택 박스 */}
         </button>
+        {
+          // 키워드가 있는 경우에 전체 리스트 돌아가기 버튼 출력
+          keyword[0] !== '' &&
+          <button className="back-total-list"
+           onClick={(e)=>{
+            // 검색어 초기화
+            setKeyword(['','']);
+            // 검색어 삭제
+            $(e.currentTarget).siblings("#stxt").val('');
+            // 검색 항목 초기화
+            $(e.currentTarget).siblings("#cta").val("tit");
+            // 정렬 초기화
+            setSort(1);
+            // 정렬 항목 초기화
+            setSortCta('idx');
+            // 첫페이지 번호 변경
+            setPageNum(1);
+           }}
+          >
+            Back to Total List
+          </button>
+
+        }
+          {/* 정렬 기준 선택 박스 */}
         <select name="sort_cta" id="sort_cta"
           className="sort_cta"
+          onChange={(e)=>setSortCta(e.currentTarget.value)}
           style={{float:"right",translate:"0 5px"}}>
             <option value="idx"
             selected={sortCta=="idx"?true:false}>Recent</option>
