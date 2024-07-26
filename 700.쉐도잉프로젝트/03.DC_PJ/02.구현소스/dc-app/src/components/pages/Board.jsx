@@ -48,6 +48,19 @@ export default function Board() {
   const [keyword, setKeyword] = useState(["", ""]);
   console.log("[기준,키워드]", keyword);
 
+  // 정렬 기준값 상태 변수 : 값 ((asc(-1))/ (desc(1)));
+  // 기존 셋팅값에 1을 곱하면 원래값, -1을 곱하면 반대값셋팅
+  const [sort, setSort] = useState(1);
+
+
+  // 정렬 항목값 상태 변수 : 값 - idx / tit
+  const [sortCta, setSortCta] = useState("idx");
+
+
+
+
+
+
   // [참조 변수]
   // 전체 갯수 - 매번 계산하지 않도록 참조 변수로
   const totalCount = useRef(baseData.length);
@@ -100,10 +113,39 @@ export default function Board() {
     // 새로 데이터를 담은 후 바로 전체 갯수 업데이트 필수
     totalCount.current = orgData.length;
 
+
+    // 내림차순 / 오름차순 셋팅값 변수
+    //let sortSet = {"desc":[-1,1],"asc":[1,-1]};
+    //console.log("정렬셋:",sortSet[sort]);
+
+
     // 정렬 적용하기 : 내림차순
+    // orgData.sort((a, b) =>
+    //   Number(a.idx) > Number(b.idx)
+    //   ? sortSet[sort][0]
+    //   : Number(a.idx) < Number(b.idx)
+    //   ? sortSet[sort][1] : 0
+    // );
+
+
+
+    // 정렬 적용하기 : 내림차순
+    // sort값이 1이면 desc (현재 상태 유지)
+    // sort값이 -1이면 asc(부호반대변경)
+
+    // "idx" 정렬 항목일 경우만 Number처리
+    const chgVal = x =>
+    sortCta=="idx"?Number(x[sortCta]):x[sortCta];
+
+    // 정렬 항목은 sortCta값에 따름("idx"/"tit")
     orgData.sort((a, b) =>
-      Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
+    chgVal(a) > chgVal(b)
+      ? -1 * sort
+      : chgVal(a) < chgVal(b)
+      ? 1 * sort : 0
     );
+
+
 
     // 일부 데이터만 선택
     // 예시로 0번부터 9번까지만 선택 - 검증 완료
@@ -383,6 +425,10 @@ export default function Board() {
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
             setKeyword={setKeyword}
+            sort={sort}
+            setSort={setSort}
+            sortCta={sortCta}
+            setSortCta={setSortCta}
           />
         )
       }
@@ -478,6 +524,10 @@ const ListeMode = ({
   pgPgNum,
   pgPgSize,
   setKeyword,
+  sort,
+  setSort,
+  sortCta,
+  setSortCta,
 }) => {
   return (
     <>
@@ -487,10 +537,16 @@ const ListeMode = ({
           <option value="cont">Contents</option>
           <option value="unm">Writer</option>
         </select>
-        <select name="sel" id="sel" className="sel">
-          <option value="0">Descending</option>
-          <option value="1">Ascending</option>
+        <select name="sel" id="sel" className="sel"
+        onChange={()=>setSort(sort*-1)}>
+          <option value="0"
+          selected={sort==1?true:false}
+          >Descending</option>
+          <option value="1"
+          selected={sort==-1?true:false}
+          >Ascending</option>
         </select>
+        
         <input id="stxt" type="text" maxLength="50" />
         <button
           className="sbtn"
@@ -518,7 +574,16 @@ const ListeMode = ({
           }}
         >
           Search
+          {/* 정렬 기준 선택 박스 */}
         </button>
+        <select name="sort_cta" id="sort_cta"
+          className="sort_cta"
+          style={{float:"right",translate:"0 5px"}}>
+            <option value="idx"
+            selected={sortCta=="idx"?true:false}>Recent</option>
+            <option value="tit"
+            selected={sortCta=="idx"?true:false}>Title</option>
+        </select>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -527,7 +592,7 @@ const ListeMode = ({
             <th>Title</th>
             <th>Writer</th>
             <th>Date</th>
-            <th>Hits</th>
+            <th>Hits</th>`
           </tr>
         </thead>
         <tbody>{bindList()}</tbody>
