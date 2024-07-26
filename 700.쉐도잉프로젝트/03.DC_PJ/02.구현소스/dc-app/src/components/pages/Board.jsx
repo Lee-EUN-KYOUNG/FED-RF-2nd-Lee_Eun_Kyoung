@@ -129,39 +129,49 @@ export default function Board() {
       selData.push(orgData[i]);
     } ////////////// for문
 
-    //console.log("일부데이터:", selData);
+    console.log("일부데이터:", selData);
+    console.log("여기:", selData.length);
 
-    return totalCount.current > 0 ? (
-      selData.map((v, i) => (
-        <tr key={i}>
-          {/* 시작번호를 더하여 페이지별 순번을 변경 */}
-          <td>{i + 1 + sNum}</td>
-          <td>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                // 읽기 모드로 변경
-                setMode("R");
-                // 해당 데이터 저장하기
-                selRecord.current = v;
-              }}
-            >
-              {v.tit}
-            </a>
-          </td>
-          <td>{v.unm}</td>
-          <td>{v.date}</td>
-          <td>{v.cnt}</td>
+    // if (selData.length == 0) setPageNum(pageNum - 1);
+    // -> ListMode컴포넌트가 업데이트 되는동안에
+    // 리스트 관련 상태변수를 업데이트하면
+    // 업데이트 불가 에러 메시지가 발생한다!
+    // 따라서 이런 코드는 다른 방식으로 변경해야함!
+
+    return (
+      // 전체 데이터 개수가 0 초과일 경우 출력
+      // 0초과 ? map돌기코드 : 없음코드
+      totalCount.current > 0 ? (
+        selData.map((v, i) => (
+          <tr key={i}>
+            {/* 시작번호를 더하여 페이지별 순번을 변경 */}
+            <td>{i + 1 + sNum}</td>
+            <td>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // 읽기모드로 변경!
+                  setMode("R");
+                  // 해당 데이터 저장하기
+                  selRecord.current = v;
+                }}
+              >
+                {v.tit}
+              </a>
+            </td>
+            <td>{v.unm}</td>
+            <td>{v.date}</td>
+            <td>{v.cnt}</td>
+          </tr>
+        ))
+      ) : (// 데이터가 없을 때 출력 /////////
+        <tr>
+          <td colSpan="5">There is no data.</td>
         </tr>
-      ))
-    ) : (
-      // 데이터가 없을 때 출력
-      <tr>
-        <td colSpan="5">There is no data.</td>
-      </tr>
-    ); ///////// return
-  }; ////////////bindList 함수
+      )
+    ); //// return /////
+  }; /////////// bindList 함수 /////////////////
 
   /// 버튼 클릭시 변경함수
   const clickButton = (e) => {
@@ -179,7 +189,7 @@ export default function Board() {
       case "List":
         setMode("L");
         // 검색시에도 전체 데이터 나오게 함
-        setKeyword(['','']);
+        setKeyword(["", ""]);
         break;
       // 글쓰기 모드일 경우 함수 호출
       case "Submit":
@@ -496,6 +506,10 @@ const ListeMode = ({
               console.log("검색해!");
               // [검색기준,검색어] -> setKeyword 업데이트
               setKeyword([creteria, txt]);
+              // 검색후엔 첫페이지로 보내기
+              setPageNum(1);
+              // 검색후엔 페이지의 페이징 번호 초기화(1)
+              pgPgNum.current = 1;
             }
             // 빈값일 경우
             else {
@@ -521,6 +535,8 @@ const ListeMode = ({
           <tr>
             <td colSpan="5" className="paging">
               {
+                // 데이터 개수가 0이상일때만 출력
+                totalCount.current > 0 &&
                 <PagingList
                   totalCount={totalCount}
                   unitSize={unitSize}
@@ -818,12 +834,15 @@ const PagingList = ({
     pagingCount++;
   }
 
-  //console.log(
-  //  "페이징갯수:",
-  //  pagingCount,
-  //  "나머지연산결과:",
-  //  totalCount.current % unitSize
-  //);
+  console.log(
+    "페이징개수:",
+    pagingCount,
+    "전체레코드수:",
+    totalCount.current,
+    "나머지개수:",
+    totalCount.current % unitSize
+  );
+
 
   // [ 페이징의 페이징 하기 ]
   // [1] 페이징 블록 - 한 페이징블록수 : pgPgSize 변수(4)
@@ -840,7 +859,9 @@ const PagingList = ({
     pgPgCount++;
   }
 
-  console.log("페이징의 페이징 개수:", pgPgCount);
+  console.log("페이징의 페이징개수:", pgPgCount);
+  console.log("페이징의 페이징번호:", pgPgNum.current);
+  // 검색시 페이징번호 초기화필요!
 
   // 리스트 시작값 / 한계값 구하기
   // 시작값 : (pgPgNum-1)*pgPgSize
