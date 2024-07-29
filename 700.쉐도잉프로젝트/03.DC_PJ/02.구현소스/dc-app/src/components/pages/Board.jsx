@@ -949,6 +949,10 @@ const ModifyMode = ({ selRecord }) => {
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
+
+  // 이미지 미리보기 대상 이미지 확장자 배열 변수
+  const imgExt = ["jpg", "png", "gif"];
+  
   return (
     <>
       <table className="dtblview readone">
@@ -990,7 +994,33 @@ const ModifyMode = ({ selRecord }) => {
           </tr>
           <tr>
             <td>Attachment</td>
-            <td></td>
+            <td>
+            {data.att != "" && (
+                <>
+                  <a
+                    href={
+                      process.env.PUBLIC_URL + "/uploads/" + data.att
+                    }
+                    download={data.att}
+                  >
+                    {data.att}
+                  </a>
+                  {imgExt.includes(data.att.split(".")[1]) && (
+                    <div>
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "/uploads/" +
+                          data.att
+                        }
+                        alt="image"
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+            </td>
           </tr>
         </tbody>
       </table>
