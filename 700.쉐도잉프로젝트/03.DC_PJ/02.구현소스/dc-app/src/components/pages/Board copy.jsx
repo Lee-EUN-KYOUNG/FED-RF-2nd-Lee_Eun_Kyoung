@@ -3,7 +3,7 @@
 // 사용자 기본 정보 생성 함수 불러오기
 // import { initData } from "../func/mem_fn";
 import { initBoardData } from "../func/board_fn";
-import { Fragment, useContext, useEffect, useReducer, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { dCon } from "../modules/dCon";
 
 // 로컬스토리지 게시판 기본 데이터 제이슨
@@ -21,9 +21,6 @@ import "../../css/board_file.scss";
 
 // 엑시오스 가져오기 : 파일 전송 요청용
 import axios from "axios";
-
-
-
 
 export default function Board() {
   // 컨텍스트 사용하기
@@ -85,108 +82,6 @@ export default function Board() {
 
   // 페이징의 페이징 개수 : 한번에 보여줄 페이징 개수
   const pgPgSize = 4;
-
-
-  //////////// 검색 기능을 위한 리듀서 함수 ////////
-  const reducerFn = (gval, action) =>{
-  //gval -  value 변수 (리듀서 변수가 들어옴)
-  // -> 기존값을 활용하여 업데이트 하기 위해 들어옴
-  console.log("발:",gval);
-
-  // 1. 구조 분해 할당으로 객체의 배열값 받기
-  const [ key, ele] = action.type;
-  
-  // 배열값 구조 : [구분 문자열, 이벤트 발생 대상 요소]
-  // action.type은 리듀서 호출시 보낸 객체값(배열)
-  console.log("key:",key,"\nele:",ele);
-  
-  // 2. key값에 따라 분기하기
-  switch (key){
-    // (1) 검색일 경우 실행코드
-    case "search":
-      {
-        // 검색기준값 읽어오기
-        let creteria = $(ele).siblings(".cta").val();
-        console.log("기준값:", creteria);
-        // 검색어 읽어오기
-        let txt = $(ele).prev().val();
-        console.log(typeof txt, "/검색어:", txt);
-        // input값은 안쓰면 빈스트링이 넘어옴!
-        if (txt != "") {
-          console.log("검색해!");
-          // [검색기준,검색어] -> setKeyword 업데이트
-          setKeyword([creteria, txt]);
-          // 검색후엔 첫페이지로 보내기
-          setPageNum(1);
-          // 검색후엔 페이지의 페이징 번호 초기화(1)
-          pgPgNum.current = 1;
-        }
-        // 빈값일 경우
-        else {
-          alert("Please enter a keyword!");
-        }
-        // 리턴 코드값은 리듀서 변수에 할당!
-        return gval+(gval!=''?"*":"")+txt;
-      }
-      // 전체 리스트로 돌아가기 실행코드
-      case "back" :
-      {
-        // 검색어 초기화
-        setKeyword(["", ""]);
-        // 검색어 삭제
-        $(ele).siblings("#stxt").val("");
-        // 검색 항목 초기화
-        $(ele).siblings("#cta").val("tit");
-        // 정렬 초기화
-        setSort(1);
-        // 정렬 항목 초기화
-        setSortCta("idx");
-        // 첫페이지 번호 변경
-        setPageNum(1);
-      }
-      // 리턴 코드값은 리듀서 변수에 할당!
-      return gval;
-      //break;
-  }
-  };
-
-// 검색 기능지원 후크 리듀서 : useReducer
-    const [memory, dispach] = useReducer(reducerFn, '');
-
-
-  /* 
-  /*********************************************** 
- * [ 리듀서 후크 : useReducer ]
- * 복잡한 리액트 변수값/코드 처리를 해주는 후크
- *******************************************
-function 리듀서함수(리듀서변수, 호출때보낸객체) {
-  switch (호출때보낸객체.type) {
-    case 값1:
-      처리코드;
-      return 처리값;
-    case 값2:
-      처리코드;
-      return 처리값;
-    default:
-      처리코드;
-      return 처리값;
-  }
-}
-
-function 컴포넌트() {
-  const [리듀서변수, 호출메서드] = 
-  useReducer(리듀서함수, 리듀서변수초기값);
-
-  return(
-    <요소 on이벤트={()=>{
-      호출메서드({ type: 값 });      
-    } />
-  );
-} ///// 컴포넌트끝 ///////
-
-  
-  */
-
 
   ////////////////////////////////////////////////////////////////////////
   /// 함수명 : bindList
@@ -580,8 +475,6 @@ function 컴포넌트() {
             setSort={setSort}
             sortCta={sortCta}
             setSortCta={setSortCta}
-            dispach={dispach}
-            memory={memory}
           />
         )
       }
@@ -684,8 +577,6 @@ const ListeMode = ({
   setSort,
   sortCta,
   setSortCta,
-  dispach,
-  memory,
 }) => {
   return (
     <>
@@ -725,9 +616,26 @@ const ListeMode = ({
         <button
           className="sbtn"
           onClick={(e) => {
-            // 리듀서 호출 메서드
-            // 보낼 값 구성 : [구분문자열,이벤트발생요소]
-            dispach({type:["search",e.target]});
+            // 검색기준값 읽어오기
+            let creteria = $(e.target).siblings(".cta").val();
+            console.log("기준값:", creteria);
+            // 검색어 읽어오기
+            let txt = $(e.target).prev().val();
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴!
+            if (txt != "") {
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
+              setKeyword([creteria, txt]);
+              // 검색후엔 첫페이지로 보내기
+              setPageNum(1);
+              // 검색후엔 페이지의 페이징 번호 초기화(1)
+              pgPgNum.current = 1;
+            }
+            // 빈값일 경우
+            else {
+              alert("Please enter a keyword!");
+            }
           }}
         >
           Search
@@ -738,9 +646,18 @@ const ListeMode = ({
             <button
               className="back-total-list"
               onClick={(e) => {
-                // 리듀서 호출 메서드
-            // 보낼 값 구성 : [구분문자열,이벤트발생요소]
-            dispach({type:["back",e.target]});
+                // 검색어 초기화
+                setKeyword(["", ""]);
+                // 검색어 삭제
+                $(e.currentTarget).siblings("#stxt").val("");
+                // 검색 항목 초기화
+                $(e.currentTarget).siblings("#cta").val("tit");
+                // 정렬 초기화
+                setSort(1);
+                // 정렬 항목 초기화
+                setSortCta("idx");
+                // 첫페이지 번호 변경
+                setPageNum(1);
               }}
             >
               Back to Total List
@@ -763,7 +680,6 @@ const ListeMode = ({
             Title
           </option>
         </select>
-        <b>{memory}</b>
       </div>
       <table className="dtbl" id="board">
         <thead>
