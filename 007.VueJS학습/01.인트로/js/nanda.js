@@ -86,6 +86,7 @@ const vm = new Vue({
     //    },
     //],
   },
+
   // 3. 메서드 설정
   methods: {
     // 이미지 태그를 만들어서 리턴함
@@ -102,6 +103,7 @@ const vm = new Vue({
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   }, //////////// methods
+
   // 4. 뷰 인스턴스 초기화 완료 단계 : created
   // -> 이 단계에서 데이터 셋팅함
   created() {
@@ -132,4 +134,39 @@ const vm = new Vue({
       // console.log("itemData:", this.itemData);
     } //////for
   }, //////// created
+
+  // 5. 뷰 랜더링 완료 단계 : mounted
+  // - 이 단계에서 DOM 관련 스크립트 코딩을 해준다
+  mounted() {
+    // 랜더링후 자동실행구역 ///////
+    // 1. 제목 숨겼다 보이기
+    $(".tit").hide().delay(1000).slideDown(300);
+
+    // 2. 로고 왼쪽에서 날아오기
+    $(".logo")
+      .css({
+        translate: "-100vw",
+      })
+      .delay(2000)
+      .animate(
+        {
+          translate: "0",
+        },
+        800,
+        "easeOutElastic",
+        // 애니메이션 후 실행 구역
+        () => {
+          // 3. 상품 리스트로 스크롤 이동하기
+          // -> 상품 리스트 박스 위치로 이동
+          // $(상품리스트박스).offset().top
+          $("html, body").animate(
+            {
+              scrollTop: $(".gwrap").offset().top + "px",
+            },
+            600,
+            "easeInOutExpo"
+          );
+        }
+      );
+  }, // mounted //////////////////////
 }); /////////// Vue
