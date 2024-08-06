@@ -34,10 +34,17 @@
         </section>
 
         <!-- 2. 배너 파트 -->
-        <section class="part"></section>
+        <section class="part">
+            <p class="banner" v-html="content"></p>
+        </section>
 
         <!-- 3. 상품 리스트 파트 -->
-        <section class="part"></section>
+        <section class="part gwrap">
+            <ol class="glist"
+            v-for="(item,idx) in itemData">
+                <li></li>
+            </ol>
+        </section>
     </div>
     <!-- 
         기본 구성 : 3단 구성
