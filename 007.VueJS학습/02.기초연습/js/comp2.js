@@ -102,19 +102,35 @@ Vue.component("list-comp", {
 makeVue(".grid");
 
 
+
+
+
 // 3. 유튜브 동영상 컴포넌트 만들기
 Vue.component("ifr-comp",{
     // 3-1. template 옵션
     template:`
     <iframe width="49%" style="aspect-ratio: 16/9;" 
-    v-bind:src="ifrSrc" title="#고윤정 과 함께 차가운 겨울을 더욱 액티브하게!  l 디스커버리 23FW #goyounjung #크롭패딩" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+    v-bind:src="ifrSrc" title="#" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
     `, /// template
+
+    //
+    props: ["mvcode",],
+
     // 3-2. data 옵션
     data(){
         return{
-            ifrSrc:`https://www.youtube.com/embed/ZH1Y1l1OmTY?autoplay=1&mute=1&loop=1&playlist=ZH1Y1l1OmTY`,
+            ifrSrc: this.getIfrSrc(this.mvcode),
         }
     }, /// data
+    // 3-3. methods 속성
+    methods:{
+      // 동영상 정보 리턴 함수
+      getIfrSrc(code){
+        // 동영상 코드
+        return `https://www.youtube.com/embed/${code}?autoplay=1&mute=1&loop=1&playlist=${code}`;
+      }
+    },
+    
 });
 
 /// 뷰 인스턴스 생성하기 : 유튜브 동영상 컴포넌트
