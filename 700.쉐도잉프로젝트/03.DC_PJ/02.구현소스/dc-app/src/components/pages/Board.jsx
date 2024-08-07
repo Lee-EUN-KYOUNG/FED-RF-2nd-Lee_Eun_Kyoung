@@ -126,7 +126,13 @@ export default function Board() {
           alert("Please enter a keyword!");
         }
         // 리턴 코드값은 리듀서 변수에 할당!
-        return gval+(gval!=''?"*":"")+txt;
+        return (
+          // 숙제 *문자열이 있으면 split으로 잘라서 배열로 만들고 배열값중
+          // 현재 입력된 txt가 배열중에 없으면 새로 등록하고 있으면 등록하지않는다를 코드로 작성할것
+          // 힌트 : 등록않는다는 gval만 넣으면 됨!, 배열값중 단순비교는 includes 사용
+          //(gval.indexOf("*")!=-1&&gval)?
+          gval+(gval!=''?"*":"")+txt
+          );
       }
       // 전체 리스트로 돌아가기 실행코드
       case "back" :
@@ -152,7 +158,7 @@ export default function Board() {
     case "again":
       {
         // 검색기준값 읽어오기
-        let creteria = $(ele).siblings(".cta").val();
+        let creteria = $("#cta").val();
         console.log("기준값:", creteria);
         // 검색어 읽어오기
         let txt = $(ele).text();
