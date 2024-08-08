@@ -131,7 +131,11 @@ export default function Board() {
           // 현재 입력된 txt가 배열중에 없으면 새로 등록하고 있으면 등록하지않는다를 코드로 작성할것
           // 힌트 : 등록않는다는 gval만 넣으면 됨!, 배열값중 단순비교는 includes 사용
           //(gval.indexOf("*")!=-1&&gval)?
-          gval+(gval!=''?"*":"")+txt
+          gval.indexOf("*")!==-1
+          ? gval.split("*").includes(txt)
+          ? gval
+          : gval + (gval != "" ? "*" : "") + txt
+          : gval + (gval != "" ? "*" : "") + txt
           );
       }
       // 전체 리스트로 돌아가기 실행코드
@@ -182,7 +186,19 @@ export default function Board() {
           alert("Please enter a keyword!");
         }
         // 리턴 코드값은 리듀서 변수에 할당!
-        return gval+(gval!=''?"*":"")+txt;
+        return (
+          // 숙제: *문자열이 있으면 split으로 잘라서
+          // 배열로 만들고 배열값중 현재 입력된 txt가
+          // 배열중에 없으면 새로 등록하고 있으면
+          // 등록하지 않는다를 코드로 작성할것!
+          // 힌트1: 등록않는다는 gval만 넣으면 됨
+          // 힌트2: 배열값 중 단순비교는 includes()사용!
+          gval.indexOf("*")!==-1
+          ? gval.split("*").includes(txt)
+          ? gval
+          : gval + (gval != "" ? "*" : "") + txt
+          : gval + (gval != "" ? "*" : "") + txt
+        );
       }
       
 
@@ -811,8 +827,24 @@ const ListeMode = ({
         </select>
         <button
         style={{position:"relative"}}
+        onClick={(e)=>{
+          $(e.currentTarget).find("ol").show();
+        }}
         >History
-        <ol style={{position:"absolute",lineHeight:"1.7"}}>{
+        <ol style={{
+          position:"absolute",
+          lineHeight:"1.7",
+          padding:"5px 15px",
+          border: "1px solid gray",
+          borderRadius: "10px",
+          backgroundColor: "#f8f8ffcc",
+          display: "none"
+        }}
+        onMouseLeave={(e)=>{
+          $(e.currentTarget).hide();
+        }}
+        >
+        {
         memory.indexOf("*")!==-1 && memory.split("*").map(
           v=><li><b onClick={(e)=>{
             dispach({type:["again",e.target]});
