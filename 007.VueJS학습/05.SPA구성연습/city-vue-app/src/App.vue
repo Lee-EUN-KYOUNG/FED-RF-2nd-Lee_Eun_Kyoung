@@ -37,7 +37,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   line-height: 1.6;
-  font-size: 0.9vw;
+  font-size: 0.vw;
   color: #2c3e50;
 }
 </style>
