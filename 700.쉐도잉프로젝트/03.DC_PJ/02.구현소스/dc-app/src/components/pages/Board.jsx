@@ -3,7 +3,14 @@
 // 사용자 기본 정보 생성 함수 불러오기
 // import { initData } from "../func/mem_fn";
 import { initBoardData } from "../func/board_fn";
-import { Fragment, useContext, useEffect, useReducer, useRef, useState } from "react";
+import {
+  Fragment,
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { dCon } from "../modules/dCon";
 
 // 로컬스토리지 게시판 기본 데이터 제이슨
@@ -21,9 +28,6 @@ import "../../css/board_file.scss";
 
 // 엑시오스 가져오기 : 파일 전송 요청용
 import axios from "axios";
-
-
-
 
 export default function Board() {
   // 컨텍스트 사용하기
@@ -87,24 +91,45 @@ export default function Board() {
   const pgPgSize = 4;
 
 
-  //////////// 검색 기능을 위한 리듀서 함수 ////////
-  const reducerFn = (gval, action) =>{
-  //gval -  value 변수 (리듀서 변수가 들어옴)
-  // -> 기존값을 활용하여 업데이트 하기 위해 들어옴
-  console.log("발:",gval);
+  // 리듀서 함수에서 쓸 리턴값 만들기 함수
+  const retVal = (gval,txt) => {
+   
+   return(
+     // 1. 별 구분자가 있으면 
+     gval.indexOf("*") !== -1
+     // 2. true면 split으로 잘라서 배열값 검사하기
+     ? gval.split("*").includes(txt)
+     // 2-1. 배열값에 있으면 true이므로 gval 추가 안함
+     ? gval
+     // 2-2. flase면 gval에 현재값 별 넣고 추가
+     : gval + (gval != "" ? "*" : "") + txt
+     // 3. 전체 false이면 빈값이 아니면 문자열 검사하기
+     : gval == txt
+     // 3-1. 값이 서로 같으면 추가하지 말기
+     ? gval
+     // 3-2. 그밖의 경우엔 추가하기
+     : gval + (gval != "" ? "*" : "") + txt
+   );
+  }; ///////// retval 함수
 
-  // 1. 구조 분해 할당으로 객체의 배열값 받기
-  const [ key, ele] = action.type;
-  
-  // 배열값 구조 : [구분 문자열, 이벤트 발생 대상 요소]
-  // action.type은 리듀서 호출시 보낸 객체값(배열)
-  console.log("key:",key,"\nele:",ele);
-  
-  // 2. key값에 따라 분기하기
-  switch (key){
-    // (1) 검색일 경우 실행코드
-    case "search":
-      {
+
+  //////////// 검색 기능을 위한 리듀서 함수 ////////
+  const reducerFn = (gval, action) => {
+    //gval -  value 변수 (리듀서 변수가 들어옴)
+    // -> 기존값을 활용하여 업데이트 하기 위해 들어옴
+    console.log("발:", gval);
+
+    // 1. 구조 분해 할당으로 객체의 배열값 받기
+    const [key, ele] = action.type;
+
+    // 배열값 구조 : [구분 문자열, 이벤트 발생 대상 요소]
+    // action.type은 리듀서 호출시 보낸 객체값(배열)
+    console.log("key:", key, "\nele:", ele);
+
+    // 2. key값에 따라 분기하기
+    switch (key) {
+      // (1) 검색일 경우 실행코드
+      case "search": {
         // 검색기준값 읽어오기
         let creteria = $(ele).siblings(".cta").val();
         console.log("기준값:", creteria);
@@ -126,41 +151,30 @@ export default function Board() {
           alert("Please enter a keyword!");
         }
         // 리턴 코드값은 리듀서 변수에 할당!
-        return (
-          // 숙제 *문자열이 있으면 split으로 잘라서 배열로 만들고 배열값중
-          // 현재 입력된 txt가 배열중에 없으면 새로 등록하고 있으면 등록하지않는다를 코드로 작성할것
-          // 힌트 : 등록않는다는 gval만 넣으면 됨!, 배열값중 단순비교는 includes 사용
-          //(gval.indexOf("*")!=-1&&gval)?
-          gval.indexOf("*")!==-1
-          ? gval.split("*").includes(txt)
-          ? gval
-          : gval + (gval != "" ? "*" : "") + txt
-          : gval + (gval != "" ? "*" : "") + txt
-          );
+        return retVal(gval,txt);
       }
       // 전체 리스트로 돌아가기 실행코드
-      case "back" :
-      {
-        // 검색어 초기화
-        setKeyword(["", ""]);
-        // 검색어 삭제
-        $(ele).siblings("#stxt").val("");
-        // 검색 항목 초기화
-        $(ele).siblings("#cta").val("tit");
-        // 정렬 초기화
-        setSort(1);
-        // 정렬 항목 초기화
-        setSortCta("idx");
-        // 첫페이지 번호 변경
-        setPageNum(1);
-      }
-      // 리턴 코드값은 리듀서 변수에 할당!
-      return gval;
+      case "back":
+        {
+          // 검색어 초기화
+          setKeyword(["", ""]);
+          // 검색어 삭제
+          $(ele).siblings("#stxt").val("");
+          // 검색 항목 초기화
+          $(ele).siblings("#cta").val("tit");
+          // 정렬 초기화
+          setSort(1);
+          // 정렬 항목 초기화
+          setSortCta("idx");
+          // 첫페이지 번호 변경
+          setPageNum(1);
+        }
+        // 리턴 코드값은 리듀서 변수에 할당!
+        return gval;
       //break;
 
-    // (3) 기존 키워드 재검새일 경우 실행코드
-    case "again":
-      {
+      // (3) 기존 키워드 재검새일 경우 실행코드
+      case "again": {
         // 검색기준값 읽어오기
         let creteria = $("#cta").val();
         console.log("기준값:", creteria);
@@ -169,7 +183,6 @@ export default function Board() {
         console.log(typeof txt, "/검색어:", txt);
         // 검색어 input 검색어 존에 넣기
         $("#stxt").val(txt);
-
 
         // input값은 안쓰면 빈스트링이 넘어옴!
         if (txt != "") {
@@ -186,35 +199,13 @@ export default function Board() {
           alert("Please enter a keyword!");
         }
         // 리턴 코드값은 리듀서 변수에 할당!
-        return (
-          // 숙제: *문자열이 있으면 split으로 잘라서
-          // 배열로 만들고 배열값중 현재 입력된 txt가
-          // 배열중에 없으면 새로 등록하고 있으면
-          // 등록하지 않는다를 코드로 작성할것!
-          // 힌트1: 등록않는다는 gval만 넣으면 됨
-          // 힌트2: 배열값 중 단순비교는 includes()사용!
-          gval.indexOf("*")!==-1
-          ? gval.split("*").includes(txt)
-          ? gval
-          : gval + (gval != "" ? "*" : "") + txt
-          : gval + (gval != "" ? "*" : "") + txt
-        );
+        return retVal(gval,txt);
       }
-      
-
-
-
-
-
-
-
-
-  }
+    }
   };
 
-// 검색 기능지원 후크 리듀서 : useReducer
-    const [memory, dispach] = useReducer(reducerFn, '');
-
+  // 검색 기능지원 후크 리듀서 : useReducer
+  const [memory, dispach] = useReducer(reducerFn, "");
 
   /* 
   /*********************************************** 
@@ -248,7 +239,6 @@ function 컴포넌트() {
 
   
   */
-
 
   ////////////////////////////////////////////////////////////////////////
   /// 함수명 : bindList
@@ -762,14 +752,10 @@ const ListeMode = ({
           id="sel"
           className="sel"
           onChange={() => setSort(sort * -1)}
-          value={sort == 1 ?"0":"1"}
+          value={sort == 1 ? "0" : "1"}
         >
-          <option value="0">
-            Descending
-          </option>
-          <option value="1">
-            Ascending
-          </option>
+          <option value="0">Descending</option>
+          <option value="1">Ascending</option>
         </select>
 
         <input
@@ -789,7 +775,7 @@ const ListeMode = ({
           onClick={(e) => {
             // 리듀서 호출 메서드
             // 보낼 값 구성 : [구분문자열,이벤트발생요소]
-            dispach({type:["search",e.target]});
+            dispach({ type: ["search", e.target] });
           }}
         >
           Search
@@ -801,8 +787,8 @@ const ListeMode = ({
               className="back-total-list"
               onClick={(e) => {
                 // 리듀서 호출 메서드
-            // 보낼 값 구성 : [구분문자열,이벤트발생요소]
-            dispach({type:["back",e.target]});
+                // 보낼 값 구성 : [구분문자열,이벤트발생요소]
+                dispach({ type: ["back", e.target] });
               }}
             >
               Back to Total List
@@ -818,38 +804,43 @@ const ListeMode = ({
           style={{ float: "right", translate: "0 5px" }}
           value={sortCta}
         >
-          <option value="idx">
-            Recent
-          </option>
-          <option value="tit">
-            Title
-          </option>
+          <option value="idx">Recent</option>
+          <option value="tit">Title</option>
         </select>
         <button
-        style={{position:"relative"}}
-        onClick={(e)=>{
-          $(e.currentTarget).find("ol").show();
-        }}
-        >History
-        <ol style={{
-          position:"absolute",
-          lineHeight:"1.7",
-          padding:"5px 15px",
-          border: "1px solid gray",
-          borderRadius: "10px",
-          backgroundColor: "#f8f8ffcc",
-          display: "none"
-        }}
-        onMouseLeave={(e)=>{
-          $(e.currentTarget).hide();
-        }}
+          style={{ position: "relative" }}
+          onClick={(e) => {
+            $(e.currentTarget).find("ol").show();
+          }}
         >
-        {
-        memory.indexOf("*")!==-1 && memory.split("*").map(
-          v=><li><b onClick={(e)=>{
-            dispach({type:["again",e.target]});
-          }}>{v}</b></li>)
-        }</ol>
+          History
+          <ol
+            style={{
+              position: "absolute",
+              lineHeight: "1.7",
+              padding: "5px 15px",
+              border: "1px solid gray",
+              borderRadius: "10px",
+              backgroundColor: "#f8f8ffcc",
+              display: "none",
+            }}
+            onMouseLeave={(e) => {
+              $(e.currentTarget).hide();
+            }}
+          >
+            {memory.indexOf("*") !== -1 &&
+              memory.split("*").map((v) => (
+                <li>
+                  <b
+                    onClick={(e) => {
+                      dispach({ type: ["again", e.target] });
+                    }}
+                  >
+                    {v}
+                  </b>
+                </li>
+              ))}
+          </ol>
         </button>
       </div>
       <table className="dtbl" id="board">
@@ -1016,9 +1007,7 @@ const ReadMode = ({ selRecord, sts }) => {
               {data.att != "" && (
                 <>
                   <a
-                    href={
-                      process.env.PUBLIC_URL + "/uploads/" + data.att
-                    }
+                    href={process.env.PUBLIC_URL + "/uploads/" + data.att}
                     download={data.att}
                   >
                     {data.att}
@@ -1026,11 +1015,7 @@ const ReadMode = ({ selRecord, sts }) => {
                   {imgExt.includes(data.att.split(".")[1]) && (
                     <div>
                       <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/uploads/" +
-                          data.att
-                        }
+                        src={process.env.PUBLIC_URL + "/uploads/" + data.att}
                         alt="image"
                         style={{ width: "100%" }}
                       />
@@ -1122,10 +1107,9 @@ const ModifyMode = ({ selRecord }) => {
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
-
   // 이미지 미리보기 대상 이미지 확장자 배열 변수
   const imgExt = ["jpg", "png", "gif"];
-  
+
   return (
     <>
       <table className="dtblview readone">
@@ -1168,12 +1152,10 @@ const ModifyMode = ({ selRecord }) => {
           <tr>
             <td>Attachment</td>
             <td>
-            {data.att != "" && (
+              {data.att != "" && (
                 <>
                   <a
-                    href={
-                      process.env.PUBLIC_URL + "/uploads/" + data.att
-                    }
+                    href={process.env.PUBLIC_URL + "/uploads/" + data.att}
                     download={data.att}
                   >
                     {data.att}
@@ -1181,11 +1163,7 @@ const ModifyMode = ({ selRecord }) => {
                   {imgExt.includes(data.att.split(".")[1]) && (
                     <div>
                       <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          "/uploads/" +
-                          data.att
-                        }
+                        src={process.env.PUBLIC_URL + "/uploads/" + data.att}
                         alt="image"
                         style={{ width: "100%" }}
                       />
